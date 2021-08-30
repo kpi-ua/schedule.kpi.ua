@@ -4,29 +4,29 @@ import { useHistory } from 'react-router-dom';
 import { Flex } from '../../common/styles/styles';
 
 const ScheduleTypeTabs = () => {
-    const history = useHistory();
+  const history = useHistory();
 
-    const tabs = [
-        {value: 'student', label: 'Розклад занять', path: '/'},
-        {value: 'exam', label: 'Розклад сесії', path: '/sessions'},
-        {value: 'teacher', label: 'Розклад для викладачів', path: '/teachers'},
-    ];
+  const tabs = [
+    {value: 'student', label: 'Розклад занять', path: '/'},
+    {value: 'exam', label: 'Розклад сесії', path: '/sessions'},
+    {value: 'teacher', label: 'Розклад для викладачів', path: '/teachers'},
+  ];
 
-    const TabComponents = tabs.map(tab => {
-        return (
-            <ScheduleTypeTab key={tab.value}>
-                {tab.label}
-            </ScheduleTypeTab>
-        );
-    });
-
+  const TabComponents = tabs.map(tab => {
     return (
-        <Flex justifyContent='space-between' alignItems='center' gap={'37px'}>
-            <Tabs onTabChanged={(index) => history.push(tabs[index].path)}>
-                {TabComponents}
-            </Tabs>
-        </Flex>
+      <ScheduleTypeTab key={tab.value}>
+        {tab.label}
+      </ScheduleTypeTab>
     );
+  });
+
+  return (
+    <Flex justifyContent='space-between' alignItems='center' gap={'37px'}>
+      <Tabs onTabChanged={(index) => history.push(tabs[index].path)}>
+        {TabComponents}
+      </Tabs>
+    </Flex>
+  );
 };
 
 export default ScheduleTypeTabs;

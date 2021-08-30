@@ -1,12 +1,11 @@
-
 import ScheduleTypeTabs from '../scheduleTypeTabs';
 
 const MainSettings = () => {
-    return (
-        <>
-           <ScheduleTypeTabs/>
-        </>
-    );
+  return (
+    <>
+      <ScheduleTypeTabs/>
+    </>
+  );
 };
 
 export default MainSettings;

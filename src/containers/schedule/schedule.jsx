@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { GridWrapper } from './schedule.style';
-import ScheduleColumn from '../scheduleColumn/scheduleColumn';
+import ScheduleColumn from '../scheduleColumn';
 
 const Schedule = () => {
   return (
