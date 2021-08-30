@@ -1,5 +1,4 @@
 import React from 'react';
-import style from './style.scss';
 import { ScheduleItem } from '../scheduleItem';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -7,54 +6,36 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    padding: '2rem'
+    background: 'rgba(255, 255, 255, 0.5)',
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.05)',
+    borderRadius: '40px',
+    padding: '48px 24px',
+    margin: '36px 48px 0'
   },
   paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
+    padding: '20px 16px',
     color: theme.palette.text.secondary,
+    background: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: '16px',
   },
   columnItem: {
     padding: '0.6rem 0rem 0.6rem',
-
   }
 }));
 
-export const Schedule = ({scheduleData, isMobile, group, week}) => {
+export const Schedule = () => {
   const classes = useStyles();
-  const schedule = week === 1 ? scheduleData.scheduleFirstWeek : scheduleData.scheduleSecondWeek;
 
   const FormColumn = () => (
     <div>
       <Grid item className={classes.columnItem}>
         <Paper className={classes.paper}>
-          <ScheduleItem schedulItemData={schedule.find(obj => obj.day === 'monday')} />
+          <ScheduleItem />
         </Paper>
       </Grid>
       <Grid item className={classes.columnItem}>
         <Paper className={classes.paper}>
-          <ScheduleItem schedulItemData={schedule.find(obj => obj.day === 'tuesday')} />
-        </Paper>
-      </Grid>
-      <Grid item className={classes.columnItem}>
-        <Paper className={classes.paper}>
-          <ScheduleItem schedulItemData={schedule.find(obj => obj.day === 'wednesday')} />
-        </Paper>
-      </Grid>
-      <Grid item className={classes.columnItem}>
-        <Paper className={classes.paper}>
-          <ScheduleItem schedulItemData={schedule.find(obj => obj.day === 'thursday')} />
-        </Paper>
-      </Grid>
-      <Grid item className={classes.columnItem}>
-        <Paper className={classes.paper}>
-          <ScheduleItem schedulItemData={schedule.find(obj => obj.day === 'friday')} />
-        </Paper>
-      </Grid>
-      <Grid item className={classes.columnItem}>
-        <Paper className={classes.paper}>
-          <ScheduleItem schedulItemData={schedule.find(obj => obj.day === 'saturday')} />
+          <ScheduleItem />
         </Paper>
       </Grid>
     </div>
@@ -83,8 +64,6 @@ export const Schedule = ({scheduleData, isMobile, group, week}) => {
           <FormColumn />
         </Grid>
       </Grid>
-      {JSON.stringify(scheduleData, null, 2)}
-      {/* <ScheduleItem schedulItemData={scheduleData.monday[0]} /> */}
     </div>
   );
 };

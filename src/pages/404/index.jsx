@@ -1,11 +1,8 @@
 import React from 'react';
-//import style from './style.scss';
 
-
-export const Page404 = ({ location }) => (
+export const Page404 = () => (
   <React.Fragment>
-
-    <h3>No match for <code>{location.pathname}</code></h3>
+    <h3>Opps... Seems Like we cannot find this page :((((</h3>
   </React.Fragment>
 );
 
