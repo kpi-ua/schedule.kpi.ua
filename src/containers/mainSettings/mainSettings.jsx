@@ -1,5 +1,5 @@
 
-import ScheduleTypeTabs from '../ScheduleTypeTabs';
+import ScheduleTypeTabs from '../scheduleTypeTabs';
 
 const MainSettings = () => {
     return (

@@ -1,3 +1,3 @@
-import ScheduleTypeTabs from './ScheduleTypeTabs';
+import ScheduleTypeTabs from './scheduleTypeTabs';
 
 export default ScheduleTypeTabs;
