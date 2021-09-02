@@ -8,24 +8,30 @@ import {
 } from './scheduleItem.style';
 
 export const ScheduleItem = ({scheduleItemData, activeTab}) => {
-  return (
+  const time = scheduleItemData && scheduleItemData.time;
+  const type = scheduleItemData && scheduleItemData.type;
+  const subject = scheduleItemData && scheduleItemData.name;
+  const teacher = scheduleItemData && scheduleItemData.teachersName;
+  const location = scheduleItemData && scheduleItemData.place;
+  return scheduleItemData ? (
     <>
       <ScheduleItemType>
-        Лекція
+        {type}
       </ScheduleItemType>
       <Subject>
-        Вишмат
+        {subject}
       </Subject>
       <Teacher>
         <img src={teacherIcon} alt='teacher'/>
-        Викладач
+        {teacher}
       </Teacher>
       <Location>
         <img src={locationIcon} alt='location'/>
-        -18
+        {location}
       </Location>
+      {time}
     </>
-  );
+  ) : null;
 };
 
 export default ScheduleItem;
