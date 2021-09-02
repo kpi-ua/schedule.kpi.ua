@@ -1,71 +1,122 @@
 export const mockdata = {
-groupCode: "IT-92",
-scheduleFirstWeek : [{
-  day: "monday",
-  pairs: [{
-    type: "lecture",
-    time: "10:25",
-    name: "Бази даних",
-    teachersname : "доц. Поліщук М. М.",
-    place: "-18"
+  groupCode: "IT-92",
+  scheduleFirstWeek : [{
+    day: "monday",
+    pairs: [{
+      type: "Лекція",
+      time: "14:15",
+      name: "Бази даних",
+      teachersName : "доц. Поліщук М. М.",
+      place: "-18"
+    },
+    {
+      type: "Практика",
+      time: "16:10",
+      name: "CAD - системи та мультимедіа",
+      teachersName : "ст. вик. Батрак Є. О.",
+      place: "305-18"
+    }]
   },
   {
-    type: "practice",
-    time: "12:20",
-    name: "CAD - системи та мультимедіа",
-    teachersname : "ст. вик. Батрак Є. О.",
-    place: "305-18"
-  }]
-},
-{
-  day: "tuesday",
-  pairs: [{
-    type: "lecture",
-    time: "10:25",
-    name: "Бази даних",
-    teachersname : "доц. Поліщук М. М.",
-    place: "-18"
+    day: "tuesday",
+    pairs: [{
+      type: "Лекція",
+      time: "08:30",
+      name: "Бази даних",
+      teachersName : "доц. Поліщук М. М.",
+      place: "-18"
+    },
+    {
+      type: "Практика",
+      time: "18:30",
+      name: "CAD - системи та мультимедіа",
+      teachersName : "ст. вик. Батрак Є. О.",
+      place: "305-18"
+    }]
   },
   {
-    type: "practice",
-    time: "12:20",
-    name: "CAD - системи та мультимедіа",
-    teachersname : "ст. вик. Батрак Є. О.",
-    place: "305-18"
-  }]
-}],
-scheduleSecondWeek : [{
-  day: "monday",
-  pairs: [{
-    type: "lecture",
-    time: "10:25",
-    name: "Бази даних",
-    teachersname : "доц. Поліщук М. М.",
-    place: "-18"
+    day: "wednesday",
+    pairs: [{
+      type: "Лекція",
+      time: "12:20",
+      name: "Бази даних",
+      teachersName : "доц. Поліщук М. М.",
+      place: "-18"
+    },
+    {
+      type: "Практика",
+      time: "16:10",
+      name: "CAD - системи та мультимедіа",
+      teachersName : "ст. вик. Батрак Є. О.",
+      place: "305-18"
+    }]
   },
   {
-    type: "practice",
-    time: "12:20",
-    name: "CAD - системи та мультимедіа",
-    teachersname : "ст. вик. Батрак Є. О.",
-    place: "305-18"
-  }]
-},
-{
-  day: "tuesday",
-  pairs: [{
-    type: "lecture",
-    time: "10:25",
-    name: "Бази даних",
-    teachersname : "доц. Поліщук М. М.",
-    place: "-18"
+    day: "thursday",
+    pairs: [{
+      type: "Лекція",
+      time: "14:15",
+      name: "Бази даних",
+      teachersName : "доц. Поліщук М. М.",
+      place: "-18"
+    },
+    {
+      type: "Практика",
+      time: "18:30",
+      name: "CAD - системи та мультимедіа",
+      teachersName : "ст. вик. Батрак Є. О.",
+      place: "305-18"
+    }]
   },
   {
-    type: "practice",
-    time: "12:20",
-    name: "CAD - системи та мультимедіа",
-    teachersname : "ст. вик. Батрак Є. О.",
-    place: "305-18"
+    day: "friday",
+    pairs: [{
+      type: "Лекція",
+      time: "08:30",
+      name: "Бази даних",
+      teachersName : "доц. Поліщук М. М.",
+      place: "-18"
+    },
+    {
+      type: "Практика",
+      time: "10:25",
+      name: "CAD - системи та мультимедіа",
+      teachersName : "ст. вик. Батрак Є. О.",
+      place: "305-18"
+    }]
+  }],
+  scheduleSecondWeek : [{
+    day: "monday",
+    pairs: [{
+      type: "Лекція",
+      time: "10:25",
+      name: "Бази даних",
+      teachersName : "доц. Поліщук М. М.",
+      place: "-18"
+    },
+    {
+      type: "Практика",
+      time: "12:20",
+      name: "CAD - системи та мультимедіа",
+      teachersName : "ст. вик. Батрак Є. О.",
+      place: "305-18"
+    }]
+  },
+  {
+    day: "tuesday",
+    pairs: [{
+      type: "Лекція",
+      time: "10:25",
+      name: "Бази даних",
+      teachersName : "доц. Поліщук М. М.",
+      place: "-18"
+    },
+    {
+      type: "Практика",
+      time: "12:20",
+      name: "CAD - системи та мультимедіа",
+      teachersName : "ст. вик. Батрак Є. О.",
+      place: "305-18"
+    }]
   }]
-}]
 };
