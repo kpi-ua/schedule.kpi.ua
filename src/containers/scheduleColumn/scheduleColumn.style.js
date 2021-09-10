@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
+import styled from 'styled-components';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 export const ScheduleGrid = styled(Grid)`
   justify-content: center;
@@ -12,7 +12,7 @@ export const ScheduleGrid = styled(Grid)`
   max-height: 210px;
   min-width: 185px;
   max-width: 185px;
-`
+`;
 
 export const SchedulePaper = styled(Paper)`
   margin: 0 auto 0 auto;
@@ -24,4 +24,4 @@ export const SchedulePaper = styled(Paper)`
   min-width: 200px;
   max-width: 200px;
   display: ${(props) => (props.isPresent ? 'block' : 'none')};
-`
+`;

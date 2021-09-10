@@ -8,16 +8,16 @@ const ScheduleRouter = () => {
   return (
     <Switch>
       <Route exact path='/'>
-        <StudentsSchedule/>
+        <StudentsSchedule />
       </Route>
       <Route path='/sessions'>
-        <SessionsSchedule/>
+        <SessionsSchedule />
       </Route>
       <Route path='/teachers'>
-        <TeachersSchedule/>
+        <TeachersSchedule />
       </Route>
       <Route>
-        <Page404/>
+        <Page404 />
       </Route>
     </Switch>
   );

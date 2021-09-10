@@ -1,6 +1,6 @@
-import ScheduleRouter from '../containers/router'
-import Navbar from '../containers/navbar'
-import { Wrapper } from './app.style'
+import ScheduleRouter from '../containers/router';
+import Navbar from '../containers/navbar';
+import { Wrapper } from './app.style';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Navbar />
       <ScheduleRouter />
     </Wrapper>
-  )
+  );
 }
 
-export default App
+export default App;

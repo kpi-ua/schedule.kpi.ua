@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import FormGroup from '@material-ui/core/FormGroup'
-import Switch from '@material-ui/core/Switch'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
+import React, { useState } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import FormGroup from '@material-ui/core/FormGroup';
+import Switch from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 export const CustomizedSwitch = withStyles((theme) => ({
   root: {
@@ -49,15 +49,15 @@ export const CustomizedSwitch = withStyles((theme) => ({
       }}
       {...props}
     />
-  )
-})
+  );
+});
 
 export const WeekSwitch = ({ week, setWeek }) => {
-  const checked = week === 'second'
+  const checked = week === 'second';
   return (
     <FormGroup>
-      <Typography component="div">
-        <Grid component="label" container alignItems="center" spacing={1}>
+      <Typography component='div'>
+        <Grid component='label' container alignItems='center' spacing={1}>
           <Grid item>Перший тиждень</Grid>
           <Grid item>
             <CustomizedSwitch checked={checked} onChange={setWeek} />
@@ -66,7 +66,7 @@ export const WeekSwitch = ({ week, setWeek }) => {
         </Grid>
       </Typography>
     </FormGroup>
-  )
-}
+  );
+};
 
-export default WeekSwitch
+export default WeekSwitch;

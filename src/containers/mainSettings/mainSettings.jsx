@@ -3,7 +3,7 @@ import ScheduleTypeTabs from '../scheduleTypeTabs';
 const MainSettings = () => {
   return (
     <>
-      <ScheduleTypeTabs/>
+      <ScheduleTypeTabs />
     </>
   );
 };

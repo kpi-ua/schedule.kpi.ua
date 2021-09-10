@@ -1,6 +1,6 @@
-import ScheduleItem from '../../components/scheduleItem'
-import React from 'react'
-import { ScheduleGrid, SchedulePaper } from './scheduleColumn.style'
+import ScheduleItem from '../../components/scheduleItem';
+import React from 'react';
+import { ScheduleGrid, SchedulePaper } from './scheduleColumn.style';
 
 const ScheduleColumn = ({ dayData }) => {
   return (
@@ -22,6 +22,6 @@ const ScheduleColumn = ({ dayData }) => {
           )
         )}
     </div>
-  )
-}
-export default ScheduleColumn
+  );
+};
+export default ScheduleColumn;

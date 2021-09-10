@@ -7,13 +7,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyles from './index.style';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <ScopedCssBaseline>
-            <GlobalStyles/>
-            <Router>
-                <App/>
-            </Router>
-        </ScopedCssBaseline>
-    </React.StrictMode>,
-    document.getElementById('root'),
+  <React.StrictMode>
+    <ScopedCssBaseline>
+      <GlobalStyles />
+      <Router>
+        <App />
+      </Router>
+    </ScopedCssBaseline>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
