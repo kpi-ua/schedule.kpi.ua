@@ -16,10 +16,22 @@ export const ScheduleItem = ({ scheduleItemData, activeTab }) => {
   return scheduleItemData ? (
     <>
       <ScheduleItemType>{type}</ScheduleItemType>
-      <Subject>{subject}</Subject>
+      <Subject>
+        {document.body.clientWidth >= 1300
+          ? subject
+          : subject.substring(0, 10) + '...'}
+      </Subject>
       <Teacher>
         <img src={teacherIcon} alt='teacher' />
-        {teacher}
+        {document.body.clientWidth >= 1300
+          ? teacher
+          : '...' +
+            teacher
+              .split(' ')
+              .reverse()
+              .filter((item, index) => index < 3)
+              .reverse()
+              .join(' ')}
       </Teacher>
       <Location>
         <img src={locationIcon} alt='location' />

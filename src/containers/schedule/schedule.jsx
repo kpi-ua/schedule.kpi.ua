@@ -52,7 +52,7 @@ const Schedule = ({ scheduleData, group, week, isMobile }) => {
     setSpacing(Number(event.target.value));
   };
 
-  return isMobile ? (
+  return false ? (
     <Grid container>
       <Grid item>
         <RadioGroup
@@ -80,6 +80,7 @@ const Schedule = ({ scheduleData, group, week, isMobile }) => {
           {['08:30', '10:25', '12:20', '14:15', '16:10', '18:30'].map(
             (time) => (
               <Grid
+                key={time}
                 style={{ paddingBottom: '11rem' }}
                 container
                 item
@@ -107,6 +108,7 @@ const Schedule = ({ scheduleData, group, week, isMobile }) => {
             'saturday',
           ].map((weekDay) => (
             <Grid
+              key={weekDay}
               style={{ width: '16vw' }}
               container
               direction='column'
