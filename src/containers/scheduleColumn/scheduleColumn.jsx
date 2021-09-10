@@ -8,9 +8,11 @@ const ScheduleColumn = ({ dayData }) => {
       {dayData &&
         ['08:30', '10:25', '12:20', '14:15', '16:10', '18:30'].map(
           (dayTime) => (
-            <ScheduleGrid item>
+            <ScheduleGrid key={dayTime} item>
               <SchedulePaper
-                isPresent={dayData.pairs.some((obj) => obj.time === dayTime)}
+                ispresent={dayData.pairs
+                  .some((obj) => obj.time === dayTime)
+                  .toString()}
               >
                 <ScheduleItem
                   scheduleItemData={dayData.pairs.find(

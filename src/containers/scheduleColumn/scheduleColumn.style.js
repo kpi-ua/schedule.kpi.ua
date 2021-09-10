@@ -4,13 +4,12 @@ import Paper from '@material-ui/core/Paper';
 
 export const ScheduleGrid = styled(Grid)`
   justify-content: center;
-  flex-wrap: wrap;
   padding: 0.6rem 0 0.6rem;
   margin-bottom: 5px;
 
   min-height: 210px;
   max-height: 210px;
-  min-width: 185px;
+  min-width: ${document.body.clientWidth >= 1300 ? '185px' : '125px'};
   max-width: 185px;
 `;
 
@@ -21,7 +20,7 @@ export const SchedulePaper = styled(Paper)`
   border-radius: 16px;
   min-height: 190px;
   max-height: 190px;
-  min-width: 200px;
+  min-width: ${document.body.clientWidth >= 1300 ? '200px' : '140px'};
   max-width: 200px;
-  display: ${(props) => (props.isPresent ? 'block' : 'none')};
+  display: ${(props) => (props.ispresent === 'true' ? 'block' : 'none')};
 `;
