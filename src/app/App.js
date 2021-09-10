@@ -5,8 +5,8 @@ import { Wrapper } from './app.style';
 function App() {
   return (
     <Wrapper>
-      <Navbar/>
-      <ScheduleRouter/>
+      <Navbar />
+      <ScheduleRouter />
     </Wrapper>
   );
 }

@@ -7,7 +7,7 @@ import {
   Teacher,
 } from './scheduleItem.style';
 
-export const ScheduleItem = ({scheduleItemData, activeTab}) => {
+export const ScheduleItem = ({ scheduleItemData, activeTab }) => {
   const time = scheduleItemData && scheduleItemData.time;
   const type = scheduleItemData && scheduleItemData.type;
   const subject = scheduleItemData && scheduleItemData.name;
@@ -15,21 +15,16 @@ export const ScheduleItem = ({scheduleItemData, activeTab}) => {
   const location = scheduleItemData && scheduleItemData.place;
   return scheduleItemData ? (
     <>
-      <ScheduleItemType>
-        {type}
-      </ScheduleItemType>
-      <Subject>
-        {subject}
-      </Subject>
+      <ScheduleItemType>{type}</ScheduleItemType>
+      <Subject>{subject}</Subject>
       <Teacher>
-        <img src={teacherIcon} alt='teacher'/>
+        <img src={teacherIcon} alt='teacher' />
         {teacher}
       </Teacher>
       <Location>
-        <img src={locationIcon} alt='location'/>
+        <img src={locationIcon} alt='location' />
         {location}
       </Location>
-      {time}
     </>
   ) : null;
 };

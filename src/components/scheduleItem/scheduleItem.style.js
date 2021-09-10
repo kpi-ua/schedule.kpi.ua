@@ -6,7 +6,7 @@ export const ScheduleItemType = styled.div`
   height: 27px;
   line-height: 27px;
   text-align: center;
-  background-color: #949DFF;
+  background-color: #949dff;
   border-radius: 8px;
   color: #fff;
   font-weight: 600;

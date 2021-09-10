@@ -6,8 +6,8 @@ const Navbar = () => {
   return (
     <NavBarWrapper>
       <Flex justifyContent='space-between' alignItems='center' mx={2}>
-        <Logo/>
-        <MainSettings/>
+        <Logo />
+        <MainSettings />
         <div>Theme switcher</div>
       </Flex>
     </NavBarWrapper>
