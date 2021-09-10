@@ -10,7 +10,7 @@ export const Flex = styled.div`
   gap: ${(props) => props.gap};
 `;
 
-const LogoComponent = () => (<h2>LOGO</h2>);
+const LogoComponent = () => <h2>LOGO</h2>;
 
 export const Logo = styled(LogoComponent)`
   max-width: 200px;

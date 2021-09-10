@@ -10,7 +10,7 @@ export const CustomizedSwitch = withStyles((theme) => ({
     width: 100,
     height: 32,
     padding: 0,
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   switchBase: {
     padding: 1,
@@ -20,18 +20,18 @@ export const CustomizedSwitch = withStyles((theme) => ({
       '& + $track': {
         backgroundColor: theme.palette.grey[200],
         opacity: 1,
-        border: 'none'
-      }
-    }
+        border: 'none',
+      },
+    },
   },
   thumb: {
     width: 30,
-    height: 30
+    height: 30,
   },
   track: {
     borderRadius: 30 / 2,
     backgroundColor: theme.palette.grey[200],
-    opacity: 1
+    opacity: 1,
   },
   checked: {},
   focusVisible: {},
@@ -52,7 +52,7 @@ export const CustomizedSwitch = withStyles((theme) => ({
   );
 });
 
-export const WeekSwitch = ({week, setWeek}) => {
+export const WeekSwitch = ({ week, setWeek }) => {
   const checked = week === 'second';
   return (
     <FormGroup>
@@ -60,16 +60,13 @@ export const WeekSwitch = ({week, setWeek}) => {
         <Grid component='label' container alignItems='center' spacing={1}>
           <Grid item>Перший тиждень</Grid>
           <Grid item>
-            <CustomizedSwitch
-              checked={checked}
-              onChange={setWeek}
-            />
+            <CustomizedSwitch checked={checked} onChange={setWeek} />
           </Grid>
           <Grid item>Другий тиждень</Grid>
         </Grid>
       </Typography>
     </FormGroup>
   );
-}
+};
 
 export default WeekSwitch;

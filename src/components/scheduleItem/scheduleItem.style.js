@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { Flex } from '../../common/styles/styles';
 
 export const ScheduleItemType = styled.div`
-  width: 74px;
+  width: 84px;
   height: 27px;
   line-height: 27px;
   text-align: center;
-  background-color: #949DFF;
+  background-color: #949dff;
   border-radius: 8px;
   color: #fff;
   font-weight: 600;

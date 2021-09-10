@@ -6,9 +6,9 @@ import { WeekSwitch } from '../../components/weekSwitch';
 
 export const StudentsSchedule = () => {
   const [week, setWeek] = useState('first');
-  const changeWeek = () => setWeek( week === 'first' ? 'second' : 'first');
+  const changeWeek = () => setWeek(week === 'first' ? 'second' : 'first');
   return (
-    <>
+    <div style={{ overflow: 'hidden' }}>
       <WeekSwitch week={week} setWeek={changeWeek} />
       <Schedule
         scheduleData={mockdata}
@@ -16,7 +16,7 @@ export const StudentsSchedule = () => {
         week={week}
         isMobile={isTouchDevice()}
       />
-    </>
+    </div>
   );
 };
 

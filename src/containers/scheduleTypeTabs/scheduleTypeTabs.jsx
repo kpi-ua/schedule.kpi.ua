@@ -7,17 +7,13 @@ const ScheduleTypeTabs = () => {
   const history = useHistory();
 
   const tabs = [
-    {value: 'student', label: 'Розклад занять', path: '/'},
-    {value: 'exam', label: 'Розклад сесії', path: '/sessions'},
-    {value: 'teacher', label: 'Розклад для викладачів', path: '/teachers'},
+    { value: 'student', label: 'Розклад занять', path: '/' },
+    { value: 'exam', label: 'Розклад сесії', path: '/sessions' },
+    { value: 'teacher', label: 'Розклад для викладачів', path: '/teachers' },
   ];
 
-  const TabComponents = tabs.map(tab => {
-    return (
-      <ScheduleTypeTab key={tab.value}>
-        {tab.label}
-      </ScheduleTypeTab>
-    );
+  const TabComponents = tabs.map((tab) => {
+    return <ScheduleTypeTab key={tab.value}>{tab.label}</ScheduleTypeTab>;
   });
 
   return (

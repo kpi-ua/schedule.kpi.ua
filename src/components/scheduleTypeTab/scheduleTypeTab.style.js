@@ -13,6 +13,6 @@ export const Tab = styled.div`
     border-radius: 6px;
     height: 2px;
     background-color: #141518;
-    display: ${props => props.active ? 'block' : 'none'}
+    display: ${(props) => (props.active ? 'block' : 'none')};
   }
-`
+`;
