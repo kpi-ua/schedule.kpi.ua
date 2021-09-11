@@ -103,25 +103,25 @@ export const mockdata = {
         },
       ],
     },
-    {
-      day: 'saturday',
-      pairs: [
-        {
-          type: 'Лекція',
-          time: '10:25',
-          name: 'Бази даних',
-          teachersName: 'доц. Поліщук М. М.',
-          place: '-18',
-        },
-        {
-          type: 'Практика',
-          time: '12:20',
-          name: 'CAD - системи та мультимедіа',
-          teachersName: 'ст. вик. Батрак Є. О.',
-          place: '305-18',
-        },
-      ],
-    },
+    // {
+    //   day: 'saturday',
+    //   pairs: [
+    //     {
+    //       type: 'Лекція',
+    //       time: '10:25',
+    //       name: 'Бази даних',
+    //       teachersName: 'доц. Поліщук М. М.',
+    //       place: '-18',
+    //     },
+    //     {
+    //       type: 'Практика',
+    //       time: '12:20',
+    //       name: 'CAD - системи та мультимедіа',
+    //       teachersName: 'ст. вик. Батрак Є. О.',
+    //       place: '305-18',
+    //     },
+    //   ],
+    // },
   ],
   scheduleSecondWeek: [
     {
