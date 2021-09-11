@@ -109,34 +109,32 @@ const Schedule = ({ scheduleData, group, week, isMobile }) => {
             'thursday',
             'friday',
             'saturday',
-          ].map((weekDay) => (
-            <Grid
-              key={weekDay}
-              style={{
-                minWidth: `${
-                  schedule.find((obj) => obj.day === weekDay)
-                    ? columnWidthWithSubjects
-                    : '10vw'
-                }`,
-                maxWidth: `${
-                  schedule.find((obj) => obj.day === weekDay)
-                    ? columnWidthWithSubjects
-                    : '10vw'
-                }`,
-              }}
-              container
-              direction='column'
-              item
-              xs={12}
-              sm={2}
-              spacing={2}
-            >
-              <WeekDay>{weekDay}</WeekDay>
-              <ScheduleColumn
-                dayData={schedule.find((obj) => obj.day === weekDay)}
-              />
-            </Grid>
-          ))}
+          ].map((weekDay) => {
+            const width = schedule.find((obj) => obj.day === weekDay)
+              ? columnWidthWithSubjects
+              : '10vw';
+            return (
+              <Grid
+                key={weekDay}
+                style={{
+                  minWidth: width,
+                  maxWidth: width,
+                }}
+                container
+                direction='column'
+                item
+                xs={12}
+                sm={2}
+                spacing={2}
+              >
+                <WeekDay>{weekDay}</WeekDay>
+                <ScheduleColumn
+                  columnWidth={width}
+                  dayData={schedule.find((obj) => obj.day === weekDay)}
+                />
+              </Grid>
+            );
+          })}
         </Grid>
       </DayWrapper>
     </GridWrapper>

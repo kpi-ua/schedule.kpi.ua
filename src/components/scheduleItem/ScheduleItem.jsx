@@ -19,7 +19,9 @@ export const ScheduleItem = ({ scheduleItemData, activeTab }) => {
       <Subject>
         {document.body.clientWidth >= 1300
           ? subject
-          : subject.substring(0, 10) + '...'}
+          : subject.length > 30
+          ? subject.substring(0, 30) + '...'
+          : subject}
       </Subject>
       <Teacher>
         <img src={teacherIcon} alt='teacher' />

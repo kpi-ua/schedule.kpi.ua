@@ -9,7 +9,10 @@ export const ScheduleGrid = styled(Grid)`
 
   min-height: 210px;
   max-height: 210px;
-  min-width: ${document.body.clientWidth >= 1300 ? '185px' : '125px'};
+  min-width: ${(props) =>
+    document.body.clientWidth >= 1300
+      ? props.columnwidth - 2 + 'vw'
+      : props.columnwidth - 3 + 'vw'};
 `;
 
 export const SchedulePaper = styled(Paper)`
@@ -19,6 +22,9 @@ export const SchedulePaper = styled(Paper)`
   border-radius: 16px;
   min-height: 190px;
   max-height: 190px;
-  min-width: ${document.body.clientWidth >= 1300 ? '200px' : '140px'};
+  min-width: ${(props) =>
+    document.body.clientWidth >= 1300
+      ? props.columnwidth - 2 + 'vw'
+      : props.columnwidth - 3 + 'vw'};
   display: ${(props) => (props.ispresent === 'true' ? 'block' : 'none')};
 `;
