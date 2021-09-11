@@ -46,6 +46,9 @@ const Schedule = ({ scheduleData, group, week, isMobile }) => {
       ? scheduleData.scheduleFirstWeek
       : scheduleData.scheduleSecondWeek;
 
+  const columnWidthWithSubjects =
+    ((6 - schedule.length) * 5) / schedule.length + 15 + 'vw';
+
   //for mobile
   const [spacing, setSpacing] = React.useState(2);
   const handleChange = (event) => {
@@ -109,7 +112,18 @@ const Schedule = ({ scheduleData, group, week, isMobile }) => {
           ].map((weekDay) => (
             <Grid
               key={weekDay}
-              style={{ width: '16vw' }}
+              style={{
+                minWidth: `${
+                  schedule.find((obj) => obj.day === weekDay)
+                    ? columnWidthWithSubjects
+                    : '10vw'
+                }`,
+                maxWidth: `${
+                  schedule.find((obj) => obj.day === weekDay)
+                    ? columnWidthWithSubjects
+                    : '10vw'
+                }`,
+              }}
               container
               direction='column'
               item
