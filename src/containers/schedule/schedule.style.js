@@ -5,7 +5,7 @@ export const GridWrapper = styled.div`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border-radius: 40px;
   padding: 48px 24px 7rem 24px;
-  margin: 36px 24px 0;
+  margin: 36px 24px 64px;
 `;
 
 export const WeekDay = styled.div`
@@ -31,5 +31,5 @@ export const TimeWrapper = styled.div`
 export const DayWrapper = styled.div`
   position: absolute;
   top: 13rem;
-  left: 9rem;
+  left: 12rem;
 `;

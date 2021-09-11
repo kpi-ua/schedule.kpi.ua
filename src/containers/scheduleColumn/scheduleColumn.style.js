@@ -10,7 +10,6 @@ export const ScheduleGrid = styled(Grid)`
   min-height: 210px;
   max-height: 210px;
   min-width: ${document.body.clientWidth >= 1300 ? '185px' : '125px'};
-  max-width: 185px;
 `;
 
 export const SchedulePaper = styled(Paper)`
@@ -21,6 +20,5 @@ export const SchedulePaper = styled(Paper)`
   min-height: 190px;
   max-height: 190px;
   min-width: ${document.body.clientWidth >= 1300 ? '200px' : '140px'};
-  max-width: 200px;
   display: ${(props) => (props.ispresent === 'true' ? 'block' : 'none')};
 `;
