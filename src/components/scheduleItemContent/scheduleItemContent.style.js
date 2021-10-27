@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Flex } from '../../common/styles/styles';
+import styled from "styled-components";
+import {Flex} from "../../common/styles/styles";
 
 export const ScheduleItemType = styled.div`
   width: 84px;
@@ -36,3 +36,26 @@ export const Teacher = styled(Property)`
 export const Location = styled(Property)`
   gap: 7px;
 `;
+
+export const ScheduleItemHeader = styled(Flex)`
+  gap: 25px;
+  align-items: center;
+`
+
+export const ScheduleItemCurrent = styled.span`
+  position: relative;
+  font-weight: bold;
+  color: #25CF9C;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -13px;
+    display: block;
+    background-color: #25CF9C;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+  }
+`
