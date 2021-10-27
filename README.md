@@ -1,4 +1,4 @@
-# ОБМАЗАН ГУАНО
+
 
 ## _rozklad-kpi_
 new responsive, maintainable, scalable, fast and simple UI for kpi-schedule with modern design
