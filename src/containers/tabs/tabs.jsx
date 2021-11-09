@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Tabs = ({ children, onTabChanged }) => {
+const Tabs = ({children, onTabChanged}) => {
   const [currentTab, setTab] = useState(0);
 
   useEffect(() => {

@@ -1,49 +1,19 @@
-import ScheduleItem from "../scheduleItem";
-import React from "react";
-import ScheduleItemExtended from "../scheduleItemExtended";
+import ScheduleItem from '../scheduleItem';
+import React from 'react';
+import { EmptyElement } from './scheduleRow.style';
 
-const ScheduleRow = ({order}) => {
-  const rowStartForMultipleItems = order * 2 + 1;
+const ScheduleRow = ({dataset}) => {
+
+  const generateScheduleItem = dataset => {
+    return dataset.map((item, index) => {
+      return item ? <ScheduleItem key={index} scheduleItemData={item}/> : <EmptyElement key={index}/>;
+    });
+  };
   return (
-      <>
-        <ScheduleItemExtended scheduleItemData={{
-          type: 'test',
-          time: 'test',
-          name: 'test',
-          teachersName: 'test'
-        }} />
-        <ScheduleItem scheduleItemData={{
-          type: 'test',
-          time: 'test',
-          name: 'test',
-          teachersName: 'test'
-        }}/>
-        <ScheduleItem scheduleItemData={{
-          type: 'test',
-          time: 'test',
-          name: 'test',
-          teachersName: 'test'
-        }}/>
-        <ScheduleItem scheduleItemData={{
-          type: 'test',
-          time: 'test',
-          name: 'test',
-          teachersName: 'test'
-        }}/>
-        <ScheduleItem scheduleItemData={{
-          type: 'test',
-          time: 'test',
-          name: 'test',
-          teachersName: 'test'
-        }}/>
-        <ScheduleItem scheduleItemData={{
-          type: 'test',
-          time: 'test',
-          name: 'test',
-          teachersName: 'test'
-        }}/>
-      </>
-  )
-}
+    <>
+      {generateScheduleItem(dataset)}
+    </>
+  );
+};
 
 export default ScheduleRow;

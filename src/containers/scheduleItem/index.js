@@ -1,3 +1,3 @@
-import ScheduleItem from './ScheduleItem';
+import ScheduleItem from './scheduleItem';
 
 export default ScheduleItem;

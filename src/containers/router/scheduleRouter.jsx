@@ -1,23 +1,22 @@
-import { Route, Switch } from 'react-router-dom';
-import { StudentsSchedule } from '../../pages/studentsSchedule';
-import { SessionsSchedule } from '../../pages/sessionsSchedule';
-import { TeachersSchedule } from '../../pages/teachersSchedule';
-import { Page404 } from '../../pages/404';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import ScheduleContainer from '../scheduleContainer';
+
+import { mockdata } from '../../mock';
 
 const ScheduleRouter = () => {
   return (
     <Switch>
-      <Route exact path='/'>
-        <StudentsSchedule />
+      <Route exact path="/">
+        <ScheduleContainer data={mockdata}/>
       </Route>
-      <Route path='/sessions'>
-        <SessionsSchedule />
+      <Route exact path="/sessions">
+        <ScheduleContainer data={mockdata}/>
       </Route>
-      <Route path='/teachers'>
-        <TeachersSchedule />
+      <Route exact path="/teachers">
+        <ScheduleContainer data={mockdata}/>
       </Route>
       <Route>
-        <Page404 />
+        <Redirect to="/"/>
       </Route>
     </Switch>
   );

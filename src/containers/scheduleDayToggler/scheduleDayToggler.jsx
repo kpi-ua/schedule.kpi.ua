@@ -1,69 +1,18 @@
-import {LessThenMedium} from "../../common/styles/styles";
-import OptionMultipleToggler from "../../components/optionMultipleToggler";
-import {MODES} from "../../common/constants/modes";
-import {getCurrentMode} from "../../common/utils/getCurrentMode";
+import OptionMultipleToggler from '../../components/optionMultipleToggler';
+import { MODES } from '../../common/constants/modes';
+import { useCurrentMode } from '../../common/utils/useCurrentMode';
+import { DAY_OPTIONS } from '../../common/constants/dayOptions';
+import { ScheduleDayTogglerContainer } from './scheduleDayToggler.style';
 
-const ScheduleDayToggler = ({handler, initialValue}) => {
-  const togglerOptions = {
-    [MODES.EXTRA_SMALL]: [
-      {
-        label: 'ПН',
-        value: 'mon'
-      },
-      {
-        label: 'ВТ',
-        value: 'tue'
-      },
-      {
-        label: 'СР',
-        value: 'wed'
-      },
-      {
-        label: 'ЧТ',
-        value: 'thu'
-      },
-      {
-        label: 'ПТ',
-        value: 'fri'
-      },
-      {
-        label: 'СБ',
-        value: 'sat'
-      },
-    ],
-    [MODES.SMALL]: [
-      {
-        label: 'ПН-ВТ',
-        value: 'mon-tue'
-      },
-      {
-        label: 'СР-ЧТ',
-        value: 'wed-thu'
-      },
-      {
-        label: 'ПТ-СБ',
-        value: 'wed-sat'
-      },
-    ],
-    [MODES.MEDIUM]: [
-      {
-        label: 'ПН-СР',
-        value: 'mon-wed'
-      },
-      {
-        label: 'ЧТ-СБ',
-        value: 'thu-sat'
-      },
-    ]
-  }
-
-  const mode = getCurrentMode();
-
+const ScheduleDayToggler = ({handler}) => {
+  const mode = useCurrentMode();
   return (
-      <LessThenMedium>
-        <OptionMultipleToggler initialValue={initialValue} onOptionChange={handler} options={togglerOptions[mode]}/>
-      </LessThenMedium>
-  )
-}
+    mode && mode !== MODES.BIG ?
+      <ScheduleDayTogglerContainer>
+        <OptionMultipleToggler initialValue={DAY_OPTIONS[mode] && DAY_OPTIONS[mode][0].value} onOptionChange={handler} options={DAY_OPTIONS[mode]}/>
+      </ScheduleDayTogglerContainer> :
+      null
+  );
+};
 
 export default ScheduleDayToggler;

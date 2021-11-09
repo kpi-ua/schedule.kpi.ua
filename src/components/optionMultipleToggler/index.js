@@ -1,3 +1,3 @@
-import OptionMultipleToggler from "./optionMultipleToggler";
+import OptionMultipleToggler from './optionMultipleToggler';
 
 export default OptionMultipleToggler;
