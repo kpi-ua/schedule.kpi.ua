@@ -1,15 +1,20 @@
-import { Logo, Flex } from '../../common/styles/styles';
-import MainSettings from '../mainSettings/mainSettings';
-import { NavBarWrapper } from './navbar.style';
+import { Logo } from '../../common/styles/styles';
+import MainSettings from '../mainSettings';
+import { NavbarInner, NavBarWrapper } from './navbar.style';
+import Switch from '../../components/switch';
+import logo from '../../assets/logo.svg';
+import { useThemeSelectorContext } from '../../common/context/themeContext';
 
 const Navbar = () => {
+  const selectTheme = useThemeSelectorContext();
+
   return (
     <NavBarWrapper>
-      <Flex justifyContent='space-between' alignItems='center' mx={2}>
-        <Logo />
-        <MainSettings />
-        <div>Theme switcher</div>
-      </Flex>
+      <NavbarInner justifyContent="space-between" mx={2} gap={'20px'}>
+        <Logo src={logo} alt={'logo'}/>
+        <MainSettings/>
+        <Switch onChange={selectTheme}/>
+      </NavbarInner>
     </NavBarWrapper>
   );
 };

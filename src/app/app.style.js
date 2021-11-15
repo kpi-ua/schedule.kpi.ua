@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 
 export const Wrapper = styled.div`
-  background: linear-gradient(90deg, #ffeff2 0%, #dbe9fe 100%);
+  background: ${getValueFromTheme('bgPrimary')};
   min-height: 105vh;
 `;
