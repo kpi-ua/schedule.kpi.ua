@@ -18,7 +18,7 @@ const ScheduleRouter = () => {
     if(!group){
       return setData(mockdata)
     }
-    const res = await axios.get("https://167.172.103.72:5001/schedule/lessons?groupName="+group)
+    const res = await axios.get("http://167.172.103.72:5000/schedule/lessons?groupName="+group)
     const shedule = res.data.data
     console.log("sh : ")
     console.dir(shedule)

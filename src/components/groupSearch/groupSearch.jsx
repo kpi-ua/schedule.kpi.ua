@@ -15,7 +15,7 @@ const GroupSearch = () => {
   }, [])
 
   const loadGroups = async ()=>{
-    const res = await axios.get("https://167.172.103.72:5001/schedule/groups")
+    const res = await axios.get("http://167.172.103.72:5000/schedule/groups")
     const data = res.data.data;
     const groups = data.map(g=>({label : g.name, value :g.name }))
     setGroups(groups)
