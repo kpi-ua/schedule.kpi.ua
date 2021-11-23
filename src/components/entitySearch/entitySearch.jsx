@@ -1,11 +1,27 @@
 import Select from 'react-select';
-import { Label } from './groupSearch.style';
+import { Label } from './entitySearch.style';
 import { useTheme } from 'styled-components';
-import { groups } from '../../mock';
+import { getAllLecturers } from '../../api/fullList';
+import { useEffect, useState } from 'react';
+import { prepareLecturerList } from '../../common/utils/apiTransformers';
+import { useLecturerContext } from '../../common/context/lecturerContext';
 
 
-const GroupSearch = () => {
+const EntitySearch = () => {
   const theme = useTheme();
+  const [lecturers, setLecturers] = useState([]);
+
+  const {lecturer, setLecturer} = useLecturerContext();
+
+  useEffect(() => {
+    getAllLecturers().then(response => {
+      setLecturers(prepareLecturerList(response.data));
+    });
+  }, [])
+
+  const onOptionChange = option => {
+    setLecturer(option);
+  }
 
   const customStyles = {
     option(base) {
@@ -58,12 +74,14 @@ const GroupSearch = () => {
   return (
     <Label alignItems="center" gap="15px">
       Розклад занять для
-      <div style={{width: '150px'}}>
+      <div style={{width: '200px'}}>
         <Select
-          options={groups}
+          options={lecturers}
+          onChange={onOptionChange}
           styles={customStyles}
           isClearable={true}
           isSearchable={true}
+          defaultValue={lecturer}
           placeholder={null}
           name="color"/>
       </div>
@@ -71,4 +89,4 @@ const GroupSearch = () => {
   );
 };
 
-export default GroupSearch;
+export default EntitySearch;
