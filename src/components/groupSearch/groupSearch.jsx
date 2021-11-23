@@ -1,11 +1,25 @@
+import { useEffect, useState } from "react";
 import Select from 'react-select';
 import { Label } from './groupSearch.style';
 import { useTheme } from 'styled-components';
-import { groups } from '../../mock';
-
+import axios from "axios"
+import { useGroupContext } from "../../common/context/groupContext";
 
 const GroupSearch = () => {
   const theme = useTheme();
+  const [groups, setGroups] = useState([]);
+  const {setGroup} = useGroupContext();
+
+  useEffect(()=>{
+    loadGroups()
+  }, [])
+
+  const loadGroups = async ()=>{
+    const res = await axios.get("http://167.172.103.72:5000/schedule/groups")
+    const data = res.data.data;
+    const groups = data.map(g=>({label : g.name, value :g.name }))
+    setGroups(groups)
+  }
 
   const customStyles = {
     option(base) {
@@ -65,7 +79,13 @@ const GroupSearch = () => {
           isClearable={true}
           isSearchable={true}
           placeholder={null}
-          name="color"/>
+          name="color"
+          onChange={g =>{
+            if(!g){
+              return setGroup("")
+            }
+            return setGroup(g.value)
+          }}/>
       </div>
     </Label>
   );
