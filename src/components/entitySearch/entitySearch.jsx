@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react";
 import Select from 'react-select';
-import { Label } from './groupSearch.style';
+import { Label } from './entitySearch.style';
 import { useTheme } from 'styled-components';
-import axios from "axios"
-import { useGroupContext } from "../../common/context/groupContext";
+import { getAllLecturers } from '../../api/fullList';
+import { useEffect, useState } from 'react';
+import { prepareLecturerList } from '../../common/utils/apiTransformers';
+import { useLecturerContext } from '../../common/context/lecturerContext';
 
-const GroupSearch = () => {
+
+const EntitySearch = () => {
   const theme = useTheme();
-  const [groups, setGroups] = useState([]);
-  const {setGroup} = useGroupContext();
+  const [lecturers, setLecturers] = useState([]);
 
-  useEffect(()=>{
-    loadGroups()
+  const {lecturer, setLecturer} = useLecturerContext();
+
+  useEffect(() => {
+    getAllLecturers().then(response => {
+      setLecturers(prepareLecturerList(response.data));
+    });
   }, [])
 
-  const loadGroups = async ()=>{
-    const res = await axios.get("http://167.172.103.72:5000/schedule/groups")
-    const data = res.data.data;
-    const groups = data.map(g=>({label : g.name, value :g.name }))
-    setGroups(groups)
+  const onOptionChange = option => {
+    setLecturer(option);
   }
 
   const customStyles = {
@@ -72,23 +74,19 @@ const GroupSearch = () => {
   return (
     <Label alignItems="center" gap="15px">
       Розклад занять для
-      <div style={{width: '150px'}}>
+      <div style={{width: '200px'}}>
         <Select
-          options={groups}
+          options={lecturers}
+          onChange={onOptionChange}
           styles={customStyles}
           isClearable={true}
           isSearchable={true}
+          defaultValue={lecturer}
           placeholder={null}
-          name="color"
-          onChange={g =>{
-            if(!g){
-              return setGroup("")
-            }
-            return setGroup(g.value)
-          }}/>
+          name="color"/>
       </div>
     </Label>
   );
 };
 
-export default GroupSearch;
+export default EntitySearch;
