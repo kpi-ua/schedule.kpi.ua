@@ -7,12 +7,7 @@ export const generateScheduleMatrix = weekSchedule => {
     const yIndex = DAYS.findIndex(item => item === day.day);
 
     day.pairs.forEach(pair => {
-      console.dir(TIME_POINTS)
-      console.log(pair.time)
       const xIndex = TIME_POINTS.findIndex(item => item === pair.time);
-      console.dir(scheduleMatrix)
-      console.log(xIndex)
-      console.log(yIndex)
       scheduleMatrix[xIndex][yIndex] = pair;
     });
   });

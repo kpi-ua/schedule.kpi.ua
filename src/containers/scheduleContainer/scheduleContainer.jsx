@@ -1,32 +1,45 @@
-import { useState } from "react";
-import ScheduleRow from "../scheduleRow";
-import { GridWrapper } from "./scheduleContainer.style";
-import SliceOptionsContext from "../../common/context/sliceOptionsContext";
-import ScheduleDayToggler from "../scheduleDayToggler";
-import Schedule from "../schedule";
-import { generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
-import { useWeekContext } from "../../common/context/weekContext";
-import { useEffect } from "react";
+import { useEffect, useState } from 'react';
+import ScheduleRow from '../scheduleRow';
+import { GridWrapper } from './scheduleContainer.style';
+import SliceOptionsContext from '../../common/context/sliceOptionsContext';
+import ScheduleDayToggler from '../scheduleDayToggler';
+import Schedule from '../schedule';
+import { generateScheduleMatrix } from '../../common/utils/generateScheduleMatrix';
+import { useWeekContext } from '../../common/context/weekContext';
+import { useLecturerContext } from '../../common/context/lecturerContext';
+import { useGroupContext } from '../../common/context/groupContext';
 
-const ScheduleContainer = ({ data }) => {
-  const { _, currentWeek } = useWeekContext();
+const ScheduleContainer = ({getData, contextType}) => {
   const [sliceParams, setSliceParams] = useState(null);
   const [lessons, setLessons] = useState([]);
+  const [data, setData] = useState(null);
+
+  const {currentWeek} = useWeekContext();
+  const {lecturer} = useLecturerContext();
+  const {group} = useGroupContext();
+
+  const weekValue = {
+    firstWeek: 'scheduleFirstWeek',
+    secondWeek: 'scheduleSecondWeek'
+  }
 
   useEffect(() => {
-    const lessonsSelected =
-      currentWeek === "firstWeek"
-        ? data.scheduleFirstWeek
-        : data.scheduleSecondWeek;
-    setLessons(lessonsSelected);
-  }, [currentWeek]);
+    const contextValue = contextType === 'lecturer' ? lecturer : lecturer;
+
+    if (contextValue) {
+      getData(contextValue.value)
+        .then(res => setData(res.data));
+    } else {
+      setData(null);
+    }
+  }, [lecturer, group]);
 
   const generateScheduleRows = (scheduleMatrix) => {
     return scheduleMatrix.map((item, i) => {
       const slicedDataset = sliceParams
         ? item.slice(sliceParams.start, sliceParams.end)
         : item;
-      return <ScheduleRow key={i} dataset={slicedDataset} />;
+      return <ScheduleRow key={i} dataset={slicedDataset}/>;
     });
   };
 
@@ -36,17 +49,18 @@ const ScheduleContainer = ({ data }) => {
       return;
     }
 
-    const ranges = value.split("-");
-    setSliceParams({ start: +ranges[0], end: +ranges[1] });
+    const ranges = value.split('-');
+    setSliceParams({start: +ranges[0], end: +ranges[1]});
   };
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    data &&
+    <div style={{overflow: 'hidden'}}>
       <GridWrapper>
         <SliceOptionsContext value={sliceParams}>
-          <ScheduleDayToggler initialValue={"mon"} handler={setSlice} />
+          <ScheduleDayToggler initialValue={'mon'} handler={setSlice}/>
           <Schedule>
-            {generateScheduleRows(generateScheduleMatrix(lessons))}
+            {generateScheduleRows(generateScheduleMatrix(data[weekValue[currentWeek]]))}
           </Schedule>
         </SliceOptionsContext>
       </GridWrapper>
