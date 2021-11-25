@@ -2,14 +2,15 @@ import Tabs from '../tabs';
 import ScheduleTypeTab from '../../components/scheduleTypeTab';
 import { useHistory } from 'react-router-dom';
 import { TabContainer } from './scheduleTypeTabs.style';
+import { routes } from '../../common/constants/routes';
 
 const ScheduleTypeTabs = () => {
   const history = useHistory();
 
   const tabs = [
-    {value: 'student', label: 'Розклад занять', path: '/'},
-    {value: 'exam', label: 'Розклад сесії', path: '/sessions'},
-    {value: 'teacher', label: 'Розклад для викладачів', path: '/teachers'},
+    {value: routes.GROUP, label: 'Розклад занять'},
+    {value: routes.SESSION, label: 'Розклад сесії'},
+    {value: routes.LECTURER, label: 'Розклад для викладачів'}
   ];
 
   const TabComponents = tabs.map((tab) => {
@@ -18,7 +19,7 @@ const ScheduleTypeTabs = () => {
 
   return (
     <TabContainer justifyContent="space-between" alignItems="center" gap={'37px'}>
-      <Tabs onTabChanged={(index) => history.push(tabs[index].path)}>
+      <Tabs onTabChanged={(index) => history.push(tabs[index].value)}>
         {TabComponents}
       </Tabs>
     </TabContainer>

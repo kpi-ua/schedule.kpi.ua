@@ -5,7 +5,7 @@ export const getScheduleByLecturer = lecturerId => {
     .then(res => res.data);
 }
 
-export const getScheduleByGroup = groupId => {
-  return Http.get('/group?groupId=' + groupId)
+export const getScheduleByGroup = groupName => {
+  return Http.get('/lessons?groupName=' + groupName)
     .then(res => res.data);
 }

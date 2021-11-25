@@ -1,27 +1,35 @@
-import Select from 'react-select';
+import Select, { createFilter } from 'react-select';
 import { Label } from './entitySearch.style';
 import { useTheme } from 'styled-components';
-import { getAllLecturers } from '../../api/fullList';
 import { useEffect, useState } from 'react';
-import { prepareLecturerList } from '../../common/utils/apiTransformers';
+import { prepareList } from '../../common/utils/apiTransformers';
 import { useLecturerContext } from '../../common/context/lecturerContext';
+import { useLocation } from 'react-router-dom';
+import { usePreloadedListContext } from '../../common/context/preloadedListsContext';
+import { routes } from '../../common/constants/routes';
+import { useGroupContext } from '../../common/context/groupContext';
 
 
 const EntitySearch = () => {
   const theme = useTheme();
-  const [lecturers, setLecturers] = useState([]);
+  const location = useLocation();
+  const [options, setOptions] = useState([]);
 
   const {lecturer, setLecturer} = useLecturerContext();
+  const {group, setGroup} = useGroupContext();
+  const lists = usePreloadedListContext();
+
+  const isLecturer = location.pathname === routes.LECTURER;
+  const list = isLecturer ? lists.lecturers : lists.groups;
 
   useEffect(() => {
-    getAllLecturers().then(response => {
-      setLecturers(prepareLecturerList(response.data));
-    });
-  }, [])
+    onOptionChange(null);
+    setOptions(prepareList(list));
+  }, [list]);
 
   const onOptionChange = option => {
-    setLecturer(option);
-  }
+    isLecturer ? setLecturer(option) : setGroup(option);
+  };
 
   const customStyles = {
     option(base) {
@@ -34,13 +42,14 @@ const EntitySearch = () => {
       return {
         ...base,
         backgroundColor: theme['bgOptions'],
-        zIndex: 5,
+        zIndex: 1000,
       };
     },
     menuList(base) {
       return {
         ...base,
         backgroundColor: theme['bgOptions'],
+        zIndex: 1000,
       };
     },
     control(base) {
@@ -71,17 +80,21 @@ const EntitySearch = () => {
     }
   };
 
+  const filterConfig = {
+    ignoreAccents: false,
+  };
+
   return (
     <Label alignItems="center" gap="15px">
       Розклад занять для
       <div style={{width: '200px'}}>
         <Select
-          options={lecturers}
+          options={options}
           onChange={onOptionChange}
           styles={customStyles}
-          isClearable={true}
+          value={isLecturer ? lecturer : group}
           isSearchable={true}
-          defaultValue={lecturer}
+          filterOptions={createFilter(filterConfig)}
           placeholder={null}
           name="color"/>
       </div>

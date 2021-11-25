@@ -3,6 +3,8 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import ScheduleContainer from '../scheduleContainer';
 
 import { getScheduleByGroup, getScheduleByLecturer } from '../../api/schedule';
+import { routes } from '../../common/constants/routes';
+import { getScheduleApiFunction } from '../../common/utils/getApiFunction';
 
 const ScheduleRouter = () => {
   const getSchedule = {
@@ -13,17 +15,17 @@ const ScheduleRouter = () => {
 
   return (
     <Switch>
-      <Route exact path="/">
-        <ScheduleContainer contextType='group' getData={getSchedule.group}/>
+      <Route exact path={routes.GROUP}>
+        <ScheduleContainer contextType='group' getData={getScheduleApiFunction(routes.GROUP)}/>
       </Route>
-      <Route exact path="/sessions">
-        <ScheduleContainer contextType='group' getData={getSchedule.exam}/>
+      <Route exact path={routes.SESSION}>
+        <ScheduleContainer contextType='group' getData={getScheduleApiFunction(routes.SESSION)}/>
       </Route>
-      <Route exact path="/teachers">
-        <ScheduleContainer contextType='lecturer' getData={getSchedule.lecturer}/>
+      <Route exact path={routes.LECTURER}>
+        <ScheduleContainer contextType='lecturer' getData={getScheduleApiFunction(routes.LECTURER)}/>
       </Route>
       <Route>
-        <Redirect to="/"/>
+        <Redirect to={routes.GROUP}/>
       </Route>
     </Switch>
   );

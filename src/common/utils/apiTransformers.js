@@ -1,6 +1,6 @@
-export const prepareLecturerList = list => {
-  return list.map(lecturer => ({
-    label: lecturer.name,
-    value: lecturer.id,
+export const prepareList = list => {
+  return list.map(item => ({
+    label: item.name,
+    value: item.id,
   }))
 }
