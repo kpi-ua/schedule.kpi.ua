@@ -19,7 +19,5 @@ export const getListApiFunction = route => {
     [routes.LECTURER]: getAllLecturers,
   };
 
-  console.log(route);
-
   return functions[route];
 }
