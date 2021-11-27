@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TimeDivider from '../../components/timeDivider';
 import { CurrentDayContainer, GridContainer } from './schedule.style';
 import ScheduleHeader from '../scheduleHeader';

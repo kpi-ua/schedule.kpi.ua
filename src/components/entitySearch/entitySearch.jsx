@@ -23,7 +23,8 @@ const EntitySearch = () => {
   const list = isLecturer ? lists.lecturers : lists.groups;
 
   useEffect(() => {
-    onOptionChange(null);
+    setGroup(null);
+    setLecturer(null);
     setOptions(prepareList(list));
   }, [list]);
 

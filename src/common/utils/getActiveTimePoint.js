@@ -10,10 +10,6 @@ export const getActiveTimePoint = () => {
     const pairStartDate = moment().set({hours: timeNumbers[0], minutes: timeNumbers[1], seconds: 0});
     const pairEndDate = moment(pairStartDate).set({minutes: timeNumbers[1] + PAIR_DURATION_IN_MINUTES})
 
-    const abc = now.isBetween(pairStartDate, pairEndDate);
-
-    console.log(abc);
-
-    return abc;
+    return now.isBetween(pairStartDate, pairEndDate);
   });
 };

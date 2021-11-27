@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ScheduleRow from '../scheduleRow';
-import { GridWrapper } from './scheduleContainer.style';
+import { GridWrapper } from './scheduleWrapper.style';
 import SliceOptionsContext from '../../common/context/sliceOptionsContext';
 import ScheduleDayToggler from '../scheduleDayToggler';
 import Schedule from '../schedule';
@@ -9,9 +9,8 @@ import { useWeekContext } from '../../common/context/weekContext';
 import { useLecturerContext } from '../../common/context/lecturerContext';
 import { useGroupContext } from '../../common/context/groupContext';
 
-const ScheduleContainer = ({getData, contextType}) => {
+const ScheduleWrapper = ({getData, contextType}) => {
   const [sliceParams, setSliceParams] = useState(null);
-  const [lessons, setLessons] = useState([]);
   const [data, setData] = useState(null);
 
   const {currentWeek} = useWeekContext();
@@ -21,13 +20,13 @@ const ScheduleContainer = ({getData, contextType}) => {
   const weekValue = {
     firstWeek: 'scheduleFirstWeek',
     secondWeek: 'scheduleSecondWeek'
-  }
+  };
 
   useEffect(() => {
-    const contextValue = contextType === 'lecturer' ? lecturer : lecturer;
+    const contextValue = contextType === 'lecturer' ? lecturer?.value : group?.label;
 
     if (contextValue) {
-      getData(contextValue.value)
+      getData(contextValue)
         .then(res => setData(res.data));
     } else {
       setData(null);
@@ -68,4 +67,4 @@ const ScheduleContainer = ({getData, contextType}) => {
   );
 };
 
-export default ScheduleContainer;
+export default ScheduleWrapper;
