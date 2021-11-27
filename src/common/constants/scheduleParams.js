@@ -5,7 +5,7 @@ export const DAYS = [
   'Чт',
   'Пт',
   'Сб'
-]
+];
 
 export const TIME_POINTS = [
   '8.30',
@@ -14,4 +14,4 @@ export const TIME_POINTS = [
   '14.15',
   '16.10',
   '18.30'
-]
+];

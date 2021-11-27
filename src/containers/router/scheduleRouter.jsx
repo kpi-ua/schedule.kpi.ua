@@ -1,43 +1,23 @@
-import { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import ScheduleContainer from '../scheduleContainer';
-import { mockdata } from "../../mock"
-import { useGroupContext } from "../../common/context/groupContext";
+import ScheduleWrapper from '../scheduleWrapper';
 
-import axios from "axios";
+import { routes } from '../../common/constants/routes';
+import { getScheduleApiFunction } from '../../common/utils/getApiFunction';
 
 const ScheduleRouter = () => {
-  const [data, setData] = useState(mockdata)
-  const {_, group} = useGroupContext();
-  
-  useEffect(()=>{
-      loadSchedule()
-  }, [ group ])
-
-  const loadSchedule = async ()=>{
-    if(!group){
-      return setData(mockdata)
-    }
-    const res = await axios.get("http://167.172.103.72:5000/schedule/lessons?groupName="+group)
-    const shedule = res.data.data
-    console.log("sh : ")
-    console.dir(shedule)
-    return setData(shedule)
-  }
-
   return (
     <Switch>
-      <Route exact path="/">
-        <ScheduleContainer data={data}/>
+      <Route exact path={routes.GROUP}>
+        <ScheduleWrapper contextType="group" getData={getScheduleApiFunction(routes.GROUP)}/>
       </Route>
-      <Route exact path="/sessions">
-        <ScheduleContainer data={data}/>
+      <Route exact path={routes.SESSION}>
+        <ScheduleWrapper contextType="group" getData={getScheduleApiFunction(routes.SESSION)}/>
       </Route>
-      <Route exact path="/teachers">
-        <ScheduleContainer data={data}/>
+      <Route exact path={routes.LECTURER}>
+        <ScheduleWrapper contextType="lecturer" getData={getScheduleApiFunction(routes.LECTURER)}/>
       </Route>
       <Route>
-        <Redirect to="/"/>
+        <Redirect to={routes.GROUP}/>
       </Route>
     </Switch>
   );
