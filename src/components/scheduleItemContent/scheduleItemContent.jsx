@@ -6,14 +6,18 @@ import { Pictogram } from '../../common/styles/styles';
 const ScheduleItemContent = ({scheduleItemData}) => {
   const type = scheduleItemData && scheduleItemData.type;
   const subject = scheduleItemData && scheduleItemData.name;
-  const teacher = scheduleItemData && scheduleItemData.teachersName;
+  const teacher = scheduleItemData && scheduleItemData.teacherName;
   const location = scheduleItemData && scheduleItemData.place;
 
   return (
     <div>
       <ScheduleItemHeader>
         <ScheduleItemType>{type}</ScheduleItemType>
-        <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>
+        {
+          scheduleItemData.currentDay ?
+            <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent> :
+            null
+        }
       </ScheduleItemHeader>
       <Subject>
         {subject}

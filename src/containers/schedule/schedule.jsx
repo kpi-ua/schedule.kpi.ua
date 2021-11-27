@@ -3,21 +3,15 @@ import TimeDivider from '../../components/timeDivider';
 import { CurrentDayContainer, GridContainer } from './schedule.style';
 import ScheduleHeader from '../scheduleHeader';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
-import moment from 'moment';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
+import { useCurrentWeekDay } from '../../common/utils/useCurrentWeekDay';
 
 const Schedule = ({children}) => {
-  const [currentWeekDay, setCurrentWeekDay] = useState(null);
   const sliceOptions = useSliceOptionsContext();
-  useEffect(() => {
-    const day = moment().day();
-
-    if (day) {
-      setCurrentWeekDay(day - 1);
-    }
-  }, []);
+  const currentWeekDay = useCurrentWeekDay();
 
   const dynamicGeneratedTable = React.Children.map(children, (child, index) => {
+
     return (
       <>
         <TimeDivider>{TIME_POINTS[index]}</TimeDivider>
