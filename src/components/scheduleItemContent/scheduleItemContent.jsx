@@ -9,10 +9,6 @@ const ScheduleItemContent = ({scheduleItemData}) => {
   const teacher = scheduleItemData && scheduleItemData.teacherName;
   const location = scheduleItemData && scheduleItemData.place;
   const group = scheduleItemData && scheduleItemData.group;
-  // TODO check context type 
-  console.log("subject :", subject);
-  console.log("group :", group);
-  console.dir(scheduleItemData)
   return (
     <div>
       <ScheduleItemHeader>
