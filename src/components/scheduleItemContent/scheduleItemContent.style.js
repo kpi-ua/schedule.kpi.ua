@@ -38,7 +38,9 @@ export const Teacher = styled(Property)`
 export const Location = styled(Property)`
   gap: 7px;
 `;
-
+export const GroupName = styled(Property)`
+  gap : 7px
+`;
 export const ScheduleItemHeader = styled(Flex)`
   gap: 25px;
   align-items: center;
