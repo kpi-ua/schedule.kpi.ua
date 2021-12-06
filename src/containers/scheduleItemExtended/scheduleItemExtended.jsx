@@ -2,17 +2,19 @@ import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper } from './schedul
 import ScheduleItemContent from '../../components/scheduleItemContent';
 
 const ScheduleItemExtended = ({scheduleItemData}) => {
-  return scheduleItemData ? (
-    <ScheduleItemExtendedWrapper items={3}>
-      <ScheduleItemExtendedUnit>
-        <ScheduleItemContent scheduleItemData={scheduleItemData}/>
-      </ScheduleItemExtendedUnit>
-      <ScheduleItemExtendedUnit>
-        <ScheduleItemContent scheduleItemData={scheduleItemData}/>
-      </ScheduleItemExtendedUnit>
-      <ScheduleItemExtendedUnit>
-        <ScheduleItemContent scheduleItemData={scheduleItemData}/>
-      </ScheduleItemExtendedUnit>
+  const generateScheduleUnits = () => {
+    return scheduleItemData.map((item, i) => {
+      return (
+        <ScheduleItemExtendedUnit key={i}>
+          <ScheduleItemContent scheduleItemData={item}/>
+        </ScheduleItemExtendedUnit>
+      );
+    });
+  };
+
+  return scheduleItemData && scheduleItemData.length ? (
+    <ScheduleItemExtendedWrapper items={scheduleItemData.length}>
+      {generateScheduleUnits()}
     </ScheduleItemExtendedWrapper>
   ) : null;
 };

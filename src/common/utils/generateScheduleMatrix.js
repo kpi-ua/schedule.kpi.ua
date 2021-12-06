@@ -13,7 +13,23 @@ export const generateScheduleMatrix = weekSchedule => {
     day.pairs.forEach(pair => {
       const xIndex = TIME_POINTS.findIndex(item => item === pair.time);
 
-      scheduleMatrix[xIndex][yIndex] = {...pair, currentDay: currentDay === yIndex && activePair === xIndex};
+      const cell = scheduleMatrix[xIndex][yIndex];
+      let newCell = {...pair, currentDay: currentDay === yIndex && activePair === xIndex};
+
+      if (cell) {
+        let extendedCell = [];
+
+        if (Array.isArray(cell)) {
+          extendedCell = [...cell]
+        } else {
+          extendedCell = [cell]
+        }
+
+        extendedCell.push({...pair, currentDay: newCell});
+        newCell = extendedCell;
+      }
+
+      scheduleMatrix[xIndex][yIndex] = newCell;
     });
   });
 
