@@ -12,9 +12,8 @@ export const generateScheduleMatrix = weekSchedule => {
 
     day.pairs.forEach(pair => {
       const xIndex = TIME_POINTS.findIndex(item => item === pair.time);
-
       const cell = scheduleMatrix[xIndex][yIndex];
-      let newCell = {...pair, currentDay: currentDay === yIndex && activePair === xIndex};
+      let newCell = {...pair, currentDay: activePair !== -1 && currentDay === yIndex && activePair === xIndex };
 
       if (cell) {
         let extendedCell = [];
@@ -25,7 +24,7 @@ export const generateScheduleMatrix = weekSchedule => {
           extendedCell = [cell]
         }
 
-        extendedCell.push({...pair, currentDay: newCell});
+        extendedCell.push({...pair, currentDay: newCell.currentDay});
         newCell = extendedCell;
       }
 
