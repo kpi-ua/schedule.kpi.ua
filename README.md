@@ -1,5 +1,7 @@
-## _rozklad-kpi_
-new responsive, maintainable, scalable, fast and simple UI for kpi-schedule with modern design
+# _rozklad-kpi_
+New responsive, maintainable, scalable, fast and simple UI for kpi-schedule with modern design.
+
+Demo: http://167.172.103.72:3000/sessions
 
 ### Authors :
 
