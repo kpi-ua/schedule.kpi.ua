@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-const Tabs = ({children, onTabChanged}) => {
-  const [currentTab, setTab] = useState(0);
+const Tabs = ({children, onTabChanged, initial}) => {
+  const [currentTab, setTab] = useState(null);
 
   useEffect(() => {
-    onTabChanged(currentTab);
+    if (typeof currentTab === 'number') {
+      onTabChanged(currentTab);
+    }
   }, [currentTab]);
 
   return (

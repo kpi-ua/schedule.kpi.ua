@@ -3,6 +3,7 @@ import { flexbox, space } from 'styled-system';
 import { MODES } from '../constants/modes';
 import { getModeSize } from '../utils/getModeSize';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { Link } from 'react-router-dom';
 
 export const Flex = styled.div`
   display: flex;
@@ -35,3 +36,8 @@ export const ScheduleItemMixin = css`
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   border-radius: 16px;
 `;
+
+export const UnstyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${getValueFromTheme('primaryFontColor')};
+`

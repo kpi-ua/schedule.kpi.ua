@@ -1,12 +1,14 @@
-import { Location, ScheduleItemCurrent, ScheduleItemHeader, ScheduleItemType, Subject, Teacher, GroupName } from './scheduleItemContent.style';
+import { GroupName, Location, ScheduleItemCurrent, ScheduleItemHeader, ScheduleItemType, Subject, Teacher } from './scheduleItemContent.style';
 import teacherIcon from '../../assets/icons/teacher.svg';
 import locationIcon from '../../assets/icons/location.svg';
-import { Pictogram } from '../../common/styles/styles';
+import { Pictogram, UnstyledLink } from '../../common/styles/styles';
+import { routes } from '../../common/constants/routes';
 
-const ScheduleItemContent = ({scheduleItemData}) => {  
+const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
   const type = scheduleItemData && scheduleItemData.type;
   const subject = scheduleItemData && scheduleItemData.name;
   const teacher = scheduleItemData && scheduleItemData.teacherName;
+  const teacherId = scheduleItemData && scheduleItemData.lecturerId;
   const location = scheduleItemData && scheduleItemData.place;
   const group = scheduleItemData && scheduleItemData.group;
   return (
@@ -22,18 +24,24 @@ const ScheduleItemContent = ({scheduleItemData}) => {
       <Subject>
         {subject}
       </Subject>
-      <Teacher>
-        <Pictogram src={teacherIcon} alt="teacher"/>
-        {teacher}
-      </Teacher>
-      <Location>
-        <Pictogram src={locationIcon} alt="location"/>
-        {location}
-      </Location>
-      <GroupName>
-        {group}
-      </GroupName>
-      {/* TODO add group  */}
+      {!collapsed ?
+        <>
+          {
+            teacher ?
+            <Teacher>
+              <Pictogram src={teacherIcon} alt="teacher"/>
+              <UnstyledLink to={routes.LECTURER + `?lecturerId=${teacherId}`}>{teacher}</UnstyledLink>
+            </Teacher> : null
+          }
+          <Location>
+            <Pictogram src={locationIcon} alt="location"/>
+            {location}
+          </Location>
+          <GroupName>
+            <UnstyledLink to={routes.GROUP + `?groupName=${group}`}>{group}</UnstyledLink>
+          </GroupName>
+        </>
+        : null}
     </div>
   );
 };

@@ -23,7 +23,7 @@ const ScheduleWrapper = ({getData, contextType}) => {
   };
 
   useEffect(() => {
-    const contextValue = contextType === 'lecturer' ? lecturer?.value : group?.label;
+    const contextValue = contextType === 'lecturer' ? lecturer : group;
 
     if (contextValue) {
       getData(contextValue)
