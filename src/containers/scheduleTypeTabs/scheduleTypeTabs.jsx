@@ -14,14 +14,12 @@ const ScheduleTypeTabs = () => {
   ];
 
   const TabComponents = tabs.map((tab) => {
-    return <ScheduleTypeTab key={tab.value}>{tab.label}</ScheduleTypeTab>;
+    return <ScheduleTypeTab url={tab.value} key={tab.value}>{tab.label}</ScheduleTypeTab>;
   });
 
   return (
     <TabContainer justifyContent="space-between" alignItems="center" gap={'37px'}>
-      <Tabs onTabChanged={(index) => history.push(tabs[index].value)}>
-        {TabComponents}
-      </Tabs>
+      {TabComponents}
     </TabContainer>
   );
 };

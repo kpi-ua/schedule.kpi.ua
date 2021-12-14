@@ -4,7 +4,9 @@ const Tabs = ({children, onTabChanged}) => {
   const [currentTab, setTab] = useState(0);
 
   useEffect(() => {
-    onTabChanged(currentTab);
+    if (typeof currentTab === 'number') {
+      onTabChanged(currentTab);
+    }
   }, [currentTab]);
 
   return (

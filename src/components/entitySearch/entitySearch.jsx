@@ -1,36 +1,66 @@
+import React, { useEffect, useState } from 'react';
+
 import Select, { createFilter } from 'react-select';
 import { Label } from './entitySearch.style';
 import { useTheme } from 'styled-components';
-import { useEffect, useState } from 'react';
 import { prepareList } from '../../common/utils/apiTransformers';
 import { useLecturerContext } from '../../common/context/lecturerContext';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { usePreloadedListContext } from '../../common/context/preloadedListsContext';
 import { routes } from '../../common/constants/routes';
 import { useGroupContext } from '../../common/context/groupContext';
 
 
+const useQuery = () => {
+  const {search} = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
+
 const EntitySearch = () => {
   const theme = useTheme();
   const location = useLocation();
-  const [options, setOptions] = useState([]);
+  const history = useHistory();
 
+  const [options, setOptions] = useState([]);
   const {lecturer, setLecturer} = useLecturerContext();
   const {group, setGroup} = useGroupContext();
   const lists = usePreloadedListContext();
 
-  const isLecturer = location.pathname === routes.LECTURER;
+  const isLecturer = location.pathname.includes(routes.LECTURER);
   const list = isLecturer ? lists.lecturers : lists.groups;
 
+  const query = useQuery();
+
   useEffect(() => {
-    setGroup(null);
     setLecturer(null);
+    setGroup(null);
+  }, [location.pathname])
+
+  useEffect(() => {
+    if (isLecturer) {
+      const lecturer = query.get('lecturerId');
+      setLecturer(lecturer);
+      setGroup(null);
+    } else {
+      const group = query.get('groupName');
+      setGroup(group);
+      setLecturer(null);
+    }
+
     setOptions(prepareList(list));
   }, [list]);
 
   const onOptionChange = option => {
-    isLecturer ? setLecturer(option) : setGroup(option);
+    isLecturer ? setLecturer(option.value) : setGroup(option.label);
+
+    if (isLecturer) {
+      history.push('?lecturerId=' + option.value);
+    } else {
+      history.push('?groupName=' + option.label);
+    }
   };
+
+  const initialValue = options.find(item => isLecturer ? item.value === lecturer : item.label === group);
 
   const customStyles = {
     option(base) {
@@ -93,7 +123,7 @@ const EntitySearch = () => {
           options={options}
           onChange={onOptionChange}
           styles={customStyles}
-          value={isLecturer ? lecturer : group}
+          value={initialValue}
           isSearchable={true}
           filterOptions={createFilter(filterConfig)}
           placeholder={null}
