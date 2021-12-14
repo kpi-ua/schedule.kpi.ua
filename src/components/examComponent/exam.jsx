@@ -15,6 +15,7 @@ import {
 import teacherIcon from "../../assets/icons/teacher.svg";
 import locationIcon from "../../assets/icons/location.svg";
 import sun from "../../assets/icons/sun.svg"
+import clock from "../../assets/icons/clock.svg"
 import { Pictogram } from "../../common/styles/styles";
 
 const ExamComponent = ({ data }) => {
@@ -37,7 +38,7 @@ const ExamComponent = ({ data }) => {
               {teacher}
             </Teacher>
             <Teacher>
-              <Pictogram src={teacherIcon} alt="time" />
+              <Pictogram src={clock} alt="time" />
              {date.toLocaleTimeString("en-US", {timeStyle : "short"})}
             </Teacher>
             <Location>
