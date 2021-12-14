@@ -10,7 +10,7 @@ const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
   const teacher = scheduleItemData && scheduleItemData.teacherName;
   const teacherId = scheduleItemData && scheduleItemData.lecturerId;
   const location = scheduleItemData && scheduleItemData.place;
-  const group = scheduleItemData && scheduleItemData.group;
+  const groups = scheduleItemData && (scheduleItemData.group || '').split(',');
   return (
     <div>
       <ScheduleItemHeader>
@@ -38,7 +38,13 @@ const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
             {location}
           </Location>
           <GroupName>
-            <UnstyledLink to={routes.GROUP + `?groupName=${group}`}>{group}</UnstyledLink>
+            <div>
+              {
+                groups.map((group, idx) => {
+                  return <UnstyledLink key={group} to={routes.GROUP + `?groupName=${group}`}>{group}{idx !== groups.length - 1 ? ', ' : ''}</UnstyledLink>;
+                })
+              }
+            </div>
           </GroupName>
         </>
         : null}
