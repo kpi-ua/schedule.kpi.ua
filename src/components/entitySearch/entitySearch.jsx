@@ -113,6 +113,7 @@ const EntitySearch = () => {
 
   const filterConfig = {
     ignoreAccents: false,
+    matchFrom : "start"
   };
 
   return (
