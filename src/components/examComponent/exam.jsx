@@ -1,61 +1,50 @@
-import {
-  Location,
-  ScheduleItemCurrent,
-  ScheduleItemHeader,
-  ScheduleItemType,
-  Subject,
-  Teacher,
-  GroupName,
-  CardWrapper,
-  CardMainData,
-  Divider,
-  CardDate,
-  DividerRed,
-} from "./exam.style";
-import teacherIcon from "../../assets/icons/teacher.svg";
-import locationIcon from "../../assets/icons/location.svg";
-import sun from "../../assets/icons/sun.svg"
-import clock from "../../assets/icons/clock.svg"
-import { Pictogram } from "../../common/styles/styles";
+import { CardDate, CardMainData, CardWrapper, Divider, DividerRed, Location, Subject, Teacher, } from './exam.style';
+import teacherIcon from '../../assets/icons/teacher.svg';
+import locationIcon from '../../assets/icons/location.svg';
+import clock from '../../assets/icons/clock.svg';
+import { Flex, Pictogram } from '../../common/styles/styles';
 
-const ExamComponent = ({ data }) => {
+const ExamComponent = ({data}) => {
 
   const subject = data && data.subjectShort;
   const teacher = data && data.lecturerName;
   const location = data && data.room;
-  const date = data && new Date(data.date)
+  const date = data && new Date(data.date);
+
+  const day = date.getDate();
 
   return (
-    <>
-      <div>
-        <CardWrapper>
-          <DividerRed />
+    <div>
+      <CardWrapper>
+        <Flex>
+          <DividerRed/>
           <CardMainData>
-            <ScheduleItemHeader></ScheduleItemHeader>
             <Subject>{subject}</Subject>
             <Teacher>
-              <Pictogram src={teacherIcon} alt="teacher" />
+              <Pictogram src={teacherIcon} alt="teacher"/>
               {teacher}
             </Teacher>
             <Teacher>
-              <Pictogram src={clock} alt="time" />
-             {date.toLocaleTimeString("en-US", {timeStyle : "short"})}
+              <Pictogram src={clock} alt="time"/>
+              {date.toLocaleTimeString('en-US', {timeStyle: 'short'})}
             </Teacher>
             <Location>
-              <Pictogram src={locationIcon} alt="location" />
+              <Pictogram src={locationIcon} alt="location"/>
               {location}
             </Location>
           </CardMainData>
-          <Divider />
+        </Flex>
+        <Flex>
+          <Divider/>
           <CardDate>
-            <h2>{date.getFullYear()}</h2>
-            <h1> {date.getDate()} Січня</h1>
+            <h3>{date.getFullYear()}</h3>
+            <h2> {day < 10 ? '0' + day : day} Січня</h2>
             {/* TODO calculate  */}
             {/* <h2>26 днів до початку</h2> */}
           </CardDate>
-        </CardWrapper>
-      </div>
-    </>
+        </Flex>
+      </CardWrapper>
+    </div>
   );
 };
 

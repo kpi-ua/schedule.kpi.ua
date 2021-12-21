@@ -32,9 +32,12 @@ const EntitySearch = () => {
   const query = useQuery();
 
   useEffect(() => {
-    setLecturer(null);
-    setGroup(null);
-  }, [location.pathname])
+    if (isLecturer) {
+      setGroup(null);
+    } else {
+      setLecturer(null);
+    }
+  }, [isLecturer])
 
   useEffect(() => {
     if (isLecturer) {

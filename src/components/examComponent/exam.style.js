@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Flex } from "../../common/styles/styles";
 import { getValueFromTheme } from "../../common/utils/getValueFromTheme";
+import { ScheduleItemMixin } from '../../common/styles/styles';
 
 export const ScheduleItemType = styled.div`
   width: 84px;
@@ -64,41 +65,31 @@ export const ScheduleItemCurrent = styled.span`
     height: 8px;
   }
 `;
+
 export const CardWrapper = styled.div`
+  ${ScheduleItemMixin};
+  margin: 40px auto 0;
+  padding: 16px 36px 16px 16px;
   display: flex;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-radius: 40px;
+  justify-content: space-between;
+  max-width: 706px;
 `;
 
 export const CardMainData = styled.div`
-  display: block;
-  margin: 20px;
+  margin-left: 16px;
 `;
 
 export const CardDate = styled.div`
-  display: block;
-  padding: 10px;
-  h1 {
-    padding: 0px;
-  }
-  h2 {
-    padding: 0px;
-  }
+  align-self: center;
+  min-width: 150px;
+  color: ${getValueFromTheme('primaryFontColor')};
 `;
+
 export const Divider = styled.div`
-  margin-top: 30px;
-  margin-right: 15px;
-  padding: 30px;
   border-right: 1px solid grey;
-  height: 15px
-  top: 50%;
+  margin-right: 2rem;
 `;
 
 export const DividerRed = styled.div`
-  margin-top: 30px;
-  margin-right: 15px;
-  padding: 30px;
   border-right: 5px solid red;
-  height: 15px
-  top: 50%;
 `;
