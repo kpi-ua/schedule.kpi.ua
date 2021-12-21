@@ -1,19 +1,17 @@
-import { GridWrapper, Header, WordAccent } from "./scheduleWrapper.style";
-import SliceOptionsContext from "../../common/context/sliceOptionsContext";
-import Exam from "../../components/examComponent";
-import { useGroupContext } from "../../common/context/groupContext";
-import { useEffect, useState } from "react";
+import { GridWrapper, Header, WordAccent } from './scheduleWrapper.style';
+import Exam from '../../components/examComponent';
+import { useGroupContext } from '../../common/context/groupContext';
+import { useEffect, useState } from 'react';
 
-const SchededuleExamsWrapper = ({ getData }) => {
+const SchededuleExamsWrapper = ({getData}) => {
   const [data, setData] = useState(null);
 
-  const { group } = useGroupContext();
-  
+  const {group} = useGroupContext();
+
   useEffect(() => {
-    const contextValue = group?.label;
+    const contextValue = group;
 
     if (contextValue) {
-      console.log(contextValue)
       getData(contextValue).then((res) => setData(res.data));
     } else {
       setData(null);
@@ -21,21 +19,16 @@ const SchededuleExamsWrapper = ({ getData }) => {
   }, [group]);
 
   return (
-    <div style={{ overflow: "hidden" }}>
-      <GridWrapper>
-        <SliceOptionsContext value={{}}>
-          {data && (
-            <>
-              <Header>
-                Розклад сесії для групи<WordAccent>{group.label}</WordAccent> на
-                перший семестр{" "}
-              </Header>
-              {data && data.map((d) => <Exam data={d} />)}
-            </>
-          )}
-        </SliceOptionsContext>
-      </GridWrapper>
-    </div>
+    data ?
+      <div style={{overflow: 'hidden'}}>
+        <GridWrapper>
+          <Header>
+            Розклад сесії для групи <WordAccent>{group}</WordAccent><br/>
+            на <WordAccent>перший семестр{' '}</WordAccent>
+          </Header>
+          {data && data.map((d, idx) => <Exam key={idx} data={d}/>)}
+        </GridWrapper>
+      </div> : null
   );
 };
 
