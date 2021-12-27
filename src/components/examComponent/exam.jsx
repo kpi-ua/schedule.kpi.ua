@@ -10,7 +10,7 @@ const ExamComponent = ({data}) => {
   const teacher = data && data.lecturerName;
   const location = data && data.room;
   const date = data && new Date(data.date);
-
+  const daysLeft = data && data.daysLeft;
   const day = date.getDate();
 
   return (
@@ -40,7 +40,7 @@ const ExamComponent = ({data}) => {
             <h3>{date.getFullYear()}</h3>
             <h2> {day < 10 ? '0' + day : day} Січня</h2>
             {/* TODO calculate  */}
-            {/* <h2>26 днів до початку</h2> */}
+            <h3>{daysLeft} днів до початку</h3>
           </CardDate>
         </Flex>
       </CardWrapper>
