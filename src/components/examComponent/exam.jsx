@@ -6,7 +6,7 @@ import { Flex, Pictogram } from '../../common/styles/styles';
 
 const ExamComponent = ({data}) => {
 
-  const subject = data && data.subjectShort;
+  const subject = data && data.subject;
   const teacher = data && data.lecturerName;
   const location = data && data.room;
   const date = data && new Date(data.date);
