@@ -4,7 +4,7 @@ import { getAllGroups, getAllLecturers } from '../../api/fullList';
 const PreloadedListsContext = createContext(null);
 
 export const usePreloadedListContext = () => useContext(PreloadedListsContext);
-
+// TODO add exams here 
 export const PreloadedListsContextProvider = ({children}) => {
   const [lists, setLists] = useState({
     groups: [],
