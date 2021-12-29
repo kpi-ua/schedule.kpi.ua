@@ -13,6 +13,18 @@ export const ScheduleItemType = styled.div`
   font-weight: 600;
 `;
 
+export const ScheduleItemTypeLab = styled(ScheduleItemType)`
+  background-color: #F6B382;
+`;
+
+export const ScheduleItemTypePrac = styled(ScheduleItemType)`
+  background-color: #FF7F96;
+`;
+
+export const ScheduleItemTypeLec = styled(ScheduleItemType)`
+  background-color: #949DFF;
+`;
+
 export const Subject = styled.div`
   font-weight: bold;
   font-size: 14px;

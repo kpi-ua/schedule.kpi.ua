@@ -1,4 +1,5 @@
-import { GroupName, Location, ScheduleItemCurrent, ScheduleItemHeader, ScheduleItemType, Subject, Teacher } from './scheduleItemContent.style';
+import { GroupName, Location, ScheduleItemCurrent, ScheduleItemHeader, ScheduleItemType, Subject, Teacher,
+   ScheduleItemTypeLab, ScheduleItemTypePrac, ScheduleItemTypeLec } from './scheduleItemContent.style';
 import teacherIcon from '../../assets/icons/teacher.svg';
 import locationIcon from '../../assets/icons/location.svg';
 import { Pictogram, UnstyledLink } from '../../common/styles/styles';
@@ -11,10 +12,18 @@ const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
   const teacherId = scheduleItemData && scheduleItemData.lecturerId;
   const location = scheduleItemData && scheduleItemData.place;
   const groups = scheduleItemData && (scheduleItemData.group || '').split(',');
+  const tag = scheduleItemData && scheduleItemData.tag;
+
+  const getType = () => {  
+    if(tag === "lec") return <ScheduleItemTypeLec>{type}</ScheduleItemTypeLec>
+    else if(tag === "lab") return <ScheduleItemTypeLab>{type}</ScheduleItemTypeLab>
+    else if(tag === "prac") return <ScheduleItemTypePrac>{type}</ScheduleItemTypePrac>
+  } 
+
   return (
     <div>
       <ScheduleItemHeader>
-        <ScheduleItemType>{type}</ScheduleItemType>
+        {getType()}
         {
           scheduleItemData.currentDay ?
             <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent> :
