@@ -3,7 +3,7 @@ let headers = {};
 
 export const Http = axios.create(
   {
-    baseURL: 'http://schedule.kpi.ua:5000/',
+    baseURL: "https://schedule.kpi.ua/api/",
     headers
   });
 
