@@ -1,4 +1,4 @@
-# _rozklad-kpi_
+# schedule.kpi.ua
 New responsive, maintainable, scalable, fast and simple UI for kpi-schedule with modern design.
 
 Demo: http://167.172.103.72:3000/sessions
