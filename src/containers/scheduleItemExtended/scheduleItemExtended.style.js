@@ -4,6 +4,7 @@ import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const ScheduleItemExtendedWrapper = styled.div`
   grid-row-start: span ${props => props.items};
+  z-index: 9;
 `;
 
 const cutOffPart = css`
