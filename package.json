@@ -1,6 +1,5 @@
 {
-  "homepage": "https://kpi-ua.github.io/rozklad-kpi",
-  "name": "rozklad-kpi",
+  "name": "schedule.kpi.ua",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
