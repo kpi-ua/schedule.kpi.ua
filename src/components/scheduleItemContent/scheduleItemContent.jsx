@@ -42,10 +42,13 @@ const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
               <UnstyledLink to={routes.LECTURER + `?lecturerId=${teacherId}`}>{teacher}</UnstyledLink>
             </Teacher> : null
           }
-          <Location>
-            <Pictogram src={locationIcon} alt="location"/>
-            {location}
-          </Location>
+          {
+            location ?
+            <Location>
+              <Pictogram src={locationIcon} alt="location"/>
+              {location}
+            </Location> : null
+          }
           <GroupName>
             <div>
               {
@@ -56,7 +59,8 @@ const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
             </div>
           </GroupName>
         </>
-        : null}
+        : null
+      }
     </div>
   );
 };
