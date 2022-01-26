@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Select } from 'react-select-virtualized';
+import Select, { createFilter }  from 'react-select'; 
 import { Label } from './entitySearch.style';
 import { useTheme } from 'styled-components';
 import { prepareList } from '../../common/utils/apiTransformers';
@@ -128,6 +128,7 @@ const EntitySearch = () => {
           onChange={onOptionChange}
           styles={customStyles}
           value={initialValue}
+          filterOptions={createFilter(filterConfig)}
           isSearchable={true}
           placeholder={null}
           name="color"/>
