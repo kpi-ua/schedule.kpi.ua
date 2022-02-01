@@ -15,7 +15,6 @@ Latest docker image: ![Docker Image Version (latest by date)](https://img.shield
 * **Rusanovskiy Dmytro**
 * **Alexey Novoseltsev**
 
-*you also can join our ranks, we won't refuse from your help for sure))*
 #### Run it and Develop
 
 ```
