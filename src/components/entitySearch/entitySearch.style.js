@@ -7,3 +7,4 @@ export const Label = styled.label`
   gap: 15px;
   color: ${getValueFromTheme('primaryFontColor')};
 `;
+

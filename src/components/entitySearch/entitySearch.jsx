@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { Select } from 'react-select-virtualized';
 
-import Select, { createFilter }  from 'react-select'; 
 import { Label } from './entitySearch.style';
-import { useTheme } from 'styled-components';
-import { prepareList } from '../../common/utils/apiTransformers';
+
 import { useLecturerContext } from '../../common/context/lecturerContext';
 import { useHistory, useLocation } from 'react-router-dom';
 import { usePreloadedListContext } from '../../common/context/preloadedListsContext';
-import { routes } from '../../common/constants/routes';
 import { useGroupContext } from '../../common/context/groupContext';
+import { useTheme } from 'styled-components';
+
+import { prepareList } from '../../common/utils/apiTransformers';
+import { routes } from '../../common/constants/routes';
+
+import { getSelectCustomStyle } from '../../common/constants/selectOptions';
+import './entitySearch.scss';
 
 
 const useQuery = () => {
@@ -63,61 +68,7 @@ const EntitySearch = () => {
     }
   };
 
-  const initialValue = options.find(item => isLecturer ? item.value === lecturer : item.label === group);
-
-  const customStyles = {
-    option(base) {
-      return {
-        ...base,
-        color: theme['primaryFontColor'],
-      };
-    },
-    menu(base) {
-      return {
-        ...base,
-        backgroundColor: theme['bgOptions'],
-        zIndex: 1000,
-      };
-    },
-    menuList(base) {
-      return {
-        ...base,
-        backgroundColor: theme['bgOptions'],
-        zIndex: 1000,
-      };
-    },
-    control(base) {
-      return {
-        ...base,
-        backgroundColor: theme['bgOptions'],
-        color: theme['primaryFontColor'],
-        border: 'none',
-      };
-    },
-    indicatorSeparator(base) {
-      return {
-        ...base,
-        display: 'none'
-      };
-    },
-    singleValue(base) {
-      return {
-        ...base,
-        color: theme['primaryFontColor']
-      };
-    },
-    input(base) {
-      return {
-        ...base,
-        color: theme['primaryFontColor']
-      };
-    }
-  };
-
-  const filterConfig = {
-    ignoreAccents: false,
-    matchFrom : "start"
-  };
+  const initialValue = options.find(item => isLecturer ? item.value === lecturer : item.label === group) ?? null;
 
   return (
     <Label alignItems="center" gap="15px">
@@ -126,10 +77,10 @@ const EntitySearch = () => {
         <Select
           options={options}
           onChange={onOptionChange}
-          styles={customStyles}
+          styles={getSelectCustomStyle(theme)}
           value={initialValue}
-          filterOptions={createFilter(filterConfig)}
           isSearchable={true}
+          isClearable={false}
           placeholder={null}
           name="color"/>
       </div>
