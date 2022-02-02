@@ -1,11 +1,13 @@
 # pull official base image
 FROM node:lts-alpine as builder
+
 # set working directory
 WORKDIR /app
 
 COPY package*.json ./
+
 # Installs all node packages
-RUN npm install --legacy-peer-deps
+RUN npm ci
 
 # Copies everything over to Docker environment
 COPY . ./
