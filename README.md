@@ -27,3 +27,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 npm run build
 ```
 To make a production build
+
+
+### Docker container
+
+#### Build
+```
+docker build ./ --file ./.dockerfile --tag schedule-kpi-ua:latest
+```
+
+#### Run
+```
+docker run --rm -it  -p 80:80/tcp schedule-kpi-ua:latest
+```
