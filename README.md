@@ -9,8 +9,17 @@ Docker images: https://hub.docker.com/r/kpiua/schedule.kpi.ua
 
 Latest docker image: ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/schedule.kpi.ua)
 
+## API usage
+Base URL: https://schedule.kpi.ua/api/
 
-### Authors :
+Endpoints:
+- Groups list: schedule/groups
+- Lecturers list: schedule/lecturer/list
+- Group schedule: schedule/lessons?groupName={group name, case-sensitive}
+- Group exams: exams/group?groupName={group name, case-sensitive}
+- Lecturer schedule: schedule/lecturer?lecturerId={id from list}
+
+## Authors :
 
 * **Rusanovskiy Dmytro**
 * **Alexey Novoseltsev**
