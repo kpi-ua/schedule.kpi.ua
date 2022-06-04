@@ -58,7 +58,7 @@ const EntitySearch = () => {
   }, [list]);
 
   const onOptionChange = (option) => {
-    isLecturer ? setLecturer(option.value) : setGroup(option.label);
+    isLecturer ? setLecturer(option.value) : setGroup(option.value);
     
     if (isLecturer) {
       history.push("?lecturerId=" + option.value);
@@ -69,7 +69,7 @@ const EntitySearch = () => {
 
   const initialValue =
     options.find((item) =>
-      isLecturer ? item.value === lecturer : item.label === group
+      isLecturer ? item.value === lecturer : item.value === group
     ) ?? null;
 
   return (
