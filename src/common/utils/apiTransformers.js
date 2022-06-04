@@ -1,5 +1,4 @@
 export const prepareList = (list) => {
-  console.dir(list)
   return list
     .map((item) => ({
       label: item.name,

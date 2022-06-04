@@ -9,7 +9,8 @@ export const getAllGroups = () => {
     return {
       data: data.data.map((row) => ({
         name: `${row.name.trim()} (${row.faculty.trim()})`,
+        id: row.id,
       })),
     };
-  }); // TODO concat group name with faculty name
+  });
 };
