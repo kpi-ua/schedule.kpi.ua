@@ -11,6 +11,6 @@ export const getScheduleByGroup = groupId => {
 }
 
 export const getExamsByGroup = groupName => {
-  return Http.get('/exams/group?groupName=' + groupName)
+  return Http.get('/exams/group?groupId=' + groupName)
     .then(res => res.data);
 }

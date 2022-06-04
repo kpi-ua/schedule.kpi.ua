@@ -12,7 +12,7 @@ const SchededuleExamsWrapper = ({getData}) => {
     const contextValue = group;
 
     if (contextValue) {
-      getData(contextValue).then((res) => setData(res.data));
+      getData(contextValue.id).then((res) => setData(res.data));
     } else {
       setData(null);
     }
@@ -23,7 +23,7 @@ const SchededuleExamsWrapper = ({getData}) => {
       <div style={{overflow: 'hidden'}}>
         <GridWrapper>
           <Header>
-            Розклад сесії для групи <WordAccent>{group}</WordAccent><br/>
+            Розклад сесії для групи <WordAccent>{group.name}</WordAccent><br/>
             на <WordAccent>перший семестр{' '}</WordAccent>
           </Header>
           {data && data.map((d, idx) => <Exam key={idx} data={d}/>)}

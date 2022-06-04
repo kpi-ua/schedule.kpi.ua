@@ -50,7 +50,8 @@ const EntitySearch = () => {
       setGroup(null);
     } else {
       const group = query.get("groupId");
-      setGroup(group);
+      let groupObj = list.find((g) => g.id === group);
+      setGroup(groupObj);
       setLecturer(null);
     }
 
@@ -58,8 +59,8 @@ const EntitySearch = () => {
   }, [list]);
 
   const onOptionChange = (option) => {
-    isLecturer ? setLecturer(option.value) : setGroup(option.value);
-    
+    isLecturer ? setLecturer(option.value) : setGroup({ id : option.value, name : option.label });
+
     if (isLecturer) {
       history.push("?lecturerId=" + option.value);
     } else {
@@ -69,8 +70,10 @@ const EntitySearch = () => {
 
   const initialValue =
     options.find((item) =>
-      isLecturer ? item.value === lecturer : item.value === group
+      isLecturer ? item.value === lecturer : item.value === group?.id
     ) ?? null;
+
+  console.log(options);
 
   return (
     <Label alignItems="center" gap="15px">
