@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Select } from 'react-select-virtualized';
+import React, { useEffect, useState } from "react";
+import { Select } from "react-select-virtualized";
 
-import { Label } from './entitySearch.style';
+import { Label } from "./entitySearch.style";
 
-import { useLecturerContext } from '../../common/context/lecturerContext';
-import { useHistory, useLocation } from 'react-router-dom';
-import { usePreloadedListContext } from '../../common/context/preloadedListsContext';
-import { useGroupContext } from '../../common/context/groupContext';
-import { useTheme } from 'styled-components';
+import { useLecturerContext } from "../../common/context/lecturerContext";
+import { useHistory, useLocation } from "react-router-dom";
+import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
+import { useGroupContext } from "../../common/context/groupContext";
+import { useTheme } from "styled-components";
 
-import { prepareList } from '../../common/utils/apiTransformers';
-import { routes } from '../../common/constants/routes';
+import { prepareList } from "../../common/utils/apiTransformers";
+import { routes } from "../../common/constants/routes";
 
-import { getSelectCustomStyle } from '../../common/constants/selectOptions';
-import './entitySearch.scss';
-
+import { getSelectCustomStyle } from "../../common/constants/selectOptions";
+import "./entitySearch.scss";
 
 const useQuery = () => {
-  const {search} = useLocation();
+  const { search } = useLocation();
   return React.useMemo(() => new URLSearchParams(search), [search]);
 };
 
@@ -27,8 +26,8 @@ const EntitySearch = () => {
   const history = useHistory();
 
   const [options, setOptions] = useState([]);
-  const {lecturer, setLecturer} = useLecturerContext();
-  const {group, setGroup} = useGroupContext();
+  const { lecturer, setLecturer } = useLecturerContext();
+  const { group, setGroup } = useGroupContext();
   const lists = usePreloadedListContext();
 
   const isLecturer = location.pathname.includes(routes.LECTURER);
@@ -42,38 +41,44 @@ const EntitySearch = () => {
     } else {
       setLecturer(null);
     }
-  }, [isLecturer])
+  }, [isLecturer]);
 
   useEffect(() => {
     if (isLecturer) {
-      const lecturer = query.get('lecturerId');
+      const lecturer = query.get("lecturerId");
       setLecturer(lecturer);
       setGroup(null);
     } else {
-      const group = query.get('groupName');
-      setGroup(group);
+      const group = query.get("groupId");
+      let groupObj = list.find((g) => g.id === group);
+      setGroup(groupObj);
       setLecturer(null);
     }
 
     setOptions(prepareList(list));
   }, [list]);
 
-  const onOptionChange = option => {
-    isLecturer ? setLecturer(option.value) : setGroup(option.label);
+  const onOptionChange = (option) => {
+    isLecturer ? setLecturer(option.value) : setGroup({ id : option.value, name : option.label });
 
     if (isLecturer) {
-      history.push('?lecturerId=' + option.value);
+      history.push("?lecturerId=" + option.value);
     } else {
-      history.push('?groupName=' + option.label);
+      history.push("?groupId=" + option.value);
     }
   };
 
-  const initialValue = options.find(item => isLecturer ? item.value === lecturer : item.label === group) ?? null;
+  const initialValue =
+    options.find((item) =>
+      isLecturer ? item.value === lecturer : item.value === group?.id
+    ) ?? null;
+
+  console.log(options);
 
   return (
     <Label alignItems="center" gap="15px">
       Розклад занять для
-      <div style={{width: '200px'}}>
+      <div style={{ width: "200px" }}>
         <Select
           options={options}
           onChange={onOptionChange}
@@ -82,7 +87,8 @@ const EntitySearch = () => {
           isSearchable={true}
           isClearable={false}
           placeholder={null}
-          name="color"/>
+          name="color"
+        />
       </div>
     </Label>
   );

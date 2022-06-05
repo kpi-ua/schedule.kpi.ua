@@ -14,10 +14,11 @@ const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
   const groups = scheduleItemData && (scheduleItemData.group || '').split(',');
   const tag = scheduleItemData && scheduleItemData.tag;
 
+  console.log(type)
   const getType = () => {  
-    if(tag === "lec") return <ScheduleItemTypeLec>{type}</ScheduleItemTypeLec>
-    else if(tag === "lab") return <ScheduleItemTypeLab>{type}</ScheduleItemTypeLab>
-    else if(tag === "prac") return <ScheduleItemTypePrac>{type}</ScheduleItemTypePrac>
+    if(tag === "lec") return <ScheduleItemTypeLec>{"Лек"}</ScheduleItemTypeLec>
+    else if(tag === "lab") return <ScheduleItemTypeLab>{"Лаб"}</ScheduleItemTypeLab>
+    else if(tag === "prac") return <ScheduleItemTypePrac>{"Прак"}</ScheduleItemTypePrac>
   } 
 
   return (
