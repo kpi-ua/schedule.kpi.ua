@@ -15,7 +15,7 @@ Base URL: https://schedule.kpi.ua/api/
 Endpoints:
 - Groups list: schedule/groups
 - Lecturers list: schedule/lecturer/list
-- Group schedule: schedule/lessons?groupName={group name, case-sensitive}
+- Group schedule: schedule/lessons?groupId={group id}
 - Group exams: exams/group?groupName={group name, case-sensitive}
 - Lecturer schedule: schedule/lecturer?lecturerId={id from list}
 
