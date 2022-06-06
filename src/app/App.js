@@ -6,10 +6,13 @@ import ThemeContextProvider from '../common/context/themeContext';
 import { GroupContextProvider } from '../common/context/groupContext';
 import { LecturerContextProvider } from '../common/context/lecturerContext';
 import { PreloadedListsContextProvider } from '../common/context/preloadedListsContext';
+import { useCurrentDateParams } from '../common/utils/useCurrentDateParams';
 
 function App() {
+  const {currentWeek} = useCurrentDateParams()
+
   return (
-    <WeekContextProvider initialValue="firstWeek">
+    <WeekContextProvider initialValue={currentWeek === 1 ? 'firstWeek' : 'secondWeek'}>
       <PreloadedListsContextProvider>
         <GroupContextProvider>
           <ThemeContextProvider initialValue={null}>
