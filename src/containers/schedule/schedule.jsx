@@ -4,11 +4,11 @@ import { CurrentDayContainer, GridContainer } from './schedule.style';
 import ScheduleHeader from '../scheduleHeader';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
-import { useCurrentWeekDay } from '../../common/utils/useCurrentWeekDay';
+import { useCurrentDateParams } from '../../common/utils/useCurrentDateParams';
 
 const Schedule = ({children}) => {
   const sliceOptions = useSliceOptionsContext();
-  const currentWeekDay = useCurrentWeekDay();
+  const { currentDay } = useCurrentDateParams();
 
   const dynamicGeneratedTable = React.Children.map(children, (child, index) => {
 
@@ -22,13 +22,13 @@ const Schedule = ({children}) => {
 
   const isDayInSlice = () => {
     if (sliceOptions) {
-      return currentWeekDay >= sliceOptions.start && currentWeekDay < sliceOptions.end;
+      return currentDay >= sliceOptions.start && currentDay < sliceOptions.end;
     }
 
     return true;
   };
 
-  const gridDayStart = currentWeekDay + 1;
+  const gridDayStart = currentDay + 1;
 
   return (
     <GridContainer>
