@@ -64,6 +64,6 @@ If you are owner of iPhone or iPad you can use this simple [iOS application](htt
 
 ## License
 
-Copyright (c) Igor Sikorsky Kyiv Polytechnic Institute. All rights reserved.
+Copyright © Igor Sikorsky Kyiv Polytechnic Institute. All rights reserved.
 
 Licensed under the [BSD 3-Clause License](LICENSE) license.
