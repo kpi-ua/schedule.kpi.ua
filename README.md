@@ -25,7 +25,7 @@ Endpoints:
 - Groups list: schedule/groups
 - Lecturers list: schedule/lecturer/list
 - Group schedule: schedule/lessons?groupId={group id}
-- Group exams: exams/group?groupName={group name, case-sensitive}
+- Group exams: exams/group?groupId={group id}
 - Lecturer schedule: schedule/lecturer?lecturerId={id from list}
 - Current day and week: time/current
 
@@ -54,7 +54,7 @@ docker run --rm -it  -p 80:80/tcp schedule-kpi-ua:latest
 ```
 
 ## Related Projects
-If you are owner of iPhone or iPad you can use this simple [iOS application](https://github.com/MrPaschenko/Schedule-KPI/blob/main/README.md) which built over schedule API.
+If you are owner of iPhone or iPad you can use this simple [iOS application](https://github.com/MrPaschenko/Schedule-KPI) which is built over schedule API.
 
 [![Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917](https://user-images.githubusercontent.com/64316080/168581675-cfc29e4a-410c-4664-9213-31f11560813c.svg)](https://apps.apple.com/us/app/schedule-kpi/id1625484300)
 
@@ -64,6 +64,6 @@ If you are owner of iPhone or iPad you can use this simple [iOS application](htt
 
 ## License
 
-Copyright (c) Igor Sikorsky Kyiv Polytechnic Institute. All rights reserved.
+Copyright © Igor Sikorsky Kyiv Polytechnic Institute. All rights reserved.
 
 Licensed under the [BSD 3-Clause License](LICENSE) license.
