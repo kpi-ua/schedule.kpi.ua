@@ -5,12 +5,6 @@ export const prepareList = (list) => {
       value: item.id,
     }))
     .sort((a, b) => {
-      if (a.label.toUpperCase() < b.label.toUpperCase()) {
-        return -1;
-      }
-      if (a.label.toUpperCase() > b.label.toUpperCase()) {
-        return 1;
-      }
-      return 0;
+      return a.label.localeCompare(b.label, "uk")
     });
 };
