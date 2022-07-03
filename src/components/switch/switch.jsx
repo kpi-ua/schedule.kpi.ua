@@ -1,11 +1,22 @@
 import './switch.scss';
 import { useTheme } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Switch = ({onChange}) => {
   const theme = useTheme();
 
   const [checked, setChecked] = useState(true);
+
+  useEffect(() => {
+    const localStorageTheme = localStorage.getItem("theme")
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    if(localStorageTheme){
+      setChecked(localStorageTheme === 'light')
+    }
+    else{
+      setChecked(prefersLight)
+    }
+  }, [])
 
   const onCheckboxChange = event => {
     const newState = event.target.checked;
