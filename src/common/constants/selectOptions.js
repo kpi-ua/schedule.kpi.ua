@@ -8,6 +8,14 @@ export const getSelectCustomStyle = (theme) => ({
   menu(base) {
     return {
       ...base,
+      "& .fast-option-focused": {
+        color: theme['hoveredOptionFontColor'],
+      },
+      "& .fast-option-selected": {
+        color: theme['secondaryFontColor'],
+        fontWeight: "bold"
+        // background color can be also changed if needed
+      },
       backgroundColor: theme['bgOptions'],
       zIndex: 1000,
     };
@@ -36,13 +44,13 @@ export const getSelectCustomStyle = (theme) => ({
   singleValue(base) {
     return {
       ...base,
-      color: theme['primaryFontColor']
+      color: theme['primaryFontColor'],
     };
   },
   input(base) {
     return {
       ...base,
-      color: theme['primaryFontColor']
+      color: theme['primaryFontColor'],
     };
   }
 });

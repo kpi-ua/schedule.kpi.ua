@@ -7,6 +7,7 @@ export const theme = {
     bgOptions: '#eff0f8',
     primaryFontColor: '#141518',
     secondaryFontColor: '#fff',
+    hoveredOptionFontColor: '#141518',
     currentDayContainer: 'linear-gradient(180deg, rgba(223, 233, 253, 0) 0%, rgba(223, 233, 253, 0.5) 10.73%, #DFE9FD 55%, rgba(223, 233, 253, 0.5) 89.9%, rgba(223, 233, 253, 0) 100%)',
     svgPrimaryFilter: '',
   },
@@ -18,6 +19,7 @@ export const theme = {
     bgOptions: '#363637',
     primaryFontColor: '#fff',
     secondaryFontColor: '#21232a',
+    hoveredOptionFontColor: '#21232a',
     currentDayContainer: 'linear-gradient(180deg, rgba(54, 54, 55, 0) 0%, rgba(54, 54, 55, 0.5) 10.73%, #363637 55%, rgba(54, 54, 55, 0.5) 89.9%, rgba(54, 54, 55, 0.29) 100%)',
     svgPrimaryFilter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(46deg) brightness(100%) contrast(103%)',
   }
