@@ -54,16 +54,16 @@
   transition: .4s;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(26px);
 }
 
 
-input:not(:checked) ~ .checker:after {
+input:not(:checked)~.checker:after {
   opacity: 0;
 }
 
-input:checked ~ .checker:before {
+input:checked~.checker:before {
   opacity: 0;
 }
 
@@ -74,4 +74,8 @@ input:checked ~ .checker:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.hidden {
+  display: none;
 }

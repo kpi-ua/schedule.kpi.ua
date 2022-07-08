@@ -1,9 +1,24 @@
 import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } from './scheduleItemExtended.style';
 import ScheduleItemContent from '../../components/scheduleItemContent';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ScheduleItemExtended = ({scheduleItemData}) => {
   const [collapsed, setCollapse] = useState(true);
+  const [hasData, setHasData] = useState(true)
+
+  useEffect(() => {
+    let count = 0
+    let countEmpty = 0
+    scheduleItemData.forEach(item => {
+        count++
+        if(item.teacherName === "" && item.place === ""){
+          countEmpty++
+        }
+    })
+    if(count === countEmpty){
+      setHasData(false)
+    }
+  }, [scheduleItemData])
 
   const generateScheduleUnits = () => {
     return scheduleItemData.map((item, i) => {
@@ -18,7 +33,7 @@ const ScheduleItemExtended = ({scheduleItemData}) => {
   return scheduleItemData && scheduleItemData.length ? (
     <ScheduleItemExtendedWrapper items={scheduleItemData.length}>
       {generateScheduleUnits()}
-      <CollapseItem onClick={() => setCollapse(value => !value)}>{collapsed ? 'Більше інформації' : 'Менше інформації'}</CollapseItem>
+      {hasData && <CollapseItem onClick={() => setCollapse(value => !value)}>{collapsed ? 'Більше інформації' : 'Менше інформації'}</CollapseItem>}
     </ScheduleItemExtendedWrapper>
   ) : null;
 };

@@ -1,10 +1,14 @@
+import { unique } from "./unique";
+
 export const prepareList = (list) => {
-  return list
-    .map((item) => ({
+  return unique(
+    list.map((item) => ({
       label: item.name,
       value: item.id,
     }))
-    .sort((a, b) => {
-      return a.label.localeCompare(b.label, "uk")
-    });
+      .filter(item => item.label !== "" && item.value !== "")
+      .sort((a, b) => {
+        return a.label.localeCompare(b.label, "uk")
+      }),
+    (item => item.label));
 };
