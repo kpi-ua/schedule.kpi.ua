@@ -5,6 +5,7 @@ import { routes } from '../../common/constants/routes';
 import { useEffect, useState } from 'react';
 import { useGroupContext } from '../../common/context/groupContext';
 import { useLecturerContext } from '../../common/context/lecturerContext';
+import { getLocalStorageItem } from '../../common/utils/parsedLocalStorage';
 
 const ScheduleTypeTab = ({tabClick, activeTab, children, url}) => {
   const location = useLocation();
@@ -16,13 +17,13 @@ const ScheduleTypeTab = ({tabClick, activeTab, children, url}) => {
 
   useEffect(() => {
     if(url.includes(routes.LECTURER)){
-      const localStorageLecturerId = localStorage.getItem("lecturerId")
+      const localStorageLecturerId = getLocalStorageItem("lecturerId")
       if(localStorageLecturerId){
         setUrlWithParams(`${url}?groupId=${localStorageLecturerId}`)
       }
     }
     else if(url.includes(routes.GROUP) || url.includes(routes.SESSION)){
-      const localStorageGroupId = localStorage.getItem("groupId")
+      const localStorageGroupId = getLocalStorageItem("groupId")
       if(localStorageGroupId){
         setUrlWithParams(`${url}?groupId=${localStorageGroupId}`)
       }

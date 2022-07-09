@@ -14,6 +14,7 @@ import { routes } from "../../common/constants/routes";
 
 import { getSelectCustomStyle } from "../../common/constants/selectOptions";
 import "./entitySearch.scss";
+import { getLocalStorageItem, setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 
 const useQuery = () => {
   const { search } = useLocation();
@@ -46,7 +47,7 @@ const EntitySearch = () => {
   useEffect(() => {
     if (isLecturer) {
       let lecturer = query.get("lecturerId");
-      const localStorageLecturerId = localStorage.getItem("lecturerId")
+      const localStorageLecturerId = getLocalStorageItem("lecturerId")
       if(!lecturer && localStorageLecturerId){
         lecturer = localStorageLecturerId
         history.push("?lecturerId=" + localStorageLecturerId);
@@ -55,7 +56,7 @@ const EntitySearch = () => {
       setGroup(null);
     } else {
       let group = query.get("groupId");
-      const localStorageLecturerId = localStorage.getItem("groupId")
+      const localStorageLecturerId = getLocalStorageItem("groupId")
       if(!group && localStorageLecturerId){
         group = localStorageLecturerId
         history.push("?groupId=" + localStorageLecturerId);
@@ -72,10 +73,10 @@ const EntitySearch = () => {
 
     if (isLecturer) {
       history.push("?lecturerId=" + option.value);
-      localStorage.setItem("lecturerId", option.value)
+      setLocalStorageItem("lecturerId", option.value)
     } else {
       history.push("?groupId=" + option.value);
-      localStorage.setItem("groupId", option.value)
+      setLocalStorageItem("groupId", option.value)
     }
   };
   const initialValue =

@@ -2,6 +2,7 @@ import './switch.scss';
 import { useTheme } from 'styled-components';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { getLocalStorageItem } from '../../common/utils/parsedLocalStorage';
 
 const Switch = ({onChange}) => {
   const theme = useTheme();
@@ -9,7 +10,7 @@ const Switch = ({onChange}) => {
   const [checked, setChecked] = useState(undefined);
 
   useEffect(() => {
-    const localStorageTheme = localStorage.getItem("theme")
+    const localStorageTheme = getLocalStorageItem("theme")
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     if(localStorageTheme){
       setChecked(localStorageTheme === 'light')

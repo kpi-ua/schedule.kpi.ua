@@ -7,15 +7,11 @@ const ScheduleItemExtended = ({scheduleItemData}) => {
   const [hasData, setHasData] = useState(true)
 
   useEffect(() => {
-    let count = 0
-    let countEmpty = 0
-    scheduleItemData.forEach(item => {
-        count++
-        if(item.teacherName === "" && item.place === ""){
-          countEmpty++
-        }
-    })
-    if(count === countEmpty){
+    const countEmpty = scheduleItemData.reduce((totalEmpty, currentItem) => {
+      return totalEmpty + (currentItem.teacherName === "" && currentItem.place === "")
+    }, 0)
+    
+    if(countEmpty === scheduleItemData.length){
       setHasData(false)
     }
   }, [scheduleItemData])
