@@ -14,6 +14,7 @@ import { routes } from "../../common/constants/routes";
 
 import { getSelectCustomStyle } from "../../common/constants/selectOptions";
 import "./entitySearch.scss";
+import { getLocalStorageItem, setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 
 const useQuery = () => {
   const { search } = useLocation();
@@ -41,40 +42,47 @@ const EntitySearch = () => {
     } else {
       setLecturer(null);
     }
-  }, [isLecturer]);
+  }, [isLecturer, setGroup, setLecturer]);
 
   useEffect(() => {
     if (isLecturer) {
-      const lecturer = query.get("lecturerId");
+      let lecturer = query.get("lecturerId");
+      const localStorageLecturerId = getLocalStorageItem("lecturerId")
+      if(!lecturer && localStorageLecturerId){
+        lecturer = localStorageLecturerId
+        history.push("?lecturerId=" + localStorageLecturerId);
+      }
       setLecturer(lecturer);
       setGroup(null);
     } else {
-      const group = query.get("groupId");
-      let groupObj = list.find((g) => g.id === group);
+      let group = query.get("groupId");
+      const localStorageLecturerId = getLocalStorageItem("groupId")
+      if(!group && localStorageLecturerId){
+        group = localStorageLecturerId
+        history.push("?groupId=" + localStorageLecturerId);
+      }
+      const groupObj = list.find((g) => g.id === group);
       setGroup(groupObj);
       setLecturer(null);
     }
-
     setOptions(prepareList(list));
-  }, [list]);
+  }, [list, history, isLecturer, query, setGroup, setLecturer]);
 
   const onOptionChange = (option) => {
     isLecturer ? setLecturer(option.value) : setGroup({ id : option.value, name : option.label });
 
     if (isLecturer) {
       history.push("?lecturerId=" + option.value);
+      setLocalStorageItem("lecturerId", option.value)
     } else {
       history.push("?groupId=" + option.value);
+      setLocalStorageItem("groupId", option.value)
     }
   };
-
   const initialValue =
     options.find((item) =>
       isLecturer ? item.value === lecturer : item.value === group?.id
     ) ?? null;
-
-  console.log(options);
-
   return (
     <Label alignItems="center" gap="15px">
       Розклад занять для

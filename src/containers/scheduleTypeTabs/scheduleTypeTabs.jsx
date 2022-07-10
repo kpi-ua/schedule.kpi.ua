@@ -1,12 +1,8 @@
-import Tabs from '../tabs';
 import ScheduleTypeTab from '../../components/scheduleTypeTab';
-import { useHistory } from 'react-router-dom';
 import { TabContainer } from './scheduleTypeTabs.style';
 import { routes } from '../../common/constants/routes';
 
 const ScheduleTypeTabs = () => {
-  const history = useHistory();
-
   const tabs = [
     {value: routes.GROUP, label: 'Розклад занять'},
     {value: routes.SESSION, label: 'Розклад сесії'},

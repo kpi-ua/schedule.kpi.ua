@@ -1,6 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { theme } from '../../common/constants/theme';
+import { getLocalStorageItem, setLocalStorageItem } from '../utils/parsedLocalStorage';
 
 const ThemeSelectorContext = createContext(null);
 
@@ -9,7 +10,7 @@ export const useThemeSelectorContext = () => useContext(ThemeSelectorContext);
 const ThemeContextProvider = ({ children }) => {
   const [currentTheme, setTheme] = useState('light');
   useEffect(() => {
-    const localStorageTheme = localStorage.getItem("theme")
+    const localStorageTheme = getLocalStorageItem("theme")
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     if (localStorageTheme) {
       changeTheme(localStorageTheme === 'light')
@@ -22,7 +23,7 @@ const ThemeContextProvider = ({ children }) => {
   const changeTheme = isLightTheme => {
     const newTheme = isLightTheme ? 'light' : 'dark'
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme)
+    setLocalStorageItem("theme", newTheme)
   }
   return (
     <ThemeProvider theme={theme[currentTheme]}>

@@ -31,7 +31,7 @@ const ScheduleWrapper = ({getData, contextType}) => {
     } else {
       setData(null);
     }
-  }, [lecturer, group]);
+  }, [lecturer, group, contextType, getData]);
 
   const generateScheduleRows = (scheduleMatrix) => {
     return scheduleMatrix.map((item, i) => {

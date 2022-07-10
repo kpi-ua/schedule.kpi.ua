@@ -50,6 +50,11 @@ export const Teacher = styled(Property)`
 export const Location = styled(Property)`
   gap: 7px;
 `;
+
+export const LocationLink = styled.a`
+  color: ${getValueFromTheme('primaryFontColor')};
+  text-decoration: none;
+`
 export const GroupName = styled(Property)`
   gap : 7px
 `;

@@ -1,66 +1,118 @@
-import { GroupName, Location, ScheduleItemCurrent, ScheduleItemHeader, ScheduleItemType, Subject, Teacher,
-   ScheduleItemTypeLab, ScheduleItemTypePrac, ScheduleItemTypeLec } from './scheduleItemContent.style';
+import { GroupName, Location, ScheduleItemCurrent, ScheduleItemHeader, Subject, Teacher, LocationLink } from './scheduleItemContent.style';
 import teacherIcon from '../../assets/icons/teacher.svg';
 import locationIcon from '../../assets/icons/location.svg';
 import { Pictogram, UnstyledLink } from '../../common/styles/styles';
 import { routes } from '../../common/constants/routes';
+import { usePreloadedListContext } from '../../common/context/preloadedListsContext';
+import { unique } from '../../common/utils/unique';
+import { useEffect, useState } from 'react';
+import { useLecturerContext } from '../../common/context/lecturerContext';
+import { useGroupContext } from '../../common/context/groupContext';
+import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
+import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
 
-const ScheduleItemContent = ({scheduleItemData, collapsed}) => {
-  const type = scheduleItemData && scheduleItemData.type;
-  const subject = scheduleItemData && scheduleItemData.name;
-  const teacher = scheduleItemData && scheduleItemData.teacherName;
-  const teacherId = scheduleItemData && scheduleItemData.lecturerId;
-  const location = scheduleItemData && scheduleItemData.place;
-  const groups = scheduleItemData && (scheduleItemData.group || '').split(',');
-  const tag = scheduleItemData && scheduleItemData.tag;
+const ScheduleItemContent = ({scheduleItemData, collapsed}) => {  
+  const subject = scheduleItemData?.name;
+  const teacher = scheduleItemData?.teacherName;
+  const teacherId = scheduleItemData?.lecturerId;
+  const groups = unique((scheduleItemData?.group || '').split(','));
+  const tag = scheduleItemData?.tag;
+  const allGroups = usePreloadedListContext().groups;
+  const [location, setLocation] = useState(scheduleItemData && scheduleItemData.place)
+  const {setLecturer} = useLecturerContext()
+  const {setGroup} = useGroupContext()
 
-  console.log(type)
-  const getType = () => {  
-    if(tag === "lec") return <ScheduleItemTypeLec>{"Лек"}</ScheduleItemTypeLec>
-    else if(tag === "lab") return <ScheduleItemTypeLab>{"Лаб"}</ScheduleItemTypeLab>
-    else if(tag === "prac") return <ScheduleItemTypePrac>{"Прак"}</ScheduleItemTypePrac>
-  } 
+  const ScheduleItemComponent = SUBJECT_TYPES[tag]?.component
+  const scheduleItemTitle = SUBJECT_TYPES[tag]?.title 
+
+  useEffect(() => {
+    if(location.endsWith('-')){
+      setLocation(location.slice(0, -1))
+    }
+  }, [location, setLocation])
+
+  const handleLecturerClick = () => {
+    setLocalStorageItem("lecturerId", teacherId)
+    setLecturer(teacherId)
+  }
+
+  const handleGroupClick = (groupId) => {
+    return () => {
+      const groupFound = allGroups.find(allGroupsItem => allGroupsItem.name.replace(" ", "") === groupId)
+      if(groupFound){
+        setLocalStorageItem("groupId", groupFound.id)
+        setGroup(groupFound.id)
+      }
+    }
+  }
+
+  const getGroupIdByName = (groupName) => {
+    const groupFound = allGroups.find(allGroupsItem => allGroupsItem.name.replace(" ", "") === groupName)
+    if(groupFound){
+      return groupFound.id
+    }
+    else{
+      return ""
+    }
+  }
+
+  const getGroup = (group, index, length) => {
+    return `${group.split("(")[0]}${index === length - 1 ? "" : ","} `
+  }
+
+  const getLocationLink = () => {
+    return `https://kpi.ua/k-${parseInt(location.split("-")[0])}`
+  }
+
+  const getGroupLink = (group) => {
+    return `${routes.GROUP}?groupId=${getGroupIdByName(group)}`
+  }
 
   return (
     <div>
       <ScheduleItemHeader>
-        {getType()}
-        {
-          scheduleItemData.currentDay ?
-            <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent> :
-            null
-        }
+        {ScheduleItemComponent && <ScheduleItemComponent>{scheduleItemTitle}</ScheduleItemComponent>}
+        {scheduleItemData.currentDay && <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>}
       </ScheduleItemHeader>
       <Subject>
         {subject}
       </Subject>
-      {!collapsed ?
+      {!collapsed &&
         <>
           {
-            teacher ?
+            teacher &&
             <Teacher>
               <Pictogram src={teacherIcon} alt="teacher"/>
-              <UnstyledLink to={routes.LECTURER + `?lecturerId=${teacherId}`}>{teacher}</UnstyledLink>
-            </Teacher> : null
+              <UnstyledLink onClick={handleLecturerClick} to={routes.LECTURER + `?lecturerId=${teacherId}`}>{teacher}</UnstyledLink>
+            </Teacher>
           }
           {
-            location ?
+            location &&
             <Location>
               <Pictogram src={locationIcon} alt="location"/>
-              {location}
-            </Location> : null
+              {
+              location.split("-")[0] ? 
+              <LocationLink href={getLocationLink()} target="_blank" rel="noopener noreferrer">
+                {location}
+              </LocationLink>
+              : location
+              } 
+            </Location>
           }
           <GroupName>
             <div>
               {
-                groups.map((group, idx) => {
-                  return <UnstyledLink key={group} to={routes.GROUP + `?groupName=${group}`}>{group}{idx !== groups.length - 1 ? ', ' : ''}</UnstyledLink>;
+                groups.map((group, index) => {
+                  return <UnstyledLink onClick={handleGroupClick(group)}
+                  key={group}
+                  to={getGroupLink(group)}>
+                    {getGroup(group, index, groups.length)}
+                  </UnstyledLink>;
                 })
               }
             </div>
           </GroupName>
         </>
-        : null
       }
     </div>
   );

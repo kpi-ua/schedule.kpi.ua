@@ -1,14 +1,16 @@
 import './switch.scss';
 import { useTheme } from 'styled-components';
 import { useEffect, useState } from 'react';
+import clsx from 'clsx';
+import { getLocalStorageItem } from '../../common/utils/parsedLocalStorage';
 
 const Switch = ({onChange}) => {
   const theme = useTheme();
 
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(undefined);
 
   useEffect(() => {
-    const localStorageTheme = localStorage.getItem("theme")
+    const localStorageTheme = getLocalStorageItem("theme")
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     if(localStorageTheme){
       setChecked(localStorageTheme === 'light')
@@ -28,9 +30,16 @@ const Switch = ({onChange}) => {
   return (
     <>
       <label className="switch">
-        <input onChange={onCheckboxChange} checked={checked} type="checkbox"/>
-        <span style={{'backgroundColor': theme['bgOptions']}} className="slider round"/>
-        <span className="checker"/>
+        <input onChange={onCheckboxChange} checked={checked === undefined ? true : checked} type="checkbox"/>
+        <span style={{'backgroundColor': theme['bgOptions']}}
+        className={clsx(
+          {"slider round": true},
+          {"hidden": checked === undefined}
+          )}/>
+        <span className={clsx(
+          {"checker": true},
+          {"hidden": checked === undefined}
+          )}/>
       </label>
     </>
   );
