@@ -45,12 +45,12 @@ npm run build
 
 ### Build Docker container
 ```
-docker build ./ --file ./.dockerfile --tag schedule-kpi-ua:latest
+docker build ./ --file ./.dockerfile --tag kpiua/schedule.kpi.ua:latest
 ```
 
 ### Run latest Docker container
 ```
-docker run --rm -it  -p 80:80/tcp schedule-kpi-ua:latest
+docker run --rm -it  -p 80:80/tcp kpiua/schedule.kpi.ua
 ```
 
 ## Related Projects
