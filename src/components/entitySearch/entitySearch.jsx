@@ -4,7 +4,7 @@ import { Select } from "react-select-virtualized";
 import { Label } from "./entitySearch.style";
 
 import { useLecturerContext } from "../../common/context/lecturerContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
 import { useGroupContext } from "../../common/context/groupContext";
 import { useTheme } from "styled-components";
@@ -24,7 +24,7 @@ const useQuery = () => {
 const EntitySearch = () => {
   const theme = useTheme();
   const location = useLocation();
-  const history = useNavigate();
+  const history = useHistory();
 
   const [options, setOptions] = useState([]);
   const { lecturer, setLecturer } = useLecturerContext();
@@ -80,25 +80,25 @@ const EntitySearch = () => {
     }
   };
   const initialValue =
-    options.find((item) =>
-      isLecturer ? item.value === lecturer : item.value === group?.id
-    ) ?? null;
+      options.find((item) =>
+          isLecturer ? item.value === lecturer : item.value === group?.id
+      ) ?? null;
   return (
-    <Label alignItems="center" gap="15px">
-      Розклад занять для
-      <div style={{ width: "200px" }}>
-        <Select
-          options={options}
-          onChange={onOptionChange}
-          styles={getSelectCustomStyle(theme)}
-          value={initialValue}
-          isSearchable={true}
-          isClearable={false}
-          placeholder={null}
-          name="color"
-        />
-      </div>
-    </Label>
+      <Label alignItems="center" gap="15px">
+        Розклад занять для
+        <div style={{ width: "200px" }}>
+          <Select
+              options={options}
+              onChange={onOptionChange}
+              styles={getSelectCustomStyle(theme)}
+              value={initialValue}
+              isSearchable={true}
+              isClearable={false}
+              placeholder={null}
+              name="color"
+          />
+        </div>
+      </Label>
   );
 };
 
