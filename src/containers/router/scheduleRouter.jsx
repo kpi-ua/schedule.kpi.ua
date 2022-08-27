@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Routes } from 'react-router-dom';
 import ScheduleWrapper from '../scheduleWrapper';
 import ExamsWrap from "../scheduleExams";
 import { routes } from '../../common/constants/routes';
@@ -6,7 +6,7 @@ import { getScheduleApiFunction } from '../../common/utils/getApiFunction';
 
 const ScheduleRouter = () => {
   return (
-    <Switch>
+    <Routes>
       <Route exact path={routes.GROUP}>
         <ScheduleWrapper contextType="group" getData={getScheduleApiFunction(routes.GROUP)}/>
       </Route>
@@ -19,7 +19,7 @@ const ScheduleRouter = () => {
       <Route>
         <Redirect to={routes.GROUP}/>
       </Route>
-    </Switch>
+    </Routes>
   );
 };
 
