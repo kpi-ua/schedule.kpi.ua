@@ -80,25 +80,25 @@ const EntitySearch = () => {
     }
   };
   const initialValue =
-      options.find((item) =>
-          isLecturer ? item.value === lecturer : item.value === group?.id
-      ) ?? null;
+    options.find((item) =>
+      isLecturer ? item.value === lecturer : item.value === group?.id
+    ) ?? null;
   return (
-      <Label alignItems="center" gap="15px">
-        Розклад занять для
-        <div style={{ width: "200px" }}>
-          <Select
-              options={options}
-              onChange={onOptionChange}
-              styles={getSelectCustomStyle(theme)}
-              value={initialValue}
-              isSearchable={true}
-              isClearable={false}
-              placeholder={null}
-              name="color"
-          />
-        </div>
-      </Label>
+    <Label alignItems="center" gap="15px">
+      Розклад занять для
+      <div style={{ width: "200px" }}>
+        <Select
+          options={options}
+          onChange={onOptionChange}
+          styles={getSelectCustomStyle(theme)}
+          value={initialValue}
+          isSearchable={true}
+          isClearable={false}
+          placeholder={null}
+          name="color"
+        />
+      </div>
+    </Label>
   );
 };
 
