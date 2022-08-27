@@ -4,7 +4,7 @@ import { Select } from "react-select-virtualized";
 import { Label } from "./entitySearch.style";
 
 import { useLecturerContext } from "../../common/context/lecturerContext";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
 import { useGroupContext } from "../../common/context/groupContext";
 import { useTheme } from "styled-components";
@@ -24,7 +24,7 @@ const useQuery = () => {
 const EntitySearch = () => {
   const theme = useTheme();
   const location = useLocation();
-  const history = useHistory();
+  const history = useNavigate();
 
   const [options, setOptions] = useState([]);
   const { lecturer, setLecturer } = useLecturerContext();
