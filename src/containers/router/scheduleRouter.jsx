@@ -1,4 +1,4 @@
-import { Redirect, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ScheduleWrapper from '../scheduleWrapper';
 import ExamsWrap from "../scheduleExams";
 import { routes } from '../../common/constants/routes';
@@ -17,7 +17,7 @@ const ScheduleRouter = () => {
         <ScheduleWrapper contextType="lecturer" getData={getScheduleApiFunction(routes.LECTURER)}/>
       </Route>
       <Route>
-        <Redirect to={routes.GROUP}/>
+        <Navigate to={routes.GROUP}/>
       </Route>
     </Routes>
   );
