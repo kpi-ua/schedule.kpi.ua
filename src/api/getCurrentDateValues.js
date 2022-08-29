@@ -1,6 +1,6 @@
 import Http from './index';
 
-export const getCurrentValues = () => {
+export const getCurrentDateValues = () => {
   return Http.get('/time/current')
     .then(res => res.data);
-}
+};
