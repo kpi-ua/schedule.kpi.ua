@@ -1,5 +1,5 @@
 export const routes = {
-  GROUP: '/',
+  GROUP: '/groups',
   LECTURER: '/lecturers',
   SESSION: '/sessions'
 };

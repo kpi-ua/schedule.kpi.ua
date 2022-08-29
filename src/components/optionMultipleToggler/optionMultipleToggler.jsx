@@ -1,5 +1,6 @@
-import { TogglerOption, TogglerWrapper } from './optionMultipleToggler.style';
 import { useEffect, useState } from 'react';
+
+import { TogglerOption, TogglerWrapper } from './optionMultipleToggler.style';
 
 const OptionMultipleToggler = ({options, onOptionChange, initialValue}) => {
   const [selectedItem, selectItem] = useState(initialValue);

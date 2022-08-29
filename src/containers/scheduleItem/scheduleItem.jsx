@@ -1,5 +1,5 @@
 import { ScheduleItemWrapper } from './scheduleItem.style';
-import ScheduleItemContent from '../../components/scheduleItemContent';
+import ScheduleItemContent from 'components/scheduleItemContent';
 
 export const ScheduleItem = ({scheduleItemData}) => {
   return scheduleItemData ? (

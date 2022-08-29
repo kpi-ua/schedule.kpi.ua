@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { media } from '../../common/styles/styles';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+
+import { media } from 'common/styles/styles';
+import { getValueFromTheme } from 'common/utils/getValueFromTheme';
 
 export const GridContainer = styled.div`
   padding-left: 100px;

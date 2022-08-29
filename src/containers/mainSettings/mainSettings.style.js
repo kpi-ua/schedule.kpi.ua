@@ -5,4 +5,8 @@ export const MainSettingsContainer = styled(Flex)`
   ${media.smallMode} {
     width: 100%;
   }
+
+  .switch-container {
+    width: 100%;
+  }
 `;

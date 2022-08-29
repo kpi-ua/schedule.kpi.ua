@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Flex, media } from '../../common/styles/styles';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { Flex, media } from 'common/styles/styles';
+import { getValueFromTheme } from 'common/utils/getValueFromTheme';
 
 export const Container = styled.div`
   position: relative;

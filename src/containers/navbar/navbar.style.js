@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
-import { Flex, media } from '../../common/styles/styles';
+import { getValueFromTheme } from 'common/utils/getValueFromTheme';
+import { Flex, media } from 'common/styles/styles';
 
 export const NavBarWrapper = styled.header`
   padding: 16px 70px 48px;

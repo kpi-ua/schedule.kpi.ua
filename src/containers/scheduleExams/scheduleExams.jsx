@@ -1,9 +1,11 @@
-import { GridWrapper, Header, WordAccent } from './scheduleWrapper.style';
-import Exam from '../../components/examComponent';
-import { useGroupContext } from '../../common/context/groupContext';
 import { useEffect, useState } from 'react';
 
-const SchededuleExamsWrapper = ({getData}) => {
+import { useGroupContext } from 'common/context/groupContext';
+
+import { GridWrapper, Header, WordAccent } from './scheduleWrapper.style';
+import Exam from 'components/examComponent';
+
+const ScheduleExamsWrapper = ({getData}) => {
   const [data, setData] = useState(null);
 
   const {group} = useGroupContext();
@@ -18,6 +20,7 @@ const SchededuleExamsWrapper = ({getData}) => {
     }
   }, [group]);
 
+  // TODO dynamic exam table
   return (
     data ?
       <div style={{overflow: 'hidden'}}>
@@ -32,4 +35,4 @@ const SchededuleExamsWrapper = ({getData}) => {
   );
 };
 
-export default SchededuleExamsWrapper;
+export default ScheduleExamsWrapper;

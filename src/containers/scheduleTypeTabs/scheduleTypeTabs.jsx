@@ -1,6 +1,7 @@
-import ScheduleTypeTab from '../../components/scheduleTypeTab';
+import { routes } from 'common/constants/routes';
+
+import ScheduleTypeTab from 'components/scheduleTypeTab';
 import { TabContainer } from './scheduleTypeTabs.style';
-import { routes } from '../../common/constants/routes';
 
 const ScheduleTypeTabs = () => {
   const tabs = [
