@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getCurrentValues } from '../../api/getCurrentValues';
+import { getCurrentDateValues } from '../../api/getCurrentDateValues';
 
 export const useCurrentDateParams = () => {
   const [dateParams, setDateParams] = useState({currentWeek: null, currentDay: null, currentLesson: null});
 
   useEffect(() => {
-    getCurrentValues()
-      .then(data => setDateParams(data.data));
+    getCurrentDateValues()
+      .then(({data}) => setDateParams({...data, currentDay: data.currentDay - 1}));
   }, []);
 
-  return dateParams
-}
+  return dateParams;
+};
