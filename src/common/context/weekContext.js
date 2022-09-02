@@ -4,7 +4,7 @@ const WeekContext = createContext(null);
 
 export const useWeekContext = () => useContext(WeekContext);
 
-export const WeekContextProvider = ({initialValue, children}) => {
+const WeekContextProvider = ({initialValue, children}) => {
   const [currentWeek, setCurrentWeek] = useState(initialValue);
 
   const params = {setCurrentWeek, currentWeek};
@@ -15,3 +15,5 @@ export const WeekContextProvider = ({initialValue, children}) => {
     </WeekContext.Provider>
   );
 };
+
+export default WeekContextProvider;

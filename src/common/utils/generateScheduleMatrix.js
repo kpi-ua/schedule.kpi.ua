@@ -1,6 +1,7 @@
-import { DAYS, TIME_POINTS } from '../../common/constants/scheduleParams';
-import { getActiveTimePoint } from '../../common/utils/getActiveTimePoint';
 import moment from 'moment';
+
+import { DAYS, TIME_POINTS } from 'common/constants/scheduleParams';
+import { getActiveTimePoint } from 'common/utils/getActiveTimePoint';
 
 export const generateScheduleMatrix = weekSchedule => {
   const scheduleMatrix = new Array(TIME_POINTS.length).fill(null).map(() => new Array(DAYS.length).fill(null));
@@ -13,15 +14,15 @@ export const generateScheduleMatrix = weekSchedule => {
     day.pairs.forEach(pair => {
       const xIndex = TIME_POINTS.findIndex(item => item === pair.time);
       const cell = scheduleMatrix[xIndex][yIndex];
-      let newCell = {...pair, currentDay: activePair !== -1 && currentDay === yIndex && activePair === xIndex };
+      let newCell = {...pair, currentDay: activePair !== -1 && currentDay === yIndex && activePair === xIndex};
 
       if (cell) {
         let extendedCell = [];
 
         if (Array.isArray(cell)) {
-          extendedCell = [...cell]
+          extendedCell = [...cell];
         } else {
-          extendedCell = [cell]
+          extendedCell = [cell];
         }
 
         extendedCell.push({...pair, currentDay: newCell.currentDay});

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { getValueFromTheme } from 'common/utils/getValueFromTheme';
 
 export const GridWrapper = styled.div`
   overflow: hidden;

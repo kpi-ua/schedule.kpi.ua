@@ -1,17 +1,18 @@
 import React from 'react';
-import TimeDivider from '../../components/timeDivider';
+
+import { TIME_POINTS } from 'common/constants/scheduleParams';
+import { useSliceOptionsContext } from 'common/context/sliceOptionsContext';
+import useCurrentDateParams from 'common/hooks/useCurrentDateParams';
+
+import TimeDivider from 'components/timeDivider';
 import { CurrentDayContainer, GridContainer } from './schedule.style';
-import ScheduleHeader from '../scheduleHeader';
-import { TIME_POINTS } from '../../common/constants/scheduleParams';
-import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
-import { useCurrentDateParams } from '../../common/utils/useCurrentDateParams';
+import ScheduleHeader from 'containers/scheduleHeader';
 
 const Schedule = ({children}) => {
   const sliceOptions = useSliceOptionsContext();
-  const { currentDay } = useCurrentDateParams();
+  const {currentDay} = useCurrentDateParams();
 
   const dynamicGeneratedTable = React.Children.map(children, (child, index) => {
-
     return (
       <>
         <TimeDivider>{TIME_POINTS[index]}</TimeDivider>

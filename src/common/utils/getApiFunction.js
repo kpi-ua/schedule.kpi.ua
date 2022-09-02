@@ -1,6 +1,6 @@
 import { routes } from '../constants/routes';
-import { getScheduleByGroup, getScheduleByLecturer, getExamsByGroup } from '../../api/schedule';
-import { getAllGroups, getAllLecturers } from '../../api/fullList';
+import { getScheduleByGroup, getScheduleByLecturer, getExamsByGroup } from 'api/schedule';
+import { getAllGroups, getAllLecturers } from 'api/fullList';
 
 export const getScheduleApiFunction = route => {
   const functions = {
@@ -10,7 +10,7 @@ export const getScheduleApiFunction = route => {
   };
 
   return functions[route];
-}
+};
 
 export const getListApiFunction = route => {
   const functions = {
@@ -20,4 +20,4 @@ export const getListApiFunction = route => {
   };
 
   return functions[route];
-}
+};

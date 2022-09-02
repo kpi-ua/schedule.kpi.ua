@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import { flexbox, space } from 'styled-system';
-import { MODES } from '../constants/modes';
-import { getModeSize } from '../utils/getModeSize';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { MODES } from 'common/constants/modes';
+import { getModeSize } from 'common/utils/getModeSize';
+import { getValueFromTheme } from 'common/utils/getValueFromTheme';
 import { Link } from 'react-router-dom';
 
 export const Flex = styled.div`
@@ -40,4 +40,4 @@ export const ScheduleItemMixin = css`
 export const UnstyledLink = styled(Link)`
   text-decoration: none;
   color: ${getValueFromTheme('primaryFontColor')};
-`
+`;

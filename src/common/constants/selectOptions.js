@@ -8,12 +8,12 @@ export const getSelectCustomStyle = (theme) => ({
   menu(base) {
     return {
       ...base,
-      "& .fast-option-focused": {
+      '& .fast-option-focused': {
         color: theme['hoveredOptionFontColor'],
       },
-      "& .fast-option-selected": {
+      '& .fast-option-selected': {
         color: theme['secondaryFontColor'],
-        fontWeight: "bold"
+        fontWeight: 'bold'
         // background color can be also changed if needed
       },
       backgroundColor: theme['bgOptions'],

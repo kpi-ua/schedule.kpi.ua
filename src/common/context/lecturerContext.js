@@ -4,7 +4,7 @@ const LecturerContext = createContext(null);
 
 export const useLecturerContext = () => useContext(LecturerContext);
 
-export const LecturerContextProvider = ({children}) => {
+const LecturerContextProvider = ({children}) => {
   const [lecturer, setLecturer] = useState(null);
 
   const params = {setLecturer, lecturer};
@@ -15,3 +15,5 @@ export const LecturerContextProvider = ({children}) => {
     </LecturerContext.Provider>
   );
 };
+
+export default LecturerContextProvider;

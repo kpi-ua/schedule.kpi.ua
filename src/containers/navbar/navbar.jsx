@@ -1,9 +1,10 @@
-import { Logo } from '../../common/styles/styles';
-import MainSettings from '../mainSettings';
+import logo from 'assets/logo.svg';
+import { useThemeSelectorContext } from 'common/context/themeContext';
+
+import { Logo } from 'common/styles/styles';
+import MainSettings from 'containers/mainSettings';
 import { NavbarInner, NavBarWrapper } from './navbar.style';
-import Switch from '../../components/switch';
-import logo from '../../assets/logo.svg';
-import { useThemeSelectorContext } from '../../common/context/themeContext';
+import Switch from 'components/switch';
 
 const Navbar = () => {
   const selectTheme = useThemeSelectorContext();

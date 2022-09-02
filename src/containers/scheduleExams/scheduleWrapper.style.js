@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+
+import { getValueFromTheme } from 'common/utils/getValueFromTheme';
 
 export const GridWrapper = styled.div`
   overflow: hidden;
@@ -13,10 +14,10 @@ export const GridWrapper = styled.div`
 export const Header = styled.h1`
   /* padding:  20px; */
   color: ${getValueFromTheme('primaryFontColor')};
-  text-align : center;
+  text-align: center;
   font-weight: lighter;
-`
+`;
 
 export const WordAccent = styled.span`
   font-weight: bold;
-`
+`;

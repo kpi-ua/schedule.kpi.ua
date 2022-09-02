@@ -1,20 +1,21 @@
-import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } from './scheduleItemExtended.style';
-import ScheduleItemContent from '../../components/scheduleItemContent';
 import { useEffect, useState } from 'react';
+
+import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } from './scheduleItemExtended.style';
+import ScheduleItemContent from 'components/scheduleItemContent';
 
 const ScheduleItemExtended = ({scheduleItemData}) => {
   const [collapsed, setCollapse] = useState(true);
-  const [hasData, setHasData] = useState(true)
+  const [hasData, setHasData] = useState(true);
 
   useEffect(() => {
     const countEmpty = scheduleItemData.reduce((totalEmpty, currentItem) => {
-      return totalEmpty + (currentItem.teacherName === "" && currentItem.place === "")
-    }, 0)
-    
-    if(countEmpty === scheduleItemData.length){
-      setHasData(false)
+      return totalEmpty + (currentItem.teacherName === '' && currentItem.place === '');
+    }, 0);
+
+    if (countEmpty === scheduleItemData.length) {
+      setHasData(false);
     }
-  }, [scheduleItemData])
+  }, [scheduleItemData]);
 
   const generateScheduleUnits = () => {
     return scheduleItemData.map((item, i) => {

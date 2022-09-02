@@ -1,5 +1,5 @@
-import {MODES} from "../constants/modes";
-import {getModeSize} from "./getModeSize";
+import { MODES } from 'common/constants/modes';
+import { getModeSize } from 'common/utils/getModeSize';
 import { useEffect, useState } from 'react';
 
 export const useCurrentMode = () => {
@@ -21,7 +21,7 @@ export const useCurrentMode = () => {
     }
 
     setCurrentMode(MODES.BIG);
-  }
+  };
 
   return currentMode;
-}
+};

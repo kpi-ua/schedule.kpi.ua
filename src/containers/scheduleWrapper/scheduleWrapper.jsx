@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import ScheduleRow from '../scheduleRow';
+
+import { generateScheduleMatrix } from 'common/utils/generateScheduleMatrix';
+import { useWeekContext } from 'common/context/weekContext';
+import { useLecturerContext } from 'common/context/lecturerContext';
+import { useGroupContext } from 'common/context/groupContext';
+import SliceOptionsContext from 'common/context/sliceOptionsContext';
+
+import ScheduleRow from 'containers/scheduleRow';
 import { GridWrapper } from './scheduleWrapper.style';
-import SliceOptionsContext from '../../common/context/sliceOptionsContext';
 import ScheduleDayToggler from '../scheduleDayToggler';
-import Schedule from '../schedule';
-import { generateScheduleMatrix } from '../../common/utils/generateScheduleMatrix';
-import { useWeekContext } from '../../common/context/weekContext';
-import { useLecturerContext } from '../../common/context/lecturerContext';
-import { useGroupContext } from '../../common/context/groupContext';
+import Schedule from 'containers/schedule';
 
 const ScheduleWrapper = ({getData, contextType}) => {
   const [sliceParams, setSliceParams] = useState(null);

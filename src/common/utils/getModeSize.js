@@ -1,4 +1,4 @@
-import {MODES} from "../constants/modes";
+import { MODES } from '../constants/modes';
 
 export const getModeSize = MODE => {
   const MODE_SIZES = {
@@ -6,7 +6,7 @@ export const getModeSize = MODE => {
     [MODES.MEDIUM]: '1440px',
     [MODES.SMALL]: '988px',
     [MODES.EXTRA_SMALL]: '639px',
-  }
+  };
 
   return MODE_SIZES[MODE];
-}
+};

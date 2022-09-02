@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getAllGroups, getAllLecturers } from '../../api/fullList';
+import { getAllGroups, getAllLecturers } from 'api/fullList';
 
 const PreloadedListsContext = createContext(null);
 
 export const usePreloadedListContext = () => useContext(PreloadedListsContext);
-// TODO add exams here 
-export const PreloadedListsContextProvider = ({children}) => {
+// TODO add exams here
+
+const PreloadedListsContextProvider = ({children}) => {
   const [lists, setLists] = useState({
     groups: [],
     lecturers: [],
@@ -27,3 +28,5 @@ export const PreloadedListsContextProvider = ({children}) => {
     <PreloadedListsContext.Provider value={lists}>{children}</PreloadedListsContext.Provider>
   );
 };
+
+export default PreloadedListsContextProvider;
