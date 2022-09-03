@@ -50,7 +50,7 @@ const EntitySearch = () => {
       const localStorageLecturerId = getLocalStorageItem("lecturerId")
       if(!lecturer && localStorageLecturerId){
         lecturer = localStorageLecturerId
-        history.push("?lecturerId=" + localStorageLecturerId);
+        history.replace("?lecturerId=" + localStorageLecturerId);
       }
       setLecturer(lecturer);
       setGroup(null);
@@ -59,7 +59,7 @@ const EntitySearch = () => {
       const localStorageLecturerId = getLocalStorageItem("groupId")
       if(!group && localStorageLecturerId){
         group = localStorageLecturerId
-        history.push("?groupId=" + localStorageLecturerId);
+        history.replace("?groupId=" + localStorageLecturerId);
       }
       const groupObj = list.find((g) => g.id === group);
       setGroup(groupObj);
