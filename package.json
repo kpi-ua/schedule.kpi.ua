@@ -16,7 +16,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.1",
     "react-select": "^5.4.0",
-    "react-select-virtualized": "^5.2.0",
+    "react-select-virtualized": "^5.3.0",
     "react-virtualized": "^9.22.3",
     "styled-components": "^5.3.5",
     "styled-system": "^5.1.5",
