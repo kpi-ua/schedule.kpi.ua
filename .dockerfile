@@ -1,6 +1,6 @@
 # pull official base image
 FROM node:lts-alpine as builder
-
+RUN apk add --no-cache python3 py3-pip make g++
 # set working directory
 WORKDIR /app
 
