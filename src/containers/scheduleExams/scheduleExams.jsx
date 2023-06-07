@@ -1,12 +1,14 @@
-import { GridWrapper, Header, WordAccent } from './scheduleWrapper.style';
-import Exam from '../../components/examComponent';
-import { useGroupContext } from '../../common/context/groupContext';
-import { useEffect, useState } from 'react';
+import { GridWrapper, Header, WordAccent } from "./scheduleWrapper.style";
+import Exam from "../../components/examComponent";
+import { useGroupContext } from "../../common/context/groupContext";
+import { useWeekContext } from "../../common/context/weekContext";
+import { useEffect, useState } from "react";
 
-const SchededuleExamsWrapper = ({getData}) => {
+const SchededuleExamsWrapper = ({ getData }) => {
   const [data, setData] = useState(null);
 
-  const {group} = useGroupContext();
+  const { group } = useGroupContext();
+  const { currentWeek } = useWeekContext();
 
   useEffect(() => {
     const contextValue = group;
@@ -16,20 +18,23 @@ const SchededuleExamsWrapper = ({getData}) => {
     } else {
       setData(null);
     }
-  }, [group]);
+  }, [group, getData]);
 
-  return (
-    data ?
-      <div style={{overflow: 'hidden'}}>
-        <GridWrapper>
-          <Header>
-            Розклад сесії для групи <WordAccent>{group.name}</WordAccent><br/>
-            на <WordAccent>перший семестр{' '}</WordAccent>
-          </Header>
-          {data && data.map((d, idx) => <Exam key={idx} data={d}/>)}
-        </GridWrapper>
-      </div> : null
-  );
+  return data ? (
+    <div style={{ overflow: "hidden" }}>
+      <GridWrapper>
+        <Header>
+          Розклад сесії для групи <WordAccent>{group.name}</WordAccent>
+          <br />
+          на{" "}
+          <WordAccent>
+            {currentWeek === "firstWeek" ? "перший семестр" : "другий семестр"}
+          </WordAccent>
+        </Header>
+        {data && data.map((d, idx) => <Exam key={idx} data={d} />)}
+      </GridWrapper>
+    </div>
+  ) : null;
 };
 
 export default SchededuleExamsWrapper;

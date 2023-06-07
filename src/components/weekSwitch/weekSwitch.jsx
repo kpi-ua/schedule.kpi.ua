@@ -1,6 +1,5 @@
 import OptionMultipleToggler from "../../components/optionMultipleToggler";
 import { useWeekContext } from "../../common/context/weekContext";
-import { useEffect, useState } from "react";
 
 const WeekSwitch = ({ type }) => {
   const { setCurrentWeek, currentWeek } = useWeekContext();
