@@ -12,6 +12,14 @@ const ExamComponent = ({data}) => {
   const date = data && new Date(data.date);
   const daysLeft = data && data.daysLeft;
   const day = date.getDate();
+  const month = date.toLocaleString("uk-UA", { month: "long" });
+  let formattedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+
+  if (formattedMonth === "Лютий") {
+    formattedMonth = formattedMonth.replace("Лютий", "Лютого");
+  } else {
+    formattedMonth = formattedMonth.replace(/ень$/, "ня");
+  }
 
   return (
     <div>
@@ -38,7 +46,7 @@ const ExamComponent = ({data}) => {
           <Divider/>
           <CardDate>
             <h3>{date.getFullYear()}</h3>
-            <h2> {day < 10 ? '0' + day : day} Січня</h2>
+            <h2> {day < 10 ? '0' + day : day} {formattedMonth}</h2>
             {/* TODO calculate  */}
             <h3>{daysLeft} днів до початку</h3>
           </CardDate>
