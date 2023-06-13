@@ -26,8 +26,8 @@ jobs:
     - name: Build Docker image
       run: |          
         now=$(date +%Y%m%d%H%M%S)
-        tag1="kpilab/schedule-kpi-ua:$now"
-        tag2="kpilab/schedule-kpi-ua:latest"
+        tag1="kpiua/schedule.kpi.ua:$now"
+        tag2="kpiua/schedule.kpi.ua:latest"
         
         docker build ./ --file ./.dockerfile --tag $tag1 --tag $tag2
         
