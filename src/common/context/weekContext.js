@@ -1,17 +1,17 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
 const WeekContext = createContext(null);
 
 export const useWeekContext = () => useContext(WeekContext);
 
-export const WeekContextProvider = ({initialValue, children}) => {
-  const [currentWeek, setCurrentWeek] = useState(initialValue);
+export const WeekContextProvider = ({ initialValue, children }) => {
+  const [currentWeek, setCurrentWeek] = useState(null);
 
-  const params = {setCurrentWeek, currentWeek};
+  useEffect(() => {
+    setCurrentWeek(initialValue === 1 ? "firstWeek" : "secondWeek");
+  }, [initialValue]);
 
-  return (
-    <WeekContext.Provider value={params}>
-      {children}
-    </WeekContext.Provider>
-  );
+  const params = { setCurrentWeek, currentWeek };
+
+  return <WeekContext.Provider value={params}>{children}</WeekContext.Provider>;
 };
