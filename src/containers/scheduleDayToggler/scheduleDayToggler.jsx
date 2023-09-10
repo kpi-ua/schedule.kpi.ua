@@ -9,17 +9,17 @@ const ScheduleDayToggler = ({handler}) => {
   const mode = useCurrentMode();
   const {currentDay} = useCurrentDateParams()
   const getDayOption = () => {
-    if(!currentDay || currentDay === 6){
+    if(!currentDay || currentDay === 0){
       return 0
     }
     if(mode === MODES.EXTRA_SMALL){
-      return currentDay
+      return currentDay - 1
     }
     else if(mode === MODES.SMALL){
-      return Math.floor(currentDay / 2)
+      return Math.floor((currentDay - 1) / 2)
     }
     else if(mode === MODES.MEDIUM){
-      return Math.floor(currentDay / 3)
+      return Math.floor((currentDay - 1) / 3)
     }
     return 0
   }

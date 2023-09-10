@@ -22,13 +22,13 @@ const Schedule = ({children}) => {
 
   const isDayInSlice = () => {
     if (sliceOptions) {
-      return currentDay >= sliceOptions.start && currentDay < sliceOptions.end;
+      return currentDay >= sliceOptions.start && (currentDay - 1) < sliceOptions.end;
     }
 
     return true;
   };
 
-  const gridDayStart = currentDay + 1;
+  const gridDayStart = currentDay;
 
   return (
     <GridContainer>

@@ -6,7 +6,7 @@ export const useCurrentDateParams = () => {
 
   useEffect(() => {
     getCurrentDateValues()
-      .then(({data}) => setDateParams({...data, currentDay: data.currentDay - 1}));
+      .then(({data}) => setDateParams({...data}));
   }, []);
 
   return dateParams;
