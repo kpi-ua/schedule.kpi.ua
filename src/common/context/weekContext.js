@@ -8,7 +8,7 @@ export const WeekContextProvider = ({initialValue, children}) => {
   const [currentWeek, setCurrentWeek] = useState(null);
 
   useEffect(() => {
-    setCurrentWeek(initialValue === 1 ? 'firstWeek' : 'secondWeek');
+    setCurrentWeek(initialValue === 0 ? 'firstWeek' : 'secondWeek');
   }, [initialValue]);
 
   const params = {setCurrentWeek, currentWeek};
