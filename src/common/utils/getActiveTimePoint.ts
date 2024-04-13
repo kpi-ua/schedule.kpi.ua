@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { TIME_POINTS } from '../../common/constants/scheduleParams';
+import { TIME_POINTS } from '@/common/constants/scheduleParams';
 
 export const getActiveTimePoint = () => {
   const PAIR_DURATION_IN_MINUTES = 95;

@@ -1,5 +1,5 @@
 import OptionMultipleToggler from '../../components/optionMultipleToggler';
-import { MODES } from '../../common/constants/modes';
+import { MODES } from 'src/common/constants/modes';
 import { useCurrentMode } from '../../common/utils/useCurrentMode';
 import { DAY_OPTIONS } from '../../common/constants/dayOptions';
 import { ScheduleDayTogglerContainer } from './scheduleDayToggler.style';

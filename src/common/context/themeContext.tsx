@@ -1,14 +1,23 @@
 import { ThemeProvider } from 'styled-components';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { theme } from '../../common/constants/theme';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { theme } from '@/common/constants/theme';
 import { getLocalStorageItem, setLocalStorageItem } from '../utils/parsedLocalStorage';
 
-const ThemeSelectorContext = createContext(null);
+interface Props {
+  children: React.ReactNode,
+  initialValue?: 'light' | 'dark'
+}
+
+interface ContextType {
+  changeTheme: (isLightTheme: boolean) => void,
+}
+
+const ThemeSelectorContext = createContext<ContextType | null>(null);
 
 export const useThemeSelectorContext = () => useContext(ThemeSelectorContext);
 
-const ThemeContextProvider = ({ children }) => {
-  const [currentTheme, setTheme] = useState('light');
+const ThemeContextProvider: React.FC<Props> = ({ children, initialValue = 'light' }) => {
+  const [currentTheme, setTheme] = useState(initialValue);
   useEffect(() => {
     const localStorageTheme = getLocalStorageItem("theme")
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -20,14 +29,19 @@ const ThemeContextProvider = ({ children }) => {
     }
   }, [])
 
-  const changeTheme = isLightTheme => {
+  const changeTheme = (isLightTheme: boolean) => {
     const newTheme = isLightTheme ? 'light' : 'dark'
     setTheme(newTheme);
     setLocalStorageItem("theme", newTheme)
   }
+  
+  const props = {
+    changeTheme
+  }
+  
   return (
     <ThemeProvider theme={theme[currentTheme]}>
-      <ThemeSelectorContext.Provider value={changeTheme}>
+      <ThemeSelectorContext.Provider value={props}>
         {children}
       </ThemeSelectorContext.Provider>
     </ThemeProvider>

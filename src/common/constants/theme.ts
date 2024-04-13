@@ -23,4 +23,4 @@ export const theme = {
     currentDayContainer: 'linear-gradient(180deg, rgba(54, 54, 55, 0) 0%, rgba(54, 54, 55, 0.5) 10.73%, #363637 55%, rgba(54, 54, 55, 0.5) 89.9%, rgba(54, 54, 55, 0.29) 100%)',
     svgPrimaryFilter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(46deg) brightness(100%) contrast(103%)',
   }
-};
+} as any;

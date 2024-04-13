@@ -3,4 +3,4 @@ export const MODES = {
   SMALL: 'smallMode',
   MEDIUM: 'mediumMode',
   BIG: 'bigMode',
-};
+} as any;

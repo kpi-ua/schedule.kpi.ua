@@ -15,7 +15,7 @@ function App() {
     <WeekContextProvider initialValue={currentWeek === 1 ? 'firstWeek' : 'secondWeek'}>
       <PreloadedListsContextProvider>
         <GroupContextProvider>
-          <ThemeContextProvider initialValue={null}>
+          <ThemeContextProvider>
             <LecturerContextProvider>
               <ScrollToTop>
                 <Wrapper>

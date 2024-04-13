@@ -1,8 +1,10 @@
-import { DAYS, TIME_POINTS } from '../../common/constants/scheduleParams';
-import { getActiveTimePoint } from '../../common/utils/getActiveTimePoint';
+import { DAYS, TIME_POINTS } from '@/common/constants/scheduleParams';
+import { getActiveTimePoint } from '@/common/utils/getActiveTimePoint';
 import moment from 'moment';
 
-export const generateScheduleMatrix = weekSchedule => {
+type WeekSchedule = Array<{day: any, pairs: any[]}>
+
+export const generateScheduleMatrix = (weekSchedule: WeekSchedule) => {
   const scheduleMatrix = new Array(TIME_POINTS.length).fill(null).map(() => new Array(DAYS.length).fill(null));
   const activePair = getActiveTimePoint();
   const currentDay = moment().day() - 1;

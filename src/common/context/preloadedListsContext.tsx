@@ -1,12 +1,21 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { getAllGroups, getAllLecturers } from '../../api/fullList';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getAllGroups, getAllLecturers } from '@/api/fullList';
 
-const PreloadedListsContext = createContext(null);
+interface Props {
+  children: React.ReactNode,
+}
+
+interface ContextType {
+  groups: any[],
+  lecturers: any[],
+}
+
+const PreloadedListsContext = createContext<ContextType | null>(null);
 
 export const usePreloadedListContext = () => useContext(PreloadedListsContext);
 // TODO add exams here 
-export const PreloadedListsContextProvider = ({children}) => {
-  const [lists, setLists] = useState({
+export const PreloadedListsContextProvider: React.FC<Props> = ({children}) => {
+  const [lists, setLists] = useState<ContextType>({
     groups: [],
     lecturers: [],
   });

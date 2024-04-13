@@ -1,4 +1,4 @@
-import {MODES} from "../constants/modes";
+import {MODES} from "@/common/constants/modes";
 import {getModeSize} from "./getModeSize";
 import { useEffect, useState } from 'react';
 

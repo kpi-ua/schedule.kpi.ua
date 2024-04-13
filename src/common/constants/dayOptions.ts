@@ -1,4 +1,4 @@
-import { MODES } from '../../common/constants/modes';
+import { MODES } from './modes';
 
 export const DAY_OPTIONS = {
   [MODES.EXTRA_SMALL]: [

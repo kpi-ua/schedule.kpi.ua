@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import { flexbox, space } from 'styled-system';
-import { MODES } from '../constants/modes';
+import { MODES } from '@/common/constants/modes';
 import { getModeSize } from '../utils/getModeSize';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
 import { Link } from 'react-router-dom';
 
 export const Flex = styled.div`
@@ -11,7 +11,7 @@ export const Flex = styled.div`
   ${flexbox};
 
   // Support for gap in flexbox
-  gap: ${(props) => props.gap};
+  gap: ${(props: {gap: number}) => props.gap};
 `;
 
 export const Pictogram = styled.img`
