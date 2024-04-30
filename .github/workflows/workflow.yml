@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - typescript-migration
 
 jobs:
   build-and-deploy:
