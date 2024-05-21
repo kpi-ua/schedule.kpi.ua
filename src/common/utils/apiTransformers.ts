@@ -1,6 +1,6 @@
 import { unique } from "./unique";
 
-export const prepareList = (list: {label: string, value: string, name: string, id: string}[]) => {
+export const prepareList = (list: {label: string, value: string, name: string, id: string}[]): {label: string, value: string}[] => {
   return unique(
     list.map((item: {name: string, id: string}) => ({
       label: item.name,

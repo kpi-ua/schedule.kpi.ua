@@ -1,15 +1,26 @@
 import { CardDate, CardMainData, CardWrapper, Divider, DividerRed, Location, Subject, Teacher, } from './exam.style';
-import teacherIcon from '../../assets/icons/teacher.svg';
-import locationIcon from '../../assets/icons/location.svg';
-import clock from '../../assets/icons/clock.svg';
-import { Flex, Pictogram } from '../../common/styles/styles';
+import teacherIcon from '@/assets/icons/teacher.svg';
+import locationIcon from '@/assets/icons/location.svg';
+import clock from '@/assets/icons/clock.svg';
+import { Flex, Pictogram } from '@/common/styles/styles';
+import React from 'react';
 
-const ExamComponent = ({data}) => {
+interface Props {
+  data: {
+    subject?: string;
+    lecturerName?: string;
+    room?: string;
+    date?: string;
+    daysLeft?: number;
+  }
+}
+
+const ExamComponent: React.FC<Props> = ({data}) => {
 
   const subject = data && data.subject;
   const teacher = data && data.lecturerName;
   const location = data && data.room;
-  const date = data && new Date(data.date);
+  const date = data && new Date(data.date || '');
   const daysLeft = data && data.daysLeft;
   const day = date.getDate();
   const month = date.toLocaleString("uk-UA", { month: "long" });

@@ -1,4 +1,4 @@
-import { ScheduleItemTypeLab, ScheduleItemTypeLec, ScheduleItemTypePrac } from "../../components/scheduleItemContent/scheduleItemContent.style";
+import { ScheduleItemTypeLab, ScheduleItemTypeLec, ScheduleItemTypePrac } from "@/components/scheduleItemContent/scheduleItemContent.style";
 
 export const SUBJECT_TYPES = {
     lec: {

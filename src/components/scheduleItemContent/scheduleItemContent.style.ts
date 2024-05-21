@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Flex } from '../../common/styles/styles';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { Flex } from '@/common/styles/styles';
+import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
 
 export const ScheduleItemType = styled.div`
   width: 84px;

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
 
 export const TogglerWrapper = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ export const TogglerWrapper = styled.div`
   z-index: 1;
 `;
 
-export const TogglerOption = styled.div`
+export const TogglerOption = styled.div<{active: boolean}>`
   transition: .4s;
   display: flex;
   align-items: center;

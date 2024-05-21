@@ -1,18 +1,7 @@
 import styled from "styled-components";
-import { Flex } from "../../common/styles/styles";
-import { getValueFromTheme } from "../../common/utils/getValueFromTheme";
-import { ScheduleItemMixin } from '../../common/styles/styles';
-
-export const ScheduleItemType = styled.div`
-  width: 84px;
-  height: 27px;
-  line-height: 27px;
-  text-align: center;
-  background-color: #949dff;
-  border-radius: 8px;
-  color: ${getValueFromTheme("secondaryFontColor")};
-  font-weight: 600;
-`;
+import { Flex } from '@/common/styles/styles';
+import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
+import { ScheduleItemMixin } from '@/common/styles/styles';
 
 export const Subject = styled.div`
   font-weight: bold;

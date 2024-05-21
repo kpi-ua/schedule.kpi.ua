@@ -1,11 +1,11 @@
 import { Tab } from './scheduleTypeTab.style';
 import { useLocation } from 'react-router-dom';
-import { UnstyledLink } from '../../common/styles/styles';
-import { routes } from '../../common/constants/routes';
+import { UnstyledLink } from '@/common/styles/styles';
+import { routes } from '@/common/constants/routes';
 import { useEffect, useState } from 'react';
-import { useGroupContext } from '../../common/context/groupContext';
-import { useLecturerContext } from '../../common/context/lecturerContext';
-import { getLocalStorageItem } from '../../common/utils/parsedLocalStorage';
+import { useGroupContext } from '@/common/context/groupContext';
+import { useLecturerContext } from '@/common/context/lecturerContext';
+import { getLocalStorageItem } from '@/common/utils/parsedLocalStorage';
 
 const ScheduleTypeTab = ({tabClick, activeTab, children, url}) => {
   const location = useLocation();

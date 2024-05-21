@@ -1,17 +1,26 @@
 import { GroupName, Location, ScheduleItemCurrent, ScheduleItemHeader, Subject, Teacher, LocationLink } from './scheduleItemContent.style';
-import teacherIcon from '../../assets/icons/teacher.svg';
-import locationIcon from '../../assets/icons/location.svg';
-import { Pictogram, UnstyledLink } from '../../common/styles/styles';
-import { routes } from '../../common/constants/routes';
-import { usePreloadedListContext } from '../../common/context/preloadedListsContext';
-import { unique } from '../../common/utils/unique';
-import { useEffect, useState } from 'react';
-import { useLecturerContext } from '../../common/context/lecturerContext';
-import { useGroupContext } from '../../common/context/groupContext';
-import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
-import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
+import teacherIcon from '@/assets/icons/teacher.svg';
+import locationIcon from '@/assets/icons/location.svg';
+import { Pictogram, UnstyledLink } from '@/common/styles/styles';
+import { routes } from '@/common/constants/routes';
+import { usePreloadedListContext } from '@/common/context/preloadedListsContext';
+import { unique } from '@/common/utils/unique';
+import React, { useEffect, useState } from 'react';
+import { useLecturerContext } from '@/common/context/lecturerContext';
+import { useGroupContext } from '@/common/context/groupContext';
+import { setLocalStorageItem } from '@/common/utils/parsedLocalStorage';
+import { SUBJECT_TYPES } from '@/common/constants/subjectTypes';
 
-const ScheduleItemContent = ({scheduleItemData, collapsed}) => {  
+interface Props {
+  scheduleItemData: {
+    name: string;
+    teacherName: string;
+    lecturerId: string;
+  };
+  collapsed: boolean,
+}
+
+const ScheduleItemContent: React.FC<Props> = ({scheduleItemData, collapsed}) => {  
   const subject = scheduleItemData?.name;
   const teacher = scheduleItemData?.teacherName;
   const teacherId = scheduleItemData?.lecturerId;

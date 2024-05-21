@@ -3,46 +3,47 @@ import { Select } from "react-select-virtualized";
 
 import { Label } from "./entitySearch.style";
 
-import { useLecturerContext } from "../../common/context/lecturerContext";
+import { useLecturerContext } from "@/common/context/lecturerContext";
 import { useHistory, useLocation } from "react-router-dom";
-import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
-import { useGroupContext } from "../../common/context/groupContext";
+import { usePreloadedListContext } from "@/common/context/preloadedListsContext";
+import { useGroupContext } from "@/common/context/groupContext";
 import { useTheme } from "styled-components";
 
-import { prepareList } from "../../common/utils/apiTransformers";
-import { routes } from "../../common/constants/routes";
+import { prepareList } from "@/common/utils/apiTransformers";
+import { routes } from "@/common/constants/routes";
 
-import { getSelectCustomStyle } from "../../common/constants/selectOptions";
+import { getSelectCustomStyle } from "@/common/constants/selectOptions";
 import "./entitySearch.scss";
-import { getLocalStorageItem, setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
+import { getLocalStorageItem, setLocalStorageItem } from "@/common/utils/parsedLocalStorage";
 
 const useQuery = () => {
   const { search } = useLocation();
   return React.useMemo(() => new URLSearchParams(search), [search]);
 };
 
-const EntitySearch = () => {
+const EntitySearch: React.FC = () => {
   const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
 
-  const [options, setOptions] = useState([]);
-  const { lecturer, setLecturer } = useLecturerContext();
-  const { group, setGroup } = useGroupContext();
+  const [options, setOptions] = useState<{label: string, value: string}[]>([]);
+  const lecturerContextValue = useLecturerContext();
+  
+  const groupContextValue = useGroupContext();
   const lists = usePreloadedListContext();
 
   const isLecturer = location.pathname.includes(routes.LECTURER);
-  const list = isLecturer ? lists.lecturers : lists.groups;
+  const list = isLecturer ? lists?.lecturers : lists?.groups;
 
   const query = useQuery();
 
   useEffect(() => {
     if (isLecturer) {
-      setGroup(null);
+      groupContextValue?.setGroup(null);
     } else {
-      setLecturer(null);
+      lecturerContextValue?.setLecturer(null);
     }
-  }, [isLecturer, setGroup, setLecturer]);
+  }, [isLecturer]);
 
   useEffect(() => {
     if (isLecturer) {
@@ -52,8 +53,8 @@ const EntitySearch = () => {
         lecturer = localStorageLecturerId
         history.replace("?lecturerId=" + localStorageLecturerId);
       }
-      setLecturer(lecturer);
-      setGroup(null);
+      lecturerContextValue?.setLecturer(lecturer);
+      groupContextValue?.setGroup(null);
     } else {
       let group = query.get("groupId");
       const localStorageLecturerId = getLocalStorageItem("groupId")
@@ -61,15 +62,15 @@ const EntitySearch = () => {
         group = localStorageLecturerId
         history.replace("?groupId=" + localStorageLecturerId);
       }
-      const groupObj = list.find((g) => g.id === group);
-      setGroup(groupObj);
-      setLecturer(null);
+      const groupObj = list?.find((g) => g.id === group);
+      groupContextValue?.setGroup(groupObj);
+      lecturerContextValue?.setLecturer(null);
     }
-    setOptions(prepareList(list));
-  }, [list, history, isLecturer, query, setGroup, setLecturer]);
+    setOptions(prepareList(list || []));
+  }, [list, history, isLecturer, query]);
 
-  const onOptionChange = (option) => {
-    isLecturer ? setLecturer(option.value) : setGroup({ id : option.value, name : option.label });
+  const onOptionChange = (option: {value: string, label: string}) => {
+    isLecturer ? lecturerContextValue?.setLecturer(option.value) : groupContextValue?.setGroup({ id : option.value, name : option.label });
 
     if (isLecturer) {
       history.push("?lecturerId=" + option.value);
@@ -80,11 +81,11 @@ const EntitySearch = () => {
     }
   };
   const initialValue =
-    options.find((item) =>
-      isLecturer ? item.value === lecturer : item.value === group?.id
+    options.find((item: {value: string}) =>
+      isLecturer ? item.value === lecturerContextValue?.lecturer : item.value === groupContextValue?.group?.id
     ) ?? null;
   return (
-    <Label alignItems="center" gap="15px">
+    <Label>
       Розклад занять для
       <div style={{ width: "200px" }}>
         <Select

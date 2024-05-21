@@ -6,12 +6,12 @@ interface Props {
 
 interface LecturerContextType {
   lecturer: any,
-  setLecturer: React.Dispatch<any>
+  setLecturer: React.Dispatch<string>
 }
 
 const LecturerContext = createContext<LecturerContextType | null>(null);
 
-export const useLecturerContext = () => useContext(LecturerContext);
+export const useLecturerContext = () => useContext<LecturerContextType | null>(LecturerContext);
 
 export const LecturerContextProvider: React.FC<Props> = ({children}) => {
   const [lecturer, setLecturer] = useState(null);
@@ -19,7 +19,7 @@ export const LecturerContextProvider: React.FC<Props> = ({children}) => {
   const params = {setLecturer, lecturer};
 
   return (
-    <LecturerContext.Provider value={params}>
+    <LecturerContext.Provider value={params || null}>
       {children}
     </LecturerContext.Provider>
   );

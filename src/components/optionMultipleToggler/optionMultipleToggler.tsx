@@ -1,7 +1,13 @@
 import { TogglerOption, TogglerWrapper } from './optionMultipleToggler.style';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const OptionMultipleToggler = ({options, onOptionChange, initialValue}) => {
+interface Props {
+  options: {value: string, label: string}[],
+  onOptionChange: (value: string | null) => void,
+  initialValue: string | null,
+}
+
+const OptionMultipleToggler: React.FC<Props> = ({options, onOptionChange, initialValue}) => {
   const [selectedItem, selectItem] = useState(initialValue);
 
   useEffect(() => {
@@ -14,7 +20,7 @@ const OptionMultipleToggler = ({options, onOptionChange, initialValue}) => {
     onOptionChange(selectedItem);
   }, [selectedItem]);
 
-  const optionChangeHandler = (value, item) => () => {
+  const optionChangeHandler = (value: string) => () => {
     selectItem(state => {
       if (state !== value) {
         return value;

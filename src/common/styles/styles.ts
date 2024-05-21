@@ -5,13 +5,13 @@ import { getModeSize } from '../utils/getModeSize';
 import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
 import { Link } from 'react-router-dom';
 
-export const Flex = styled.div`
+export const Flex = styled.div<{gap?: number}>`
   display: flex;
   ${space};
   ${flexbox};
 
   // Support for gap in flexbox
-  gap: ${(props: {gap: number}) => props.gap};
+  gap: ${(props) => props.gap};
 `;
 
 export const Pictogram = styled.img`
