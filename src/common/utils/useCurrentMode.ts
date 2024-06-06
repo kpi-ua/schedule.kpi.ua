@@ -3,7 +3,7 @@ import {getModeSize} from "./getModeSize";
 import { useEffect, useState } from 'react';
 
 export const useCurrentMode = () => {
-  const [currentMode, setCurrentMode] = useState(null);
+  const [currentMode, setCurrentMode] = useState<string | null>(null);
 
   useEffect(() => {
     detectCurrentMode();

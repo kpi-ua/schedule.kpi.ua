@@ -1,11 +1,11 @@
-export const getSelectCustomStyle = (theme) => ({
-  option(base) {
+export const getSelectCustomStyle = (theme: any) => ({
+  option(base: any) {
     return {
       ...base,
       color: theme['primaryFontColor'],
     };
   },
-  menu(base) {
+  menu(base: any) {
     return {
       ...base,
       "& .fast-option-focused": {
@@ -20,14 +20,14 @@ export const getSelectCustomStyle = (theme) => ({
       zIndex: 1000,
     };
   },
-  menuList(base) {
+  menuList(base: any) {
     return {
       ...base,
       backgroundColor: theme['bgOptions'],
       zIndex: 1000,
     };
   },
-  control(base) {
+  control(base: any) {
     return {
       ...base,
       backgroundColor: theme['bgOptions'],
@@ -35,19 +35,19 @@ export const getSelectCustomStyle = (theme) => ({
       border: 'none',
     };
   },
-  indicatorSeparator(base) {
+  indicatorSeparator(base: any) {
     return {
       ...base,
       display: 'none'
     };
   },
-  singleValue(base) {
+  singleValue(base: any) {
     return {
       ...base,
       color: theme['primaryFontColor'],
     };
   },
-  input(base) {
+  input(base: any) {
     return {
       ...base,
       color: theme['primaryFontColor'],
