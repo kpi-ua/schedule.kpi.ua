@@ -7,6 +7,9 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
+    "@types/material-ui": "^0.21.17",
+    "@types/styled-components": "^5.1.34",
+    "@types/styled-system": "^5.1.22",
     "axios": "^0.27.2",
     "clsx": "^1.2.0",
     "moment": "^2.29.4",
@@ -48,6 +51,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "@types/react-router-dom": "^5.3.3",
+    "gh-pages": "^4.0.0",
+    "typescript": "^4.9.5"
   }
 }

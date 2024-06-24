@@ -45,7 +45,7 @@ npm run build
 
 ### Build Docker container
 ```
-docker build ./ --file ./.dockerfile --tag kpiua/schedule.kpi.ua:latest
+docker build ./ --file ./Dockerfile --tag kpiua/schedule.kpi.ua:latest
 ```
 
 ### Run latest Docker container
