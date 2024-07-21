@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { theme } from '@/common/constants/theme';
+import { theme } from '../../common/constants/theme';
 import { getLocalStorageItem, setLocalStorageItem } from '../utils/parsedLocalStorage';
 
 interface Props {

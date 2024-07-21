@@ -1,6 +1,6 @@
 import { routes } from '../constants/routes';
-import { getScheduleByGroup, getScheduleByLecturer, getExamsByGroup } from '@/api/schedule';
-import { getAllGroups, getAllLecturers } from '@/api/fullList';
+import { getScheduleByGroup, getScheduleByLecturer, getExamsByGroup } from '../../api/schedule';
+import { getAllGroups, getAllLecturers } from '../../api/fullList';
 
 export const getScheduleApiFunction = (route: string) => {
   const functions = {

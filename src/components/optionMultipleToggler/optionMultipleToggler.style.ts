@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const TogglerWrapper = styled.div`
   display: flex;

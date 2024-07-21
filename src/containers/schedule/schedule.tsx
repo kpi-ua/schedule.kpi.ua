@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import TimeDivider from '../../components/timeDivider';
 import { CurrentDayContainer, GridContainer } from './schedule.style';
 import ScheduleHeader from '../scheduleHeader';
@@ -6,7 +6,7 @@ import { TIME_POINTS } from '../../common/constants/scheduleParams';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 import { useCurrentDateParams } from '../../common/utils/useCurrentDateParams';
 
-const Schedule = ({children}) => {
+const Schedule = ({children}: {children: ReactNode}) => {
   const sliceOptions = useSliceOptionsContext();
   const { currentDay } = useCurrentDateParams();
 
@@ -21,14 +21,14 @@ const Schedule = ({children}) => {
   });
 
   const isDayInSlice = () => {
-    if (sliceOptions) {
+    if (sliceOptions && currentDay) {
       return currentDay >= sliceOptions.start && currentDay < sliceOptions.end;
     }
 
     return true;
   };
 
-  const gridDayStart = currentDay + 1;
+  const gridDayStart = currentDay! + 1;
 
   return (
     <GridContainer>

@@ -1,4 +1,4 @@
-import {MODES} from "@/common/constants/modes";
+import {MODES} from "../../common/constants/modes";
 
 export const getModeSize = (MODE: string): string => {
   const MODE_SIZES = {

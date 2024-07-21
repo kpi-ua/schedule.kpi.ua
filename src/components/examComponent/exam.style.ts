@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Flex } from '@/common/styles/styles';
-import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
-import { ScheduleItemMixin } from '@/common/styles/styles';
+import { Flex } from '../../common/styles/styles';
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { ScheduleItemMixin } from '../../common/styles/styles';
 
 export const Subject = styled.div`
   font-weight: bold;

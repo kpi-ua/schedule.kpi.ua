@@ -25,11 +25,11 @@ export const GridContainer = styled.div`
   }
 `;
 
-export const CurrentDayContainer = styled.div`
+export const CurrentDayContainer = styled.div<{start: number}>`
   transform: scale(1.1, 1.2);
   position: absolute;
   background: ${getValueFromTheme('currentDayContainer')};
-  grid-column: ${props => props.start} / span 1;
+  grid-column: ${(props: any) => props.start} / span 1;
   width: 100%;
   top: 0;
   bottom: 0;

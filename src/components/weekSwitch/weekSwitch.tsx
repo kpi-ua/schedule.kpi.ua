@@ -1,10 +1,10 @@
 import OptionMultipleToggler from "../../components/optionMultipleToggler";
 import { useWeekContext } from "../../common/context/weekContext";
 
-const WeekSwitch = ({ type }) => {
-  const { setCurrentWeek, currentWeek } = useWeekContext();
+const WeekSwitch = ({ type }: { type: "weeks" | "semesters" }) => {
+  const { setCurrentWeek, currentWeek } = useWeekContext()!;
 
-  const updateWeek = (value) => {
+  const updateWeek = (value: string | null) => {
     if (value) {
       setCurrentWeek(value);
     }

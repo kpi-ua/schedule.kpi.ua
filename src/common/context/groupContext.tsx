@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 interface Props {
   initialValue?: any,
-  children: React.FC
+  children: React.ReactNode
 }
 
 interface GroupContextType {
@@ -15,7 +15,7 @@ const GroupContext = createContext<GroupContextType | null>( null);
 export const useGroupContext = () => useContext(GroupContext);
 
 export const GroupContextProvider: React.FC<Props> = ({ initialValue = null, children }) => {
-  const [group, setGroup] = useState(initialValue);
+  const [group, setGroup] = useState<string | null>(initialValue);
 
   const params: GroupContextType = { setGroup, group };
   

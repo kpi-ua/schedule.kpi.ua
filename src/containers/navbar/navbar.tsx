@@ -13,7 +13,7 @@ const Navbar = () => {
       <NavbarInner justifyContent="space-between" mx={2} gap={'20px'}>
         <Logo src={logo} alt={'logo'}/>
         <MainSettings/>
-        <Switch onChange={selectTheme}/>
+        <Switch onChange={selectTheme as any}/>
       </NavbarInner>
     </NavBarWrapper>
   );

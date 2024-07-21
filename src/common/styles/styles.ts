@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 import { flexbox, space } from 'styled-system';
-import { MODES } from '@/common/constants/modes';
+import { MODES } from '../../common/constants/modes';
 import { getModeSize } from '../utils/getModeSize';
-import { getValueFromTheme } from '@/common/utils/getValueFromTheme';
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import { Link } from 'react-router-dom';
 
-export const Flex = styled.div<{gap?: number}>`
+export const Flex = styled.div<{gap?: string}>`
   display: flex;
   ${space};
   ${flexbox};

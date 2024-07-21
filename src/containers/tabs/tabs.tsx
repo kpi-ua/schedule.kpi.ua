@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-const Tabs = ({children, onTabChanged}) => {
+const Tabs = ({ children, onTabChanged }: any) => {
   const [currentTab, setTab] = useState(0);
 
   useEffect(() => {
-    if (typeof currentTab === 'number') {
+    if (typeof currentTab === "number") {
       onTabChanged(currentTab);
     }
   }, [currentTab]);

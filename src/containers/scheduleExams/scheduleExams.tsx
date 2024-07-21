@@ -1,11 +1,12 @@
 import { GridWrapper, Header, WordAccent } from './scheduleWrapper.style';
-import Exam from '@/components/examComponent';
-import { useGroupContext } from '@/common/context/groupContext';
-import { useWeekContext } from '@/common/context/weekContext';
+import Exam from '../../components/examComponent';
+import { useGroupContext } from '../../common/context/groupContext';
+import { useWeekContext } from '../../common/context/weekContext';
 import React, { useEffect, useState } from 'react';
 
 interface Props {
-  getData: (id: number) => Promise<any>
+  getData: (id: string) => Promise<any>
+  contextType?: string
 }
 
 const SchededuleExamsWrapper: React.FC<Props> = ({getData}) => {
