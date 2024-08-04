@@ -27,9 +27,9 @@ interface Props {
     group: string;
     tag: string;
     place: string;
-    currentDay: boolean | undefined;
+    currentDay?: boolean
   };
-  collapsed?: boolean | undefined;
+  collapsed?: boolean;
 }
 
 const ScheduleItemContent: React.FC<Props> = ({

@@ -9,11 +9,10 @@ import { getLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 
 const ScheduleTypeTab = ({
   tabClick,
-  activeTab,
   children,
   url,
 }: {
-  tabClick?: any;
+  tabClick?: () => void;
   activeTab?: any;
   children: any;
   url: any;

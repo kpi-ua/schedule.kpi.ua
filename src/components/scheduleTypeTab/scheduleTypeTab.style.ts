@@ -15,6 +15,6 @@ export const Tab = styled.div<{ active: boolean }>`
     border-radius: 6px;
     height: 2px;
     background-color: ${getValueFromTheme("primaryFontColor")};
-    display: ${(props: any) => (props.active ? "block" : "none")};
+    display: ${(props) => (props.active ? "block" : "none")};
   }
 `;

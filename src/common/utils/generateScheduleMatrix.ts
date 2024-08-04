@@ -24,7 +24,7 @@ export const generateScheduleMatrix = (weekSchedule: WeekSchedule) => {
       };
 
       if (cell) {
-        let extendedCell = [];
+        let extendedCell: any[] = [];
 
         if (Array.isArray(cell)) {
           extendedCell = [...cell];

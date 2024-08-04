@@ -10,7 +10,12 @@ interface ContextProps {
   currentWeek: any,
 }
 
-const WeekContext = createContext<ContextProps | null>(null);
+const defaultContext: ContextProps = {
+  setCurrentWeek: () => {},
+  currentWeek: 0,
+};
+
+const WeekContext = createContext<ContextProps>(defaultContext);
 
 export const useWeekContext = () => useContext(WeekContext);
 

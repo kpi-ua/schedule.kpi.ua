@@ -28,7 +28,7 @@ const Schedule = ({children}: {children: ReactNode}) => {
     return true;
   };
 
-  const gridDayStart = currentDay! + 1;
+  const gridDayStart = currentDay || 0 + 1;
 
   return (
     <GridContainer>

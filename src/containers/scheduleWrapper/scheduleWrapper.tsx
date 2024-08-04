@@ -22,11 +22,11 @@ const ScheduleWrapper = ({
   } | null>(null);
   const [data, setData] = useState(null);
 
-  const { currentWeek } = useWeekContext()!;
+  const { currentWeek } = useWeekContext();
   const { lecturer } = useLecturerContext();
-  const { group } = useGroupContext()!;
+  const { group } = useGroupContext();
 
-  const weekValue: { [key: string]: string } = {
+  const weekValue: Record<string, string>= {
     firstWeek: "scheduleFirstWeek",
     secondWeek: "scheduleSecondWeek",
   };
@@ -41,7 +41,7 @@ const ScheduleWrapper = ({
     }
   }, [lecturer, group, contextType, getData]);
 
-  const generateScheduleRows = (scheduleMatrix: any) => {
+  const generateScheduleRows = (scheduleMatrix: any[]) => {
     return scheduleMatrix.map((item: any, i: number) => {
       const slicedDataset = sliceParams
         ? item.slice(sliceParams.start, sliceParams.end)
@@ -50,7 +50,7 @@ const ScheduleWrapper = ({
     });
   };
 
-  const setSlice = (value: any) => {
+  const setSlice = (value: string) => {
     if (!value) {
       setSliceParams(null);
       return;

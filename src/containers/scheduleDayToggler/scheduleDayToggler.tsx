@@ -8,10 +8,13 @@ import { useCurrentDateParams } from "../../common/utils/useCurrentDateParams";
 const ScheduleDayToggler = ({ handler }: { handler: any }) => {
   const mode = useCurrentMode();
   const { currentDay } = useCurrentDateParams();
+
   const getDayOption = () => {
+
     if (!currentDay || currentDay === 6 || currentDay < 0) {
       return 0;
     }
+
     if (mode === MODES.EXTRA_SMALL) {
       return currentDay;
     } else if (mode === MODES.SMALL) {
@@ -19,10 +22,10 @@ const ScheduleDayToggler = ({ handler }: { handler: any }) => {
     } else if (mode === MODES.MEDIUM) {
       return Math.floor(currentDay / 3);
     }
+
     return 0;
   };
 
-  console.log("getDayOption(): ", getDayOption());
   return mode && mode !== MODES.BIG ? (
     <ScheduleDayTogglerContainer>
       <OptionMultipleToggler
