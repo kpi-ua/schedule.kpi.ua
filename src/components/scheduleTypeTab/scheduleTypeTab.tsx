@@ -13,8 +13,7 @@ const ScheduleTypeTab = ({
   url,
 }: {
   tabClick?: () => void;
-  activeTab?: any;
-  children: any;
+  children: React.ReactNode;
   url: any;
 }) => {
   const location = useLocation();

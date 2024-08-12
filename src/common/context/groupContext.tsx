@@ -5,13 +5,12 @@ interface Props {
 }
 
 interface GroupContextType {
-  group: any;
+  group?: any;
   setGroup: React.Dispatch<any>;
 };
 
 
 const defaultContext: GroupContextType = {
-  group: null,
   setGroup: () => {},
 };
 
@@ -20,7 +19,7 @@ const GroupContext = createContext<GroupContextType>(defaultContext);
 export const useGroupContext = () => useContext(GroupContext);
 
 export const GroupContextProvider: React.FC<Props> = ({ children }) => {
-  const [group, setGroup] = useState<string | null>(null);
+  const [group, setGroup] = useState<any>();
 
   const params: GroupContextType = { setGroup, group };
   
