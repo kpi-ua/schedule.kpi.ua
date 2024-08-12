@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { theme } from '@/common/constants/theme';
+import { theme } from '../../common/constants/theme';
 import { getLocalStorageItem, setLocalStorageItem } from '../utils/parsedLocalStorage';
 
 interface Props {
@@ -12,15 +12,22 @@ interface ContextType {
   changeTheme: (isLightTheme: boolean) => void,
 }
 
-const ThemeSelectorContext = createContext<ContextType | null>(null);
+const defaultContext: ContextType = {
+  changeTheme: () => {},
+};
+
+const ThemeSelectorContext = createContext<ContextType>(defaultContext);
+
 
 export const useThemeSelectorContext = () => useContext(ThemeSelectorContext);
 
 const ThemeContextProvider: React.FC<Props> = ({ children, initialValue = 'light' }) => {
   const [currentTheme, setTheme] = useState(initialValue);
+
   useEffect(() => {
     const localStorageTheme = getLocalStorageItem("theme")
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
     if (localStorageTheme) {
       changeTheme(localStorageTheme === 'light')
     }

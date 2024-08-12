@@ -1,15 +1,15 @@
-import {MODES} from "@/common/constants/modes";
-import {getModeSize} from "./getModeSize";
-import { useEffect, useState } from 'react';
+import { MODES } from "../../common/constants/modes";
+import { getModeSize } from "./getModeSize";
+import { useEffect, useState } from "react";
 
 export const useCurrentMode = () => {
   const [currentMode, setCurrentMode] = useState<string | null>(null);
 
   useEffect(() => {
     detectCurrentMode();
-    window.addEventListener('resize', detectCurrentMode);
+    window.addEventListener("resize", detectCurrentMode);
 
-    return () => window.removeEventListener('resize', detectCurrentMode);
+    return () => window.removeEventListener("resize", detectCurrentMode);
   }, []);
 
   const detectCurrentMode = () => {
@@ -21,7 +21,7 @@ export const useCurrentMode = () => {
     }
 
     setCurrentMode(MODES.BIG);
-  }
+  };
 
   return currentMode;
-}
+};

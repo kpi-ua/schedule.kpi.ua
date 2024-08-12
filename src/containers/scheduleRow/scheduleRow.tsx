@@ -3,9 +3,9 @@ import React from 'react';
 import { EmptyElement } from './scheduleRow.style';
 import ScheduleItemExtended from '../scheduleItemExtended';
 
-const ScheduleRow = ({dataset}) => {
+const ScheduleRow = ({dataset}: { dataset: any[] }) => {
 
-  const generateScheduleItem = dataset => {
+  const generateScheduleItem = (dataset: any[]) => {
     return dataset.map((item, index) => {
       if (Array.isArray(item)) {
         return <ScheduleItemExtended key={index} scheduleItemData={item} />

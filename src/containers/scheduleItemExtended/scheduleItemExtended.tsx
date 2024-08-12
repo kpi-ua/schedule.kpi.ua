@@ -2,7 +2,7 @@ import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } f
 import ScheduleItemContent from '../../components/scheduleItemContent';
 import { useEffect, useState } from 'react';
 
-const ScheduleItemExtended = ({scheduleItemData}) => {
+const ScheduleItemExtended = ({scheduleItemData}: { scheduleItemData: any[] }) => {
   const [collapsed, setCollapse] = useState(true);
   const [hasData, setHasData] = useState(true)
 

@@ -1,5 +1,5 @@
 import { WeekDay } from './scheduleHeader.style';
-import { useSliceOptionsContext } from '@/common/context/sliceOptionsContext';
+import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 import React from 'react';
 
 const ScheduleHeader = () => {

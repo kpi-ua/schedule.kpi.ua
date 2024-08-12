@@ -3,18 +3,18 @@ import { Select } from "react-select-virtualized";
 
 import { Label } from "./entitySearch.style";
 
-import { useLecturerContext } from "@/common/context/lecturerContext";
+import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useHistory, useLocation } from "react-router-dom";
-import { usePreloadedListContext } from "@/common/context/preloadedListsContext";
-import { useGroupContext } from "@/common/context/groupContext";
+import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
+import { useGroupContext } from "../../common/context/groupContext";
 import { useTheme } from "styled-components";
 
-import { prepareList } from "@/common/utils/apiTransformers";
-import { routes } from "@/common/constants/routes";
+import { prepareList } from "../../common/utils/apiTransformers";
+import { routes } from "../../common/constants/routes";
 
-import { getSelectCustomStyle } from "@/common/constants/selectOptions";
+import { getSelectCustomStyle } from "../../common/constants/selectOptions";
 import "./entitySearch.scss";
-import { getLocalStorageItem, setLocalStorageItem } from "@/common/utils/parsedLocalStorage";
+import { getLocalStorageItem, setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 
 const useQuery = () => {
   const { search } = useLocation();

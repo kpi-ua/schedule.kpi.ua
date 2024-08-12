@@ -1,11 +1,20 @@
-import { Container, Divider, InnerContainer, TimeCell } from './timeDivider.style';
+import {
+  Container,
+  Divider,
+  InnerContainer,
+  TimeCell,
+} from "./timeDivider.style";
 
-const TimeDivider = ({children}) => {
+import { ReactNode } from "react";
+
+const TimeDivider = ({ children }: { children: ReactNode }) => {
   return (
     <Container>
-      <InnerContainer alignItems="center">
+      {/* FIXME: */}
+      {/* <InnerContainer alignItems="center"> */}
+      <InnerContainer>
         <TimeCell>{children}</TimeCell>
-        <Divider/>
+        <Divider />
       </InnerContainer>
     </Container>
   );
