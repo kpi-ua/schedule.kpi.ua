@@ -30,7 +30,7 @@ jobs:
         tag1="kpiua/schedule.kpi.ua:$now"
         tag2="kpiua/schedule.kpi.ua:latest"
         
-        docker build ./ --file ./.dockerfile --tag $tag1 --tag $tag2
+        docker build ./ --file ./Dockerfile --tag $tag1 --tag $tag2
         
         docker push $tag1
         docker push $tag2
