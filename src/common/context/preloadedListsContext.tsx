@@ -22,10 +22,8 @@ export const PreloadedListsContextProvider: React.FC<Props> = ({
     lecturers: [],
   });
 
-  const promises = [getAllGroups(), getAllLecturers()];
-
   useEffect(() => {
-    Promise.all(promises).then(([groups, lecturers]) => {
+    Promise.all([getAllGroups(), getAllLecturers()]).then(([groups, lecturers]) => {
       setLists({
         groups: groups.data,
         lecturers: lecturers.data,

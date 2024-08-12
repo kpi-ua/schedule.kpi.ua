@@ -15,20 +15,22 @@ const SchededuleExamsWrapper: React.FC<Props> = ({ getData }) => {
   const groupContext = useGroupContext();
   const weekContext = useWeekContext();
 
+  const groupId = groupContext?.group?.id;
+
   useEffect(() => {
-    if (groupContext?.group) {
-      getData(groupContext.group.id).then((res) => setData(res.data));
+    if (groupId) {
+      getData(groupId).then((res) => setData(res.data));
     } else {
       setData([]);
     }
-  }, [groupContext]);
+  }, [getData, groupId]);
 
   return data ? (
     <div style={{ overflow: "hidden" }}>
       <GridWrapper>
         <Header>
           Розклад сесії для групи{" "}
-          <WordAccent>{groupContext.group.name}</WordAccent>
+          <WordAccent>{groupContext.group?.name}</WordAccent>
           <br />
           на{" "}
           <WordAccent>
