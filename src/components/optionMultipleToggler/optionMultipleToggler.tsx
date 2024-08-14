@@ -7,24 +7,18 @@ interface Props<T> {
   currentValue: T;
 }
 
-const OptionMultipleToggler = <T extends string | number>({ options, onChange, currentValue }: Props<T>) => {
-  const optionChangeHandler = (value: T) => () => {
-    onChange(value);
-  };
-
-  return (
-    <TogglerWrapper>
-      {options.map(item => (
-        <TogglerOption
-          key={item.value}
-          active={currentValue === item.value}
-          onClick={optionChangeHandler(item.value)}
-        >
-          {item.label}
-        </TogglerOption>
-      ))}
-    </TogglerWrapper>
-  );
-};
+const OptionMultipleToggler = <T extends string | number>({ options, onChange, currentValue }: Props<T>) => (
+  <TogglerWrapper>
+    {options.map(item => (
+      <TogglerOption
+        key={item.value}
+        active={currentValue === item.value}
+        onClick={() => onChange(item.value)}
+      >
+        {item.label}
+      </TogglerOption>
+    ))}
+  </TogglerWrapper>
+);
 
 export default OptionMultipleToggler;

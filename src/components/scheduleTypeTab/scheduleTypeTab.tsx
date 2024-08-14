@@ -7,15 +7,17 @@ import { useGroupContext } from "../../common/context/groupContext";
 import { useLecturerContext } from "../../common/context/lecturerContext";
 import { getLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 
+interface ScheduleTypeTabProps {
+  tabClick?: () => void;
+  children: React.ReactNode;
+  url: string;
+}
+
 const ScheduleTypeTab = ({
   tabClick,
   children,
   url,
-}: {
-  tabClick?: () => void;
-  children: React.ReactNode;
-  url: any;
-}) => {
+}: ScheduleTypeTabProps) => {
   const location = useLocation();
 
   const isActive = location.pathname === url;
@@ -35,7 +37,7 @@ const ScheduleTypeTab = ({
         setUrlWithParams(`${url}?groupId=${localStorageGroupId}`);
       }
     }
-  }, [url, setUrlWithParams, isActive, group, lecturer]);
+  }, [url, setUrlWithParams, isActive, group?.id, lecturer?.id]);
 
   return (
     <Tab active={isActive} onClick={tabClick}>

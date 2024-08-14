@@ -7,15 +7,13 @@ import {
 
 import { ReactNode } from "react";
 
-const TimeDivider = ({ children }: { children: ReactNode }) => {
-  return (
-    <Container>
-      <InnerContainer>
-        <TimeCell>{children}</TimeCell>
-        <Divider />
-      </InnerContainer>
-    </Container>
-  );
-};
+const TimeDivider = ({ children }: { children: ReactNode }) => (
+  <Container>
+    <InnerContainer>
+      <TimeCell>{children}</TimeCell>
+      <Divider />
+    </InnerContainer>
+  </Container>
+);
 
 export default TimeDivider;

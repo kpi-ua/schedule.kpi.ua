@@ -1,7 +1,7 @@
 import { useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 
-// Scroll to top on location change
+// TODO: This doesn't work
 const ScrollToTop = ({ history, children }: any) => {
     useEffect(() => {
         const unlisten = history.listen(() => {

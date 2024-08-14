@@ -15,75 +15,84 @@ import { routes } from "../../common/constants/routes";
 import { getSelectCustomStyle } from "../../common/constants/selectOptions";
 import "./entitySearch.scss";
 import { getLocalStorageItem, setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
+import { ListOption } from '../../types/ListOption';
+import { Lecturer } from '../../models/Lecturer';
+import { Group } from '../../models/Group';
+import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 
 const useQuery = () => {
   const { search } = useLocation();
   return React.useMemo(() => new URLSearchParams(search), [search]);
 };
 
-const EntitySearch: React.FC = () => {
+const EntitySearch = () => {
+  const [options, setOptions] = useState<ListOption<string>[]>([]);
+  
   const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
 
-  const [options, setOptions] = useState<{label: string, value: string}[]>([]);
-  const lecturerContextValue = useLecturerContext();
-  
-  const groupContextValue = useGroupContext();
   const lists = usePreloadedListContext();
+  const groupContext = useGroupContext();
+  const lecturerContext = useLecturerContext();
 
   const isLecturer = location.pathname.includes(routes.LECTURER);
-  const list = isLecturer ? lists?.lecturers : lists?.groups;
+  const list: EntityWithNameAndId[] = isLecturer ? lists.lecturers : lists.groups;
 
   const query = useQuery();
 
   useEffect(() => {
     if (isLecturer) {
-      groupContextValue?.setGroup(null);
+      groupContext.setGroup(undefined);
     } else {
-      lecturerContextValue?.setLecturer(null);
+      lecturerContext.setLecturer(undefined);
     }
   }, [isLecturer]);
 
   useEffect(() => {
     if (isLecturer) {
-      let lecturer = query.get("lecturerId");
+      let lecturerId = query.get("lecturerId");
       const localStorageLecturerId = getLocalStorageItem("lecturerId")
-      if(!lecturer && localStorageLecturerId){
-        lecturer = localStorageLecturerId
+      if(!lecturerId && localStorageLecturerId){
+        lecturerId= localStorageLecturerId;
         history.replace("?lecturerId=" + localStorageLecturerId);
       }
-      lecturerContextValue?.setLecturer(lecturer);
-      groupContextValue?.setGroup(null);
+      const lecturer = list.find(x => x.id === lecturerId) as Lecturer;
+      lecturerContext.setLecturer(lecturer);
+      groupContext.setGroup(undefined);
     } else {
-      let group = query.get("groupId");
+      let groupId = query.get("groupId");
       const localStorageLecturerId = getLocalStorageItem("groupId")
-      if(!group && localStorageLecturerId){
-        group = localStorageLecturerId
+      if(!groupId && localStorageLecturerId){
+        groupId = localStorageLecturerId
         history.replace("?groupId=" + localStorageLecturerId);
       }
-      const groupObj = list?.find((g) => g.id === group);
-      groupContextValue?.setGroup(groupObj);
-      lecturerContextValue?.setLecturer(null);
+      const group = list.find(x => x.id === groupId) as Group;
+      groupContext.setGroup(group);
+      lecturerContext.setLecturer(undefined);
     }
-    setOptions(prepareList(list || []));
+    setOptions(prepareList(list));
   }, [list, history, isLecturer, query]);
 
-  const onOptionChange = (option: {value: string, label: string}) => {
-    isLecturer ? lecturerContextValue?.setLecturer(option.value) : groupContextValue?.setGroup({ id : option.value, name : option.label });
-
+  const onOptionChange = (option: ListOption<string>) => {
     if (isLecturer) {
+      const lecturer = list.find(x => x.id === option.value) as Lecturer;
+      lecturerContext.setLecturer(lecturer);
       history.push("?lecturerId=" + option.value);
       setLocalStorageItem("lecturerId", option.value)
     } else {
+      const group = list.find(x => x.id === option.value) as Group;
+      groupContext.setGroup(group);
       history.push("?groupId=" + option.value);
       setLocalStorageItem("groupId", option.value)
     }
   };
+
   const initialValue =
-    options.find((item: {value: string}) =>
-      isLecturer ? item.value === lecturerContextValue?.lecturer : item.value === groupContextValue?.group?.id
-    ) ?? null;
+    options.find(item =>
+      isLecturer ? item.value === lecturerContext.lecturer?.id : item.value === groupContext?.group?.id
+    );
+
   return (
     <Label>
       Розклад занять для

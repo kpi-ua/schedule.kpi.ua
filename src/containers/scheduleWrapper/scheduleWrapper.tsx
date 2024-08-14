@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import ScheduleRow from "../scheduleRow";
 import { GridWrapper } from "./scheduleWrapper.style";
-import SliceOptionsContext from "../../common/context/sliceOptionsContext";
+import SliceOptionsContext, { Slice } from "../../common/context/sliceOptionsContext";
 import ScheduleDayToggler from "../scheduleDayToggler";
 import Schedule from "../schedule";
 import { generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
 import { useWeekContext } from "../../common/context/weekContext";
 import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useGroupContext } from "../../common/context/groupContext";
+import { PagedResponse } from '../../models/PagedResponse';
 
-const ScheduleWrapper = ({
+interface ScheduleWrapperProps<T> {
+  getData: (id: string) => Promise<PagedResponse<T[]>>;
+  contextType: string;
+}
+
+const ScheduleWrapper = <T,>({
   getData,
   contextType,
-}: {
-  getData: any;
-  contextType: any;
-}) => {
-  const [sliceParams, setSliceParams] = useState<{
-    start: number;
-    end: number;
-  } | null>(null);
-  const [data, setData] = useState(null);
+}: ScheduleWrapperProps<T>) => {
+  const [sliceParams, setSliceParams] = useState<Slice>({});
+  const [data, setData] = useState<T[]>();
 
   const { currentWeek } = useWeekContext();
   const { lecturer } = useLecturerContext();
@@ -32,12 +32,12 @@ const ScheduleWrapper = ({
   };
 
   useEffect(() => {
-    const contextValue = contextType === "lecturer" ? lecturer : group?.id;
+    const contextValue = contextType === "lecturer" ? lecturer?.id : group?.id;
 
     if (contextValue) {
       getData(contextValue).then((res: any) => setData(res.data));
     } else {
-      setData(null);
+      setData(undefined);
     }
   }, [lecturer, group, contextType, getData]);
 
@@ -52,7 +52,7 @@ const ScheduleWrapper = ({
 
   const setSlice = (value: string) => {
     if (!value) {
-      setSliceParams(null);
+      setSliceParams({});
       return;
     }
 
@@ -60,21 +60,23 @@ const ScheduleWrapper = ({
     setSliceParams({ start: +ranges[0], end: +ranges[1] });
   };
 
+  if (!data) {
+    return null;
+  }
+
   return (
-    data && (
-      <div style={{ overflow: "hidden" }}>
-        <GridWrapper>
-          <SliceOptionsContext value={sliceParams}>
-            <ScheduleDayToggler handler={setSlice} />
-            <Schedule>
-              {generateScheduleRows(
-                generateScheduleMatrix(data[weekValue[currentWeek]])
-              )}
-            </Schedule>
-          </SliceOptionsContext>
-        </GridWrapper>
-      </div>
-    )
+    <div style={{ overflow: "hidden" }}>
+      <GridWrapper>
+        <SliceOptionsContext value={sliceParams}>
+          <ScheduleDayToggler onChange={setSlice} />
+          <Schedule>
+            {generateScheduleRows(
+              generateScheduleMatrix(data[weekValue[currentWeek]])
+            )}
+          </Schedule>
+        </SliceOptionsContext>
+      </GridWrapper>
+    </div>
   );
 };
 

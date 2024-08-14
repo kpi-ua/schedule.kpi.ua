@@ -1,6 +1,11 @@
 import { createContext, useContext } from 'react';
 
-const SliceOptionsContext = createContext<{start: number, end: number} | null>(null);
+export interface Slice {
+  start?: number;
+  end?: number;
+}
+
+const SliceOptionsContext = createContext<Slice>({});
 
 export const useSliceOptionsContext = () => useContext(SliceOptionsContext);
 
