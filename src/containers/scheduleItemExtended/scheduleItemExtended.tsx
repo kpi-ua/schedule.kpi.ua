@@ -1,32 +1,33 @@
 import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } from './scheduleItemExtended.style';
 import ScheduleItemContent from '../../components/scheduleItemContent';
 import { useMemo, useState } from 'react';
+import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
 
 interface ScheduleItemExtendedProps {
-  scheduleItemData: any[];
+  scheduleMatrixCell: ScheduleMatrixCell[];
 }
 
-const ScheduleItemExtended = ({ scheduleItemData }: ScheduleItemExtendedProps) => {
+const ScheduleItemExtended = ({ scheduleMatrixCell }: ScheduleItemExtendedProps) => {
   const [collapsed, setCollapse] = useState(true);
 
   const hasData = useMemo(() => {
-    const emptyEntries = scheduleItemData.filter(x => x.teacherName === '' && x.place === '');
+    const emptyEntries = scheduleMatrixCell.filter(x => x.teacherName === '' && x.place === '');
 
-    return emptyEntries.length !== scheduleItemData.length;
-  }, [scheduleItemData]);
+    return emptyEntries.length !== scheduleMatrixCell.length;
+  }, [scheduleMatrixCell]);
 
-  const generateScheduleUnits = () => scheduleItemData.map((item, i) => (
+  const generateScheduleUnits = () => scheduleMatrixCell.map((item, i) => (
     <ScheduleItemExtendedUnit key={i}>
-      <ScheduleItemContent collapsed={collapsed} scheduleItemData={item}/>
+      <ScheduleItemContent collapsed={collapsed} scheduleMatrixCell={item}/>
     </ScheduleItemExtendedUnit>
   ));
 
-  if (!scheduleItemData || !scheduleItemData.length) {
+  if (!scheduleMatrixCell || !scheduleMatrixCell.length) {
     return null;
   }
 
   return (
-    <ScheduleItemExtendedWrapper items={scheduleItemData.length}>
+    <ScheduleItemExtendedWrapper items={scheduleMatrixCell.length}>
       {generateScheduleUnits()}
       {hasData &&
         <CollapseItem

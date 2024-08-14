@@ -1,14 +1,15 @@
 import { ScheduleItemWrapper } from './scheduleItem.style';
 import ScheduleItemContent from '../../components/scheduleItemContent';
+import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
 
 interface ScheduleItemProps {
-  scheduleItemData: any;
+  scheduleMatrixCell: ScheduleMatrixCell;
 }
 
-export const ScheduleItem = ({ scheduleItemData }: ScheduleItemProps) => {
+export const ScheduleItem = ({ scheduleMatrixCell }: ScheduleItemProps) => {
   return (
     <ScheduleItemWrapper>
-      <ScheduleItemContent scheduleItemData={scheduleItemData} />
+      <ScheduleItemContent scheduleMatrixCell={scheduleMatrixCell} />
     </ScheduleItemWrapper>
   );
 };

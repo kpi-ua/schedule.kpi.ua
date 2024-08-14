@@ -18,22 +18,15 @@ import { useGroupContext } from "../../common/context/groupContext";
 import { setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 import { SUBJECT_TYPES } from "../../common/constants/subjectTypes";
 import { compact, uniq } from 'lodash-es';
+import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
 
 interface Props {
-  scheduleItemData: {
-    name: string;
-    teacherName: string;
-    lecturerId: string;
-    group: string;
-    tag: string;
-    place: string;
-    currentDay?: boolean
-  };
+  scheduleMatrixCell: ScheduleMatrixCell;
   collapsed?: boolean;
 }
 
 const ScheduleItemContent: React.FC<Props> = ({
-  scheduleItemData,
+  scheduleMatrixCell,
   collapsed,
 }) => {
   const {
@@ -41,13 +34,13 @@ const ScheduleItemContent: React.FC<Props> = ({
     teacherName,
     lecturerId,
     group,
-  } = scheduleItemData
+  } = scheduleMatrixCell;
 
   const scheduleGroups = compact(uniq((group || '').split(',')));
-  const tag = scheduleItemData?.tag;
+  const tag = scheduleMatrixCell?.tag;
   const { groups, lecturers } = usePreloadedListContext();
   const [location, setLocation] = useState(
-    scheduleItemData && scheduleItemData.place
+    scheduleMatrixCell && scheduleMatrixCell.place
   );
   const { setLecturer } = useLecturerContext();
   const { setGroup } = useGroupContext()!;
@@ -114,7 +107,7 @@ const ScheduleItemContent: React.FC<Props> = ({
         {ScheduleItemComponent && (
           <ScheduleItemComponent>{scheduleItemTitle}</ScheduleItemComponent>
         )}
-        {scheduleItemData?.currentDay && (
+        {scheduleMatrixCell?.currentDay && (
           <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>
         )}
       </ScheduleItemHeader>

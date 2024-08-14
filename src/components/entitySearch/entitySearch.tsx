@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Select } from "react-select-virtualized";
 
 import { Label } from "./entitySearch.style";
@@ -41,13 +41,23 @@ const EntitySearch = () => {
 
   const query = useQuery();
 
+  const setGroupCallback = useCallback(
+    (group?: Group) => groupContext.setGroup(group),
+    [groupContext]
+  );
+  
+  const setLecturerCallback = useCallback(
+    (lecturer?: Lecturer) => lecturerContext.setLecturer(lecturer),
+    [lecturerContext]
+  );
+
   useEffect(() => {
     if (isLecturer) {
-      groupContext.setGroup(undefined);
+      setGroupCallback(undefined);
     } else {
-      lecturerContext.setLecturer(undefined);
+      setLecturerCallback(undefined);
     }
-  }, [isLecturer]);
+  }, [isLecturer, setGroupCallback, setLecturerCallback]);
 
   useEffect(() => {
     if (isLecturer) {
@@ -58,8 +68,8 @@ const EntitySearch = () => {
         history.replace("?lecturerId=" + localStorageLecturerId);
       }
       const lecturer = list.find(x => x.id === lecturerId) as Lecturer;
-      lecturerContext.setLecturer(lecturer);
-      groupContext.setGroup(undefined);
+      setLecturerCallback(lecturer);
+      setGroupCallback(undefined);
     } else {
       let groupId = query.get("groupId");
       const localStorageLecturerId = getLocalStorageItem("groupId")
@@ -68,11 +78,11 @@ const EntitySearch = () => {
         history.replace("?groupId=" + localStorageLecturerId);
       }
       const group = list.find(x => x.id === groupId) as Group;
-      groupContext.setGroup(group);
-      lecturerContext.setLecturer(undefined);
+      setGroupCallback(group);
+      setLecturerCallback(undefined);
     }
     setOptions(prepareList(list));
-  }, [list, history, isLecturer, query]);
+  }, [list, history, isLecturer, query, setGroupCallback, setLecturerCallback]);
 
   const onOptionChange = (option: ListOption<string>) => {
     if (isLecturer) {

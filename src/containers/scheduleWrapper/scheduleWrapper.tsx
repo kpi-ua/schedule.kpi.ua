@@ -4,7 +4,7 @@ import { GridWrapper } from "./scheduleWrapper.style";
 import SliceOptionsContext, { Slice } from "../../common/context/sliceOptionsContext";
 import ScheduleDayToggler from "../scheduleDayToggler";
 import Schedule from "../schedule";
-import { generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
+import { ScheduleMatrix, ScheduleMatrixRow, generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
 import { useWeekContext } from "../../common/context/weekContext";
 import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useGroupContext } from "../../common/context/groupContext";
@@ -35,18 +35,18 @@ const ScheduleWrapper = <T,>({
     const contextValue = contextType === "lecturer" ? lecturer?.id : group?.id;
 
     if (contextValue) {
-      getData(contextValue).then((res: any) => setData(res.data));
+      getData(contextValue).then(res => setData(res.data));
     } else {
       setData(undefined);
     }
   }, [lecturer, group, contextType, getData]);
 
-  const generateScheduleRows = (scheduleMatrix: any[]) => {
-    return scheduleMatrix.map((item: any, i: number) => {
+  const generateScheduleRows = (scheduleMatrix: ScheduleMatrix) => {
+    return scheduleMatrix.map((item: ScheduleMatrixRow, i: number) => {
       const slicedDataset = sliceParams
         ? item.slice(sliceParams.start, sliceParams.end)
         : item;
-      return <ScheduleRow key={i} dataset={slicedDataset} />;
+      return <ScheduleRow key={i} scheduleMatrixCell={slicedDataset} />;
     });
   };
 
