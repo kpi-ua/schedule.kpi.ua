@@ -10,8 +10,6 @@ import { ReactNode } from "react";
 const TimeDivider = ({ children }: { children: ReactNode }) => {
   return (
     <Container>
-      {/* FIXME: */}
-      {/* <InnerContainer alignItems="center"> */}
       <InnerContainer>
         <TimeCell>{children}</TimeCell>
         <Divider />
