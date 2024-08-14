@@ -11,7 +11,7 @@ interface Props {
 }
 
 interface ThemeContext {
-  value?: Theme;
+  currentTheme?: Theme;
   changeTheme: (theme: Theme) => void,
 }
 
@@ -41,7 +41,7 @@ const ThemeContextProvider: React.FC<Props> = ({ children }) => {
   }
 
   const context: ThemeContext = {
-    value: currentTheme,
+    currentTheme,
     changeTheme,
   };
 
