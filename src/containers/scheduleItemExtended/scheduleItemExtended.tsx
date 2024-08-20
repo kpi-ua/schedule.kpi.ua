@@ -1,37 +1,42 @@
 import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } from './scheduleItemExtended.style';
 import ScheduleItemContent from '../../components/scheduleItemContent';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
 
-const ScheduleItemExtended = ({scheduleItemData}: { scheduleItemData: any[] }) => {
+interface ScheduleItemExtendedProps {
+  scheduleMatrixCell: ScheduleMatrixCell[];
+}
+
+const ScheduleItemExtended = ({ scheduleMatrixCell }: ScheduleItemExtendedProps) => {
   const [collapsed, setCollapse] = useState(true);
-  const [hasData, setHasData] = useState(true)
 
-  useEffect(() => {
-    const countEmpty = scheduleItemData.reduce((totalEmpty, currentItem) => {
-      return totalEmpty + (currentItem.teacherName === "" && currentItem.place === "")
-    }, 0)
-    
-    if(countEmpty === scheduleItemData.length){
-      setHasData(false)
-    }
-  }, [scheduleItemData])
+  const hasData = useMemo(() => {
+    const emptyEntries = scheduleMatrixCell.filter(x => x.teacherName === '' && x.place === '');
 
-  const generateScheduleUnits = () => {
-    return scheduleItemData.map((item, i) => {
-      return (
-        <ScheduleItemExtendedUnit key={i}>
-          <ScheduleItemContent collapsed={collapsed} scheduleItemData={item}/>
-        </ScheduleItemExtendedUnit>
-      );
-    });
-  };
+    return emptyEntries.length !== scheduleMatrixCell.length;
+  }, [scheduleMatrixCell]);
 
-  return scheduleItemData && scheduleItemData.length ? (
-    <ScheduleItemExtendedWrapper items={scheduleItemData.length}>
+  const generateScheduleUnits = () => scheduleMatrixCell.map((item, i) => (
+    <ScheduleItemExtendedUnit key={i}>
+      <ScheduleItemContent collapsed={collapsed} scheduleMatrixCell={item}/>
+    </ScheduleItemExtendedUnit>
+  ));
+
+  if (!scheduleMatrixCell || !scheduleMatrixCell.length) {
+    return null;
+  }
+
+  return (
+    <ScheduleItemExtendedWrapper items={scheduleMatrixCell.length}>
       {generateScheduleUnits()}
-      {hasData && <CollapseItem onClick={() => setCollapse(value => !value)}>{collapsed ? 'Більше інформації' : 'Менше інформації'}</CollapseItem>}
+      {hasData &&
+        <CollapseItem
+          onClick={() => setCollapse(value => !value)}
+        >
+          {collapsed ? 'Більше інформації' : 'Менше інформації'}
+        </CollapseItem>}
     </ScheduleItemExtendedWrapper>
-  ) : null;
+  );
 };
 
 export default ScheduleItemExtended;

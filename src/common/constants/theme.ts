@@ -1,4 +1,6 @@
-export const theme = {
+import { Theme } from '../../types/Theme';
+
+export const theme: Record<Theme, Object> = {
   light: {
     bgPrimary: 'linear-gradient(90deg, #FFEFF2 0%, #DBE9FE 100%)',
     bgHeader: 'linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.5) 100%)',
@@ -23,4 +25,4 @@ export const theme = {
     currentDayContainer: 'linear-gradient(180deg, rgba(54, 54, 55, 0) 0%, rgba(54, 54, 55, 0.5) 10.73%, #363637 55%, rgba(54, 54, 55, 0.5) 89.9%, rgba(54, 54, 55, 0.29) 100%)',
     svgPrimaryFilter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(46deg) brightness(100%) contrast(103%)',
   }
-} as any;
+};
