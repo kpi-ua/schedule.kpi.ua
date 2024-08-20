@@ -13,6 +13,7 @@ export const InnerContainer = styled(Flex)`
   right: 0;
   top: -17px;
   position: absolute;
+  align-items: center;
 
   ${media.extraSmallMode} {
     left: -44px;

@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-const Tabs = ({ children, onTabChanged }: any) => {
+interface TabsProps {
+  children: React.ReactElement[];
+  onChange: (tab: number) => void;
+}
+
+const Tabs = ({ children, onChange }: TabsProps) => {
   const [currentTab, setTab] = useState(0);
+  const onChangeCallback = useCallback((tab: number) => onChange(tab), [onChange]);
 
   useEffect(() => {
-    if (typeof currentTab === "number") {
-      onTabChanged(currentTab);
-    }
-  }, [currentTab]);
+    onChangeCallback(currentTab);
+  }, [onChangeCallback, currentTab]);
 
   return (
     <>

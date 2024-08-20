@@ -1,6 +1,6 @@
-import { MODES } from "../../common/constants/modes";
-import { getModeSize } from "./getModeSize";
+import { ScreenSize } from '../../types/ScreenSize';
 import { useEffect, useState } from "react";
+import { getScreenSize } from './getScreenSize';
 
 export const useCurrentMode = () => {
   const [currentMode, setCurrentMode] = useState<string | null>(null);
@@ -13,14 +13,14 @@ export const useCurrentMode = () => {
   }, []);
 
   const detectCurrentMode = () => {
-    for (let key in MODES) {
-      if (window.innerWidth <= parseInt(getModeSize(MODES[key]))) {
-        setCurrentMode(MODES[key]);
+    for (let key in ScreenSize) {
+      if (window.innerWidth <= parseInt(getScreenSize(ScreenSize[key]))) {
+        setCurrentMode(ScreenSize[key]);
         return;
       }
     }
 
-    setCurrentMode(MODES.BIG);
+    setCurrentMode(ScreenSize.Big);
   };
 
   return currentMode;

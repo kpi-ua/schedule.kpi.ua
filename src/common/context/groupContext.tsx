@@ -1,25 +1,23 @@
 import React, { createContext, useContext, useState } from "react";
+import { Group } from '../../models/Group';
 
 interface Props {
   children: React.ReactNode
 }
 
 interface GroupContextType {
-  group?: any;
-  setGroup: React.Dispatch<any>;
+  group?: Group;
+  setGroup: React.Dispatch<React.SetStateAction<Group | undefined>>;
 };
 
-
-const defaultContext: GroupContextType = {
+const GroupContext = createContext<GroupContextType>({
   setGroup: () => {},
-};
-
-const GroupContext = createContext<GroupContextType>(defaultContext);
+});
 
 export const useGroupContext = () => useContext(GroupContext);
 
 export const GroupContextProvider: React.FC<Props> = ({ children }) => {
-  const [group, setGroup] = useState<any>();
+  const [group, setGroup] = useState<Group>();
 
   const params: GroupContextType = { setGroup, group };
   

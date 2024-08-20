@@ -1,22 +1,25 @@
 import ScheduleItem from '../scheduleItem';
-import React from 'react';
 import { EmptyElement } from './scheduleRow.style';
 import ScheduleItemExtended from '../scheduleItemExtended';
+import { UnknownScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
 
-const ScheduleRow = ({dataset}: { dataset: any[] }) => {
+interface ScheduleRowProps {
+  scheduleMatrixCell: UnknownScheduleMatrixCell[];
+}
 
-  const generateScheduleItem = (dataset: any[]) => {
-    return dataset.map((item, index) => {
-      if (Array.isArray(item)) {
-        return <ScheduleItemExtended key={index} scheduleItemData={item} />
-      }
-
-      return item ? <ScheduleItem key={index} scheduleItemData={item}/> : <EmptyElement key={index}/>;
-    });
-  };
+const ScheduleRow = ({ scheduleMatrixCell }: ScheduleRowProps) => {
   return (
     <>
-      {generateScheduleItem(dataset)}
+      {scheduleMatrixCell.map((item, index) => {
+        if (Array.isArray(item)) {
+          return <ScheduleItemExtended key={index} scheduleMatrixCell={item} />
+        }
+
+        return item
+          ? <ScheduleItem key={index} scheduleMatrixCell={item} />
+          : <EmptyElement key={index} />;
+        })
+      }
     </>
   );
 };
