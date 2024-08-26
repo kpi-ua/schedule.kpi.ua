@@ -10,7 +10,7 @@ const ScheduleTypeTabs = () => {
   ];
 
   const TabComponents = tabs.map((tab) => {
-    return <ScheduleTypeTab url={tab.value} key={tab.value}>{tab.label}</ScheduleTypeTab>;
+    return <ScheduleTypeTab url={tab.value} key={tab.value} label={tab.label}/>;
   });
 
   return (

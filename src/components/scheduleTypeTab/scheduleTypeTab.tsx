@@ -9,11 +9,11 @@ import { getLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 
 const ScheduleTypeTab = ({
   tabClick,
-  children,
+  label,
   url,
 }: {
   tabClick?: () => void;
-  children: React.ReactNode;
+  label: string;
   url: any;
 }) => {
   const location = useLocation();
@@ -39,7 +39,7 @@ const ScheduleTypeTab = ({
 
   return (
     <Tab active={isActive} onClick={tabClick}>
-      <UnstyledLink to={urlWithParams}>{children}</UnstyledLink>
+      <UnstyledLink to={urlWithParams}>{label}</UnstyledLink>
     </Tab>
   );
 };
