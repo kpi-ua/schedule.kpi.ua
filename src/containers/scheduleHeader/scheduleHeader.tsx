@@ -1,27 +1,23 @@
-import { WeekDay } from './scheduleHeader.style';
+import { WeekDay } from './WeekDay';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 
 const DAYS = [
-  {label: 'Понеділок', value: 'monday'},
-  {label: 'Вівторок', value: 'tuesday'},
-  {label: 'Середа', value: 'wednesday'},
-  {label: 'Четвер', value: 'thursday'},
-  {label: 'П\'ятниця', value: 'friday'},
-  {label: 'Субота', value: 'saturday'},
+  'Понеділок',
+  'Вівторок',
+  'Середа',
+  'Четвер',
+  'П\'ятниця',
+  'Субота',
 ];
 
-const ScheduleHeader = () => {
-  const sliceOptions = useSliceOptionsContext();
-
-  const slicedDays = sliceOptions ? DAYS.slice(sliceOptions.start, sliceOptions.end) : DAYS;
+export const ScheduleHeader = () => {
+  const { slice } = useSliceOptionsContext();
+  const [start, end] = slice;
+  const slicedDays = DAYS.slice(start - 1, end);
 
   return (
     <>
-      {slicedDays.map(item => {
-        return <WeekDay key={item.value}>{item.label}</WeekDay>;
-      })}
+      {slicedDays.map(item => (<WeekDay key={item}>{item}</WeekDay>))}
     </>
   );
 };
-
-export default ScheduleHeader;

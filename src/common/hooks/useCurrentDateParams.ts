@@ -4,9 +4,9 @@ import { CurrentTime } from '../../models/CurrentTime';
 
 export const useCurrentDateParams = () => {
   const [dateParams, setDateParams] = useState<CurrentTime>({
-    currentDay: -1,
-    currentLesson: -1,
-    currentWeek: -1,
+    currentDay: 0,
+    currentLesson: 0,
+    currentWeek: 0,
   });
 
   useEffect(() => {
