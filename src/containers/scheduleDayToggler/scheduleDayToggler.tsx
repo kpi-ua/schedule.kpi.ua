@@ -1,47 +1,33 @@
 import OptionMultipleToggler from "../../components/optionMultipleToggler";
-import { useCurrentMode } from "../../common/utils/useCurrentMode";
-import { DAY_OPTIONS } from "../../common/constants/dayOptions";
+import { useScreenSize } from "../../common/hooks/useScreenSize";
+import { DAY_OPTIONS, DaysRange } from "../../common/constants/dayOptions";
 import { ScheduleDayTogglerContainer } from "./scheduleDayToggler.style";
-import { useCurrentDateParams } from "../../common/utils/useCurrentDateParams";
-import { ScreenSize } from '../../types/ScreenSize';
+import { Slice, useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 
-interface ScheduleDayTogglerProps {
-  onChange: (value: string) => void;
-}
+const ScheduleDayToggler = () => {
+  const { screenSize } = useScreenSize();
+  const { slice, setSlice } = useSliceOptionsContext();
 
-const ScheduleDayToggler = ({ onChange }: ScheduleDayTogglerProps) => {
-  const mode = useCurrentMode();
-  const { currentDay } = useCurrentDateParams();
+  const options = DAY_OPTIONS[screenSize];
 
-  const getDayOption = () => {
-    if (!currentDay || currentDay === 6 || currentDay < 0) {
-      return 0;
-    }
-
-    switch (mode) {
-      case ScreenSize.ExtraSmall:
-        return currentDay;
-      case ScreenSize.Small:
-        return Math.floor(currentDay / 2);
-      case ScreenSize.Medium:
-        return Math.floor(currentDay / 3)
-      default:
-        return 0;
-    }
-  };
-
-  if (!mode || mode === ScreenSize.Big) {
+  if (!options) {
     return null;
   }
+
+  const handleChange = (value: DaysRange) => {
+    const [start, end] = value.split('-');
+
+    setSlice([+start, +end]);
+  };
+
+  const convertSlice = ([start, end]: Slice): DaysRange => `${start}-${end}`;
 
   return (
     <ScheduleDayTogglerContainer>
       <OptionMultipleToggler
-        currentValue={
-          DAY_OPTIONS[mode] && DAY_OPTIONS[mode][getDayOption()].value
-        }
-        onChange={onChange}
-        options={DAY_OPTIONS[mode]}
+        currentValue={convertSlice(slice)}
+        onChange={handleChange}
+        options={options}
       />
     </ScheduleDayTogglerContainer>
   );

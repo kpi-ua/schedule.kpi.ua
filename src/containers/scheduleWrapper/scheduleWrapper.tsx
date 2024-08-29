@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import ScheduleRow from "../scheduleRow";
 import { GridWrapper } from "./scheduleWrapper.style";
-import SliceOptionsContext, { Slice } from "../../common/context/sliceOptionsContext";
+import { SliceContextProvider } from "../../common/context/sliceOptionsContext";
 import ScheduleDayToggler from "../scheduleDayToggler";
 import Schedule from "../schedule";
-import { ScheduleMatrix, ScheduleMatrixRow, generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
-import { useWeekContext } from "../../common/context/weekContext";
 import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useGroupContext } from "../../common/context/groupContext";
 import { PagedResponse } from '../../models/PagedResponse';
+import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
+import ScheduleTable from '../ScheduleTable/ScheduleTable';
 
 interface ScheduleWrapperProps<T> {
   getData: (id: string) => Promise<PagedResponse<T[]>>;
@@ -19,17 +18,10 @@ const ScheduleWrapper = <T,>({
   getData,
   contextType,
 }: ScheduleWrapperProps<T>) => {
-  const [sliceParams, setSliceParams] = useState<Slice>({});
   const [data, setData] = useState<T[]>();
-
-  const { currentWeek } = useWeekContext();
+  const { currentDay } = useCurrentDateParams()
   const { lecturer } = useLecturerContext();
   const { group } = useGroupContext();
-
-  const weekValue: Record<string, string>= {
-    firstWeek: "scheduleFirstWeek",
-    secondWeek: "scheduleSecondWeek",
-  };
 
   useEffect(() => {
     const contextValue = contextType === "lecturer" ? lecturer?.id : group?.id;
@@ -41,25 +33,6 @@ const ScheduleWrapper = <T,>({
     }
   }, [lecturer, group, contextType, getData]);
 
-  const generateScheduleRows = (scheduleMatrix: ScheduleMatrix) => {
-    return scheduleMatrix.map((item: ScheduleMatrixRow, i: number) => {
-      const slicedDataset = sliceParams
-        ? item.slice(sliceParams.start, sliceParams.end)
-        : item;
-      return <ScheduleRow key={i} scheduleMatrixCell={slicedDataset} />;
-    });
-  };
-
-  const setSlice = (value: string) => {
-    if (!value) {
-      setSliceParams({});
-      return;
-    }
-
-    const ranges = value.split("-");
-    setSliceParams({ start: +ranges[0], end: +ranges[1] });
-  };
-
   if (!data) {
     return null;
   }
@@ -67,14 +40,12 @@ const ScheduleWrapper = <T,>({
   return (
     <div style={{ overflow: "hidden" }}>
       <GridWrapper>
-        <SliceOptionsContext value={sliceParams}>
-          <ScheduleDayToggler onChange={setSlice} />
+        <SliceContextProvider initialDay={currentDay}>
+          <ScheduleDayToggler />
           <Schedule>
-            {generateScheduleRows(
-              generateScheduleMatrix(data[weekValue[currentWeek]])
-            )}
+            <ScheduleTable data={data} />
           </Schedule>
-        </SliceOptionsContext>
+        </SliceContextProvider>
       </GridWrapper>
     </div>
   );

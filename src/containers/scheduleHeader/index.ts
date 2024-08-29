@@ -1,3 +1,1 @@
-import ScheduleHeader from './scheduleHeader';
-
-export default ScheduleHeader;
+export { ScheduleHeader } from './ScheduleHeader';

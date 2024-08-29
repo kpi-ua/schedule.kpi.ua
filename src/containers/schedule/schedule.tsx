@@ -1,17 +1,18 @@
 import React from 'react';
+import { range } from 'lodash-es';
 import TimeDivider from '../../components/timeDivider';
 import { CurrentDayContainer, GridContainer } from './schedule.style';
-import ScheduleHeader from '../scheduleHeader';
+import { ScheduleHeader } from '../ScheduleHeader';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
-import { useCurrentDateParams } from '../../common/utils/useCurrentDateParams';
+import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
 
 interface ScheduleProps {
   children: React.ReactNode;
 }
 
 const Schedule = ({ children }: ScheduleProps) => {
-  const sliceOptions = useSliceOptionsContext();
+  const { slice } = useSliceOptionsContext();
   const { currentDay } = useCurrentDateParams();
 
   const dynamicGeneratedTable = React.Children.map(children, (child, index) => (
@@ -21,19 +22,15 @@ const Schedule = ({ children }: ScheduleProps) => {
     </>
   ));
 
-  const isDayInSlice = () => {
-    if (sliceOptions.start && sliceOptions.end && currentDay) {
-      return currentDay >= sliceOptions.start && currentDay < sliceOptions.end;
-    }
+  const [start, end] = slice;
 
-    return true;
-  };
-
-  const gridDayStart = currentDay || 0 + 1;
+  const currentDayColumn =
+    range(start, end + 1)
+    .indexOf(currentDay) + 1;
 
   return (
     <GridContainer>
-      {gridDayStart > 0 && isDayInSlice() ? <CurrentDayContainer start={sliceOptions.start ? gridDayStart - sliceOptions.start : gridDayStart}/> : null}
+      {currentDayColumn ? <CurrentDayContainer start={currentDayColumn}/> : null}
       <ScheduleHeader/>
       {dynamicGeneratedTable}
     </GridContainer>
