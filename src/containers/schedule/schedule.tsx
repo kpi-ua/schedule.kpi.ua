@@ -2,7 +2,7 @@ import React from 'react';
 import { range } from 'lodash-es';
 import TimeDivider from '../../components/timeDivider';
 import { CurrentDayContainer, GridContainer } from './schedule.style';
-import { ScheduleHeader } from '../ScheduleHeader';
+import { ScheduleHeader } from '../_scheduleHeader';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
