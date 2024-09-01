@@ -5,7 +5,7 @@ import { Schedule } from '../../models/Schedule';
 import { Pair } from '../../models/Pair';
 
 export interface ScheduleMatrixCell extends Pair {
-  currentDay: boolean;
+  currentPair: boolean;
 }
 
 export type UnknownScheduleMatrixCell = ScheduleMatrixCell | ScheduleMatrixCell[] | null;
@@ -18,8 +18,8 @@ export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: Schedule<T
     .fill(null)
     .map(() => new Array(DAYS.length).fill(null));
 
-  const activePair = getActiveTimePoint();
-  const currentDay = moment().day() - 1;
+  const activePair: number = getActiveTimePoint();
+  const currentDay = moment().day();
 
   weekSchedule.forEach((schedule) => {
     const yIndex = DAYS.findIndex((item) => item === schedule.day);
@@ -29,7 +29,7 @@ export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: Schedule<T
       const cell = scheduleMatrix[xIndex][yIndex];
       let newCell: ScheduleMatrixCell | ScheduleMatrixCell[] = {
         ...pair,
-        currentDay:
+        currentPair:
           activePair !== -1 && currentDay === yIndex && activePair === xIndex,
       };
 
@@ -42,7 +42,7 @@ export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: Schedule<T
           extendedCell = [cell];
         }
 
-        extendedCell.push({ ...pair, currentDay: newCell.currentDay });
+        extendedCell.push({ ...pair, currentPair: newCell.currentPair });
         newCell = extendedCell;
       }
 
