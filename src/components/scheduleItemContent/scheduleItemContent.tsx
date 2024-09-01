@@ -107,7 +107,7 @@ const ScheduleItemContent: React.FC<Props> = ({
         {ScheduleItemComponent && (
           <ScheduleItemComponent>{scheduleItemTitle}</ScheduleItemComponent>
         )}
-        {scheduleMatrixCell?.currentDay && (
+        {scheduleMatrixCell?.currentPair && (
           <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>
         )}
       </ScheduleItemHeader>
