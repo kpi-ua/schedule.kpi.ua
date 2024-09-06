@@ -1,54 +1,53 @@
 import { ThemeProvider } from 'styled-components';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { theme } from '../../common/constants/theme';
 import { getLocalStorageItem, setLocalStorageItem } from '../utils/parsedLocalStorage';
+import { Theme } from '../../types/Theme';
+
+const THEME_STORAGE_KEY = 'schedule-theme';
 
 interface Props {
-  children: React.ReactNode,
-  initialValue?: 'light' | 'dark'
+  children: React.ReactNode;
 }
 
-interface ContextType {
-  changeTheme: (isLightTheme: boolean) => void,
+interface ThemeContext {
+  currentTheme?: Theme;
+  changeTheme: (theme: Theme) => void,
 }
 
-const defaultContext: ContextType = {
+const ThemeSelectorContext = createContext<ThemeContext>({
   changeTheme: () => {},
-};
-
-const ThemeSelectorContext = createContext<ContextType>(defaultContext);
-
+});
 
 export const useThemeSelectorContext = () => useContext(ThemeSelectorContext);
 
-const ThemeContextProvider: React.FC<Props> = ({ children, initialValue = 'light' }) => {
-  const [currentTheme, setTheme] = useState(initialValue);
-
-  useEffect(() => {
-    const localStorageTheme = getLocalStorageItem("theme")
+const ThemeContextProvider: React.FC<Props> = ({ children }) => {
+  const getTheme = () => {
+    const localStorageTheme = getLocalStorageItem(THEME_STORAGE_KEY)
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
 
-    if (localStorageTheme) {
-      changeTheme(localStorageTheme === 'light')
+    if (!localStorageTheme) {
+      return prefersLight ? 'light' : 'dark';
     }
-    else {
-      changeTheme(prefersLight)
-    }
-  }, [])
 
-  const changeTheme = (isLightTheme: boolean) => {
-    const newTheme = isLightTheme ? 'light' : 'dark'
-    setTheme(newTheme);
-    setLocalStorageItem("theme", newTheme)
+    return localStorageTheme as Theme;
+  };
+
+  const [currentTheme, setTheme] = useState(getTheme());
+
+  const changeTheme = (theme: Theme) => {
+    setTheme(theme);
+    setLocalStorageItem(THEME_STORAGE_KEY, theme);
   }
-  
-  const props = {
-    changeTheme
-  }
-  
+
+  const context: ThemeContext = {
+    currentTheme,
+    changeTheme,
+  };
+
   return (
     <ThemeProvider theme={theme[currentTheme]}>
-      <ThemeSelectorContext.Provider value={props}>
+      <ThemeSelectorContext.Provider value={context}>
         {children}
       </ThemeSelectorContext.Provider>
     </ThemeProvider>

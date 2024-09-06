@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { flexbox, space } from 'styled-system';
-import { MODES } from '../../common/constants/modes';
-import { getModeSize } from '../utils/getModeSize';
+import { SCREEN_SIZES } from '../constants/screenSize';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import { Link } from 'react-router-dom';
+import { ScreenSize } from '../../types/ScreenSize';
 
 export const Flex = styled.div<{gap?: string}>`
   display: flex;
@@ -19,10 +19,10 @@ export const Pictogram = styled.img`
 `;
 
 export const media = {
-  [MODES.EXTRA_SMALL]: `@media(max-width: ${getModeSize(MODES.EXTRA_SMALL)})`,
-  [MODES.SMALL]: `@media(max-width: ${getModeSize(MODES.SMALL)})`,
-  [MODES.MEDIUM]: `@media(max-width: ${getModeSize(MODES.MEDIUM)})`,
-  [MODES.BIG]: `@media(min-width: ${getModeSize(MODES.BIG)})`,
+  [ScreenSize.ExtraSmall]: `@media(max-width: ${SCREEN_SIZES[ScreenSize.ExtraSmall]})`,
+  [ScreenSize.Small]: `@media(max-width: ${SCREEN_SIZES[ScreenSize.Small]})`,
+  [ScreenSize.Medium]: `@media(max-width: ${SCREEN_SIZES[ScreenSize.Medium]})`,
+  [ScreenSize.Big]: `@media(min-width: ${SCREEN_SIZES[ScreenSize.Big]})`,
 };
 
 export const Logo = styled(Pictogram)`

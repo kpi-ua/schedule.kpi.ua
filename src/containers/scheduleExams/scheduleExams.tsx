@@ -1,16 +1,13 @@
+import { useEffect, useState } from "react";
 import { GridWrapper, Header, WordAccent } from "./scheduleWrapper.style";
-import Exam from "../../components/examComponent";
+import ExamSchedule from "../../components/examSchedule";
 import { useGroupContext } from "../../common/context/groupContext";
 import { useWeekContext } from "../../common/context/weekContext";
-import React, { useEffect, useState } from "react";
+import { Exam } from '../../models/Exam';
+import { getExamsByGroup } from '../../api/schedule';
 
-interface Props {
-  getData: (id: string) => Promise<any>;
-  contextType?: string;
-}
-
-const SchededuleExamsWrapper: React.FC<Props> = ({ getData }) => {
-  const [data, setData] = useState([]);
+const SchededuleExamsWrapper = () => {
+  const [exams, setExams] = useState<Exam[]>([]);
 
   const groupContext = useGroupContext();
   const weekContext = useWeekContext();
@@ -19,13 +16,13 @@ const SchededuleExamsWrapper: React.FC<Props> = ({ getData }) => {
 
   useEffect(() => {
     if (groupId) {
-      getData(groupId).then((res) => setData(res.data));
+      getExamsByGroup(groupId).then((res) => setExams(res.data));
     } else {
-      setData([]);
+      setExams([]);
     }
-  }, [getData, groupId]);
+  }, [groupId]);
 
-  return data ? (
+  return (
     <div style={{ overflow: "hidden" }}>
       <GridWrapper>
         <Header>
@@ -39,12 +36,12 @@ const SchededuleExamsWrapper: React.FC<Props> = ({ getData }) => {
               : "другий семестр"}
           </WordAccent>
         </Header>
-        {data.map((d, idx) => (
-          <Exam key={idx} data={d} />
+        {exams.map((exam) => (
+          <ExamSchedule key={exam.id} exam={exam} />
         ))}
       </GridWrapper>
     </div>
-  ) : null;
+  );
 };
 
 export default SchededuleExamsWrapper;

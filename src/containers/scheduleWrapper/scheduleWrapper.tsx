@@ -1,80 +1,53 @@
 import { useEffect, useState } from "react";
-import ScheduleRow from "../scheduleRow";
 import { GridWrapper } from "./scheduleWrapper.style";
-import SliceOptionsContext from "../../common/context/sliceOptionsContext";
+import { SliceContextProvider } from "../../common/context/sliceOptionsContext";
 import ScheduleDayToggler from "../scheduleDayToggler";
 import Schedule from "../schedule";
-import { generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
-import { useWeekContext } from "../../common/context/weekContext";
 import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useGroupContext } from "../../common/context/groupContext";
+import { PagedResponse } from '../../models/PagedResponse';
+import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
+import ScheduleTable from '../ScheduleTable/ScheduleTable';
 
-const ScheduleWrapper = ({
+interface ScheduleWrapperProps<T> {
+  getData: (id: string) => Promise<PagedResponse<T[]>>;
+  contextType: string;
+}
+
+const ScheduleWrapper = <T,>({
   getData,
   contextType,
-}: {
-  getData: any;
-  contextType: any;
-}) => {
-  const [sliceParams, setSliceParams] = useState<{
-    start: number;
-    end: number;
-  } | null>(null);
-  const [data, setData] = useState(null);
-
-  const { currentWeek } = useWeekContext();
+}: ScheduleWrapperProps<T>) => {
+  const [data, setData] = useState<T[]>();
+  const { currentDay } = useCurrentDateParams()
   const { lecturer } = useLecturerContext();
   const { group } = useGroupContext();
 
-  const weekValue: Record<string, string>= {
-    firstWeek: "scheduleFirstWeek",
-    secondWeek: "scheduleSecondWeek",
-  };
-
   useEffect(() => {
-    const contextValue = contextType === "lecturer" ? lecturer : group?.id;
+    const contextValue = contextType === "lecturer" ? lecturer?.id : group?.id;
 
     if (contextValue) {
-      getData(contextValue).then((res: any) => setData(res.data));
+      getData(contextValue).then(res => setData(res.data));
     } else {
-      setData(null);
+      setData(undefined);
     }
   }, [lecturer, group, contextType, getData]);
 
-  const generateScheduleRows = (scheduleMatrix: any[]) => {
-    return scheduleMatrix.map((item: any, i: number) => {
-      const slicedDataset = sliceParams
-        ? item.slice(sliceParams.start, sliceParams.end)
-        : item;
-      return <ScheduleRow key={i} dataset={slicedDataset} />;
-    });
-  };
-
-  const setSlice = (value: string) => {
-    if (!value) {
-      setSliceParams(null);
-      return;
-    }
-
-    const ranges = value.split("-");
-    setSliceParams({ start: +ranges[0], end: +ranges[1] });
-  };
+  if (!data) {
+    return null;
+  }
 
   return (
-    data && (
-      <div style={{ overflow: "hidden" }}>
-        <GridWrapper>
-          <SliceOptionsContext value={sliceParams}>
-            <ScheduleDayToggler handler={setSlice} />
-            <Schedule>
-              {generateScheduleRows(
-                generateScheduleMatrix(data[weekValue[currentWeek]])
-              )}
-            </Schedule>
-          </SliceOptionsContext>
-        </GridWrapper>
-      </div>
-    )
+    <div style={{ overflow: "hidden" }}>
+      <GridWrapper>
+        <SliceContextProvider initialDay={currentDay}>
+          <ScheduleDayToggler />
+          <Schedule>
+            <ScheduleTable data={data} />
+          </Schedule>
+        </SliceContextProvider>
+      </GridWrapper>
+    </div>
   );
 };
 

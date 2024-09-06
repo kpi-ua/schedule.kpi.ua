@@ -1,42 +1,36 @@
 import OptionMultipleToggler from "../../components/optionMultipleToggler";
-import { MODES } from "../../common/constants/modes";
-import { useCurrentMode } from "../../common/utils/useCurrentMode";
-import { DAY_OPTIONS } from "../../common/constants/dayOptions";
+import { useScreenSize } from "../../common/hooks/useScreenSize";
+import { DAY_OPTIONS, DaysRange } from "../../common/constants/dayOptions";
 import { ScheduleDayTogglerContainer } from "./scheduleDayToggler.style";
-import { useCurrentDateParams } from "../../common/utils/useCurrentDateParams";
+import { Slice, useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 
-const ScheduleDayToggler = ({ handler }: { handler: any }) => {
-  const mode = useCurrentMode();
-  const { currentDay } = useCurrentDateParams();
+const ScheduleDayToggler = () => {
+  const { screenSize } = useScreenSize();
+  const { slice, setSlice } = useSliceOptionsContext();
 
-  const getDayOption = () => {
+  const options = DAY_OPTIONS[screenSize];
 
-    if (!currentDay || currentDay === 6 || currentDay < 0) {
-      return 0;
-    }
+  if (!options) {
+    return null;
+  }
 
-    if (mode === MODES.EXTRA_SMALL) {
-      return currentDay;
-    } else if (mode === MODES.SMALL) {
-      return Math.floor(currentDay / 2);
-    } else if (mode === MODES.MEDIUM) {
-      return Math.floor(currentDay / 3);
-    }
+  const handleChange = (value: DaysRange) => {
+    const [start, end] = value.split('-');
 
-    return 0;
+    setSlice([+start, +end]);
   };
 
-  return mode && mode !== MODES.BIG ? (
+  const convertSlice = ([start, end]: Slice): DaysRange => `${start}-${end}`;
+
+  return (
     <ScheduleDayTogglerContainer>
       <OptionMultipleToggler
-        initialValue={
-          DAY_OPTIONS[mode] && DAY_OPTIONS[mode][getDayOption()].value
-        }
-        onOptionChange={handler}
-        options={DAY_OPTIONS[mode]}
+        currentValue={convertSlice(slice)}
+        onChange={handleChange}
+        options={options}
       />
     </ScheduleDayTogglerContainer>
-  ) : null;
+  );
 };
 
 export default ScheduleDayToggler;

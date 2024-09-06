@@ -1,28 +1,27 @@
 import React, { createContext, useContext, useState } from 'react';
+import { Week } from '../../types/Week';
 
 interface Props {
-  initialValue: any,
-  children: React.ReactNode,
+  initialValue: Week;
+  children: React.ReactNode;
 }
 
-interface ContextProps {
-  setCurrentWeek: React.Dispatch<any>,
-  currentWeek: any,
+interface WeekContextType {
+  setCurrentWeek: React.Dispatch<React.SetStateAction<Week>>;
+  currentWeek: Week;
 }
 
-const defaultContext: ContextProps = {
+const WeekContext = createContext<WeekContextType>({
   setCurrentWeek: () => {},
-  currentWeek: 0,
-};
-
-const WeekContext = createContext<ContextProps>(defaultContext);
+  currentWeek: 'firstWeek',
+});
 
 export const useWeekContext = () => useContext(WeekContext);
 
-export const WeekContextProvider: React.FC<Props> = ({initialValue, children}) => {
+export const WeekContextProvider: React.FC<Props> = ({ initialValue, children }) => {
   const [currentWeek, setCurrentWeek] = useState(initialValue);
 
-  const params = {setCurrentWeek, currentWeek};
+  const params: WeekContextType = {setCurrentWeek, currentWeek};
 
   return (
     <WeekContext.Provider value={params}>

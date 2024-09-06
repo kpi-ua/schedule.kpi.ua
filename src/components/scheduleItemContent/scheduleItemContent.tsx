@@ -12,38 +12,35 @@ import locationIcon from "../../assets/icons/location.svg";
 import { Pictogram, UnstyledLink } from "../../common/styles/styles";
 import { routes } from "../../common/constants/routes";
 import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
-import { unique } from "../../common/utils/unique";
 import React, { useEffect, useState } from "react";
 import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useGroupContext } from "../../common/context/groupContext";
 import { setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 import { SUBJECT_TYPES } from "../../common/constants/subjectTypes";
+import { compact, uniq } from 'lodash-es';
+import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
 
 interface Props {
-  scheduleItemData: {
-    name: string;
-    teacherName: string;
-    lecturerId: string;
-    group: string;
-    tag: string;
-    place: string;
-    currentDay?: boolean
-  };
+  scheduleMatrixCell: ScheduleMatrixCell;
   collapsed?: boolean;
 }
 
 const ScheduleItemContent: React.FC<Props> = ({
-  scheduleItemData,
+  scheduleMatrixCell,
   collapsed,
 }) => {
-  const subject = scheduleItemData?.name;
-  const teacher = scheduleItemData?.teacherName;
-  const teacherId = scheduleItemData?.lecturerId;
-  const groups = unique((scheduleItemData?.group || "").split(","));
-  const tag = scheduleItemData?.tag;
-  const allGroups = usePreloadedListContext()?.groups;
+  const {
+    name,
+    teacherName,
+    lecturerId,
+    group,
+  } = scheduleMatrixCell;
+
+  const scheduleGroups = compact(uniq((group || '').split(',')));
+  const tag = scheduleMatrixCell?.tag;
+  const { groups, lecturers } = usePreloadedListContext();
   const [location, setLocation] = useState(
-    scheduleItemData && scheduleItemData.place
+    scheduleMatrixCell && scheduleMatrixCell.place
   );
   const { setLecturer } = useLecturerContext();
   const { setGroup } = useGroupContext()!;
@@ -57,35 +54,36 @@ const ScheduleItemContent: React.FC<Props> = ({
     }
   }, [location, setLocation]);
 
+  const findGroup = (groupId: string) => groups.find(
+    ({ name }) => name.replace(" ", "") === groupId
+  );
+
+  const findLecturer = (lecturerId: string) => lecturers
+    .find(({ id }) => id === lecturerId);
+
   const handleLecturerClick = () => {
-    setLocalStorageItem("lecturerId", teacherId);
-    setLecturer(teacherId);
+    const lecturer = findLecturer(lecturerId);
+
+    if (!lecturer) {
+      return;
+    }
+
+    setLocalStorageItem('lecturerId', lecturerId);
+    setLecturer(lecturer);
   };
 
   const handleGroupClick = (groupId: string) => {
     return () => {
-      const groupFound = allGroups!.find(
-        (allGroupsItem) => allGroupsItem.name.replace(" ", "") === groupId
-      );
-      if (groupFound) {
-        setLocalStorageItem("groupId", groupFound.id);
-        setGroup(groupFound.id);
+      const foundGroup = findGroup(groupId);
+
+      if (foundGroup) {
+        setLocalStorageItem('groupId', foundGroup.id);
+        setGroup(foundGroup);
       }
     };
   };
 
-  const getGroupIdByName = (groupName: string) => {
-    const groupFound = allGroups!.find(
-      (allGroupsItem) => allGroupsItem.name.replace(" ", "") === groupName
-    );
-    if (groupFound) {
-      return groupFound.id;
-    } else {
-      return "";
-    }
-  };
-
-  const getGroup = (group: any, index: any, length: number) => {
+  const getGroup = (group: string, index: number, length: number) => {
     return `${group.split("(")[0]}${index === length - 1 ? "" : ","} `;
   };
 
@@ -93,8 +91,14 @@ const ScheduleItemContent: React.FC<Props> = ({
     return `https://kpi.ua/k-${parseInt(location.split("-")[0])}`;
   };
 
-  const getGroupLink = (group: any) => {
-    return `${routes.GROUP}?groupId=${getGroupIdByName(group)}`;
+  const getGroupLink = (group: string) => {
+    const groupId = findGroup(group)?.id;
+
+    if (!groupId) {
+      return '#';
+    }
+
+    return `${routes.GROUP}?groupId=${groupId}`;
   };
 
   return (
@@ -103,21 +107,21 @@ const ScheduleItemContent: React.FC<Props> = ({
         {ScheduleItemComponent && (
           <ScheduleItemComponent>{scheduleItemTitle}</ScheduleItemComponent>
         )}
-        {scheduleItemData?.currentDay && (
+        {scheduleMatrixCell?.currentPair && (
           <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>
         )}
       </ScheduleItemHeader>
-      <Subject>{subject}</Subject>
+      <Subject>{name}</Subject>
       {!collapsed && (
         <>
-          {teacher && (
+          {teacherName && (
             <Teacher>
               <Pictogram src={teacherIcon} alt="teacher" />
               <UnstyledLink
                 onClick={handleLecturerClick}
-                to={routes.LECTURER + `?lecturerId=${teacherId}`}
+                to={routes.LECTURER + `?lecturerId=${lecturerId}`}
               >
-                {teacher}
+                {teacherName}
               </UnstyledLink>
             </Teacher>
           )}
@@ -139,14 +143,14 @@ const ScheduleItemContent: React.FC<Props> = ({
           )}
           <GroupName>
             <div>
-              {groups.map((group, index) => {
+              {scheduleGroups.map((group, index) => {
                 return (
                   <UnstyledLink
                     onClick={handleGroupClick(group)}
                     key={group}
                     to={getGroupLink(group)}
                   >
-                    {getGroup(group, index, groups.length)}
+                    {getGroup(group, index, scheduleGroups.length)}
                   </UnstyledLink>
                 );
               })}
