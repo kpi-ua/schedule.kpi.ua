@@ -25,7 +25,7 @@ const ScheduleTable = <T,>({ data }: ScheduleWrapperProps<T>) => {
   
       return (
         <>
-          <TimeDivider>{TIME_POINTS[i]}</TimeDivider>
+          <TimeDivider value={TIME_POINTS[i]} />
           <ScheduleRow key={i} scheduleMatrixCell={slicedDataset} />
         </>
       );

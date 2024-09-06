@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   Container,
   Divider,
@@ -5,12 +6,10 @@ import {
   TimeCell,
 } from "./timeDivider.style";
 
-import { ReactNode } from "react";
-
-const TimeDivider = ({ children }: { children: ReactNode }) => (
+const TimeDivider = ({ value }: { value: string }) => (
   <Container>
     <InnerContainer>
-      <TimeCell>{children}</TimeCell>
+      <TimeCell>{moment(value, 'H:mm').format('HH:mm')}</TimeCell>
       <Divider />
     </InnerContainer>
   </Container>
