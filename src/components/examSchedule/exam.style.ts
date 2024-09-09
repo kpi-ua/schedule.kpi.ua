@@ -8,7 +8,6 @@ export const Subject = styled.div`
   font-size: 14px;
   line-height: 17px;
   color: ${getValueFromTheme("primaryFontColor")};
-  margin-top: 13px;
 `;
 
 const Property = styled(Flex)`
