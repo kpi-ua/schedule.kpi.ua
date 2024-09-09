@@ -1,4 +1,4 @@
-import OptionMultipleToggler from "../../components/optionMultipleToggler";
+import { RadioGroup } from '../../components/RadioGroup';
 import { useScreenSize } from "../../common/hooks/useScreenSize";
 import { DAY_OPTIONS, DaysRange } from "../../common/constants/dayOptions";
 import { ScheduleDayTogglerContainer } from "./scheduleDayToggler.style";
@@ -24,10 +24,12 @@ const ScheduleDayToggler = () => {
 
   return (
     <ScheduleDayTogglerContainer>
-      <OptionMultipleToggler
-        currentValue={convertSlice(slice)}
-        onChange={handleChange}
+      <RadioGroup
+        value={convertSlice(slice)}
         options={options}
+        onChange={handleChange}
+        fullWidth
+        rounded
       />
     </ScheduleDayTogglerContainer>
   );
