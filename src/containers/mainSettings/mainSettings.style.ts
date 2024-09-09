@@ -19,4 +19,8 @@ export const FiltersContainer = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  ${media.extraSmallMode} {
+    width: 100%;
+  }
 `;

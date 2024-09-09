@@ -16,28 +16,30 @@ export const InnerContainer = styled(Flex)`
   align-items: center;
 
   ${media.extraSmallMode} {
-    left: -44px;
+    top: -13px;
+    left: -65px;
   }
 `;
 
 export const TimeCell = styled.div`
-  width: 64px;
-  height: 36px;
-  background: ${getValueFromTheme('primaryFontColor')};
-  border-radius: 42px;
-  color: ${getValueFromTheme('secondaryFontColor')};
+  padding: 8px 11px;
+  background-color: ${getValueFromTheme('brand600')};;
+  border-radius: 999px;
+  color: ${getValueFromTheme('invertedFontColor')};
   font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
 
   ${media.extraSmallMode} {
-    background: none;
-    color: ${getValueFromTheme('primaryFontColor')}
+    padding: 3px 5px;
   }
 `;
 
 export const Divider = styled.div`
-  border-top: 1px dashed ${getValueFromTheme('primaryFontColor')};
+  border-top: 1px;
+  border-bottom: 0;
+  border-style: dashed;
+  border-color: ${getValueFromTheme('brand600')};
   width: 100%;
 `;

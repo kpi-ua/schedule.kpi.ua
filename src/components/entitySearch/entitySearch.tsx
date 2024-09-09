@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Select } from "react-select-virtualized";
 
-import { Label } from "./entitySearch.style";
+import { EntitySearchWrapper, SelectWrapper } from "./entitySearch.style";
 
 import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useHistory, useLocation } from "react-router-dom";
@@ -27,7 +27,7 @@ const useQuery = () => {
 
 const EntitySearch = () => {
   const [options, setOptions] = useState<ListOption<string>[]>([]);
-  
+
   const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
@@ -104,9 +104,9 @@ const EntitySearch = () => {
     );
 
   return (
-    <Label>
-      Розклад занять для
-      <div style={{ width: "200px" }}>
+    <EntitySearchWrapper>
+      <label>Розклад занять для</label>
+      <SelectWrapper>
         <Select
           options={options}
           onChange={onOptionChange}
@@ -117,8 +117,8 @@ const EntitySearch = () => {
           placeholder={null}
           name="color"
         />
-      </div>
-    </Label>
+      </SelectWrapper>
+    </EntitySearchWrapper>
   );
 };
 

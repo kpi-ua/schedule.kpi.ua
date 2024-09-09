@@ -20,7 +20,7 @@ const cutOffPart = css`
 
 export const ScheduleItemExtendedUnit = styled.div`
   ${ScheduleItemMixin};
-  padding: 20px 25px 16px;
+  padding: 20px;
   position: relative;
 
   &:not(:first-child):not(:last-child) {
@@ -38,7 +38,7 @@ export const ScheduleItemExtendedUnit = styled.div`
   }
 
   &:not(:first-child) {
-    border-top: 0.5px dashed #141518;
+    border-top: 0.5px dashed ${getValueFromTheme('brand600')};
 
     &:before {
       ${cutOffPart};

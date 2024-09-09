@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { Flex, media } from '../../common/styles/styles';
+import { Flex } from '../../common/styles/styles';
 
 export const TabContainer = styled(Flex)<{justifyContent: string, alignItems: string}>`
-  ${media.extraSmallMode} {
-    flex-direction: column;
-  }
+  white-space: nowrap;
+  max-width: calc(100vw - 3rem);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overflow-x: scroll;
 `;
