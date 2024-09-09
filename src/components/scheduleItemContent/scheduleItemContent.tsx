@@ -9,7 +9,7 @@ import {
 } from "./scheduleItemContent.style";
 import teacherIcon from "../../assets/icons/teacher.svg";
 import locationIcon from "../../assets/icons/location.svg";
-import { Pictogram, UnstyledLink } from "../../common/styles/styles";
+import { DashedLink, Pictogram } from "../../common/styles/styles";
 import { routes } from "../../common/constants/routes";
 import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
 import React, { useEffect, useState } from "react";
@@ -117,12 +117,12 @@ const ScheduleItemContent: React.FC<Props> = ({
           {teacherName && (
             <Teacher>
               <Pictogram src={teacherIcon} alt="teacher" />
-              <UnstyledLink
+              <DashedLink
                 onClick={handleLecturerClick}
                 to={routes.LECTURER + `?lecturerId=${lecturerId}`}
               >
                 {teacherName}
-              </UnstyledLink>
+              </DashedLink>
             </Teacher>
           )}
           {location && (
@@ -145,13 +145,13 @@ const ScheduleItemContent: React.FC<Props> = ({
             <div>
               {scheduleGroups.map((group, index) => {
                 return (
-                  <UnstyledLink
+                  <DashedLink
                     onClick={handleGroupClick(group)}
                     key={group}
                     to={getGroupLink(group)}
                   >
                     {getGroup(group, index, scheduleGroups.length)}
-                  </UnstyledLink>
+                  </DashedLink>
                 );
               })}
             </div>
