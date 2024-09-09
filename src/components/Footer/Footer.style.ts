@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { media, Pictogram } from '../../common/styles/styles';
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const FooterWrapper = styled.footer`
   display: flex;
   align-items: start;
-  background-color: #004571;
+  background-color: ${getValueFromTheme('brand900')};
   padding: 36px;
   color: #ffffff;
   gap: 40px;
