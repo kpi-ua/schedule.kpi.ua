@@ -38,16 +38,14 @@ const ScheduleWrapper = <T,>({
   }
 
   return (
-    <div style={{ overflow: "hidden" }}>
-      <GridWrapper>
-        <SliceContextProvider initialDay={currentDay}>
-          <ScheduleDayToggler />
-          <Schedule>
-            <ScheduleTable data={data} />
-          </Schedule>
-        </SliceContextProvider>
-      </GridWrapper>
-    </div>
+    <GridWrapper>
+      <SliceContextProvider initialDay={currentDay}>
+        <ScheduleDayToggler />
+        <Schedule>
+          <ScheduleTable data={data} />
+        </Schedule>
+      </SliceContextProvider>
+    </GridWrapper>
   );
 };
 
