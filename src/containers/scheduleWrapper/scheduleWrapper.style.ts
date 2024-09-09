@@ -3,6 +3,7 @@ import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const GridWrapper = styled.div`
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   gap: 1rem;
   overflow: hidden;
