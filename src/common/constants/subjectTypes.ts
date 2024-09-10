@@ -9,14 +9,14 @@ export const SUBJECT_TYPES: Record<string, { component: AnyStyledComponent; titl
   {
     lec: {
       component: ScheduleItemTypeLec,
-      title: "Лек",
+      title: "Лекція",
     },
     lab: {
       component: ScheduleItemTypeLab,
-      title: "Лаб",
+      title: "Лабораторна",
     },
     prac: {
       component: ScheduleItemTypePrac,
-      title: "Прак",
+      title: "Практика",
     },
   };

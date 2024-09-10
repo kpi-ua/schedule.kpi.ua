@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - staging
+      - KB-11-Implement-a-new-design-that-meets-brand-book-requirements
 
 jobs:
   build-and-deploy:

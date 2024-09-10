@@ -16,6 +16,7 @@ export const Flex = styled.div<{gap?: string}>`
 
 export const Pictogram = styled.img`
   filter: ${getValueFromTheme('svgPrimaryFilter')};
+  fill: ${getValueFromTheme('primaryFontColor')};
 `;
 
 export const media = {
@@ -26,9 +27,14 @@ export const media = {
 };
 
 export const Logo = styled(Pictogram)`
-  max-width: 92px;
-  max-height: 92px;
+  max-width: 185px;
+  max-height: 64px;
   width: 100%;
+
+  ${media.smallMode} {
+    max-width: 116px;
+    max-height: 40px;
+  }
 `;
 
 export const ScheduleItemMixin = css`
@@ -39,5 +45,10 @@ export const ScheduleItemMixin = css`
 
 export const UnstyledLink = styled(Link)`
   text-decoration: none;
+  color: ${getValueFromTheme('secondaryFontColor')};
+`;
+
+export const DashedLink = styled(Link)`
+  text-decoration-style: dashed;
   color: ${getValueFromTheme('primaryFontColor')};
-`
+`;

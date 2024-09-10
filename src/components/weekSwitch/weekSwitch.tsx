@@ -1,4 +1,4 @@
-import OptionMultipleToggler from "../../components/optionMultipleToggler";
+import { RadioGroup } from '../RadioGroup';
 import { useWeekContext } from "../../common/context/weekContext";
 import { Week } from '../../types/Week';
 import { ListOption } from '../../types/ListOption';
@@ -23,10 +23,11 @@ const WeekSwitch = ({ type }: WeekSwitchProps) => {
   const options = useMemo(() => type === "weeks" ? WEEKS : SEMESTERS, [type]);
 
   return (
-    <OptionMultipleToggler
-      currentValue={currentWeek}
+    <RadioGroup
+      value={currentWeek}
       options={options}
       onChange={setCurrentWeek}
+      fullWidth
     />
   );
 };

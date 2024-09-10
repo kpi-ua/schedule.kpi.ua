@@ -24,7 +24,8 @@ export const useThemeSelectorContext = () => useContext(ThemeSelectorContext);
 const ThemeContextProvider: React.FC<Props> = ({ children }) => {
   const getTheme = () => {
     const localStorageTheme = getLocalStorageItem(THEME_STORAGE_KEY)
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    // TODO: Revert back to introduce theme switch
+    const prefersLight = true; // window.matchMedia('(prefers-color-scheme: light)').matches;
 
     if (!localStorageTheme) {
       return prefersLight ? 'light' : 'dark';

@@ -1,7 +1,7 @@
 import ScheduleTypeTabs from "../scheduleTypeTabs";
 import EntitySearch from "../../components/entitySearch";
 import WeekSwitch from "../../components/weekSwitch";
-import { MainSettingsContainer } from "./mainSettings.style";
+import { FiltersContainer, MainSettingsContainer } from "./mainSettings.style";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -24,10 +24,10 @@ const MainSettings = () => {
       gap="24px"
     >
       <ScheduleTypeTabs />
-      <EntitySearch />
-      <div style={{ width: "100%" }}>
+      <FiltersContainer>
+        <EntitySearch />
         <WeekSwitch type={weekAvailable ? "weeks" : "semesters"}></WeekSwitch>
-      </div>
+      </FiltersContainer>
     </MainSettingsContainer>
   );
 };

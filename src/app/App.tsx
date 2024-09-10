@@ -8,6 +8,7 @@ import Navbar from "../containers/navbar";
 import ScheduleRouter from "../containers/router";
 import ScrollToTop from "../containers/scrollToTop/index";
 import { Wrapper } from "./app.style";
+import { Footer } from '../components/Footer/Footer';
 
 function App() {
   const { currentWeek } = useCurrentDateParams();
@@ -23,6 +24,7 @@ function App() {
                 <Wrapper>
                   <Navbar />
                   <ScheduleRouter />
+                  <Footer />
                 </Wrapper>
               </ScrollToTop>
             </LecturerContextProvider>

@@ -2,10 +2,14 @@ import styled from 'styled-components';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const GridWrapper = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 1rem;
   overflow: hidden;
   background-color: ${getValueFromTheme('bgTable')};
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-radius: 40px;
-  padding: 48px 20px 7rem;
-  margin: 36px 24px 64px;
+  border-radius: 20px;
+  border: 2px solid ${getValueFromTheme('neutral100')};
+  margin: 36px;
+  position: relative;
 `;

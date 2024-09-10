@@ -3,13 +3,11 @@ import { Flex } from '../../common/styles/styles';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const ScheduleItemType = styled.div`
-  width: 84px;
-  height: 27px;
-  line-height: 27px;
+  padding: 3px 10px;
   text-align: center;
   background-color: #949dff;
   border-radius: 8px;
-  color: ${getValueFromTheme('secondaryFontColor')};
+  color: ${getValueFromTheme('invertedFontColor')};
   font-weight: 600;
 `;
 
@@ -53,8 +51,8 @@ export const Location = styled(Property)`
 
 export const LocationLink = styled.a`
   color: ${getValueFromTheme('primaryFontColor')};
-  text-decoration: none;
-`
+`;
+
 export const GroupName = styled(Property)`
   gap : 7px
 `;
