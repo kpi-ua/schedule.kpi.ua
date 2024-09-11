@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { media } from '../../common/styles/styles';
 
 export const RadioGroupWrapper = styled.div<{ fullWidth?: boolean, rounded?: boolean }>`
   width: ${(props) => props.fullWidth ? '100%' : 'auto'};
@@ -49,4 +50,8 @@ export const RadioGroupOption = styled.div<{active: boolean, rounded?: boolean}>
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.12);
     color: #141518;
   ` : ''};
+
+  ${media.extraSmallMode} {
+    padding: 6px;
+  }
 `;
