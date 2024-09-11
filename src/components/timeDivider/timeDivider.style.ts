@@ -39,6 +39,8 @@ export const TimeCell = styled.div`
 export const Divider = styled.div`
   border-top: 1px;
   border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
   border-style: dashed;
   border-color: ${getValueFromTheme('brand600')};
   width: 100%;
