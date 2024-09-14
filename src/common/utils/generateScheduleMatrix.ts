@@ -1,6 +1,6 @@
-import moment from "moment";
+import dayjs from 'dayjs';
 import { DAYS, TIME_POINTS } from "../../common/constants/scheduleParams";
-import { getActiveTimePoint } from "../../common/utils/getActiveTimePoint";
+import { getActiveTimePoint, createDateTime } from "../../common/utils/getActiveTimePoint";
 import { Schedule } from '../../models/Schedule';
 import { Pair } from '../../models/Pair';
 
@@ -19,13 +19,14 @@ export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: Schedule<T
     .map(() => new Array(DAYS.length).fill(null));
 
   const activePair: number = getActiveTimePoint();
-  const currentDay = moment().day();
+  const currentDay = dayjs().day();
 
   weekSchedule.forEach((schedule) => {
     const yIndex = DAYS.findIndex((item) => item === schedule.day);
 
     schedule.pairs.forEach((pair) => {
-      const xIndex = TIME_POINTS.findIndex((item) => item === pair.time);
+      const normalizedPairTime = createDateTime(pair.time);
+      const xIndex = TIME_POINTS.findIndex((item) => item === normalizedPairTime.format('HH:mm'));
       const cell = scheduleMatrix[xIndex][yIndex];
       let newCell: ScheduleMatrixCell | ScheduleMatrixCell[] = {
         ...pair,

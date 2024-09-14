@@ -8,7 +8,7 @@ export const DAYS = [
 ];
 
 export const TIME_POINTS = [
-  '8:30',
+  '08:30',
   '10:25',
   '12:20',
   '14:15',
