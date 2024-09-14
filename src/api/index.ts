@@ -33,19 +33,9 @@ const fetchWrapper = async (post_url: string, options: FetchOptions = {}) => {
   }
 };
 
-// Mimic axios methods for HTTP requests (get, post, put, delete)
 const Http = {
   get: (url: string, options: FetchOptions = {}) =>
     fetchWrapper(url, { ...options, method: 'GET' }),
-
-  post: (url: string, body: any, options: FetchOptions = {}) =>
-    fetchWrapper(url, { ...options, method: 'POST', body: JSON.stringify(body) }),
-
-  put: (url: string, body: any, options: FetchOptions = {}) =>
-    fetchWrapper(url, { ...options, method: 'PUT', body: JSON.stringify(body) }),
-
-  delete: (url: string, options: FetchOptions = {}) =>
-    fetchWrapper(url, { ...options, method: 'DELETE' }),
 };
 
 export default Http;
