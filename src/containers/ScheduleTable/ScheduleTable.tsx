@@ -29,6 +29,7 @@ const ScheduleTable = <T,>({ getData, contextType }: ScheduleWrapperProps<T>) =>
 
   useEffect(() => {
     const contextValue = contextType === "lecturer" ? lecturer?.id : group?.id;
+
     if (contextValue) {
       getData(contextValue).then(res => setData(res.data));
     } else {
