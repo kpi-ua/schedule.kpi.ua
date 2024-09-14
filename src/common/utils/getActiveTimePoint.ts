@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
 import duration from 'dayjs/plugin/duration';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
 
+dayjs.extend(isBetween);
 dayjs.extend(duration);
 
 export const createDateTime = (timeString: string) => {
@@ -24,6 +26,6 @@ export const getActiveTimePoint = () => {
     const pairStartDate = createDateTime(timePoint);
     const pairEndDate = pairStartDate.add(PAIR_DURATION_IN_MINUTES, 'minute');
 
-    return now.isAfter(pairStartDate) && now.isBefore(pairEndDate);
+    return now.isBetween(pairStartDate, pairEndDate);
   });
 };
