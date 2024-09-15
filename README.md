@@ -1,9 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/kpi-ua/schedule.kpi.ua.svg)](https://github.com/kpi-ua/schedule.kpi.ua/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/kpi-ua/schedule.kpi.ua.svg)](https://GitHub.com/kpi-ua/schedule.kpi.ua/graphs/contributors/)
-[![GitHub issues](https://img.shields.io/github/issues/kpi-ua/schedule.kpi.ua.svg)](https://GitHub.com/kpi-ua/schedule.kpi.ua/issues/)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/kpi-ua/schedule.kpi.ua.svg)](https://GitHub.com/kpi-ua/schedule.kpi.ua/pulls/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
 [![GitHub watchers](https://img.shields.io/github/watchers/kpi-ua/schedule.kpi.ua.svg?style=social&label=Watch)](https://GitHub.com/kpi-ua/schedule.kpi.ua/watchers/)
 [![GitHub forks](https://img.shields.io/github/forks/kpi-ua/schedule.kpi.ua.svg?style=social&label=Fork)](https://GitHub.com/kpi-ua/schedule.kpi.ua/network/)
 [![GitHub stars](https://img.shields.io/github/stars/kpi-ua/schedule.kpi.ua.svg?style=social&label=Star)](https://GitHub.com/kpi-ua/schedule.kpi.ua/stargazers/)
