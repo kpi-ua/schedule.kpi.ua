@@ -37,6 +37,7 @@ const EntitySearch = () => {
   const lecturerContext = useLecturerContext();
 
   const isLecturer = location.pathname.includes(routes.LECTURER);
+
   const list: EntityWithNameAndId[] = isLecturer ? lists.lecturers : lists.groups;
 
   const query = useQuery();
@@ -45,7 +46,7 @@ const EntitySearch = () => {
     (group?: Group) => groupContext.setGroup(group),
     [groupContext]
   );
-  
+
   const setLecturerCallback = useCallback(
     (lecturer?: Lecturer) => lecturerContext.setLecturer(lecturer),
     [lecturerContext]
@@ -63,20 +64,25 @@ const EntitySearch = () => {
     if (isLecturer) {
       let lecturerId = query.get("lecturerId");
       const localStorageLecturerId = getLocalStorageItem("lecturerId")
-      if(!lecturerId && localStorageLecturerId){
+
+      if (!lecturerId && localStorageLecturerId){
         lecturerId= localStorageLecturerId;
         history.replace("?lecturerId=" + localStorageLecturerId);
       }
+
       const lecturer = list.find(x => x.id === lecturerId) as Lecturer;
+
       setLecturerCallback(lecturer);
       setGroupCallback(undefined);
     } else {
       let groupId = query.get("groupId");
       const localStorageLecturerId = getLocalStorageItem("groupId")
-      if(!groupId && localStorageLecturerId){
+
+      if (!groupId && localStorageLecturerId){
         groupId = localStorageLecturerId
         history.replace("?groupId=" + localStorageLecturerId);
       }
+
       const group = list.find(x => x.id === groupId) as Group;
       setGroupCallback(group);
       setLecturerCallback(undefined);
@@ -98,10 +104,11 @@ const EntitySearch = () => {
     }
   };
 
-  const initialValue =
+  // If no option found, value shoud be `null`: https://github.com/JedWatson/react-select/issues/3066
+  const selectedValue =
     options.find(item =>
       isLecturer ? item.value === lecturerContext.lecturer?.id : item.value === groupContext?.group?.id
-    );
+    ) || null;
 
   return (
     <EntitySearchWrapper>
@@ -111,7 +118,7 @@ const EntitySearch = () => {
           options={options}
           onChange={onOptionChange}
           styles={getSelectCustomStyle(theme)}
-          value={initialValue}
+          value={selectedValue}
           isSearchable={true}
           isClearable={false}
           placeholder={null}

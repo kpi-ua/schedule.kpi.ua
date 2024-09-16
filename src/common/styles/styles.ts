@@ -48,7 +48,6 @@ export const UnstyledLink = styled(Link)`
   color: ${getValueFromTheme('secondaryFontColor')};
 `;
 
-export const DashedLink = styled(Link)`
-  text-decoration-style: dashed;
+export const StyledLink = styled(Link)`
   color: ${getValueFromTheme('primaryFontColor')};
 `;
