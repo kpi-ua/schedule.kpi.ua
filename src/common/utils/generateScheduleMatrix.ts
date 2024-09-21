@@ -25,8 +25,8 @@ export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: Schedule<T
     const yIndex = DAYS.findIndex((item) => item === schedule.day);
 
     schedule.pairs.forEach((pair) => {
-      const normalizedPairTime = createDateTimeFromHoursAndMinutes(pair.time);
-      const xIndex = TIME_POINTS.findIndex((item) => item === normalizedPairTime.format('HH:mm'));
+      const normalizedPairTime = createDateTimeFromHoursAndMinutes(pair.time).format('HH:mm');
+      const xIndex = TIME_POINTS.findIndex((item) => item === normalizedPairTime);
       const cell = scheduleMatrix[xIndex][yIndex];
       let newCell: ScheduleMatrixCell | ScheduleMatrixCell[] = {
         ...pair,
