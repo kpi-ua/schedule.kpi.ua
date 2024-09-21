@@ -1,10 +1,5 @@
 import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween';
-import duration from 'dayjs/plugin/duration';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
-
-dayjs.extend(isBetween);
-dayjs.extend(duration);
 
 export const createDateTimeFromHoursAndMinutes = (timeString: string) => {
   const [hours, minutes] = timeString.split(':').map(Number);

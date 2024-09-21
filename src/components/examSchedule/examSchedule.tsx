@@ -1,6 +1,4 @@
 import dayjs from 'dayjs';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import duration from 'dayjs/plugin/duration';
 import { CardDate, CardMainData, CardWrapper, Divider, DividerRed, Location, Subject, Teacher } from './exam.style';
 import teacherIcon from '../../assets/icons/teacher.svg';
 import locationIcon from '../../assets/icons/location.svg';
@@ -8,10 +6,6 @@ import clock from '../../assets/icons/clock.svg';
 import { Flex, Pictogram } from '../../common/styles/styles';
 import React from 'react';
 import { Exam } from '../../models/Exam';
-
-// Extend Day.js with the required plugins
-dayjs.extend(localizedFormat);
-dayjs.extend(duration);
 
 interface Props {
   exam: Exam;
