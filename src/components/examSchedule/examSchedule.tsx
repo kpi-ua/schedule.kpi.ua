@@ -19,7 +19,6 @@ const ExamSchedule = ({ exam }: Props) => {
   } = exam;
 
   const date = dayjs(exam.date);
-  const time = dayjs(exam.date);
   const daysLeft = dayjs(date).diff(dayjs(), 'day');
 
   return (
@@ -35,7 +34,7 @@ const ExamSchedule = ({ exam }: Props) => {
             </Teacher>
             <Teacher>
               <Pictogram src={clock} alt="time"/>
-              {time}
+              {date.format('h:mm A')}
             </Teacher>
             <Location>
               <Pictogram src={locationIcon} alt="location"/>
