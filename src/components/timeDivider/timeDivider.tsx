@@ -8,7 +8,7 @@ import {
 const TimeDivider = ({ value }: { value: string }) => (
   <Container>
     <InnerContainer>
-      <TimeCell>{ value }</TimeCell>
+      <TimeCell>{value}</TimeCell>
       <Divider />
     </InnerContainer>
   </Container>
