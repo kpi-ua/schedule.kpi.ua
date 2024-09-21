@@ -6,15 +6,15 @@ import { TIME_POINTS } from '../../common/constants/scheduleParams';
 dayjs.extend(isBetween);
 dayjs.extend(duration);
 
-export const createDateTime = (timeString: string) => {
+export const createDateTimeFromHoursAndMinutes = (timeString: string) => {
   const [hours, minutes] = timeString.split(':').map(Number);
 
   const today = dayjs().startOf('day');
 
   return today
-      .hour(hours)
-      .minute(minutes)
-      .second(0);
+    .hour(hours)
+    .minute(minutes)
+    .second(0);
 };
 
 
@@ -23,7 +23,7 @@ export const getActiveTimePoint = () => {
   const now = dayjs();
 
   return TIME_POINTS.findIndex((timePoint) => {
-    const pairStartDate = createDateTime(timePoint);
+    const pairStartDate = createDateTimeFromHoursAndMinutes(timePoint);
     const pairEndDate = pairStartDate.add(PAIR_DURATION_IN_MINUTES, 'minute');
 
     return now.isBetween(pairStartDate, pairEndDate);
