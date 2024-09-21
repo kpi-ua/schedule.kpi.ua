@@ -8,7 +8,7 @@ interface FetchOptions extends RequestInit {
   headers?: Record<string, string>;
 }
 
-const fetchWrapper = async (post_url: string, options: FetchOptions = {}) => {
+const fetchWrapper = async (requestUrl: string, options: FetchOptions = {}) => {
   const { headers = {}, ...restOptions } = options;
 
   const requestOptions: RequestInit = {
@@ -20,7 +20,7 @@ const fetchWrapper = async (post_url: string, options: FetchOptions = {}) => {
   };
 
   try {
-    const url = BASE_URL + post_url;
+    const url = BASE_URL + requestUrl;
     const response = await fetch(url, requestOptions);
 
     if (!response.ok) {
