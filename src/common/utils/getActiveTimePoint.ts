@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
 
-export const createDateTimeFromHoursAndMinutes = (timeString: string) => {
+export const parseTime = (timeString: string) => {
   const [hours, minutes] = timeString.split(':').map(Number);
 
   const today = dayjs().startOf('day');
@@ -18,7 +18,7 @@ export const getActiveTimePoint = () => {
   const now = dayjs();
 
   return TIME_POINTS.findIndex((timePoint) => {
-    const pairStartDate = createDateTimeFromHoursAndMinutes(timePoint);
+    const pairStartDate = parseTime(timePoint);
     const pairEndDate = pairStartDate.add(PAIR_DURATION_IN_MINUTES, 'minute');
 
     return now.isBetween(pairStartDate, pairEndDate);

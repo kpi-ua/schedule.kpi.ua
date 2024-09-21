@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { DAYS, TIME_POINTS } from "../../common/constants/scheduleParams";
-import { getActiveTimePoint, createDateTimeFromHoursAndMinutes } from "../../common/utils/getActiveTimePoint";
+import { getActiveTimePoint, parseTime } from "../../common/utils/getActiveTimePoint";
 import { Schedule } from '../../models/Schedule';
 import { Pair } from '../../models/Pair';
 
@@ -25,7 +25,7 @@ export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: Schedule<T
     const yIndex = DAYS.findIndex((item) => item === schedule.day);
 
     schedule.pairs.forEach((pair) => {
-      const normalizedPairTime = createDateTimeFromHoursAndMinutes(pair.time).format('HH:mm');
+      const normalizedPairTime = parseTime(pair.time).format('HH:mm');
       const xIndex = TIME_POINTS.findIndex((item) => item === normalizedPairTime);
       const cell = scheduleMatrix[xIndex][yIndex];
       let newCell: ScheduleMatrixCell | ScheduleMatrixCell[] = {
