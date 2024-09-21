@@ -19,18 +19,13 @@ const fetchWrapper = async (requestUrl: string, options: FetchOptions = {}) => {
     },
   };
 
-  try {
-    const url = BASE_URL + requestUrl;
-    const response = await fetch(url, requestOptions);
+  const url = BASE_URL + requestUrl;
+  const response = await fetch(url, requestOptions);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status} in request to ${url}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Fetch error:', error);
-    throw error;
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status} in request to ${url}`);
   }
+  return await response.json();
 };
 
 const Http = {
