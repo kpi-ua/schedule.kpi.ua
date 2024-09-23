@@ -1,4 +1,3 @@
-import moment from 'moment';
 import {
   Container,
   Divider,
@@ -9,7 +8,7 @@ import {
 const TimeDivider = ({ value }: { value: string }) => (
   <Container>
     <InnerContainer>
-      <TimeCell>{moment(value, 'H:mm').format('HH:mm')}</TimeCell>
+      <TimeCell>{value}</TimeCell>
       <Divider />
     </InnerContainer>
   </Container>

@@ -1,11 +1,11 @@
-import { CardDate, CardMainData, CardWrapper, Divider, DividerRed, Location, Subject, Teacher, } from './exam.style';
+import dayjs from 'dayjs';
+import { CardDate, CardMainData, CardWrapper, Divider, DividerRed, Location, Subject, Teacher } from './exam.style';
 import teacherIcon from '../../assets/icons/teacher.svg';
 import locationIcon from '../../assets/icons/location.svg';
 import clock from '../../assets/icons/clock.svg';
 import { Flex, Pictogram } from '../../common/styles/styles';
 import React from 'react';
 import { Exam } from '../../models/Exam';
-import moment from 'moment';
 
 interface Props {
   exam: Exam;
@@ -18,9 +18,8 @@ const ExamSchedule = ({ exam }: Props) => {
     room,
   } = exam;
 
-  const date = moment(exam.date);
-  const time = moment(exam.date).locale('en-US');
-  const daysLeft = moment.duration(date.diff(moment())).days();
+  const date = dayjs(exam.date);
+  const daysLeft = dayjs(date).diff(dayjs(), 'day');
 
   return (
     <div>
@@ -35,7 +34,7 @@ const ExamSchedule = ({ exam }: Props) => {
             </Teacher>
             <Teacher>
               <Pictogram src={clock} alt="time"/>
-              {time.format('h:mm A')}
+              {date.format('h:mm A')}
             </Teacher>
             <Location>
               <Pictogram src={locationIcon} alt="location"/>
