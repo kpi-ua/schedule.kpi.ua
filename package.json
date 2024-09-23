@@ -25,7 +25,7 @@
     "react-select-virtualized": "5.2.0",
     "react-virtualized": "^9.22.3",
     "sass": "^1.77.5",
-    "styled-components": "^5.3.5",
+    "styled-components": "^6.1.13",
     "styled-system": "^5.1.5",
     "web-vitals": "^3.0.2"
   },
