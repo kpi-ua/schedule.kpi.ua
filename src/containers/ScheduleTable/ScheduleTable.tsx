@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import ScheduleRow from "../scheduleRow";
 import { ScheduleMatrix, ScheduleMatrixRow, generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
-import { useWeekContext } from "../../common/context/weekContext";
-import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
-import TimeDivider from '../../components/timeDivider';
-import { TIME_POINTS } from '../../common/constants/scheduleParams';
-import { useLecturerContext } from '../../common/context/lecturerContext';
-import { useGroupContext } from '../../common/context/groupContext';
-import { PagedResponse } from '../../models/PagedResponse';
 
-interface ScheduleWrapperProps<T> {
-  getData: (id: string) => Promise<PagedResponse<T[]>>;
-  contextType: string;
+import { Pair } from '../../models/Pair';
+import React from 'react';
+import { Schedule } from '../../models/Schedule';
+import { ScheduleHeader } from '../ScheduleHeader';
+import ScheduleRow from "../scheduleRow";
+import { TIME_POINTS } from '../../common/constants/scheduleParams';
+import TimeDivider from '../../components/timeDivider';
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { media } from '../../common/styles/styles';
+import { range } from 'lodash-es';
+import styled from 'styled-components';
+import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
+import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
+import { useWeekContext } from "../../common/context/weekContext";
+
+interface ScheduleWrapperProps<T extends Pair> {
+  schedule?: Schedule<T>;
 }
 
 const weekValue: Record<string, string> = {
@@ -19,27 +24,51 @@ const weekValue: Record<string, string> = {
   secondWeek: "scheduleSecondWeek",
 };
 
-const ScheduleTable = <T,>({ getData, contextType }: ScheduleWrapperProps<T>) => {
+export const GridContainer = styled.div`
+  margin: 0.75rem;
+  padding-left: 100px;
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 10px;
+
+  ${media.mediumMode} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  ${media.smallMode} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${media.extraSmallMode} {
+    grid-template-columns: repeat(1, 1fr);
+    padding-left: 60px;
+  }
+`;
+
+export const CurrentDayContainer = styled.div<{ start: number }>`
+  position: absolute;
+  background: ${getValueFromTheme("currentDayContainer")};
+  grid-column: ${(props) => props.start} / span 1;
+  width: calc(100% + 1.5rem);
+  left: -0.75rem;
+  top: -0.75rem;
+  bottom: -0.75rem;
+  z-index: 0;
+
+  ${media.extraSmallMode} {
+    top: 0px;
+  }
+`;
+
+const ScheduleTable = <T extends Pair,>({ schedule }: ScheduleWrapperProps<T>) => {
   const { slice } = useSliceOptionsContext();
   const { currentWeek } = useWeekContext();
+  const { currentDay } = useCurrentDateParams();
+  const [start, end] = slice;
 
-  const [data, setData] = useState<T[]>();
-  const { lecturer } = useLecturerContext();
-  const { group } = useGroupContext();
-
-  useEffect(() => {
-    const contextValue = contextType === "lecturer" ? lecturer?.id : group?.id;
-
-    if (contextValue) {
-      getData(contextValue).then(res => setData(res.data));
-    } else {
-      setData(undefined);
-    }
-  }, [lecturer, group, contextType, getData]);
-
-  if (!data) {
-    return null;
-  }
+  const currentDayColumn = range(start, end + 1).indexOf(currentDay) + 1;
 
   const generateScheduleRows = (scheduleMatrix: ScheduleMatrix) => {
     return scheduleMatrix.map((item: ScheduleMatrixRow, i: number) => {
@@ -55,14 +84,14 @@ const ScheduleTable = <T,>({ getData, contextType }: ScheduleWrapperProps<T>) =>
     });
   };
 
-  if (!data) {
-    return null;
-  }
+  const weekSchedule = schedule ? schedule[weekValue[currentWeek]] : [];
 
   return (
-    <>
-      {generateScheduleRows(generateScheduleMatrix(data[weekValue[currentWeek]]))}
-    </>
+    <GridContainer>
+      {currentDayColumn ? <CurrentDayContainer start={currentDayColumn}/> : null}
+      <ScheduleHeader />
+      {generateScheduleRows(generateScheduleMatrix(weekSchedule))}
+    </GridContainer>
   );
 };
 

@@ -1,37 +1,43 @@
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+import { Footer } from '../components/Footer/Footer';
 import { GroupContextProvider } from "../common/context/groupContext";
 import { LecturerContextProvider } from "../common/context/lecturerContext";
-import { PreloadedListsContextProvider } from "../common/context/preloadedListsContext";
-import { WeekContextProvider } from "../common/context/weekContext";
-import { useCurrentDateParams } from "../common/hooks/useCurrentDateParams";
-import ThemeContextProvider from "../common/context/themeContext";
 import Navbar from "../containers/navbar";
+import { PreloadedListsContextProvider } from "../common/context/preloadedListsContext";
 import ScheduleRouter from "../containers/router";
 import ScrollToTop from "../containers/scrollToTop/index";
+import ThemeContextProvider from "../common/context/themeContext";
+import { WeekContextProvider } from "../common/context/weekContext";
 import { Wrapper } from "./app.style";
-import { Footer } from '../components/Footer/Footer';
+import { useCurrentDateParams } from "../common/hooks/useCurrentDateParams";
+
+const queryClient = new QueryClient()
 
 function App() {
   const { currentWeek } = useCurrentDateParams();
   return (
-    <WeekContextProvider
-      initialValue={currentWeek === 1 ? "firstWeek" : "secondWeek"}
-    >
-      <PreloadedListsContextProvider>
-        <GroupContextProvider>
-          <ThemeContextProvider>
-            <LecturerContextProvider>
-              <ScrollToTop>
-                <Wrapper>
-                  <Navbar />
-                  <ScheduleRouter />
-                  <Footer />
-                </Wrapper>
-              </ScrollToTop>
-            </LecturerContextProvider>
-          </ThemeContextProvider>
-        </GroupContextProvider>
-      </PreloadedListsContextProvider>
-    </WeekContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <WeekContextProvider
+        initialValue={currentWeek === 1 ? "firstWeek" : "secondWeek"}
+      >
+        <PreloadedListsContextProvider>
+          <GroupContextProvider>
+            <ThemeContextProvider>
+              <LecturerContextProvider>
+                <ScrollToTop>
+                  <Wrapper>
+                    <Navbar />
+                    <ScheduleRouter />
+                    <Footer />
+                  </Wrapper>
+                </ScrollToTop>
+              </LecturerContextProvider>
+            </ThemeContextProvider>
+          </GroupContextProvider>
+        </PreloadedListsContextProvider>
+      </WeekContextProvider>
+    </QueryClientProvider>
   );
 }
 

@@ -42,6 +42,6 @@ export const Divider = styled.div`
   border-left: 0;
   border-right: 0;
   border-style: dashed;
-  border-color: ${getValueFromTheme('brand600')};
+  border-color: ${getValueFromTheme('neutral400')};
   width: 100%;
 `;

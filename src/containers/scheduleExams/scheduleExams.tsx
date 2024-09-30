@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
 import { ExamsListWrapper, Header, WordAccent } from "./scheduleWrapper.style";
+import { useEffect, useState } from "react";
+
+import { Exam } from '../../models/Exam';
 import ExamSchedule from "../../components/examSchedule";
+import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
+import { getExamsByGroup } from '../../api/schedule';
 import { useGroupContext } from "../../common/context/groupContext";
 import { useWeekContext } from "../../common/context/weekContext";
-import { Exam } from '../../models/Exam';
-import { getExamsByGroup } from '../../api/schedule';
-import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
 
 const SchededuleExamsWrapper = () => {
   const [exams, setExams] = useState<Exam[]>([]);
@@ -13,7 +14,7 @@ const SchededuleExamsWrapper = () => {
   const groupContext = useGroupContext();
   const weekContext = useWeekContext();
 
-  const groupId = groupContext?.group?.id;
+  const groupId = groupContext?.item?.id;
 
   useEffect(() => {
     if (groupId) {
@@ -26,7 +27,7 @@ const SchededuleExamsWrapper = () => {
   return (
     <GridWrapper>
       <Header>
-          Розклад сесії для групи&nbsp;<WordAccent>{groupContext.group?.name}</WordAccent>
+          Розклад сесії для групи&nbsp;<WordAccent>{groupContext.item?.name}</WordAccent>
           <br />
           на&nbsp;
           <WordAccent>

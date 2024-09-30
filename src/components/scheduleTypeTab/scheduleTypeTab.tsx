@@ -1,11 +1,12 @@
-import { Tab } from "./scheduleTypeTab.style";
-import { useLocation } from "react-router-dom";
-import { UnstyledLink } from "../../common/styles/styles";
-import { routes } from "../../common/constants/routes";
 import { useEffect, useRef, useState } from "react";
+
+import { Tab } from "./scheduleTypeTab.style";
+import { UnstyledLink } from "../../common/styles/styles";
+import { getLocalStorageItem } from "../../common/utils/parsedLocalStorage";
+import { routes } from "../../common/constants/routes";
 import { useGroupContext } from "../../common/context/groupContext";
 import { useLecturerContext } from "../../common/context/lecturerContext";
-import { getLocalStorageItem } from "../../common/utils/parsedLocalStorage";
+import { useLocation } from "react-router-dom";
 
 interface ScheduleTypeTabProps {
   tabClick?: () => void;
@@ -22,8 +23,8 @@ const ScheduleTypeTab = ({
   const location = useLocation();
 
   const isActive = location.pathname === url;
-  const { group } = useGroupContext()!;
-  const { lecturer } = useLecturerContext();
+  const { item: group } = useGroupContext()!;
+  const { item: lecturer } = useLecturerContext();
   const [urlWithParams, setUrlWithParams] = useState(url);
 
   useEffect(() => {

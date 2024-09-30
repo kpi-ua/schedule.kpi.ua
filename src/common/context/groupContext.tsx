@@ -1,17 +1,17 @@
 import React, { createContext, useContext, useState } from "react";
+
 import { Group } from '../../models/Group';
+import { SelectableEntityProvider } from './types';
 
 interface Props {
   children: React.ReactNode
 }
 
-interface GroupContextType {
-  group?: Group;
-  setGroup: React.Dispatch<React.SetStateAction<Group | undefined>>;
+interface GroupContextType extends SelectableEntityProvider<Group> {
 };
 
 const GroupContext = createContext<GroupContextType>({
-  setGroup: () => {},
+  setItem: () => {},
 });
 
 export const useGroupContext = () => useContext(GroupContext);
@@ -19,7 +19,7 @@ export const useGroupContext = () => useContext(GroupContext);
 export const GroupContextProvider: React.FC<Props> = ({ children }) => {
   const [group, setGroup] = useState<Group>();
 
-  const params: GroupContextType = { setGroup, group };
+  const params: GroupContextType = { item: group, setItem: setGroup };
   
   return <GroupContext.Provider value={params}>{children}</GroupContext.Provider> ;
 };

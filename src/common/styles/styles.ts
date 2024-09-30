@@ -1,9 +1,10 @@
-import styled, { css } from 'styled-components';
 import { flexbox, space } from 'styled-system';
-import { SCREEN_SIZES } from '../constants/screenSize';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import styled, { css } from 'styled-components';
+
 import { Link } from 'react-router-dom';
+import { SCREEN_SIZES } from '../constants/screenSize';
 import { ScreenSize } from '../../types/ScreenSize';
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const Flex = styled.div<{gap?: string}>`
   display: flex;
@@ -31,7 +32,7 @@ export const Logo = styled(Pictogram)`
   max-height: 64px;
   width: 100%;
 
-  ${media.smallMode} {
+  ${media.mediumMode} {
     max-width: 116px;
     max-height: 40px;
   }
@@ -41,6 +42,7 @@ export const ScheduleItemMixin = css`
   background: ${getValueFromTheme('bgCard')};
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   border-radius: 16px;
+  border: 1px solid ${getValueFromTheme('neutral200')};
 `;
 
 export const UnstyledLink = styled(Link)`

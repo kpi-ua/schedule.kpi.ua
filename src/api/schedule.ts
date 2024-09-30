@@ -1,14 +1,14 @@
 import { Exam } from '../models/Exam';
-import { LecturerLesson } from '../models/LecturerLesson';
-import { PagedResponse } from '../models/PagedResponse';
-import { StudentLesson } from '../models/StudentLesson';
 import Http from './index';
+import { LecturerSchedule } from '../models/LecturerSchedule';
+import { PagedResponse } from '../models/PagedResponse';
+import { StudentSchedule } from '../models/StudentSchedule';
 
-export const getScheduleByLecturer = (lecturerId: string): Promise<PagedResponse<LecturerLesson[]>> => {
+export const getScheduleByLecturer = (lecturerId: string): Promise<PagedResponse<LecturerSchedule>> => {
   return Http.get('/schedule/lecturer?lecturerId=' + lecturerId);
 }
 
-export const getScheduleByGroup = (groupId: string): Promise<PagedResponse<StudentLesson[]>> => {
+export const getScheduleByGroup = (groupId: string): Promise<PagedResponse<StudentSchedule>> => {
   return Http.get('/schedule/lessons?groupId=' + groupId);
 }
 
