@@ -27,6 +27,7 @@ export const RadioGroupOption = styled.div<{active: boolean, rounded?: boolean}>
   letter-spacing: 0.01em;
   color: ${getValueFromTheme('secondaryFontColor')};
   border-radius: ${(props) => props.rounded ? '9999px' : '6px'};
+  white-space: nowrap;
 
   // Prevent width variations because of text weight
   &:after {

@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { getValueFromTheme } from "../../common/utils/getValueFromTheme";
 import { media } from "../../common/styles/styles";
+import styled from "styled-components";
 
 export const NavBarWrapper = styled.header`
   padding: 30px 36px;
@@ -36,4 +36,8 @@ export const NavbarLogo = styled.div`
   }
 `;
 
-export const ThemeSwitchWrapper = styled(NavbarLogo)``;
+export const ThemeSwitchWrapper = styled(NavbarLogo)`
+  ${media.mediumMode} {
+    display: none;
+  }
+`;

@@ -1,24 +1,25 @@
 import {
   GroupName,
   Location,
+  LocationLink,
   ScheduleItemCurrent,
   ScheduleItemHeader,
   Subject,
   Teacher,
-  LocationLink,
 } from "./scheduleItemContent.style";
-import teacherIcon from "../../assets/icons/teacher.svg";
-import locationIcon from "../../assets/icons/location.svg";
 import { Pictogram, StyledLink } from "../../common/styles/styles";
-import { routes } from "../../common/constants/routes";
-import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
 import React, { useEffect, useState } from "react";
-import { useLecturerContext } from "../../common/context/lecturerContext";
-import { useGroupContext } from "../../common/context/groupContext";
-import { setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
-import { SUBJECT_TYPES } from "../../common/constants/subjectTypes";
 import { compact, uniq } from 'lodash-es';
+
+import { SUBJECT_TYPES } from "../../common/constants/subjectTypes";
 import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
+import locationIcon from "../../assets/icons/location.svg";
+import { routes } from "../../common/constants/routes";
+import { setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
+import teacherIcon from "../../assets/icons/teacher.svg";
+import { useGroupContext } from "../../common/context/groupContext";
+import { useLecturerContext } from "../../common/context/lecturerContext";
+import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
 
 interface Props {
   scheduleMatrixCell: ScheduleMatrixCell;
@@ -42,8 +43,8 @@ const ScheduleItemContent: React.FC<Props> = ({
   const [location, setLocation] = useState(
     scheduleMatrixCell && scheduleMatrixCell.place
   );
-  const { setLecturer } = useLecturerContext();
-  const { setGroup } = useGroupContext()!;
+  const { setItem: setLecturer } = useLecturerContext();
+  const { setItem: setGroup } = useGroupContext()!;
 
   const ScheduleItemComponent = SUBJECT_TYPES[tag]?.component;
   const scheduleItemTitle = SUBJECT_TYPES[tag]?.title;

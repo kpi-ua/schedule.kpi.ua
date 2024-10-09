@@ -1,29 +1,23 @@
 import { GridWrapper } from "./scheduleWrapper.style";
-import { SliceContextProvider } from "../../common/context/sliceOptionsContext";
+import { Pair } from '../../models/Pair';
+import { Schedule } from '../../models/Schedule';
 import ScheduleDayToggler from "../scheduleDayToggler";
-import Schedule from "../schedule";
-import { PagedResponse } from '../../models/PagedResponse';
-import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
 import ScheduleTable from '../ScheduleTable/ScheduleTable';
+import { SliceContextProvider } from "../../common/context/sliceOptionsContext";
+import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
 
-interface ScheduleWrapperProps<T> {
-  getData: (id: string) => Promise<PagedResponse<T[]>>;
-  contextType: string;
+interface ScheduleWrapperProps<T extends Pair> {
+  schedule?: Schedule<T>;
 }
 
-const ScheduleWrapper = <T,>({
-  getData,
-  contextType,
-}: ScheduleWrapperProps<T>) => {
+const ScheduleWrapper = <T extends Pair,>({ schedule }: ScheduleWrapperProps<T>) => {
   const { currentDay } = useCurrentDateParams();
 
   return (
     <GridWrapper>
       <SliceContextProvider initialDay={currentDay}>
         <ScheduleDayToggler />
-        <Schedule>
-          <ScheduleTable getData={getData} contextType={contextType} />
-        </Schedule>
+        <ScheduleTable schedule={schedule} />
       </SliceContextProvider>
     </GridWrapper>
   );

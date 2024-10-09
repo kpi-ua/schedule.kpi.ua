@@ -37,8 +37,12 @@ export const ScheduleItemExtendedUnit = styled.div`
     border-bottom-right-radius: 0;
   }
 
+  &:not(:last-child) {
+    border-bottom: none;
+  }
+
   &:not(:first-child) {
-    border-top: 0.5px dashed ${getValueFromTheme('brand600')};
+    border-top: 1px dashed ${getValueFromTheme('neutral200')};
 
     &:before {
       ${cutOffPart};

@@ -1,8 +1,9 @@
-import dayjs from 'dayjs';
 import { DAYS, TIME_POINTS } from "../../common/constants/scheduleParams";
 import { getActiveTimePoint, parseTime } from "../../common/utils/getActiveTimePoint";
-import { Schedule } from '../../models/Schedule';
+
 import { Pair } from '../../models/Pair';
+import { WeekSchedule } from '../../models/WeekSchedule';
+import dayjs from 'dayjs';
 
 export interface ScheduleMatrixCell extends Pair {
   currentPair: boolean;
@@ -13,7 +14,7 @@ export type ScheduleMatrixRow = UnknownScheduleMatrixCell[];
 
 export type ScheduleMatrix = ScheduleMatrixRow[];
 
-export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: Schedule<T>[]): ScheduleMatrix => {
+export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: WeekSchedule<T>[]): ScheduleMatrix => {
   const scheduleMatrix = new Array(TIME_POINTS.length)
     .fill(null)
     .map(() => new Array(DAYS.length).fill(null));

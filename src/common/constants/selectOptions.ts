@@ -32,8 +32,9 @@ export const getSelectCustomStyle = (theme: any) => ({
     return {
       ...base,
       borderRadius: 8,
-      // This needs to be translated to HEX
-      border: '1px solid rgba(20, 21, 24, 0.12)',
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderColor: theme['neutral300'],
       backgroundColor: theme['bgPrimary'],
       color: theme['secondaryFontColor'],
       paddingTop: 2,

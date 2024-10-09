@@ -1,6 +1,7 @@
 import { Pair } from './Pair';
+import { WeekSchedule } from './WeekSchedule';
 
 export interface Schedule<T extends Pair> {
-  day: string;
-  pairs: T[];
+  scheduleFirstWeek: WeekSchedule<T>[];
+  scheduleSecondWeek: WeekSchedule<T>[];
 }
