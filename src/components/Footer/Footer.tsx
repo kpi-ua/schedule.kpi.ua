@@ -11,20 +11,20 @@ export const Footer = () => {
           Національний технічний університет України"Київський політехнічний інститут імені Ігоря Сікорського" © 1998-{dayjs().year()}
         </p>
         <p>
-          Адреса: <a href="https://kpi.ua/location">Україна, 03056 м.Київ-56, проспект Перемоги, 37</a>
+          Адреса: <a target="_blank" href="https://kpi.ua/location">Україна, 03056 м.Київ-56, проспект Перемоги, 37</a>
         </p>
       </FooterSection>
       <FooterSection>
         <p>
-          Розробник – <a href="https://kbis.kpi.ua">Конструкторське бюро інформаційних систем</a>
+          Розробник – <a target="_blank" href="https://kbis.kpi.ua">Конструкторське бюро інформаційних систем</a>
         </p>
         <p>
-          Створено в рамках проекту "<a href="https://ecampus.kpi.ua">Електронний кампус КПІ</a>"
+          Створено в рамках проекту "<a target="_blank" href="https://ecampus.kpi.ua">Електронний кампус КПІ</a>"
         </p>
       </FooterSection>
       <FooterSection>
         <p>
-          Використання матеріалу сайту тільки з обов’язковим посиланням на <a href="https://schedule.kpi.ua">schedule.kpi.ua</a>
+          Використання матеріалу сайту тільки з обов’язковим посиланням на schedule.kpi.ua
         </p>
       </FooterSection>
     </FooterWrapper>
