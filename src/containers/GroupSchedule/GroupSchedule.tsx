@@ -1,3 +1,4 @@
+import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
 import ScheduleWrapper from '../scheduleWrapper';
 import { useGroupContext } from '../../common/context/groupContext';
 import { useStudentSchedule } from '../../queries/useStudentSchedule';
@@ -7,6 +8,8 @@ export const GroupSchedule = () => {
   const { data } = useStudentSchedule(group?.id);
 
   return (
-    <ScheduleWrapper schedule={data?.data} />
+    <GridWrapper>
+      <ScheduleWrapper schedule={data?.data} />
+    </GridWrapper>
   );
 };
