@@ -1,6 +1,6 @@
 {
-  "short_name": "Розклад",
-  "name": "Розклад | КПІ ім. Ігоря Сікорського",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "icon-192.png",
