@@ -1,6 +1,7 @@
-import { FooterWrapper, FooterLogo, FooterSection } from './Footer.style';
-import logo from '../../assets/footer-logo.svg';
+import { FooterLogo, FooterSection, FooterWrapper } from './Footer.style';
+
 import dayjs from 'dayjs';
+import logo from '../../assets/footer-logo.svg';
 
 export const Footer = () => {
   return (
@@ -11,15 +12,15 @@ export const Footer = () => {
           Національний технічний університет України"Київський політехнічний інститут імені Ігоря Сікорського" © 1998-{dayjs().year()}
         </p>
         <p>
-          Адреса: <a target="_blank" href="https://kpi.ua/location">Україна, 03056 м.Київ-56, проспект Перемоги, 37</a>
+          Адреса: <a target="_blank" rel="noreferrer" href="https://kpi.ua/location">Україна, 03056 м.Київ-56, проспект Перемоги, 37</a>
         </p>
       </FooterSection>
       <FooterSection>
         <p>
-          Розробник – <a target="_blank" href="https://kbis.kpi.ua">Конструкторське бюро інформаційних систем</a>
+          Розробник – <a target="_blank" rel="noreferrer" href="https://kbis.kpi.ua">Конструкторське бюро інформаційних систем</a>
         </p>
         <p>
-          Створено в рамках проекту "<a target="_blank" href="https://ecampus.kpi.ua">Електронний кампус КПІ</a>"
+          Створено в рамках проекту "<a target="_blank" rel="noreferrer" href="https://ecampus.kpi.ua">Електронний кампус КПІ</a>"
         </p>
       </FooterSection>
       <FooterSection>

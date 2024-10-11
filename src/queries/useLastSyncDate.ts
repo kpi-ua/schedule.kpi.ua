@@ -9,6 +9,10 @@ export const useLastSyncDate = (groupId?: string) => {
   return useQuery({
     queryKey: getQueryKey(groupId),
     queryFn: async () => {
+      if (!groupId) {
+        return undefined;
+      }
+
       const [groupSyncDate] = await getLastSyncDate(groupId);
 
       return groupSyncDate;
