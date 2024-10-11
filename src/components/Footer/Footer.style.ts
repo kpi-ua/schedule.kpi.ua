@@ -37,15 +37,15 @@ export const FooterSection = styled.section`
   }
   
   a {
-    color: #FFF;
+    color: ${getValueFromTheme('invertedFontColor')};
   }
 
   a:hover {
-    color: #FFF;
+    color: ${getValueFromTheme('invertedFontColor')};
   }
 
   a:active {
-    color: #FFF;
+    color: ${getValueFromTheme('invertedFontColor')};
   }
 
   p {
