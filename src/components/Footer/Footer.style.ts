@@ -35,6 +35,18 @@ export const FooterSection = styled.section`
     flex-basis: auto;
     text-align: center;
   }
+  
+  a {
+    color: #FFF;
+  }
+
+  a:hover {
+    color: #FFF;
+  }
+
+  a:active {
+    color: #FFF;
+  }
 
   p {
     margin-top: 0;
