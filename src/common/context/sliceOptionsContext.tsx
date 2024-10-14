@@ -1,14 +1,15 @@
+import { clamp, inRange, isNil, range } from 'lodash-es';
 import { createContext, useContext, useEffect, useState } from 'react';
+
 import { ScreenSize } from '../../types/ScreenSize';
+import { useCurrentTime } from '../../queries/useCurrentTime';
 import { useScreenSize } from '../hooks/useScreenSize';
-import { clamp, inRange, range } from 'lodash-es';
 
 export type Slice = [number, number];
 
 export interface SliceContext {
   slice: Slice;
   setSlice: (slice: Slice) => void;
-  setCurrentDay: (currentDay: number) => void;
 }
 
 const defaultValue: Slice = [0, 0];
@@ -16,14 +17,12 @@ const defaultValue: Slice = [0, 0];
 const SliceOptionsContext = createContext<SliceContext>({
   slice: defaultValue,
   setSlice: () => ({}),
-  setCurrentDay: () => ({}),
 });
 
 export const useSliceOptionsContext = () => useContext(SliceOptionsContext);
 
 interface SliceContextProviderProps {
   children: React.ReactNode | React.ReactNode[];
-  initialDay: number;
 }
 
 const DAYS_COUNT = 6;
@@ -50,19 +49,20 @@ const getCurrentSlice = (screenSize: ScreenSize, currendDay: number): Slice => {
   return slices.find(([start, end]) => inRange(clamp(currendDay, 1, DAYS_COUNT) , start, end + 1)) || defaultValue;
 };
 
-export const SliceContextProvider = ({ children, initialDay }: SliceContextProviderProps) => {
+export const SliceContextProvider = ({ children }: SliceContextProviderProps) => {
+  const { data } = useCurrentTime();
   const { screenSize } = useScreenSize();
   const [slice, setSlice] = useState<Slice>(defaultValue);
-  const [currentDay, setCurrentDay] = useState(initialDay);
 
   useEffect(() => {
-    setSlice(getCurrentSlice(screenSize, currentDay));
-  }, [screenSize, currentDay]);
+    if (!isNil(data?.data.currentDay)) {
+      setSlice(getCurrentSlice(screenSize, data?.data.currentDay || 0));
+    }
+  }, [screenSize, data?.data.currentDay]);
 
   const value: SliceContext = {
     slice,
     setSlice,
-    setCurrentDay,
   };
 
   return (

@@ -11,7 +11,7 @@ import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import { media } from '../../common/styles/styles';
 import { range } from 'lodash-es';
 import styled from 'styled-components';
-import { useCurrentDateParams } from '../../common/hooks/useCurrentDateParams';
+import { useCurrentTime } from '../../queries/useCurrentTime';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 import { useWeekContext } from "../../common/context/weekContext";
 
@@ -65,10 +65,10 @@ export const CurrentDayContainer = styled.div<{ start: number }>`
 const ScheduleTable = <T extends Pair,>({ schedule }: ScheduleWrapperProps<T>) => {
   const { slice } = useSliceOptionsContext();
   const { currentWeek } = useWeekContext();
-  const { currentDay } = useCurrentDateParams();
+  const { data } = useCurrentTime();
   const [start, end] = slice;
 
-  const currentDayColumn = range(start, end + 1).indexOf(currentDay) + 1;
+  const currentDayColumn = range(start, end + 1).indexOf(data?.data.currentDay || 0) + 1;
 
   const generateScheduleRows = (scheduleMatrix: ScheduleMatrix) => {
     return scheduleMatrix.map((item: ScheduleMatrixRow, i: number) => {

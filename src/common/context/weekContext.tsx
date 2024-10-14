@@ -1,8 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
 import { Week } from '../../types/Week';
+import { isNil } from 'lodash-es';
+import { useCurrentTime } from '../../queries/useCurrentTime';
 
 interface Props {
-  initialValue: Week;
   children: React.ReactNode;
 }
 
@@ -18,8 +20,15 @@ const WeekContext = createContext<WeekContextType>({
 
 export const useWeekContext = () => useContext(WeekContext);
 
-export const WeekContextProvider: React.FC<Props> = ({ initialValue, children }) => {
-  const [currentWeek, setCurrentWeek] = useState(initialValue);
+export const WeekContextProvider: React.FC<Props> = ({ children }) => {
+  const { data } = useCurrentTime();
+  const [currentWeek, setCurrentWeek] = useState<Week>('secondWeek');
+
+  useEffect(() => {
+    if (!isNil(data?.data.currentWeek)) {
+      setCurrentWeek(data?.data.currentWeek === 1 ? "firstWeek" : "secondWeek");
+    }
+  }, [data?.data.currentWeek]);
 
   const params: WeekContextType = {setCurrentWeek, currentWeek};
 
