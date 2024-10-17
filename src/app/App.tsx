@@ -10,17 +10,13 @@ import ScrollToTop from "../containers/scrollToTop/index";
 import ThemeContextProvider from "../common/context/themeContext";
 import { WeekContextProvider } from "../common/context/weekContext";
 import { Wrapper } from "./app.style";
-import { useCurrentDateParams } from "../common/hooks/useCurrentDateParams";
 
 const queryClient = new QueryClient()
 
 function App() {
-  const { currentWeek } = useCurrentDateParams();
-  return (
+  return  (
     <QueryClientProvider client={queryClient}>
-      <WeekContextProvider
-        initialValue={currentWeek === 1 ? "firstWeek" : "secondWeek"}
-      >
+      <WeekContextProvider>
         <PreloadedListsContextProvider>
           <GroupContextProvider>
             <ThemeContextProvider>
