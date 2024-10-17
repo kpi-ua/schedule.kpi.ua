@@ -1,39 +1,33 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Route, Switch } from 'react-router-dom';
 
-import { Footer } from '../components/Footer/Footer';
-import { GroupContextProvider } from "../common/context/groupContext";
-import { LecturerContextProvider } from "../common/context/lecturerContext";
-import Navbar from "../containers/navbar";
-import { PreloadedListsContextProvider } from "../common/context/preloadedListsContext";
-import ScheduleRouter from "../containers/router";
-import ScrollToTop from "../containers/scrollToTop/index";
+import { About } from '../containers/About';
+import Schedule from '../containers/Schedule';
 import ThemeContextProvider from "../common/context/themeContext";
-import { WeekContextProvider } from "../common/context/weekContext";
-import { Wrapper } from "./app.style";
+import { getValueFromTheme } from '../common/utils/getValueFromTheme';
+import { routes } from '../common/constants/routes';
+import styled from 'styled-components';
 
-const queryClient = new QueryClient()
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: ${getValueFromTheme('bgPrimary')};
+  min-height: 100vh;
+`;
 
 function App() {
   return  (
-    <QueryClientProvider client={queryClient}>
-      <WeekContextProvider>
-        <PreloadedListsContextProvider>
-          <GroupContextProvider>
-            <ThemeContextProvider>
-              <LecturerContextProvider>
-                <ScrollToTop>
-                  <Wrapper>
-                    <Navbar />
-                    <ScheduleRouter />
-                    <Footer />
-                  </Wrapper>
-                </ScrollToTop>
-              </LecturerContextProvider>
-            </ThemeContextProvider>
-          </GroupContextProvider>
-        </PreloadedListsContextProvider>
-      </WeekContextProvider>
-    </QueryClientProvider>
+    <ThemeContextProvider>
+      <Wrapper>
+        <Switch>
+          <Route path={routes.ABOUT}>
+            <About />
+          </Route>
+          <Route>
+            <Schedule />
+          </Route>
+        </Switch>
+      </Wrapper>
+    </ThemeContextProvider>
   );
 }
 
