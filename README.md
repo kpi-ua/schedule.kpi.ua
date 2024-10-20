@@ -1,7 +1,9 @@
 # schedule.kpi.ua
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/schedule.kpi.ua)](https://hub.docker.com/r/kpiua/schedule.kpi.ua)
+
 A responsive, maintainable, scalable, and fast UI with a modern design for the students of Igor Sikorsky Kyiv Polytechnic Institute.
-[Docker images](https://hub.docker.com/r/kpiua/schedule.kpi.ua)
 
 ## API usage
 Schedule API is a part of **campus API**.
