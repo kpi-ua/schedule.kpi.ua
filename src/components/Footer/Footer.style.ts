@@ -11,6 +11,7 @@ export const FooterWrapper = styled.footer`
   color: #ffffff;
   gap: 40px;
   font-size: 12px;
+  width: 100%;
 
   ${media.extraSmallMode} {
     flex-direction: column;
