@@ -54,8 +54,6 @@ const ScheduleTypeTab = ({
     tabClick?.();
   };
 
-  console.log('urlWithParams', urlWithParams);
-
   return (
     <Tab active={isActive} onClick={handleClick} ref={tabRef}>
       <UnstyledLink to={urlWithParams}>{children}</UnstyledLink>
