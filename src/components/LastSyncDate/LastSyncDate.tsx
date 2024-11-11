@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import styled from 'styled-components';
-import { useGroupContext } from '../../common/context/groupContext';
 import { useLastSyncDate } from '../../queries/useLastSyncDate';
+import {useStore} from "../../store";
 
 const LastSyncDateWrapper = styled.div`
   color: ${getValueFromTheme('neutral600')};
@@ -11,7 +11,7 @@ const LastSyncDateWrapper = styled.div`
 `;
 
 export const LastSyncDate = () => {
-  const { item: group } = useGroupContext();
+  const group = useStore(state => state.group);
   const { data, isLoading } = useLastSyncDate(group?.id);
 
   const renderValue = () => {

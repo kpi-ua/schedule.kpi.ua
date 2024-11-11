@@ -1,17 +1,20 @@
 import SearchSelect from '../SearchSelect';
+import {useStore} from "../../store";
 import { useEntitySearch } from '../../common/hooks/useEntitySearch';
-import { useGroupContext } from "../../common/context/groupContext";
-import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
+import { usePreloadedList } from '../../common/hooks/usePreloadedList';
 
 const GroupSearch = () => {
-  const { groups } = usePreloadedListContext();
-  const groupContext = useGroupContext();
-  const { handleChange } = useEntitySearch('groupId', groups, groupContext);
+  const { groups } = usePreloadedList();
+  const group = useStore(state => state.group);
+  const setGroup = useStore(state => state.setGroup);
+
+  const { handleChange } = useEntitySearch('groupId', groups, setGroup);
+
 
   return (
     <SearchSelect
       options={groups}
-      value={groupContext.item}
+      value={group}
       onChange={handleChange}
     />
   );

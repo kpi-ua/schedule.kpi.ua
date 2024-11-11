@@ -3,10 +3,10 @@ import { ReactComponent as Link } from '../../assets/icons/link.svg';
 import SearchSelect from '../SearchSelect';
 import { media } from '../../common/styles/styles';
 import styled from 'styled-components';
-import { useEntitySearch } from '../../common/hooks/useEntitySearch';
-import { useLecturerContext } from '../../common/context/lecturerContext';
 import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
-import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
+import { useStore } from "../../store";
+import { useEntitySearch } from '../../common/hooks/useEntitySearch';
+import { usePreloadedList } from '../../common/hooks/usePreloadedList';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,10 +19,13 @@ const Wrapper = styled.div`
 `;
 
 const LecturerSearch = () => {
-  const { lecturers } = usePreloadedListContext();
-  const lecturerContext = useLecturerContext();
-  const { handleChange } = useEntitySearch('lecturerId', lecturers, lecturerContext);
-  const { data: lecturerLessonsResponse, isLoading } = useLecturerSchedule(lecturerContext.item?.id);
+  const { lecturers } = usePreloadedList();
+  const lecturer = useStore(state => state.lecturer);
+  const setLecturer = useStore(state => state.setLecturer);
+
+  const { handleChange } = useEntitySearch('lecturerId', lecturers, setLecturer);
+
+  const { data: lecturerLessonsResponse, isLoading } = useLecturerSchedule(lecturer?.id);
 
   const lecturerProfile = lecturerLessonsResponse?.data?.profile?.profile;
 
@@ -41,7 +44,7 @@ const LecturerSearch = () => {
       </Button>
       <SearchSelect
         options={lecturers}
-        value={lecturerContext.item}
+        value={lecturer}
         onChange={handleChange}
       />
     </Wrapper>

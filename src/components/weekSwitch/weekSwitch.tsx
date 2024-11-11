@@ -1,13 +1,13 @@
 import { RadioGroup } from '../RadioGroup';
-import { useWeekContext } from "../../common/context/weekContext";
 import { Week } from '../../types/Week';
 import { ListOption } from '../../types/ListOption';
 import { useMemo } from 'react';
+import {useWeekStore} from "../../store/weekStore";
 
 interface WeekSwitchProps {
   type: "weeks" | "semesters";
 }
-
+ 
 const WEEKS: ListOption<Week>[] = [
   { label: "Перший тиждень", value: "firstWeek" },
   { label: "Другий тиждень", value: "secondWeek" },
@@ -19,7 +19,7 @@ const SEMESTERS: ListOption<Week>[] = [
 ];
 
 const WeekSwitch = ({ type }: WeekSwitchProps) => {
-  const { setCurrentWeek, currentWeek } = useWeekContext()!;
+  const {currentWeek, setCurrentWeek} = useWeekStore();
   const options = useMemo(() => type === "weeks" ? WEEKS : SEMESTERS, [type]);
 
   return (

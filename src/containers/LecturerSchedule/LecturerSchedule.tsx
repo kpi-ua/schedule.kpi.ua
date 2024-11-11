@@ -1,10 +1,10 @@
 import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
 import ScheduleWrapper from '../scheduleWrapper';
-import { useLecturerContext } from '../../common/context/lecturerContext';
 import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
+import { useStore } from "../../store";
 
 export const LecturerSchedule = () => {
-  const { item: lecturer } = useLecturerContext();
+  const lecturer = useStore(state => state.lecturer);
   const { data } = useLecturerSchedule(lecturer?.id);
 
   return (

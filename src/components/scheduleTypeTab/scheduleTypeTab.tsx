@@ -4,9 +4,8 @@ import { Tab } from "./scheduleTypeTab.style";
 import { UnstyledLink } from "../../common/styles/styles";
 import { getLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 import { routes } from "../../common/constants/routes";
-import { useGroupContext } from "../../common/context/groupContext";
-import { useLecturerContext } from "../../common/context/lecturerContext";
 import { useLocation } from "react-router-dom";
+import { useStore } from "../../store";
 
 interface ScheduleTypeTabProps {
   tabClick?: () => void;
@@ -23,8 +22,10 @@ const ScheduleTypeTab = ({
   const location = useLocation();
 
   const isActive = location.pathname === url;
-  const { item: group } = useGroupContext()!;
-  const { item: lecturer } = useLecturerContext();
+
+  const group = useStore(state => state.group);
+  const lecturer = useStore(state => state.lecturer);
+
   const [urlWithParams, setUrlWithParams] = useState(url);
 
   useEffect(() => {
@@ -52,6 +53,8 @@ const ScheduleTypeTab = ({
 
     tabClick?.();
   };
+
+  console.log('urlWithParams', urlWithParams);
 
   return (
     <Tab active={isActive} onClick={handleClick} ref={tabRef}>
