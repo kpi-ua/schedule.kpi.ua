@@ -17,9 +17,8 @@ import locationIcon from "../../assets/icons/location.svg";
 import { routes } from "../../common/constants/routes";
 import { setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
 import teacherIcon from "../../assets/icons/teacher.svg";
-import { useGroupContext } from "../../common/context/groupContext";
-import { useLecturerContext } from "../../common/context/lecturerContext";
-import { usePreloadedListContext } from "../../common/context/preloadedListsContext";
+import { useStore } from "../../store";
+import { usePreloadedList } from "../../common/hooks/usePreloadedList";
 
 interface Props {
   scheduleMatrixCell: ScheduleMatrixCell;
@@ -39,12 +38,14 @@ const ScheduleItemContent: React.FC<Props> = ({
 
   const scheduleGroups = compact(uniq((group || '').split(',')));
   const tag = scheduleMatrixCell?.tag;
-  const { groups, lecturers } = usePreloadedListContext();
+  const { groups, lecturers } = usePreloadedList();
+  
   const [location, setLocation] = useState(
     scheduleMatrixCell && scheduleMatrixCell.place
   );
-  const { setItem: setLecturer } = useLecturerContext();
-  const { setItem: setGroup } = useGroupContext()!;
+
+  const setGroup = useStore(store=>store.setGroup);
+  const setLecturer = useStore(store=>store.setLecturer);
 
   const ScheduleItemComponent = SUBJECT_TYPES[tag]?.component;
   const scheduleItemTitle = SUBJECT_TYPES[tag]?.title;

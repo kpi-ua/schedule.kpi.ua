@@ -13,7 +13,7 @@ import { range } from 'lodash-es';
 import styled from 'styled-components';
 import { useCurrentTime } from '../../queries/useCurrentTime';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
-import { useWeekContext } from "../../common/context/weekContext";
+import {useWeekStore} from "../../store/weekStore";
 
 interface ScheduleWrapperProps<T extends Pair> {
   schedule?: Schedule<T>;
@@ -64,7 +64,7 @@ export const CurrentDayContainer = styled.div<{ start: number }>`
 
 const ScheduleTable = <T extends Pair,>({ schedule }: ScheduleWrapperProps<T>) => {
   const { slice } = useSliceOptionsContext();
-  const { currentWeek } = useWeekContext();
+  const { currentWeek } = useWeekStore();
   const { data } = useCurrentTime();
   const [start, end] = slice;
 

@@ -5,16 +5,17 @@ import { Exam } from '../../models/Exam';
 import ExamSchedule from "../../components/examSchedule";
 import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
 import { getExamsByGroup } from '../../api/schedule';
-import { useGroupContext } from "../../common/context/groupContext";
-import { useWeekContext } from "../../common/context/weekContext";
+import {useStore} from "../../store";
+import {useWeekStore} from "../../store/weekStore";
 
 const SchededuleExamsWrapper = () => {
   const [exams, setExams] = useState<Exam[]>([]);
 
-  const groupContext = useGroupContext();
-  const weekContext = useWeekContext();
+  const group = useStore(state => state.group);
 
-  const groupId = groupContext?.item?.id;
+  const {currentWeek} = useWeekStore();
+
+  const groupId = group?.id;
 
   useEffect(() => {
     if (groupId) {
@@ -27,11 +28,11 @@ const SchededuleExamsWrapper = () => {
   return (
     <GridWrapper>
       <Header>
-          Розклад сесії для групи&nbsp;<WordAccent>{groupContext.item?.name}</WordAccent>
+          Розклад сесії для групи&nbsp;<WordAccent>{group?.name}</WordAccent>
           <br />
           на&nbsp;
           <WordAccent>
-            {weekContext?.currentWeek === "firstWeek"
+            {currentWeek === "firstWeek"
               ? "перший семестр"
               : "другий семестр"}
           </WordAccent>

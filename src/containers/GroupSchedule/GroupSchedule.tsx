@@ -1,10 +1,10 @@
 import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
 import ScheduleWrapper from '../scheduleWrapper';
-import { useGroupContext } from '../../common/context/groupContext';
 import { useStudentSchedule } from '../../queries/useStudentSchedule';
+import {useStore} from "../../store";
 
 export const GroupSchedule = () => {
-  const { item: group } = useGroupContext();
+  const group = useStore(state => state.group);
   const { data } = useStudentSchedule(group?.id);
 
   return (

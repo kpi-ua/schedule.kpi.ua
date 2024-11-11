@@ -1,23 +1,17 @@
 import { getLocalStorageItem, setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
-import { SelectableEntityProvider } from '../context/types';
 import { useHistory } from "react-router-dom";
 import { useQueryParams } from '../../common/hooks/useQueryParams';
 
 export const useEntitySearch = <T extends EntityWithNameAndId>(
   storageKey: string,
   items: T[],
-  context: SelectableEntityProvider<T>
+  setValue: (value?: T) => void
 ) => {
   const history = useHistory();
   const queryParams = useQueryParams();
-
-  const setItemCallback = useCallback(
-    (item?: T) => context.setItem(item),
-    [context]
-  );
 
   useEffect(() => {
     const itemId: string = queryParams.get(storageKey) || getLocalStorageItem(storageKey);
@@ -30,11 +24,11 @@ export const useEntitySearch = <T extends EntityWithNameAndId>(
 
     const group = items.find(({ id }) => id === itemId);
 
-    setItemCallback(group);
-  }, [items, history, queryParams, setItemCallback, storageKey]);
+    setValue(group);
+  }, [items, history, queryParams, storageKey]);
 
   const handleChange = (item: T) => {
-    context.setItem(item);
+    setValue(item);
     history.push(`?${storageKey}=${item.id}`);
     setLocalStorageItem(storageKey, item.id);
   };
