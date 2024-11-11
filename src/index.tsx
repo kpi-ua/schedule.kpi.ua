@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
 import App from './app/App';
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 
@@ -16,7 +16,8 @@ dayjs.extend(localizedFormat);
 dayjs.extend(duration);
 dayjs.locale('uk');
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+root.render(
   <React.StrictMode>
     <ScopedCssBaseline>
       <GlobalStyles />
@@ -24,6 +25,5 @@ ReactDOM.render(
         <App />
       </Router>
     </ScopedCssBaseline>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
