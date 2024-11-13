@@ -7,7 +7,7 @@ WORKDIR /
 COPY package*.json ./
 
 # Installs all node packages
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # Copies everything over to Docker environment
 COPY . ./
