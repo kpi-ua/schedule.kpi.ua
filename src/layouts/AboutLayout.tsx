@@ -47,6 +47,13 @@ const LimitedWidthContainer = styled.section<{ width: number }>`
   }
 `;
 
+const FooterLimitedWidthContainer = styled(LimitedWidthContainer)`
+  ${media.extraSmallMode} {
+    padding-left: 0;
+    padding-right: 0;
+  }
+`;
+
 export const AboutLayout = ({ children }: AboutLayoutProps) => (
   <AboutPageWrapper>
     <HeaderExtender>
@@ -58,9 +65,9 @@ export const AboutLayout = ({ children }: AboutLayoutProps) => (
       {children}
     </LimitedWidthContainer>
     <FooterExtender>
-      <LimitedWidthContainer width={1280}>
+      <FooterLimitedWidthContainer  width={1280}>
         <Footer />
-      </LimitedWidthContainer>
+      </FooterLimitedWidthContainer>
     </FooterExtender>
   </AboutPageWrapper>
 );
