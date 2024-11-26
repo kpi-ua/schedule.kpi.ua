@@ -17,7 +17,7 @@ export const RadioGroup = <T extends string | number>({
   rounded,
 }: RadioGroupProps<T>) => (
   <RadioGroupWrapper fullWidth={fullWidth} rounded={rounded}>
-    {options.map(item => (
+    {options.map((item) => (
       <RadioGroupOption
         key={item.value}
         active={value === item.value}

@@ -9,12 +9,12 @@ export const getSelectCustomStyle = (theme: any) => ({
     return {
       ...base,
       color: theme['secondaryFontColor'],
-      "& .fast-option-focused": {
+      '& .fast-option-focused': {
         color: theme['secondaryFontColor'],
       },
-      "& .fast-option-selected": {
+      '& .fast-option-selected': {
         color: theme['invertedFontColor'],
-        fontWeight: "bold"
+        fontWeight: 'bold',
         // background color can be also changed if needed
       },
       backgroundColor: theme['bgOptions'],
@@ -44,7 +44,7 @@ export const getSelectCustomStyle = (theme: any) => ({
   indicatorSeparator(base: any) {
     return {
       ...base,
-      display: 'none'
+      display: 'none',
     };
   },
   singleValue(base: any) {
@@ -58,5 +58,5 @@ export const getSelectCustomStyle = (theme: any) => ({
       ...base,
       color: theme['secondaryFontColor'],
     };
-  }
+  },
 });

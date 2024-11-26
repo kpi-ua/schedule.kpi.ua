@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import { ScheduleItemMixin } from "../../common/styles/styles";
-import { getValueFromTheme } from "../../common/utils/getValueFromTheme";
+import styled, { css } from 'styled-components';
+import { ScheduleItemMixin } from '../../common/styles/styles';
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
 export const ScheduleItemExtendedWrapper = styled.div<{
   items: number;
@@ -10,7 +10,7 @@ export const ScheduleItemExtendedWrapper = styled.div<{
 `;
 
 const cutOffPart = css`
-  content: "";
+  content: '';
   position: absolute;
   width: 16px;
   height: 16px;
@@ -59,8 +59,8 @@ export const ScheduleItemExtendedUnit = styled.div`
 `;
 
 export const CollapseItem = styled.div`
-  background-color: ${getValueFromTheme("bgOptions")};
-  color: ${getValueFromTheme("primaryFontColor")};
+  background-color: ${getValueFromTheme('bgOptions')};
+  color: ${getValueFromTheme('primaryFontColor')};
   border-radius: 0 0 15px 15px;
   text-align: center;
   padding: 15px;

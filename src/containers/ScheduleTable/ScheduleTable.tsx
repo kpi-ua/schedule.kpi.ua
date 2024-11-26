@@ -1,10 +1,14 @@
-import { ScheduleMatrix, ScheduleMatrixRow, generateScheduleMatrix } from "../../common/utils/generateScheduleMatrix";
+import {
+  ScheduleMatrix,
+  ScheduleMatrixRow,
+  generateScheduleMatrix,
+} from '../../common/utils/generateScheduleMatrix';
 
 import { Pair } from '../../models/Pair';
 import React from 'react';
 import { Schedule } from '../../models/Schedule';
 import { ScheduleHeader } from '../ScheduleHeader';
-import ScheduleRow from "../scheduleRow";
+import ScheduleRow from '../scheduleRow';
 import { TIME_POINTS } from '../../common/constants/scheduleParams';
 import TimeDivider from '../../components/timeDivider';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
@@ -13,15 +17,15 @@ import { range } from 'lodash-es';
 import styled from 'styled-components';
 import { useCurrentTime } from '../../queries/useCurrentTime';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
-import {useWeekStore} from "../../store/weekStore";
+import { useWeekStore } from '../../store/weekStore';
 
 interface ScheduleWrapperProps<T extends Pair> {
   schedule?: Schedule<T>;
 }
 
 const weekValue: Record<string, string> = {
-  firstWeek: "scheduleFirstWeek",
-  secondWeek: "scheduleSecondWeek",
+  firstWeek: 'scheduleFirstWeek',
+  secondWeek: 'scheduleSecondWeek',
 };
 
 export const GridContainer = styled.div`
@@ -49,7 +53,7 @@ export const GridContainer = styled.div`
 
 export const CurrentDayContainer = styled.div<{ start: number }>`
   position: absolute;
-  background: ${getValueFromTheme("currentDayContainer")};
+  background: ${getValueFromTheme('currentDayContainer')};
   grid-column: ${(props) => props.start} / span 1;
   width: calc(100% + 1.5rem);
   left: -0.75rem;
@@ -62,7 +66,7 @@ export const CurrentDayContainer = styled.div<{ start: number }>`
   }
 `;
 
-const ScheduleTable = <T extends Pair,>({ schedule }: ScheduleWrapperProps<T>) => {
+const ScheduleTable = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) => {
   const { slice } = useSliceOptionsContext();
   const { currentWeek } = useWeekStore();
   const { data } = useCurrentTime();
@@ -88,7 +92,7 @@ const ScheduleTable = <T extends Pair,>({ schedule }: ScheduleWrapperProps<T>) =
 
   return (
     <GridContainer>
-      {currentDayColumn ? <CurrentDayContainer start={currentDayColumn}/> : null}
+      {currentDayColumn ? <CurrentDayContainer start={currentDayColumn} /> : null}
       <ScheduleHeader />
       {generateScheduleRows(generateScheduleMatrix(weekSchedule))}
     </GridContainer>

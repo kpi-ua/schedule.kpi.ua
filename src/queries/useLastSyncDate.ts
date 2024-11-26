@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 export const getQueryKey = (groupId?: string) => {
   return groupId ? ['lastSyncDate', groupId] : ['lastSyncDate'];
-}
+};
 
 export const useLastSyncDate = (groupId?: string) => {
   return useQuery({

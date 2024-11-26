@@ -7,16 +7,16 @@ const ScrollToTop = ({ history, children }: any) => {
     const unlisten = history.listen(() => {
       window.scrollTo({
         top: 0,
-        behavior: "smooth"
+        behavior: 'smooth',
       });
     });
 
     return () => {
       unlisten();
-    }
+    };
   }, [history]);
 
   return <Fragment>{children}</Fragment>;
-}
+};
 
 export default withRouter(ScrollToTop);

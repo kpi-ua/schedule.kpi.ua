@@ -1,5 +1,5 @@
-import "./themeSwitch.scss";
-import { useTheme } from "styled-components";
+import './themeSwitch.scss';
+import { useTheme } from 'styled-components';
 import { Theme } from '../../types/Theme';
 
 interface ThemeSwitchProps {
@@ -17,16 +17,9 @@ const ThemeSwitch = ({ value, onChange }: ThemeSwitchProps) => {
   return (
     <>
       <label className="switch">
-        <input
-          onChange={onCheckboxChange}
-          checked={value === 'light'}
-          type="checkbox"
-        />
-        <span
-          style={{ backgroundColor: (theme as any).bgOptions }}
-          className="slider round"
-        />
-        <span className="checker"/>
+        <input onChange={onCheckboxChange} checked={value === 'light'} type="checkbox" />
+        <span style={{ backgroundColor: (theme as any).bgOptions }} className="slider round" />
+        <span className="checker" />
       </label>
     </>
   );

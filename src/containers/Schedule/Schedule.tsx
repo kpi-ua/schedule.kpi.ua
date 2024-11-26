@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import GroupSchedule from '../GroupSchedule';
 import LastSyncDate from '../../components/LastSyncDate';
 import LecturerSchedule from '../LecturerSchedule';
-import ScheduleExams from "../scheduleExams";
+import ScheduleExams from '../scheduleExams';
 import { ScheduleLayout } from '../../layouts/ScheduleLayout';
 import { routes } from '../../common/constants/routes';
 
@@ -22,7 +22,7 @@ const Schedule = () => (
         <LecturerSchedule />
       </Route>
       <Route>
-        <Redirect to={routes.GROUP}/>
+        <Redirect to={routes.GROUP} />
       </Route>
     </Switch>
   </ScheduleLayout>

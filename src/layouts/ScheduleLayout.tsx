@@ -1,4 +1,3 @@
-
 import Footer from '../components/Footer';
 import Navbar from '../containers/navbar';
 import ScrollToTop from '../components/ScrollToTop';
@@ -24,25 +23,21 @@ const Container = styled.div`
   }
 `;
 
-
-
 export const ScheduleLayout = ({ children }: ScheduleLayoutProps) => {
   const { data } = useCurrentTime();
   const setCurrentWeek = useWeekStore((state) => state.setCurrentWeek);
 
   useEffect(() => {
-      if (!isNil(data?.data.currentWeek)) {
-          const week = data?.data.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
-          setCurrentWeek(week);
-      }
+    if (!isNil(data?.data.currentWeek)) {
+      const week = data?.data.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
+      setCurrentWeek(week);
+    }
   }, [data?.data.currentWeek, setCurrentWeek]);
   return (
-  <ScrollToTop>
-    <Navbar />
-    <Container>
-      {children}
-    </Container>
-    <Footer />
-  </ScrollToTop>  
-  )
+    <ScrollToTop>
+      <Navbar />
+      <Container>{children}</Container>
+      <Footer />
+    </ScrollToTop>
+  );
 };

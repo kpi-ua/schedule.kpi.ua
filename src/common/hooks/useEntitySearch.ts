@@ -1,14 +1,14 @@
-import { getLocalStorageItem, setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
-import { useEffect } from "react";
+import { getLocalStorageItem, setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
+import { useEffect } from 'react';
 
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
 
 export const useEntitySearch = <T extends EntityWithNameAndId>(
   storageKey: string,
   items: T[],
-  setValue: (value?: T) => void
+  setValue: (value?: T) => void,
 ) => {
   const history = useHistory();
   const queryParams = useQueryParams();

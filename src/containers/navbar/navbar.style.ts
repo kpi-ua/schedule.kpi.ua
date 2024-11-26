@@ -1,10 +1,10 @@
-import { getValueFromTheme } from "../../common/utils/getValueFromTheme";
-import { media } from "../../common/styles/styles";
-import styled from "styled-components";
+import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import { media } from '../../common/styles/styles';
+import styled from 'styled-components';
 
 export const NavBarWrapper = styled.header`
   padding: 30px 36px;
-  background: ${getValueFromTheme("bgHeader")};
+  background: ${getValueFromTheme('bgHeader')};
   box-shadow: 0 3px 2px -2px ${getValueFromTheme('shadowColor')};
   ${media.smallMode} {
     padding: 1.5rem;

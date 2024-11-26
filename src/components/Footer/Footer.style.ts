@@ -36,7 +36,7 @@ export const FooterSection = styled.section`
     flex-basis: auto;
     text-align: center;
   }
-  
+
   a {
     color: ${getValueFromTheme('invertedFontColor')};
   }

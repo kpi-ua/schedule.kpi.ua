@@ -5,7 +5,7 @@
   height: 28px;
   top: 50%;
   transform: translateY(-50%);
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .switch {
@@ -28,42 +28,41 @@
   left: 0;
   right: 0;
   bottom: 0;
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .checker {
   &:before {
-    @include switchPictogram("../../assets/icons/moon.svg");
+    @include switchPictogram('../../assets/icons/moon.svg');
     left: -45px;
   }
 
   &:after {
-    @include switchPictogram("../../assets/icons/sun.svg");
+    @include switchPictogram('../../assets/icons/sun.svg');
     right: -45px;
   }
 }
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: .4s;
+  transition: 0.4s;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-
-input:not(:checked)~.checker:after {
+input:not(:checked) ~ .checker:after {
   opacity: 0;
 }
 
-input:checked~.checker:before {
+input:checked ~ .checker:before {
   opacity: 0;
 }
 

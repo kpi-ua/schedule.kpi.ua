@@ -8,9 +8,9 @@ const Navbar = () => {
     <NavBarWrapper>
       <NavbarGrid>
         <NavbarLogo>
-          <Logo src={logo} alt={'logo'}/>
+          <Logo src={logo} alt={'logo'} />
         </NavbarLogo>
-        <MainSettings/>
+        <MainSettings />
         <ThemeSwitchWrapper></ThemeSwitchWrapper>
       </NavbarGrid>
     </NavBarWrapper>

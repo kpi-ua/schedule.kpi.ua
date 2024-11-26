@@ -1,3 +1,3 @@
-import ExamSchedule from "./examSchedule"
+import ExamSchedule from './examSchedule';
 
 export default ExamSchedule;

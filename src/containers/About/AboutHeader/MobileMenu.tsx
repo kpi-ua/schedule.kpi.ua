@@ -49,17 +49,20 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
 
   return (
     <>
-      <BurgerMenuButton onClick={() => setMenuOpen(prev => !prev)}>
-        {menuOpen
-          ? <Pictogram src={x} alt="close menu" />
-          : <Pictogram src={burger} alt="open menu" />
-        }
+      <BurgerMenuButton onClick={() => setMenuOpen((prev) => !prev)}>
+        {menuOpen ? (
+          <Pictogram src={x} alt="close menu" />
+        ) : (
+          <Pictogram src={burger} alt="open menu" />
+        )}
       </BurgerMenuButton>
       <Curtain open={menuOpen} onClose={() => setMenuOpen(false)} anchor={anchor}>
         <BurgerMenuContainer>
           <BurgerMenuNav>
             {NAV_LINKS.map(({ path, title }) => (
-              <BurgerMenuLink className={pathname === path ? 'selected' : ''} href={path}>{title}</BurgerMenuLink>
+              <BurgerMenuLink className={pathname === path ? 'selected' : ''} href={path}>
+                {title}
+              </BurgerMenuLink>
             ))}
           </BurgerMenuNav>
         </BurgerMenuContainer>

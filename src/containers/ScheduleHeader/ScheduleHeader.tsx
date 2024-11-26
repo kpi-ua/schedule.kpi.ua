@@ -2,14 +2,7 @@ import React from 'react';
 import { WeekDay } from './WeekDay';
 import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 
-const DAYS = [
-  'Понеділок',
-  'Вівторок',
-  'Середа',
-  'Четвер',
-  'П\'ятниця',
-  'Субота',
-];
+const DAYS = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота'];
 
 export const ScheduleHeader = () => {
   const { slice } = useSliceOptionsContext();
@@ -18,7 +11,9 @@ export const ScheduleHeader = () => {
 
   return (
     <React.Fragment>
-      {slicedDays.map(item => (<WeekDay key={item}>{item}</WeekDay>))}
+      {slicedDays.map((item) => (
+        <WeekDay key={item}>{item}</WeekDay>
+      ))}
     </React.Fragment>
   );
 };

@@ -1,3 +1,3 @@
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from './ScrollToTop';
 
 export default ScrollToTop;

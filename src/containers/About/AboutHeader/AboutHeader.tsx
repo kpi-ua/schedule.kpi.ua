@@ -26,7 +26,7 @@ export const AboutHeader = () => {
   return (
     <HeaderWrapper ref={headerRef}>
       <LogoWrapper href="/">
-        <Logo src={logo} alt="logo"/>
+        <Logo src={logo} alt="logo" />
       </LogoWrapper>
       <DefaultMenu pathname={pathname} />
       <MobileMenu pathname={pathname} anchor={headerRef} />

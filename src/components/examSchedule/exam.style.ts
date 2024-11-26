@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { Flex } from '../../common/styles/styles';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import { ScheduleItemMixin } from '../../common/styles/styles';
@@ -7,7 +7,7 @@ export const Subject = styled.div`
   font-weight: bold;
   font-size: 14px;
   line-height: 17px;
-  color: ${getValueFromTheme("primaryFontColor")};
+  color: ${getValueFromTheme('primaryFontColor')};
 `;
 
 const Property = styled(Flex)`
@@ -15,7 +15,7 @@ const Property = styled(Flex)`
   font-weight: 600;
   font-size: 13px;
   line-height: 16px;
-  color: ${getValueFromTheme("primaryFontColor")};
+  color: ${getValueFromTheme('primaryFontColor')};
   margin-top: 10px;
   align-items: center;
 `;
@@ -41,7 +41,7 @@ export const ScheduleItemCurrent = styled.span`
   color: #25cf9c;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

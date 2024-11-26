@@ -23,7 +23,7 @@ export const InnerContainer = styled(Flex)`
 
 export const TimeCell = styled.div`
   padding: 8px 11px;
-  background-color: ${getValueFromTheme('brand600')};;
+  background-color: ${getValueFromTheme('brand600')};
   border-radius: 999px;
   color: ${getValueFromTheme('invertedFontColor')};
   font-weight: 600;

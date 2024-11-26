@@ -20,7 +20,9 @@ export const DefaultMenu = ({ pathname }: DefaultMenuProps) => {
   return (
     <NavMain>
       {NAV_LINKS.map(({ path, title }) => (
-        <MenuLink className={pathname === path ? 'selected' : ''} href={path}>{title}</MenuLink>
+        <MenuLink className={pathname === path ? 'selected' : ''} href={path}>
+          {title}
+        </MenuLink>
       ))}
     </NavMain>
   );

@@ -6,62 +6,50 @@ import {
   ScheduleItemHeader,
   Subject,
   Teacher,
-} from "./scheduleItemContent.style";
-import { Pictogram, StyledLink } from "../../common/styles/styles";
-import React, { useEffect, useState } from "react";
+} from './scheduleItemContent.style';
+import { Pictogram, StyledLink } from '../../common/styles/styles';
+import React, { useEffect, useState } from 'react';
 import { compact, uniq } from 'lodash-es';
 
-import { SUBJECT_TYPES } from "../../common/constants/subjectTypes";
+import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
 import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
-import locationIcon from "../../assets/icons/location.svg";
-import { routes } from "../../common/constants/routes";
-import { setLocalStorageItem } from "../../common/utils/parsedLocalStorage";
-import teacherIcon from "../../assets/icons/teacher.svg";
-import { useStore } from "../../store";
-import { usePreloadedList } from "../../common/hooks/usePreloadedList";
+import locationIcon from '../../assets/icons/location.svg';
+import { routes } from '../../common/constants/routes';
+import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
+import teacherIcon from '../../assets/icons/teacher.svg';
+import { useStore } from '../../store';
+import { usePreloadedList } from '../../common/hooks/usePreloadedList';
 
 interface Props {
   scheduleMatrixCell: ScheduleMatrixCell;
   collapsed?: boolean;
 }
 
-const ScheduleItemContent: React.FC<Props> = ({
-  scheduleMatrixCell,
-  collapsed,
-}) => {
-  const {
-    name,
-    teacherName,
-    lecturerId,
-    group,
-  } = scheduleMatrixCell;
+const ScheduleItemContent: React.FC<Props> = ({ scheduleMatrixCell, collapsed }) => {
+  const { name, teacherName, lecturerId, group } = scheduleMatrixCell;
 
   const scheduleGroups = compact(uniq((group || '').split(',')));
   const tag = scheduleMatrixCell?.tag;
   const { groups, lecturers } = usePreloadedList();
-  
-  const [location, setLocation] = useState(
-    scheduleMatrixCell && scheduleMatrixCell.place
-  );
 
-  const setGroup = useStore(store=>store.setGroup);
-  const setLecturer = useStore(store=>store.setLecturer);
+  const [location, setLocation] = useState(scheduleMatrixCell && scheduleMatrixCell.place);
+
+  const setGroup = useStore((store) => store.setGroup);
+  const setLecturer = useStore((store) => store.setLecturer);
 
   const ScheduleItemComponent = SUBJECT_TYPES[tag]?.component;
   const scheduleItemTitle = SUBJECT_TYPES[tag]?.title;
 
   useEffect(() => {
-    if (location.endsWith("-")) {
+    if (location.endsWith('-')) {
       setLocation(location.slice(0, -1));
     }
   }, [location, setLocation]);
 
-  const findGroup = (groupId: string) => groups.find(
-    ({ name }) => name.replace(" ", "") === groupId
-  );
+  const findGroup = (groupId: string) =>
+    groups.find(({ name }) => name.replace(' ', '') === groupId);
 
-  const findLecturer = (lecturerId: string) => lecturers
-    .find(({ id }) => id === lecturerId);
+  const findLecturer = (lecturerId: string) => lecturers.find(({ id }) => id === lecturerId);
 
   const handleLecturerClick = () => {
     const lecturer = findLecturer(lecturerId);
@@ -86,11 +74,11 @@ const ScheduleItemContent: React.FC<Props> = ({
   };
 
   const getGroup = (group: string, index: number, length: number) => {
-    return `${group.split("(")[0]}${index === length - 1 ? "" : ","} `;
+    return `${group.split('(')[0]}${index === length - 1 ? '' : ','} `;
   };
 
   const getLocationLink = () => {
-    return `https://kpi.ua/k-${parseInt(location.split("-")[0])}`;
+    return `https://kpi.ua/k-${parseInt(location.split('-')[0])}`;
   };
 
   const getGroupLink = (group: string) => {
@@ -109,9 +97,7 @@ const ScheduleItemContent: React.FC<Props> = ({
         {ScheduleItemComponent && (
           <ScheduleItemComponent>{scheduleItemTitle}</ScheduleItemComponent>
         )}
-        {scheduleMatrixCell?.currentPair && (
-          <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>
-        )}
+        {scheduleMatrixCell?.currentPair && <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>}
       </ScheduleItemHeader>
       <Subject>{name}</Subject>
       {!collapsed && (
@@ -130,12 +116,8 @@ const ScheduleItemContent: React.FC<Props> = ({
           {location && (
             <Location>
               <Pictogram src={locationIcon} alt="location" />
-              {location.split("-")[0] ? (
-                <LocationLink
-                  href={getLocationLink()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+              {location.split('-')[0] ? (
+                <LocationLink href={getLocationLink()} target="_blank" rel="noopener noreferrer">
                   {location}
                 </LocationLink>
               ) : (

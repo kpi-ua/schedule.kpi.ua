@@ -35,7 +35,7 @@ const FooterExtender = styled.section`
 
 const LimitedWidthContainer = styled.section<{ width: number }>`
   display: flex;
-  max-width: ${props => props.width}px;
+  max-width: ${(props) => props.width}px;
   width: 100%;
   flex-direction: column;
   flex-grow: 1;
@@ -61,11 +61,9 @@ export const AboutLayout = ({ children }: AboutLayoutProps) => (
         <AboutHeader />
       </LimitedWidthContainer>
     </HeaderExtender>
-    <LimitedWidthContainer width={1280}>
-      {children}
-    </LimitedWidthContainer>
+    <LimitedWidthContainer width={1280}>{children}</LimitedWidthContainer>
     <FooterExtender>
-      <FooterLimitedWidthContainer  width={1280}>
+      <FooterLimitedWidthContainer width={1280}>
         <Footer />
       </FooterLimitedWidthContainer>
     </FooterExtender>

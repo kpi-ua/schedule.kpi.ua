@@ -6,7 +6,9 @@ import { PagedResponse } from '../models/PagedResponse';
 import { StudentSchedule } from '../models/StudentSchedule';
 import qs from 'qs';
 
-export const getScheduleByLecturer = (lecturerId: string): Promise<PagedResponse<LecturerSchedule>> => {
+export const getScheduleByLecturer = (
+  lecturerId: string,
+): Promise<PagedResponse<LecturerSchedule>> => {
   const query = qs.stringify({ lecturerId });
 
   return Http.get(`/schedule/lecturer?${query}`);
