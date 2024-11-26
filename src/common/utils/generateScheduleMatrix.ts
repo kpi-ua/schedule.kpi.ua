@@ -32,7 +32,7 @@ export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: WeekSchedu
       let newCell: ScheduleMatrixCell | ScheduleMatrixCell[] = {
         ...pair,
         currentPair:
-          activePair !== -1 && currentDay === yIndex && activePair === xIndex,
+          activePair !== -1 && currentDay === yIndex + 1 && activePair === xIndex,
       };
 
       if (cell) {
