@@ -90,7 +90,7 @@ const ScheduleTable = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) =>
     <GridContainer>
       {currentDayColumn ? <CurrentDayContainer start={currentDayColumn} /> : null}
       <ScheduleHeader />
-      {generateScheduleRows(generateScheduleMatrix(weekSchedule))}
+      {generateScheduleRows(generateScheduleMatrix(weekSchedule, data?.data.currentLesson!))}
     </GridContainer>
   );
 };
