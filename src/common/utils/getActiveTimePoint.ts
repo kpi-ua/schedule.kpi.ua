@@ -6,12 +6,8 @@ export const parseTime = (timeString: string) => {
 
   const today = dayjs().startOf('day');
 
-  return today
-    .hour(hours)
-    .minute(minutes)
-    .second(0);
+  return today.hour(hours).minute(minutes).second(0);
 };
-
 
 export const getActiveTimePoint = () => {
   const PAIR_DURATION_IN_MINUTES = 95;

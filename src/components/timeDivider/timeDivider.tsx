@@ -1,9 +1,4 @@
-import {
-  Container,
-  Divider,
-  InnerContainer,
-  TimeCell,
-} from "./timeDivider.style";
+import { Container, Divider, InnerContainer, TimeCell } from './timeDivider.style';
 
 const TimeDivider = ({ value }: { value: string }) => (
   <Container>

@@ -1,3 +1,3 @@
-import ScheduleRow from "./scheduleRow";
+import ScheduleRow from './scheduleRow';
 
 export default ScheduleRow;

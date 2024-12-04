@@ -1,7 +1,7 @@
-const BASE_URL = "https://api.campus.kpi.ua";
+const BASE_URL = 'https://api.campus.kpi.ua';
 
 const defaultHeaders = {
-  "Content-Type": "application/json",
+  'Content-Type': 'application/json',
 };
 
 interface FetchOptions extends RequestInit {
@@ -29,8 +29,7 @@ const fetchWrapper = async (requestUrl: string, options: FetchOptions = {}) => {
 };
 
 const Http = {
-  get: (url: string, options: FetchOptions = {}) =>
-    fetchWrapper(url, { ...options, method: 'GET' }),
+  get: (url: string, options: FetchOptions = {}) => fetchWrapper(url, { ...options, method: 'GET' }),
 };
 
 export default Http;

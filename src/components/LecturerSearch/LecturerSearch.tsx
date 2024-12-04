@@ -4,7 +4,7 @@ import SearchSelect from '../SearchSelect';
 import { media } from '../../common/styles/styles';
 import styled from 'styled-components';
 import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
-import { useStore } from "../../store";
+import { useStore } from '../../store';
 import { useEntitySearch } from '../../common/hooks/useEntitySearch';
 import { usePreloadedList } from '../../common/hooks/usePreloadedList';
 
@@ -20,8 +20,8 @@ const Wrapper = styled.div`
 
 const LecturerSearch = () => {
   const { lecturers } = usePreloadedList();
-  const lecturer = useStore(state => state.lecturer);
-  const setLecturer = useStore(state => state.setLecturer);
+  const lecturer = useStore((state) => state.lecturer);
+  const setLecturer = useStore((state) => state.setLecturer);
 
   const { handleChange } = useEntitySearch('lecturerId', lecturers, setLecturer);
 
@@ -42,11 +42,7 @@ const LecturerSearch = () => {
       <Button $type="secondary" $size="sm" disabled={isLoading || !lecturerProfile} onClick={handleGoToLecturerProfile}>
         <Link />
       </Button>
-      <SearchSelect
-        options={lecturers}
-        value={lecturer}
-        onChange={handleChange}
-      />
+      <SearchSelect options={lecturers} value={lecturer} onChange={handleChange} />
     </Wrapper>
   );
 };

@@ -6,7 +6,7 @@ import { SCREEN_SIZES } from '../constants/screenSize';
 import { ScreenSize } from '../../types/ScreenSize';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
-export const Flex = styled.div<{gap?: string}>`
+export const Flex = styled.div<{ gap?: string }>`
   display: flex;
   ${space};
   ${flexbox};
@@ -32,7 +32,7 @@ export const mediaReverse = {
   [ScreenSize.Small]: `@media(min-width: ${SCREEN_SIZES[ScreenSize.Small]})`,
   [ScreenSize.Medium]: `@media(min-width: ${SCREEN_SIZES[ScreenSize.Medium]})`,
   [ScreenSize.Big]: `@media(max-width: ${SCREEN_SIZES[ScreenSize.Big]})`,
-}
+};
 
 export const Logo = styled(Pictogram)`
   max-width: 185px;

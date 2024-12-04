@@ -12,15 +12,15 @@ export const ScheduleItemType = styled.div`
 `;
 
 export const ScheduleItemTypeLab = styled(ScheduleItemType)`
-  background-color: #F6B382;
+  background-color: #f6b382;
 `;
 
 export const ScheduleItemTypePrac = styled(ScheduleItemType)`
-  background-color: #FF7F96;
+  background-color: #ff7f96;
 `;
 
 export const ScheduleItemTypeLec = styled(ScheduleItemType)`
-  background-color: #949DFF;
+  background-color: #949dff;
 `;
 
 export const Subject = styled.div`
@@ -54,7 +54,7 @@ export const LocationLink = styled.a`
 `;
 
 export const GroupName = styled(Property)`
-  gap : 7px
+  gap: 7px;
 `;
 export const ScheduleItemHeader = styled(Flex)`
   gap: 25px;
@@ -64,7 +64,7 @@ export const ScheduleItemHeader = styled(Flex)`
 export const ScheduleItemCurrent = styled.span`
   position: relative;
   font-weight: bold;
-  color: #25CF9C;
+  color: #25cf9c;
 
   &:before {
     content: '';
@@ -73,7 +73,7 @@ export const ScheduleItemCurrent = styled.span`
     transform: translateY(-50%);
     left: -13px;
     display: block;
-    background-color: #25CF9C;
+    background-color: #25cf9c;
     border-radius: 50%;
     width: 8px;
     height: 8px;

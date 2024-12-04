@@ -3,4 +3,4 @@ export enum ScreenSize {
   Small = 'smallMode',
   Medium = 'mediumMode',
   Big = 'bigMode',
-};
+}

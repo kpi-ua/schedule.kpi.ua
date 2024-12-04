@@ -1,14 +1,14 @@
 import { Pair } from '../../models/Pair';
 import { Schedule } from '../../models/Schedule';
-import ScheduleDayToggler from "../scheduleDayToggler";
+import ScheduleDayToggler from '../scheduleDayToggler';
 import ScheduleTable from '../ScheduleTable/ScheduleTable';
-import { SliceContextProvider } from "../../common/context/sliceOptionsContext";
+import { SliceContextProvider } from '../../common/context/sliceOptionsContext';
 
 interface ScheduleWrapperProps<T extends Pair> {
   schedule?: Schedule<T>;
 }
 
-const ScheduleWrapper = <T extends Pair,>({ schedule }: ScheduleWrapperProps<T>) => {
+const ScheduleWrapper = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) => {
   return (
     <SliceContextProvider>
       <ScheduleDayToggler />

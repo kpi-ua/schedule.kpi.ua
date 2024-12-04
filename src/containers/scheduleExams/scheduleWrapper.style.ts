@@ -8,10 +8,10 @@ export const ExamsListWrapper = styled.div`
 export const Header = styled.h1`
   margin: 64px 0px;
   color: ${getValueFromTheme('primaryFontColor')};
-  text-align : center;
+  text-align: center;
   font-weight: lighter;
-`
+`;
 
 export const WordAccent = styled.span`
   font-weight: bold;
-`
+`;

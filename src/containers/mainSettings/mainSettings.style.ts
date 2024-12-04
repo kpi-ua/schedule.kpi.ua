@@ -1,6 +1,6 @@
-import { Flex, media } from "../../common/styles/styles";
+import { Flex, media } from '../../common/styles/styles';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MainSettingsContainer = styled(Flex)<{
   flexDirection: string;

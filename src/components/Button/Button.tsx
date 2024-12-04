@@ -19,7 +19,7 @@ export const Button = styled.button<ButtonProps>`
   line-height: var(--line-height);
   border-radius: 8px;
 
-  ${props => {
+  ${(props) => {
     switch (props.$size) {
       case 'lg':
         return css`
@@ -42,7 +42,7 @@ export const Button = styled.button<ButtonProps>`
     }
   }};
 
-  ${props => {
+  ${(props) => {
     switch (props.$type) {
       case 'primary':
         return css`
@@ -122,7 +122,6 @@ export const Button = styled.button<ButtonProps>`
             color: ${getValueFromTheme('basicBlue')};
           }
         `;
-      }
     }
-  };
+  }};
 `;

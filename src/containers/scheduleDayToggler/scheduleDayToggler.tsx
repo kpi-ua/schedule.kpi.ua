@@ -1,7 +1,7 @@
 import { RadioGroup } from '../../components/RadioGroup';
-import { useScreenSize } from "../../common/hooks/useScreenSize";
-import { DAY_OPTIONS, DaysRange } from "../../common/constants/dayOptions";
-import { ScheduleDayTogglerContainer } from "./scheduleDayToggler.style";
+import { useScreenSize } from '../../common/hooks/useScreenSize';
+import { DAY_OPTIONS, DaysRange } from '../../common/constants/dayOptions';
+import { ScheduleDayTogglerContainer } from './scheduleDayToggler.style';
 import { Slice, useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
 
 const ScheduleDayToggler = () => {
@@ -24,13 +24,7 @@ const ScheduleDayToggler = () => {
 
   return (
     <ScheduleDayTogglerContainer>
-      <RadioGroup
-        value={convertSlice(slice)}
-        options={options}
-        onChange={handleChange}
-        fullWidth
-        rounded
-      />
+      <RadioGroup value={convertSlice(slice)} options={options} onChange={handleChange} fullWidth rounded />
     </ScheduleDayTogglerContainer>
   );
 };

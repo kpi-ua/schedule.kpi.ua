@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 export const getQueryKey = () => {
   return 'currentTime';
-}
+};
 
 export const useCurrentTime = () => {
   return useQuery({

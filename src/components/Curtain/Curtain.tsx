@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
@@ -11,7 +11,7 @@ interface CurtainProps {
 }
 
 const CurtainContainer = styled.div<{ top?: number }>`
-  top: ${props => props.top}px;
+  top: ${(props) => props.top}px;
   right: 0;
   left: 0;
   bottom: auto;
@@ -31,7 +31,7 @@ const CurtainContainer = styled.div<{ top?: number }>`
   transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
 
   &.opened {
-    height: calc(100% - ${props => props.top}px);
+    height: calc(100% - ${(props) => props.top}px);
   }
 `;
 
@@ -49,10 +49,7 @@ export const Curtain = ({ open, onClose, children, anchor }: CurtainProps) => {
   }, [onCloseCallback, history.location.pathname]);
 
   return (
-    <CurtainContainer
-      top={anchor.current?.getBoundingClientRect().bottom}
-      className={`${open ? 'opened' : ''}`}
-    >
+    <CurtainContainer top={anchor.current?.getBoundingClientRect().bottom} className={`${open ? 'opened' : ''}`}>
       {children}
     </CurtainContainer>
   );

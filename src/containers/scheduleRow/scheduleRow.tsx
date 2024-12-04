@@ -12,14 +12,11 @@ const ScheduleRow = ({ scheduleMatrixCell }: ScheduleRowProps) => {
     <>
       {scheduleMatrixCell.map((item, index) => {
         if (Array.isArray(item)) {
-          return <ScheduleItemExtended key={index} scheduleMatrixCell={item} />
+          return <ScheduleItemExtended key={index} scheduleMatrixCell={item} />;
         }
 
-        return item
-          ? <ScheduleItem key={index} scheduleMatrixCell={item} />
-          : <EmptyElement key={index} />;
-        })
-      }
+        return item ? <ScheduleItem key={index} scheduleMatrixCell={item} /> : <EmptyElement key={index} />;
+      })}
     </>
   );
 };

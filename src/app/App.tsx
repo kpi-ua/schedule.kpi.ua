@@ -14,11 +14,11 @@ export const Wrapper = styled.div`
   background: ${getValueFromTheme('bgPrimary')};
   min-height: 100vh;
 `;
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 function App() {
-  return  (
+  return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme["light"]}>
+      <ThemeProvider theme={theme['light']}>
         <Wrapper>
           <Switch>
             <Route path={routes.ABOUT}>

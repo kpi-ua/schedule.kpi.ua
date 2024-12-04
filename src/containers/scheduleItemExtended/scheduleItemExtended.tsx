@@ -11,16 +11,17 @@ const ScheduleItemExtended = ({ scheduleMatrixCell }: ScheduleItemExtendedProps)
   const [collapsed, setCollapse] = useState(true);
 
   const hasData = useMemo(() => {
-    const emptyEntries = scheduleMatrixCell.filter(x => x.teacherName === '' && x.place === '');
+    const emptyEntries = scheduleMatrixCell.filter((x) => x.teacherName === '' && x.place === '');
 
     return emptyEntries.length !== scheduleMatrixCell.length;
   }, [scheduleMatrixCell]);
 
-  const generateScheduleUnits = () => scheduleMatrixCell.map((item, i) => (
-    <ScheduleItemExtendedUnit key={i}>
-      <ScheduleItemContent collapsed={collapsed} scheduleMatrixCell={item}/>
-    </ScheduleItemExtendedUnit>
-  ));
+  const generateScheduleUnits = () =>
+    scheduleMatrixCell.map((item, i) => (
+      <ScheduleItemExtendedUnit key={i}>
+        <ScheduleItemContent collapsed={collapsed} scheduleMatrixCell={item} />
+      </ScheduleItemExtendedUnit>
+    ));
 
   if (!scheduleMatrixCell || !scheduleMatrixCell.length) {
     return null;
@@ -29,12 +30,11 @@ const ScheduleItemExtended = ({ scheduleMatrixCell }: ScheduleItemExtendedProps)
   return (
     <ScheduleItemExtendedWrapper items={scheduleMatrixCell.length}>
       {generateScheduleUnits()}
-      {hasData &&
-        <CollapseItem
-          onClick={() => setCollapse(value => !value)}
-        >
+      {hasData && (
+        <CollapseItem onClick={() => setCollapse((value) => !value)}>
           {collapsed ? 'Більше інформації' : 'Менше інформації'}
-        </CollapseItem>}
+        </CollapseItem>
+      )}
     </ScheduleItemExtendedWrapper>
   );
 };
