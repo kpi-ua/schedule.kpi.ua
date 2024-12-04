@@ -38,19 +38,13 @@ const generateSlices = (screenSize: ScreenSize): Slice[] => {
   const numberOfSlices = ScreenSizeSlicesCount[screenSize];
   const sliceRange = DAYS_COUNT / numberOfSlices;
 
-  return range(0, numberOfSlices).map((index) => [
-    sliceRange * index + 1,
-    sliceRange * index + sliceRange,
-  ]);
+  return range(0, numberOfSlices).map((index) => [sliceRange * index + 1, sliceRange * index + sliceRange]);
 };
 
 const getCurrentSlice = (screenSize: ScreenSize, currendDay: number): Slice => {
   const slices = generateSlices(screenSize);
 
-  return (
-    slices.find(([start, end]) => inRange(clamp(currendDay, 1, DAYS_COUNT), start, end + 1)) ||
-    defaultValue
-  );
+  return slices.find(([start, end]) => inRange(clamp(currendDay, 1, DAYS_COUNT), start, end + 1)) || defaultValue;
 };
 
 export const SliceContextProvider = ({ children }: SliceContextProviderProps) => {

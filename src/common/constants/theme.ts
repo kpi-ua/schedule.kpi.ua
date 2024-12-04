@@ -62,8 +62,7 @@ export const theme: Record<Theme, object> = {
     primaryFontColor: '#14366c',
     secondaryFontColor: '#000000',
     invertedFontColor: '#fff',
-    currentDayContainer:
-      'linear-gradient(180deg, rgba(238,238,247,1) 0%, rgba(238,238,247,0.5) 100%);',
+    currentDayContainer: 'linear-gradient(180deg, rgba(238,238,247,1) 0%, rgba(238,238,247,0.5) 100%);',
     svgPrimaryFilter: '',
   },
   dark: {
@@ -82,7 +81,6 @@ export const theme: Record<Theme, object> = {
     invertedFontColor: '#21232a',
     currentDayContainer:
       'linear-gradient(180deg, rgba(54, 54, 55, 0) 0%, rgba(54, 54, 55, 0.5) 10.73%, #363637 55%, rgba(54, 54, 55, 0.5) 89.9%, rgba(54, 54, 55, 0.29) 100%)',
-    svgPrimaryFilter:
-      'invert(100%) sepia(0%) saturate(0%) hue-rotate(46deg) brightness(100%) contrast(103%)',
+    svgPrimaryFilter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(46deg) brightness(100%) contrast(103%)',
   },
 };

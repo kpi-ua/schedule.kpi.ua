@@ -49,10 +49,7 @@ export const Curtain = ({ open, onClose, children, anchor }: CurtainProps) => {
   }, [onCloseCallback, history.location.pathname]);
 
   return (
-    <CurtainContainer
-      top={anchor.current?.getBoundingClientRect().bottom}
-      className={`${open ? 'opened' : ''}`}
-    >
+    <CurtainContainer top={anchor.current?.getBoundingClientRect().bottom} className={`${open ? 'opened' : ''}`}>
       {children}
     </CurtainContainer>
   );

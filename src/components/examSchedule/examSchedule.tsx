@@ -1,14 +1,5 @@
 import dayjs from 'dayjs';
-import {
-  CardDate,
-  CardMainData,
-  CardWrapper,
-  Divider,
-  DividerRed,
-  Location,
-  Subject,
-  Teacher,
-} from './exam.style';
+import { CardDate, CardMainData, CardWrapper, Divider, DividerRed, Location, Subject, Teacher } from './exam.style';
 import teacherIcon from '../../assets/icons/teacher.svg';
 import locationIcon from '../../assets/icons/location.svg';
 import clock from '../../assets/icons/clock.svg';

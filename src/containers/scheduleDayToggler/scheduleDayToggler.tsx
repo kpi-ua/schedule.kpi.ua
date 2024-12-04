@@ -24,13 +24,7 @@ const ScheduleDayToggler = () => {
 
   return (
     <ScheduleDayTogglerContainer>
-      <RadioGroup
-        value={convertSlice(slice)}
-        options={options}
-        onChange={handleChange}
-        fullWidth
-        rounded
-      />
+      <RadioGroup value={convertSlice(slice)} options={options} onChange={handleChange} fullWidth rounded />
     </ScheduleDayTogglerContainer>
   );
 };

@@ -29,8 +29,7 @@ const fetchWrapper = async (requestUrl: string, options: FetchOptions = {}) => {
 };
 
 const Http = {
-  get: (url: string, options: FetchOptions = {}) =>
-    fetchWrapper(url, { ...options, method: 'GET' }),
+  get: (url: string, options: FetchOptions = {}) => fetchWrapper(url, { ...options, method: 'GET' }),
 };
 
 export default Http;

@@ -25,17 +25,10 @@ interface SearchSelectProps<T extends EntityWithNameAndId> {
   onChange: (item: T) => void;
 }
 
-const SearchSelect = <T extends EntityWithNameAndId>({
-  options,
-  value,
-  onChange,
-}: SearchSelectProps<T>) => {
+const SearchSelect = <T extends EntityWithNameAndId>({ options, value, onChange }: SearchSelectProps<T>) => {
   const theme = useTheme();
 
-  const selectOptions = useMemo(
-    () => options.map(({ id, name }) => ({ label: name, value: id })),
-    [options],
-  );
+  const selectOptions = useMemo(() => options.map(({ id, name }) => ({ label: name, value: id })), [options]);
 
   const handleChange = (option: ListOption<string>) => {
     const item = options.find((x) => x.id === option.value);

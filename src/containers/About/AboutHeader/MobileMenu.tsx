@@ -50,11 +50,7 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
   return (
     <>
       <BurgerMenuButton onClick={() => setMenuOpen((prev) => !prev)}>
-        {menuOpen ? (
-          <Pictogram src={x} alt="close menu" />
-        ) : (
-          <Pictogram src={burger} alt="open menu" />
-        )}
+        {menuOpen ? <Pictogram src={x} alt="close menu" /> : <Pictogram src={burger} alt="open menu" />}
       </BurgerMenuButton>
       <Curtain open={menuOpen} onClose={() => setMenuOpen(false)} anchor={anchor}>
         <BurgerMenuContainer>

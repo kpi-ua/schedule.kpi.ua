@@ -14,12 +14,8 @@ export type ScheduleMatrixRow = UnknownScheduleMatrixCell[];
 
 export type ScheduleMatrix = ScheduleMatrixRow[];
 
-export const generateScheduleMatrix = <T extends Pair>(
-  weekSchedule: WeekSchedule<T>[],
-): ScheduleMatrix => {
-  const scheduleMatrix = new Array(TIME_POINTS.length)
-    .fill(null)
-    .map(() => new Array(DAYS.length).fill(null));
+export const generateScheduleMatrix = <T extends Pair>(weekSchedule: WeekSchedule<T>[]): ScheduleMatrix => {
+  const scheduleMatrix = new Array(TIME_POINTS.length).fill(null).map(() => new Array(DAYS.length).fill(null));
 
   const activePair: number = getActiveTimePoint();
   const currentDay = dayjs().day();

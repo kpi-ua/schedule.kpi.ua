@@ -39,12 +39,7 @@ const LecturerSearch = () => {
 
   return (
     <Wrapper>
-      <Button
-        $type="secondary"
-        $size="sm"
-        disabled={isLoading || !lecturerProfile}
-        onClick={handleGoToLecturerProfile}
-      >
+      <Button $type="secondary" $size="sm" disabled={isLoading || !lecturerProfile} onClick={handleGoToLecturerProfile}>
         <Link />
       </Button>
       <SearchSelect options={lecturers} value={lecturer} onChange={handleChange} />

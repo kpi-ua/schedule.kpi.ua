@@ -1,8 +1,4 @@
-import {
-  ScheduleMatrix,
-  ScheduleMatrixRow,
-  generateScheduleMatrix,
-} from '../../common/utils/generateScheduleMatrix';
+import { ScheduleMatrix, ScheduleMatrixRow, generateScheduleMatrix } from '../../common/utils/generateScheduleMatrix';
 
 import { Pair } from '../../models/Pair';
 import React from 'react';

@@ -46,8 +46,7 @@ const ScheduleItemContent: React.FC<Props> = ({ scheduleMatrixCell, collapsed })
     }
   }, [location, setLocation]);
 
-  const findGroup = (groupId: string) =>
-    groups.find(({ name }) => name.replace(' ', '') === groupId);
+  const findGroup = (groupId: string) => groups.find(({ name }) => name.replace(' ', '') === groupId);
 
   const findLecturer = (lecturerId: string) => lecturers.find(({ id }) => id === lecturerId);
 
@@ -94,9 +93,7 @@ const ScheduleItemContent: React.FC<Props> = ({ scheduleMatrixCell, collapsed })
   return (
     <div>
       <ScheduleItemHeader>
-        {ScheduleItemComponent && (
-          <ScheduleItemComponent>{scheduleItemTitle}</ScheduleItemComponent>
-        )}
+        {ScheduleItemComponent && <ScheduleItemComponent>{scheduleItemTitle}</ScheduleItemComponent>}
         {scheduleMatrixCell?.currentPair && <ScheduleItemCurrent>ЗАРАЗ</ScheduleItemCurrent>}
       </ScheduleItemHeader>
       <Subject>{name}</Subject>
@@ -105,10 +102,7 @@ const ScheduleItemContent: React.FC<Props> = ({ scheduleMatrixCell, collapsed })
           {teacherName && (
             <Teacher>
               <Pictogram src={teacherIcon} alt="teacher" />
-              <StyledLink
-                onClick={handleLecturerClick}
-                to={routes.LECTURER + `?lecturerId=${lecturerId}`}
-              >
+              <StyledLink onClick={handleLecturerClick} to={routes.LECTURER + `?lecturerId=${lecturerId}`}>
                 {teacherName}
               </StyledLink>
             </Teacher>
@@ -129,11 +123,7 @@ const ScheduleItemContent: React.FC<Props> = ({ scheduleMatrixCell, collapsed })
             <div>
               {scheduleGroups.map((group, index) => {
                 return (
-                  <StyledLink
-                    onClick={handleGroupClick(group)}
-                    key={group}
-                    to={getGroupLink(group)}
-                  >
+                  <StyledLink onClick={handleGroupClick(group)} key={group} to={getGroupLink(group)}>
                     {getGroup(group, index, scheduleGroups.length)}
                   </StyledLink>
                 );

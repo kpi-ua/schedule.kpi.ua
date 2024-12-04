@@ -1,8 +1,4 @@
-import {
-  ScheduleItemExtendedUnit,
-  ScheduleItemExtendedWrapper,
-  CollapseItem,
-} from './scheduleItemExtended.style';
+import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } from './scheduleItemExtended.style';
 import ScheduleItemContent from '../../components/scheduleItemContent';
 import { useMemo, useState } from 'react';
 import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
