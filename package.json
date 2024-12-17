@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
     "@types/lodash-es": "^4.17.12",
     "@types/material-ui": "^0.21.17",
     "@types/node": "^20.14.2",
@@ -29,13 +26,11 @@
     "sass": "^1.77.5",
     "styled-components": "^5.3.5",
     "styled-system": "^5.1.5",
-    "web-vitals": "^3.0.2",
     "zustand": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
     "lint": "eslint .",
