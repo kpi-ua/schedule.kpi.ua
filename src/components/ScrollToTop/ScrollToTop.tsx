@@ -1,22 +1,17 @@
 import { Fragment, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import { withRouter } from 'react-router-dom';
+const ScrollToTop = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
 
-const ScrollToTop = ({ history, children }: any) => {
   useEffect(() => {
-    const unlisten = history.listen(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
     });
-
-    return () => {
-      unlisten();
-    };
-  }, [history]);
+  }, [location]);
 
   return <Fragment>{children}</Fragment>;
 };
 
-export default withRouter(ScrollToTop);
+export default ScrollToTop;

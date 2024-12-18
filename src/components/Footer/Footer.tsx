@@ -38,7 +38,7 @@ export const Footer = () => {
         <p>
           <a href="/about">Про проєкт</a>
           <br />
-          <a href="/about/contacts">Контакти</a>
+          <a href="/contacts">Контакти</a>
         </p>
         <p>Використання матеріалу сайту тільки з обов’язковим посиланням на schedule.kpi.ua</p>
       </FooterSection>

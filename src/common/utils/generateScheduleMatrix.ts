@@ -1,5 +1,5 @@
-import { DAYS, TIME_POINTS } from "../constants/scheduleParams";
-import { parseTime } from "./parseTime";
+import { DAYS, TIME_POINTS } from '../constants/scheduleParams';
+import { parseTime } from './parseTime';
 
 import { Pair } from '../../models/Pair';
 import { WeekSchedule } from '../../models/WeekSchedule';
@@ -14,10 +14,11 @@ export type ScheduleMatrixRow = UnknownScheduleMatrixCell[];
 
 export type ScheduleMatrix = ScheduleMatrixRow[];
 
-export const generateScheduleMatrix = <T extends Pair,>(weekSchedule: WeekSchedule<T>[], currentLesson = 0): ScheduleMatrix => {
-  const scheduleMatrix = new Array(TIME_POINTS.length)
-    .fill(null)
-    .map(() => new Array(DAYS.length).fill(null));
+export const generateScheduleMatrix = <T extends Pair>(
+  weekSchedule: WeekSchedule<T>[],
+  currentLesson = 0,
+): ScheduleMatrix => {
+  const scheduleMatrix = new Array(TIME_POINTS.length).fill(null).map(() => new Array(DAYS.length).fill(null));
 
   const activePair = currentLesson - 1;
 

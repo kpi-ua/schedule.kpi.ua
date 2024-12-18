@@ -3,7 +3,7 @@ import { Logo } from '../../../common/styles/styles';
 import { MobileMenu } from './MobileMenu';
 import logo from '../../../assets/logo.svg';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useRef } from 'react';
 
 const HeaderWrapper = styled.header`
@@ -19,9 +19,7 @@ const LogoWrapper = styled.a`
 
 export const AboutHeader = () => {
   const headerRef = useRef(null);
-  const history = useHistory();
-
-  const { pathname } = history.location;
+  const { pathname } = useLocation();
 
   return (
     <HeaderWrapper ref={headerRef}>

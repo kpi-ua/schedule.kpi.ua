@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './app/App';
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter, BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyles from './index.style';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
@@ -21,9 +21,9 @@ root.render(
   <React.StrictMode>
     <ScopedCssBaseline>
       <GlobalStyles />
-      <Router>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     </ScopedCssBaseline>
   </React.StrictMode>,
 );
