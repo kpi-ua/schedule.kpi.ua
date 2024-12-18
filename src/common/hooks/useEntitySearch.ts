@@ -11,19 +11,22 @@ export const useEntitySearch = <T extends EntityWithNameAndId>(
 ) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const itemId: string = searchParams.get(storageKey) || getLocalStorageItem(storageKey);
 
   useEffect(() => {
-    const itemId: string = searchParams.get(storageKey) || getLocalStorageItem(storageKey);
-
     if (!itemId) {
       return;
     }
-
     setSearchParams({ [storageKey]: itemId }, { replace: true });
+  }, [storageKey, itemId]);
 
+  useEffect(() => {
+    if (!itemId) {
+      return;
+    }
     const group = items.find(({ id }) => id === itemId);
     setValue(group);
-  }, [items, searchParams, storageKey]);
+  }, [items, itemId]);
 
   const handleChange = (item: T) => {
     setValue(item);
