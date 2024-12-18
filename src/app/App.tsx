@@ -1,12 +1,18 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import { About } from '../containers/About';
-import Schedule from '../containers/Schedule';
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 import { routes } from '../common/constants/routes';
 import styled, { ThemeProvider } from 'styled-components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { theme } from '../common/constants/theme';
+import { Contacts } from '../containers/About/Contacts';
+import { AboutLayout } from '../layouts/AboutLayout';
+import { Project } from '../containers/About/Project';
+import LecturerSchedule from '../containers/LecturerSchedule';
+import { ScheduleLayout } from '../layouts/ScheduleLayout';
+import ScheduleExams from '../containers/scheduleExams';
+import LastSyncDate from '../components/LastSyncDate';
+import GroupSchedule from '../containers/GroupSchedule';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -20,14 +26,60 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme['light']}>
         <Wrapper>
-          <Switch>
-            <Route path={routes.ABOUT}>
-              <About />
-            </Route>
-            <Route>
-              <Schedule />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route
+              index
+              path={routes.GROUP}
+              element={
+                <ScheduleLayout>
+                  <GroupSchedule />
+                  <LastSyncDate />
+                </ScheduleLayout>
+              }
+            />
+            <Route
+              path={routes.ABOUT}
+              element={
+                <AboutLayout>
+                  <Project />
+                </AboutLayout>
+              }
+            />
+            <Route
+              path={routes.CONTACTS}
+              element={
+                <AboutLayout>
+                  <Contacts />
+                </AboutLayout>
+              }
+            />
+            <Route
+              path={routes.SESSION}
+              element={
+                <ScheduleLayout>
+                  <ScheduleExams />
+                  <LastSyncDate />
+                </ScheduleLayout>
+              }
+            />
+            <Route
+              path={routes.LECTURER}
+              element={
+                <ScheduleLayout>
+                  <LecturerSchedule />
+                </ScheduleLayout>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <ScheduleLayout>
+                  <GroupSchedule />
+                  <LastSyncDate />
+                </ScheduleLayout>
+              }
+            />
+          </Routes>
         </Wrapper>
       </ThemeProvider>
     </QueryClientProvider>

@@ -5,10 +5,5 @@ export const parseTime = (timeString: string) => {
 
   const today = dayjs().startOf('day');
 
-  return today
-    .hour(hours)
-    .minute(minutes)
-    .second(0);
+  return today.hour(hours).minute(minutes).second(0);
 };
-
-
