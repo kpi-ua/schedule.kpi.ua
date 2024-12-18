@@ -20,9 +20,9 @@ export const generateScheduleMatrix = <T extends Pair>(
 ): ScheduleMatrix => {
   const scheduleMatrix = new Array(TIME_POINTS.length).fill(null).map(() => new Array(DAYS.length).fill(null));
 
-  const activePair = currentLesson - 1;
-
   const currentDay = dayjs().day();
+
+  const activePair = currentLesson - 1;
 
   weekSchedule.forEach((schedule) => {
     const yIndex = DAYS.findIndex((item) => item === schedule.day);
