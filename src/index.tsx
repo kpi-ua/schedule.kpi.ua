@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './app/App';
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 
-import { BrowserRouter, BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from './index.style';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
