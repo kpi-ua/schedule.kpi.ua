@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 interface CurtainProps {
   open: boolean;
@@ -36,9 +36,9 @@ const CurtainContainer = styled.div<{ top?: number }>`
 `;
 
 export const Curtain = ({ open, onClose, children, anchor }: CurtainProps) => {
-  const history = useHistory();
+  const location = useLocation();
 
-  const onCloseCallback = useCallback(() => onClose, [onClose]);
+  const onCloseCallback = useCallback(() => onClose(), [onClose]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : 'auto';
@@ -46,7 +46,7 @@ export const Curtain = ({ open, onClose, children, anchor }: CurtainProps) => {
 
   useEffect(() => {
     onCloseCallback();
-  }, [onCloseCallback, history.location.pathname]);
+  }, [onCloseCallback, location.pathname]);
 
   return (
     <CurtainContainer top={anchor.current?.getBoundingClientRect().bottom} className={`${open ? 'opened' : ''}`}>
