@@ -20,65 +20,40 @@ export const Wrapper = styled.div`
   background: ${getValueFromTheme('bgPrimary')};
   min-height: 100vh;
 `;
+
 const queryClient = new QueryClient();
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme['light']}>
         <Wrapper>
           <Routes>
-            <Route
-              index
-              path={routes.GROUP}
-              element={
-                <ScheduleLayout>
-                  <GroupSchedule />
-                  <LastSyncDate />
-                </ScheduleLayout>
-              }
-            />
-            <Route
-              path={routes.ABOUT}
-              element={
-                <AboutLayout>
-                  <Project />
-                </AboutLayout>
-              }
-            />
-            <Route
-              path={routes.CONTACTS}
-              element={
-                <AboutLayout>
-                  <Contacts />
-                </AboutLayout>
-              }
-            />
-            <Route
-              path={routes.SESSION}
-              element={
-                <ScheduleLayout>
-                  <ScheduleExams />
-                  <LastSyncDate />
-                </ScheduleLayout>
-              }
-            />
-            <Route
-              path={routes.LECTURER}
-              element={
-                <ScheduleLayout>
-                  <LecturerSchedule />
-                </ScheduleLayout>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <ScheduleLayout>
-                  <GroupSchedule />
-                  <LastSyncDate />
-                </ScheduleLayout>
-              }
-            />
+            <Route path="/" element={<ScheduleLayout />}>
+              <Route
+                index
+                element={
+                  <>
+                    <GroupSchedule />
+                    <LastSyncDate />
+                  </>
+                }
+              />
+              <Route
+                path={routes.SESSION}
+                element={
+                  <>
+                    <ScheduleExams />
+                    <LastSyncDate />
+                  </>
+                }
+              />
+              <Route path={routes.LECTURER} element={<LecturerSchedule />} />
+            </Route>
+            <Route element={<AboutLayout />}>
+              <Route path={routes.ABOUT} element={<Project />} />
+              <Route path={routes.CONTACTS} element={<Contacts />} />
+            </Route>
           </Routes>
         </Wrapper>
       </ThemeProvider>

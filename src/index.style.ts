@@ -8,6 +8,10 @@ const GlobalStyles = createGlobalStyle`
   
   html {
       line-height: 1.43;
+      font-size: 0.875rem;
+      letter-spacing: 0.01071em;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
   }
 
   body {
