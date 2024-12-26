@@ -3,5 +3,5 @@ export const routes = {
   LECTURER: '/lecturers',
   SESSION: '/sessions',
   ABOUT: '/about',
-  CONTACTS: '/about/contacts',
+  CONTACTS: '/contacts',
 };

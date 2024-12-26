@@ -7,10 +7,7 @@ import { isNil } from 'lodash-es';
 import { useEffect } from 'react';
 import { useCurrentTime } from '../queries/useCurrentTime';
 import { useWeekStore } from '../store/weekStore';
-
-interface ScheduleLayoutProps {
-  children: React.ReactNode;
-}
+import { Outlet } from 'react-router-dom';
 
 const Container = styled.div`
   margin: 36px;
@@ -23,7 +20,7 @@ const Container = styled.div`
   }
 `;
 
-export const ScheduleLayout = ({ children }: ScheduleLayoutProps) => {
+export const ScheduleLayout = () => {
   const { data } = useCurrentTime();
   const setCurrentWeek = useWeekStore((state) => state.setCurrentWeek);
 
@@ -36,7 +33,9 @@ export const ScheduleLayout = ({ children }: ScheduleLayoutProps) => {
   return (
     <ScrollToTop>
       <Navbar />
-      <Container>{children}</Container>
+      <Container>
+        <Outlet />
+      </Container>
       <Footer />
     </ScrollToTop>
   );

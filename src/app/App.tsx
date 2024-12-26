@@ -1,12 +1,18 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import { About } from '../containers/About';
-import Schedule from '../containers/Schedule';
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 import { routes } from '../common/constants/routes';
 import styled, { ThemeProvider } from 'styled-components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { theme } from '../common/constants/theme';
+import { Contacts } from '../containers/About/Contacts';
+import { AboutLayout } from '../layouts/AboutLayout';
+import { Project } from '../containers/About/Project';
+import LecturerSchedule from '../containers/LecturerSchedule';
+import { ScheduleLayout } from '../layouts/ScheduleLayout';
+import ScheduleExams from '../containers/scheduleExams';
+import LastSyncDate from '../components/LastSyncDate';
+import GroupSchedule from '../containers/GroupSchedule';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,20 +20,41 @@ export const Wrapper = styled.div`
   background: ${getValueFromTheme('bgPrimary')};
   min-height: 100vh;
 `;
+
 const queryClient = new QueryClient();
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme['light']}>
         <Wrapper>
-          <Switch>
-            <Route path={routes.ABOUT}>
-              <About />
+          <Routes>
+            <Route path="/" element={<ScheduleLayout />}>
+              <Route
+                index
+                element={
+                  <>
+                    <GroupSchedule />
+                    <LastSyncDate />
+                  </>
+                }
+              />
+              <Route
+                path={routes.SESSION}
+                element={
+                  <>
+                    <ScheduleExams />
+                    <LastSyncDate />
+                  </>
+                }
+              />
+              <Route path={routes.LECTURER} element={<LecturerSchedule />} />
             </Route>
-            <Route>
-              <Schedule />
+            <Route element={<AboutLayout />}>
+              <Route path={routes.ABOUT} element={<Project />} />
+              <Route path={routes.CONTACTS} element={<Contacts />} />
             </Route>
-          </Switch>
+          </Routes>
         </Wrapper>
       </ThemeProvider>
     </QueryClientProvider>

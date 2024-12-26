@@ -4,10 +4,7 @@ import { AboutHeader } from '../containers/About/AboutHeader';
 import Footer from '../components/Footer';
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 import { media } from '../common/styles/styles';
-
-interface AboutLayoutProps {
-  children: React.ReactNode;
-}
+import { Outlet } from 'react-router-dom';
 
 const AboutPageWrapper = styled.div`
   display: flex;
@@ -54,14 +51,16 @@ const FooterLimitedWidthContainer = styled(LimitedWidthContainer)`
   }
 `;
 
-export const AboutLayout = ({ children }: AboutLayoutProps) => (
+export const AboutLayout = () => (
   <AboutPageWrapper>
     <HeaderExtender>
       <LimitedWidthContainer width={1280}>
         <AboutHeader />
       </LimitedWidthContainer>
     </HeaderExtender>
-    <LimitedWidthContainer width={1280}>{children}</LimitedWidthContainer>
+    <LimitedWidthContainer width={1280}>
+      <Outlet />
+    </LimitedWidthContainer>
     <FooterExtender>
       <FooterLimitedWidthContainer width={1280}>
         <Footer />
