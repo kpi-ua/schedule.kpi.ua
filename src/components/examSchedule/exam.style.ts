@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Flex } from '../../common/styles/styles';
+import { Flex, media } from '../../common/styles/styles';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import { ScheduleItemMixin } from '../../common/styles/styles';
 
@@ -54,30 +54,71 @@ export const ScheduleItemCurrent = styled.span`
   }
 `;
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled.div<{ $pastEvent?: boolean }>`
   ${ScheduleItemMixin};
-  margin: 40px auto 0;
-  padding: 16px 36px 16px 16px;
+  width: 100%;
+  padding: 16px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  max-width: 706px;
+  align-items: stretch;
+  max-width: 700px;
+  gap: 16px;
+
+  opacity: ${(props) => props.$pastEvent && '0.5'};
+
+  ${media.extraSmallMode} {
+    flex-direction: column-reverse;
+  }
 `;
 
 export const CardMainData = styled.div`
   margin-left: 16px;
 `;
 
+export const DateWrapper = styled(Flex)`
+  border-left: 1px solid ${getValueFromTheme('neutralDivider')};
+  padding-left: 2rem;
+
+  ${media.extraSmallMode} {
+    border: none;
+    padding-left: 0;
+  }
+`;
+
 export const CardDate = styled.div`
-  align-self: center;
   min-width: 150px;
-  color: ${getValueFromTheme('primaryFontColor')};
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  color: ${getValueFromTheme('basicBlack')};
 `;
 
 export const Divider = styled.div`
-  border-right: 1px solid grey;
+  border-right: 1px solid ${getValueFromTheme('neutralDivider')};
   margin-right: 2rem;
 `;
 
 export const DividerRed = styled.div`
-  border-right: 5px solid red;
+  border-radius: 99px;
+  border-right: 4px solid red;
+`;
+
+export const Year = styled.span`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+`;
+
+export const Date = styled.span`
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 1px 0px 6px 0px;
+`;
+
+export const DaysLeft = styled.span`
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
 `;
