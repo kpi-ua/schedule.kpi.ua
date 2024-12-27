@@ -1,43 +1,27 @@
+import dayjs from 'dayjs';
+import { useMemo } from 'react';
 import { ExamsListWrapper, Header, WordAccent } from './scheduleWrapper.style';
-import { useEffect, useState } from 'react';
-
-import { Exam } from '../../models/Exam';
 import ExamSchedule from '../../components/examSchedule';
 import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
-import { getExamsByGroup } from '../../api/schedule';
+import { useExamsSchedule } from '../../queries/useExamsSchedle';
 import { useStore } from '../../store';
-import { useWeekStore } from '../../store/weekStore';
 
 const SchededuleExamsWrapper = () => {
-  const [exams, setExams] = useState<Exam[]>([]);
-
   const group = useStore((state) => state.group);
 
-  const { currentWeek } = useWeekStore();
+  const { data: examsResponse } = useExamsSchedule(group?.id);
 
-  const groupId = group?.id;
-
-  useEffect(() => {
-    if (groupId) {
-      getExamsByGroup(groupId).then((res) => setExams(res.data));
-    } else {
-      setExams([]);
-    }
-  }, [groupId]);
+  const exams = useMemo(
+    () => examsResponse?.data.sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix()),
+    [examsResponse],
+  );
 
   return (
     <GridWrapper>
       <Header>
-        Розклад сесії для групи&nbsp;<WordAccent>{group?.name}</WordAccent>
-        <br />
-        на&nbsp;
-        <WordAccent>{currentWeek === 'firstWeek' ? 'перший семестр' : 'другий семестр'}</WordAccent>
+        Розклад сесії для групи <WordAccent>{group?.name}</WordAccent>
       </Header>
-      <ExamsListWrapper>
-        {exams.map((exam) => (
-          <ExamSchedule key={exam.id} exam={exam} />
-        ))}
-      </ExamsListWrapper>
+      <ExamsListWrapper>{exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}</ExamsListWrapper>
     </GridWrapper>
   );
 };

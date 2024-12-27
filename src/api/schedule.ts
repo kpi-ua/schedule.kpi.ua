@@ -18,10 +18,10 @@ export const getScheduleByGroup = (groupId: string): Promise<PagedResponse<Stude
   return Http.get(`/schedule/lessons?${query}`);
 };
 
-export const getExamsByGroup = (groupName: string): Promise<PagedResponse<Exam[]>> => {
-  const query = qs.stringify({ groupName });
+export const getExamsByGroup = (groupId: string): Promise<PagedResponse<Exam[]>> => {
+  const query = qs.stringify({ groupId });
 
-  return Http.get(`/exams/group?${query}`);
+  return Http.get(`/schedule/exams/group?${query}`);
 };
 
 export const getLastSyncDate = (groupId?: string): Promise<GroupSyncDate[]> => {
