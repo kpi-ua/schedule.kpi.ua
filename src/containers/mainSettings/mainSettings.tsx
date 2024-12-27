@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { FiltersContainer, MainSettingsContainer } from './mainSettings.style';
 import GroupSearch from '../../components/GroupSearch';
 import LecturerSearch from '../../components/LecturerSearch';
@@ -7,40 +7,32 @@ import WeekSwitch from '../../components/weekSwitch';
 import { routes } from '../../common/constants/routes';
 
 const MainSettings = () => {
-  const { pathname } = useLocation();
-
-  const renderFilters = () => {
-    switch (pathname) {
-      case routes.LECTURER:
-        return (
-          <>
-            <LecturerSearch />
-            <WeekSwitch type="weeks" />
-          </>
-        );
-      case routes.GROUP:
-        return (
-          <>
-            <GroupSearch />
-            <WeekSwitch type="weeks" />
-          </>
-        );
-      case routes.SESSION:
-        return (
-          <>
-            <GroupSearch />
-            <WeekSwitch type="semesters" />
-          </>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <MainSettingsContainer flexDirection="column" alignItems="center" gap="24px">
       <ScheduleTypeTabs />
-      <FiltersContainer>{renderFilters()}</FiltersContainer>
+      <FiltersContainer>
+        <Routes>
+          <Route
+            index
+            element={
+              <>
+                <GroupSearch />
+                <WeekSwitch />
+              </>
+            }
+          />
+          <Route path={routes.SESSION} element={<GroupSearch />} />
+          <Route
+            path={routes.LECTURER}
+            element={
+              <>
+                <LecturerSearch />
+                <WeekSwitch />
+              </>
+            }
+          />
+        </Routes>
+      </FiltersContainer>
     </MainSettingsContainer>
   );
 };
