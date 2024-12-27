@@ -55,7 +55,7 @@ const ExamSchedule = ({ exam }: Props) => {
           <Subject>{subject}</Subject>
           <Teacher>
             <Pictogram src={clock} alt="time" />
-            {date.format('hh:mm')}
+            {date.format('HH:mm')}
           </Teacher>
           <Teacher>
             <Pictogram src={teacherIcon} alt="teacher" />
