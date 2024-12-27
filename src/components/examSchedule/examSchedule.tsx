@@ -17,22 +17,11 @@ import locationIcon from '../../assets/icons/location.svg';
 import clock from '../../assets/icons/clock.svg';
 import { Flex, Pictogram } from '../../common/styles/styles';
 import { Exam } from '../../models/Exam';
+import { pluralizeDays } from '../../common/utils/pluralize';
 
 interface Props {
   exam: Exam;
 }
-
-const pluralizeDays = (value: number) => {
-  if (value === 1) {
-    return 'день';
-  }
-
-  if (value > 1 && value < 5) {
-    return 'дні';
-  }
-
-  return 'днів';
-};
 
 const renderDaysLeft = (value: number) => {
   if (value < 0) {
@@ -66,7 +55,7 @@ const ExamSchedule = ({ exam }: Props) => {
           <Subject>{subject}</Subject>
           <Teacher>
             <Pictogram src={clock} alt="time" />
-            {date.format('h:mm A')}
+            {date.format('hh:mm')}
           </Teacher>
           <Teacher>
             <Pictogram src={teacherIcon} alt="teacher" />
