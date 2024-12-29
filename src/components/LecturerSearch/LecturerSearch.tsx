@@ -1,5 +1,5 @@
 import Button from '../Button';
-import { ReactComponent as Link } from '../../assets/icons/link.svg';
+import Link from '../../assets/icons/link.svg?react';
 import SearchSelect from '../SearchSelect';
 import { media } from '../../common/styles/styles';
 import styled from 'styled-components';
