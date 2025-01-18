@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "clsx": "^1.2.0",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
