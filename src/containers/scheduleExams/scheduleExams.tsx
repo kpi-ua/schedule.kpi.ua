@@ -19,9 +19,19 @@ const SchededuleExamsWrapper = () => {
   return (
     <GridWrapper>
       <Header>
-        Розклад сесії для групи <WordAccent>{group?.name}</WordAccent>
+        {exams && exams.length > 0 ? (
+          <>
+            Розклад сесії для групи <WordAccent>{group?.name}</WordAccent>
+          </>
+        ) : (
+          <>
+            Ще немає актуального розкладу сесії для групи <WordAccent>{group?.name}</WordAccent>
+          </>
+        )}
       </Header>
-      <ExamsListWrapper>{exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}</ExamsListWrapper>
+      <ExamsListWrapper>
+        {exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}
+      </ExamsListWrapper>
     </GridWrapper>
   );
 };
