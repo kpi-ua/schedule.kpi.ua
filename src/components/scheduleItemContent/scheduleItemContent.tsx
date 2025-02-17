@@ -8,7 +8,7 @@ import {
   Teacher,
 } from './scheduleItemContent.style';
 import { Pictogram, StyledLink } from '../../common/styles/styles';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { compact, uniq } from 'lodash-es';
 
 import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
@@ -32,19 +32,17 @@ const ScheduleItemContent: React.FC<Props> = ({ scheduleMatrixCell, collapsed })
   const tag = scheduleMatrixCell?.tag;
   const { groups, lecturers } = usePreloadedList();
 
-  const [location, setLocation] = useState(scheduleMatrixCell && scheduleMatrixCell.place);
+  const location = useMemo(() => {
+    const place = scheduleMatrixCell.place;
+
+    return place.endsWith('-') ? place.slice(0, -1) : place;
+  }, [scheduleMatrixCell.place]);
 
   const setGroup = useStore((store) => store.setGroup);
   const setLecturer = useStore((store) => store.setLecturer);
 
   const ScheduleItemComponent = SUBJECT_TYPES[tag]?.component;
   const scheduleItemTitle = SUBJECT_TYPES[tag]?.title;
-
-  useEffect(() => {
-    if (location.endsWith('-')) {
-      setLocation(location.slice(0, -1));
-    }
-  }, [location, setLocation]);
 
   const findGroup = (groupId: string) => groups.find(({ name }) => name.replace(' ', '') === groupId);
 
