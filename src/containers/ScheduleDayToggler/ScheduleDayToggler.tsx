@@ -2,7 +2,7 @@ import { RadioGroup } from '../../components/RadioGroup';
 import { useScreenSize } from '../../common/hooks/useScreenSize';
 import { DAY_OPTIONS, DaysRange } from '../../common/constants/dayOptions';
 import { ScheduleDayTogglerContainer } from './ScheduleDayToggler.style';
-import { Slice, useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
+import { Slice, useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
 
 const ScheduleDayToggler = () => {
   const { screenSize } = useScreenSize();

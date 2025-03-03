@@ -12,7 +12,7 @@ import { media } from '../../common/styles/styles';
 import { range } from 'lodash-es';
 import styled from 'styled-components';
 import { useCurrentTime } from '../../queries/useCurrentTime';
-import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
+import { useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
 import { useWeekStore } from '../../store/weekStore';
 
 interface ScheduleWrapperProps<T extends Pair> {

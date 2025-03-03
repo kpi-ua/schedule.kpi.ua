@@ -2,7 +2,7 @@ import { Pair } from '../../models/Pair';
 import { Schedule } from '../../models/Schedule';
 import ScheduleDayToggler from '../ScheduleDayToggler';
 import ScheduleTable from '../ScheduleTable/ScheduleTable';
-import { SliceContextProvider } from '../../common/context/sliceOptionsContext';
+import { SliceContextProvider } from '../../common/context/SliceOptionsContext';
 
 interface ScheduleWrapperProps<T extends Pair> {
   schedule?: Schedule<T>;
