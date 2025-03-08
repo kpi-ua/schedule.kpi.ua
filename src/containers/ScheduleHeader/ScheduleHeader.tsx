@@ -1,6 +1,6 @@
 import React from 'react';
 import { WeekDay } from './WeekDay';
-import { useSliceOptionsContext } from '../../common/context/sliceOptionsContext';
+import { useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
 
 const DAYS = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота'];
 

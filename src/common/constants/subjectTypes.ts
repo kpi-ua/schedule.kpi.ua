@@ -2,7 +2,7 @@ import {
   ScheduleItemTypeLab,
   ScheduleItemTypeLec,
   ScheduleItemTypePrac,
-} from '../../components/scheduleItemContent/scheduleItemContent.style';
+} from '../../components/ScheduleItemContent/ScheduleItemContent.style';
 
 export const SUBJECT_TYPES: Record<
   string,
