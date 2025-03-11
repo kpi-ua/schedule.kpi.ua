@@ -1,4 +1,9 @@
-import { ScheduleItemExtendedUnit, ScheduleItemExtendedWrapper, CollapseItem } from './ScheduleItemExtended.style';
+import {
+  ScheduleItemExtendedUnit,
+  ScheduleItemExtendedWrapper,
+  CollapseItem,
+  Caret,
+} from './ScheduleItemExtended.style';
 import ScheduleItemContent from '../../components/ScheduleItemContent';
 import { useMemo, useState } from 'react';
 import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
@@ -32,7 +37,8 @@ const ScheduleItemExtended = ({ scheduleMatrixCell }: ScheduleItemExtendedProps)
       {generateScheduleUnits()}
       {hasData && (
         <CollapseItem onClick={() => setCollapse((value) => !value)}>
-          {collapsed ? 'Більше інформації' : 'Менше інформації'}
+          <span>{collapsed ? 'Більше інформації' : 'Менше інформації'}</span>
+          <Caret open={!collapsed} />
         </CollapseItem>
       )}
     </ScheduleItemExtendedWrapper>

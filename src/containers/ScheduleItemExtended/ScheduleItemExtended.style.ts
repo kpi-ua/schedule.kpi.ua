@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { ScheduleItemMixin } from '../../common/styles/styles';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import CaretDown from '../../assets/icons/caret-down.svg?react';
 
 export const ScheduleItemExtendedWrapper = styled.div<{
   items: number;
@@ -59,10 +60,19 @@ export const ScheduleItemExtendedUnit = styled.div`
 `;
 
 export const CollapseItem = styled.div`
-  background-color: ${getValueFromTheme('bgOptions')};
-  color: ${getValueFromTheme('primaryFontColor')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  background-color: ${getValueFromTheme('neutral200')};
+  color: ${getValueFromTheme('basicBlack')};
+  font-weight: 600;
   border-radius: 0 0 15px 15px;
   text-align: center;
   padding: 15px;
   cursor: pointer;
+`;
+
+export const Caret = styled(CaretDown)<{ open: boolean }>`
+  transform: rotate(${(props) => (props.open ? '180deg' : '0deg')});
 `;
