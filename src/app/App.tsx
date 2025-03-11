@@ -12,7 +12,7 @@ import { AboutLayout } from '../layouts/AboutLayout';
 import { Project } from '../containers/About/Project';
 import LecturerSchedule from '../containers/LecturerSchedule';
 import { ScheduleLayout } from '../layouts/ScheduleLayout';
-import ScheduleExams from '../containers/scheduleExams';
+import ScheduleExams from '../containers/ScheduleExams';
 import LastSyncDate from '../components/LastSyncDate';
 import GroupSchedule from '../containers/GroupSchedule';
 

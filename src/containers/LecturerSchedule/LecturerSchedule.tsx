@@ -1,5 +1,5 @@
-import { GridWrapper } from '../scheduleWrapper/scheduleWrapper.style';
-import ScheduleWrapper from '../scheduleWrapper';
+import { GridWrapper } from '../ScheduleWrapper/ScheduleWrapper.style';
+import ScheduleWrapper from '../ScheduleWrapper';
 import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
 import { useStore } from '../../store';
 
