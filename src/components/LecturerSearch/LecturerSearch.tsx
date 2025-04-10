@@ -27,7 +27,7 @@ const LecturerSearch = () => {
 
   const { data: lecturerLessonsResponse, isLoading } = useLecturerSchedule(lecturer?.id);
 
-  const lecturerProfile = lecturerLessonsResponse?.data?.profile?.profile;
+  const lecturerProfile = lecturerLessonsResponse?.profile?.profile;
 
   const handleGoToLecturerProfile = () => {
     if (!lecturerProfile) {

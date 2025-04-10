@@ -7,16 +7,14 @@ export const usePreloadedList = () => {
   const { data: groups = [], isLoading: groupsLoading } = useQuery<Group[]>({
     queryKey: 'groups',
     queryFn: async () => {
-      const allGroups = await getAllGroups();
-      return allGroups.data;
+      return  await getAllGroups();
     },
   });
 
   const { data: lecturers = [], isLoading: lecturersLoading } = useQuery<Lecturer[]>({
     queryKey: 'lecturers',
     queryFn: async () => {
-      const allLecturers = await getAllLecturers();
-      return allLecturers.data;
+      return  await getAllLecturers();
     },
   });
 
