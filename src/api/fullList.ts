@@ -7,10 +7,11 @@ export const getAllLecturers = (): Promise<Lecturer[]> => {
 };
 
 export const getAllGroups = async (): Promise<Group[]> => {
-  const groups: Group[] = await Http.get('/schedule/groups');
+  const response = await Http.get('/schedule/groups');
 
-  return groups.map((row) => ({
+  return response.map((row) => ({
     ...row,
     name: `${row.name.trim()} (${row.faculty.trim()})`,
+    id: row.id,
   }));
 };
