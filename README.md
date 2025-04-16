@@ -23,7 +23,7 @@ Endpoints:
 
 ### Run in the development mode
 
-```
+```bash
 npm run dev
 ```
 
@@ -31,19 +31,19 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Make a production build
 
-```
+```bash
 npm run build
 ```
 
 ### Build Docker container
 
-```
+```bash
 docker build ./ --file ./Dockerfile --tag kpiua/schedule.kpi.ua:latest
 ```
 
 ### Run latest Docker container
 
-```
+```bash
 docker run --rm -it  -p 80:80/tcp kpiua/schedule.kpi.ua
 ```
 

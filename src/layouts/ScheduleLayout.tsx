@@ -25,11 +25,11 @@ export const ScheduleLayout = () => {
   const setCurrentWeek = useWeekStore((state) => state.setCurrentWeek);
 
   useEffect(() => {
-    if (!isNil(data?.data.currentWeek)) {
-      const week = data?.data.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
+    if (!isNil(data?.currentWeek)) {
+      const week = data?.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
       setCurrentWeek(week);
     }
-  }, [data?.data.currentWeek, setCurrentWeek]);
+  }, [data?.currentWeek, setCurrentWeek]);
   return (
     <ScrollToTop>
       <Navbar />

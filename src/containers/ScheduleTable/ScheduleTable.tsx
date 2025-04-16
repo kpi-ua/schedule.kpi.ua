@@ -68,7 +68,7 @@ const ScheduleTable = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) =>
   const { data } = useCurrentTime();
   const [start, end] = slice;
 
-  const currentDayColumn = range(start, end + 1).indexOf(data?.data.currentDay || 0) + 1;
+  const currentDayColumn = range(start, end + 1).indexOf(data?.currentDay || 0) + 1;
 
   const generateScheduleRows = (scheduleMatrix: ScheduleMatrix) => {
     return scheduleMatrix.map((item: ScheduleMatrixRow, i: number) => {
@@ -90,7 +90,7 @@ const ScheduleTable = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) =>
     <GridContainer>
       {currentDayColumn ? <CurrentDayContainer start={currentDayColumn} /> : null}
       <ScheduleHeader />
-      {generateScheduleRows(generateScheduleMatrix(weekSchedule, data?.data.currentLesson))}
+      {generateScheduleRows(generateScheduleMatrix(weekSchedule, data?.currentLesson))}
     </GridContainer>
   );
 };

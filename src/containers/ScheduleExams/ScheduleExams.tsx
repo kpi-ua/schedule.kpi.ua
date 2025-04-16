@@ -12,7 +12,7 @@ const SchededuleExamsWrapper = () => {
   const { data: examsResponse } = useExamsSchedule(group?.id);
 
   const exams = useMemo(
-    () => examsResponse?.data.sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix()),
+    () => examsResponse?.sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix()),
     [examsResponse],
   );
 
