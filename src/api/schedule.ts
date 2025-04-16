@@ -6,21 +6,19 @@ import { PagedResponse } from '../models/PagedResponse';
 import { StudentSchedule } from '../models/StudentSchedule';
 import qs from 'qs';
 
-export const getScheduleByLecturer = (lecturerId: string): Promise<PagedResponse<LecturerSchedule>> => {
+export const getScheduleByLecturer = (lecturerId: string): Promise<LecturerSchedule> => {
   const query = qs.stringify({ lecturerId });
 
   return Http.get(`/schedule/lecturer?${query}`);
 };
 
-export const getScheduleByGroup = (groupId: string): Promise<PagedResponse<StudentSchedule>> => {
+export const getScheduleByGroup = (groupId: string): Promise<StudentSchedule> => {
   const query = qs.stringify({ groupId });
-
   return Http.get(`/schedule/lessons?${query}`);
 };
 
-export const getExamsByGroup = (groupId: string): Promise<PagedResponse<Exam[]>> => {
+export const getExamsByGroup = (groupId: string): Promise<Exam[]> => {
   const query = qs.stringify({ groupId });
-
   return Http.get(`/schedule/exams/group?${query}`);
 };
 

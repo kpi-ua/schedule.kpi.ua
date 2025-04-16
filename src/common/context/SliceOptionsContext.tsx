@@ -53,10 +53,10 @@ export const SliceContextProvider = ({ children }: SliceContextProviderProps) =>
   const [slice, setSlice] = useState<Slice>(defaultValue);
 
   useEffect(() => {
-    if (!isNil(data?.data.currentDay)) {
-      setSlice(getCurrentSlice(screenSize, data?.data.currentDay || 0));
+    if (!isNil(data?.currentDay)) {
+      setSlice(getCurrentSlice(screenSize, data?.currentDay || 0));
     }
-  }, [screenSize, data?.data.currentDay]);
+  }, [screenSize, data?.currentDay]);
 
   const value: SliceContext = {
     slice,
