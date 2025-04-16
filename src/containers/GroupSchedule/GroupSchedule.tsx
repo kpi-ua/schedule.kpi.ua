@@ -9,7 +9,7 @@ export const GroupSchedule = () => {
 
   return (
     <GridWrapper>
-      <ScheduleWrapper schedule={data?.data} />
+      <ScheduleWrapper schedule={data} />
     </GridWrapper>
   );
 };
