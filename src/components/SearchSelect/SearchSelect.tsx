@@ -2,7 +2,7 @@ import './SearchSelect.scss';
 
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 import { ListOption } from '../../types/ListOption';
-import { Select } from 'react-select-virtualized';
+import Select from 'react-select';
 import { getSelectCustomStyle } from '../../common/constants/selectOptions';
 import { media } from '../../common/styles/styles';
 import styled from 'styled-components';

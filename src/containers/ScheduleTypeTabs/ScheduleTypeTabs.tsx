@@ -4,7 +4,7 @@ import { routes } from '../../common/constants/routes';
 
 const ScheduleTypeTabs = () => {
   const tabs = [
-    { value: routes.GROUP, label: 'Розклад занять' },
+    { value: routes.INDEX, label: 'Розклад занять' },
     { value: routes.SESSION, label: 'Розклад сесії' },
     { value: routes.LECTURER, label: 'Розклад для викладачів' },
   ];
@@ -18,7 +18,7 @@ const ScheduleTypeTabs = () => {
   });
 
   return (
-    <TabContainer justifyContent="space-between" alignItems="center" gap={'37px'}>
+    <TabContainer $justifyContent="space-between" $alignItems="center" $gap={'37px'}>
       {TabComponents}
     </TabContainer>
   );
