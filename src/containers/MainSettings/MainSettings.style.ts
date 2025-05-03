@@ -7,14 +7,14 @@ export const MainSettingsContainer = styled(Flex)<{
   $alignItems: string;
   $gap: string;
 }>`
-    flex-grow: 1;
-    flex-direction: ${({ $flexDirection }) => $flexDirection};
-    align-items: ${({ $alignItems }) => $alignItems};
-    gap: ${({ $gap }) => $gap};
+  flex-grow: 1;
+  flex-direction: ${({ $flexDirection }) => $flexDirection};
+  align-items: ${({ $alignItems }) => $alignItems};
+  gap: ${({ $gap }) => $gap};
 
-    ${media.smallMode} {
-        width: 100%;
-    }
+  ${media.smallMode} {
+    width: 100%;
+  }
 `;
 
 export const FiltersContainer = styled.div`
