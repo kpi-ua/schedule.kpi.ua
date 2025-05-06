@@ -1,6 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 import { routes } from '../common/constants/routes';
@@ -56,6 +56,7 @@ function App() {
               <Route path={routes.ABOUT} element={<Project />} />
               <Route path={routes.CONTACTS} element={<Contacts />} />
             </Route>
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Wrapper>
       </ThemeProvider>

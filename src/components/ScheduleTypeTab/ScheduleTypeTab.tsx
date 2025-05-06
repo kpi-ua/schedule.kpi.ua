@@ -30,7 +30,7 @@ const ScheduleTypeTab = ({ tabClick, children, url }: ScheduleTypeTabProps) => {
       if (localStorageLecturerId) {
         setUrlWithParams(`${url}?groupId=${localStorageLecturerId}`);
       }
-    } else if (url.includes(routes.GROUP) || url.includes(routes.SESSION)) {
+    } else if (url.includes(routes.INDEX) || url.includes(routes.SESSION)) {
       const localStorageGroupId = getLocalStorageItem('groupId');
       if (localStorageGroupId) {
         setUrlWithParams(`${url}?groupId=${localStorageGroupId}`);
@@ -51,7 +51,7 @@ const ScheduleTypeTab = ({ tabClick, children, url }: ScheduleTypeTabProps) => {
   };
 
   return (
-    <Tab active={isActive} onClick={handleClick} ref={tabRef}>
+    <Tab $active={isActive} onClick={handleClick} ref={tabRef}>
       <UnstyledLink to={urlWithParams}>{children}</UnstyledLink>
     </Tab>
   );

@@ -8,7 +8,7 @@ import { routes } from '../../common/constants/routes';
 
 const MainSettings = () => {
   return (
-    <MainSettingsContainer flexDirection="column" alignItems="center" gap="24px">
+    <MainSettingsContainer $flexDirection="column" $alignItems="center" $gap="24px">
       <ScheduleTypeTabs />
       <FiltersContainer>
         <Routes>

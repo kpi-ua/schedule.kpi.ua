@@ -29,9 +29,7 @@ const SchededuleExamsWrapper = () => {
           </>
         )}
       </Header>
-      <ExamsListWrapper>
-        {exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}
-      </ExamsListWrapper>
+      <ExamsListWrapper>{exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}</ExamsListWrapper>
     </GridWrapper>
   );
 };
