@@ -6,13 +6,13 @@ import { SCREEN_SIZES } from '../constants/screenSize';
 import { ScreenSize } from '../../types/ScreenSize';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
-export const Flex = styled.div<{ gap?: string }>`
+export const Flex = styled.div<{ $gap?: string }>`
   display: flex;
   ${space};
   ${flexbox};
 
   // Support for gap in flexbox
-  gap: ${(props) => props.gap};
+  gap: ${(props) => props.$gap};
 `;
 
 export const Pictogram = styled.img`

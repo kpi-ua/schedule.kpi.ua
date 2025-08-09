@@ -16,14 +16,14 @@ export const RadioGroup = <T extends string | number>({
   fullWidth,
   rounded,
 }: RadioGroupProps<T>) => (
-  <RadioGroupWrapper fullWidth={fullWidth} rounded={rounded}>
+  <RadioGroupWrapper $fullWidth={fullWidth} $rounded={rounded}>
     {options.map((item) => (
       <RadioGroupOption
         key={item.value}
-        active={value === item.value}
         onClick={() => onChange(item.value)}
         data-text={item.label}
-        rounded={rounded}
+        $active={value === item.value}
+        $rounded={rounded}
       >
         {item.label}
       </RadioGroupOption>

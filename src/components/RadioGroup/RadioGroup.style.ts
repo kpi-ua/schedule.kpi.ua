@@ -2,18 +2,18 @@ import styled, { css } from 'styled-components';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import { media } from '../../common/styles/styles';
 
-export const RadioGroupWrapper = styled.div<{ fullWidth?: boolean; rounded?: boolean }>`
-  width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
+export const RadioGroupWrapper = styled.div<{ $fullWidth?: boolean; $rounded?: boolean }>`
+  width: ${(props) => (props.$fullWidth ? '100%' : 'auto')};
   display: flex;
   padding: 4px;
   justify-content: space-around;
   background: ${getValueFromTheme('bgOptions')};
   box-shadow: inset 0 0 8px rgba(136, 136, 136, 0.08);
-  border-radius: ${(props) => (props.rounded ? '9999px' : '8px')};
+  border-radius: ${(props) => (props.$rounded ? '9999px' : '8px')};
   gap: 4px;
 `;
 
-export const RadioGroupOption = styled.div<{ active: boolean; rounded?: boolean }>`
+export const RadioGroupOption = styled.div<{ $active: boolean; $rounded?: boolean }>`
   flex-grow: 1;
   transition: 0.2s ease-in background-color;
   display: inline-flex;
@@ -26,10 +26,9 @@ export const RadioGroupOption = styled.div<{ active: boolean; rounded?: boolean 
   font-size: 14px;
   letter-spacing: 0.01em;
   color: ${getValueFromTheme('secondaryFontColor')};
-  border-radius: ${(props) => (props.rounded ? '9999px' : '6px')};
+  border-radius: ${(props) => (props.$rounded ? '9999px' : '6px')};
   white-space: nowrap;
 
-  // Prevent width variations because of text weight
   &:after {
     content: attr(data-text);
     content: attr(data-text) / '';
@@ -46,7 +45,7 @@ export const RadioGroupOption = styled.div<{ active: boolean; rounded?: boolean 
   }
 
   ${(props) =>
-    props.active
+    props.$active
       ? css`
           font-weight: 600;
           background-color: #fff;

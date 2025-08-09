@@ -85,7 +85,7 @@ const ScheduleItemContent: React.FC<Props> = ({ scheduleMatrixCell, collapsed })
       return '#';
     }
 
-    return `${routes.GROUP}?groupId=${groupId}`;
+    return `${routes.INDEX}?groupId=${groupId}`;
   };
 
   return (
