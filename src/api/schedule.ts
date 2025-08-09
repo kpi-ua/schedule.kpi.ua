@@ -2,7 +2,6 @@ import { Exam } from '../models/Exam';
 import { GroupSyncDate } from '../models/GroupSyncDate';
 import Http from './index';
 import { LecturerSchedule } from '../models/LecturerSchedule';
-import { PagedResponse } from '../models/PagedResponse';
 import { StudentSchedule } from '../models/StudentSchedule';
 import qs from 'qs';
 
