@@ -35,9 +35,3 @@ export const NavbarLogo = styled.div`
     justify-content: start;
   }
 `;
-
-export const ThemeSwitchWrapper = styled(NavbarLogo)`
-  ${media.mediumMode} {
-    display: none;
-  }
-`;
