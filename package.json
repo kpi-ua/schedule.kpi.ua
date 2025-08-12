@@ -48,7 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.22.0",
+    "@eslint/js": "^9.33.0",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
