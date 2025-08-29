@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const getSelectCustomStyle = (theme: any) => ({
   option(base: any) {
     return {

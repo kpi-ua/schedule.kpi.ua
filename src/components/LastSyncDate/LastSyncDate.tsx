@@ -7,7 +7,6 @@ import { useStore } from '../../store';
 const LastSyncDateWrapper = styled.div`
   color: ${getValueFromTheme('neutral600')};
   font-size: 12px;
-  margin-top: 12px;
 `;
 
 export const LastSyncDate = () => {

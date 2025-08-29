@@ -1,21 +1,25 @@
-import ScheduleItem from '../ScheduleItem';
 import { EmptyElement } from './ScheduleRow.style';
-import ScheduleItemExtended from '../ScheduleItemExtended';
-import { UnknownScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
+import { Pair } from '../../models/Pair';
+import { UnknownScheduleMatrixCell } from '../../types/ScheduleMatrix';
+import { ScheduleComponentsProps } from '../../types/ScheduleComponentsProps';
 
-interface ScheduleRowProps {
-  scheduleMatrixCell: UnknownScheduleMatrixCell[];
+interface ScheduleRowProps<T extends Pair> extends ScheduleComponentsProps<T> {
+  scheduleMatrixCell: UnknownScheduleMatrixCell<T>[];
 }
 
-const ScheduleRow = ({ scheduleMatrixCell }: ScheduleRowProps) => {
+const ScheduleRow = <T extends Pair>({
+  scheduleMatrixCell,
+  baseComponent: BaseComponent,
+  baseComponentExtended: BaseComponentExtended,
+}: ScheduleRowProps<T>) => {
   return (
     <>
       {scheduleMatrixCell.map((item, index) => {
         if (Array.isArray(item)) {
-          return <ScheduleItemExtended key={index} scheduleMatrixCell={item} />;
+          return <BaseComponentExtended key={index} scheduleMatrixCell={item} />;
         }
 
-        return item ? <ScheduleItem key={index} scheduleMatrixCell={item} /> : <EmptyElement key={index} />;
+        return item ? <BaseComponent key={index} scheduleMatrixCell={item} /> : <EmptyElement key={index} />;
       })}
     </>
   );

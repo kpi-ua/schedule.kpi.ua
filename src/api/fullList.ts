@@ -1,8 +1,8 @@
+import { EntityWithNameAndId } from '../models/EntityWithNameAndId';
 import { Group } from '../models/Group';
-import { Lecturer } from '../models/Lecturer';
 import Http from './index';
 
-export const getAllLecturers = (): Promise<Lecturer[]> => {
+export const getAllLecturers = (): Promise<EntityWithNameAndId[]> => {
   return Http.get('/schedule/lecturer/list');
 };
 
