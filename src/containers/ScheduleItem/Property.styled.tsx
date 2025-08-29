@@ -12,7 +12,6 @@ export const Property = styled(Flex)`
   display: flex;
   align-items: start;
   gap: 4px;
-  flex-wrap: wrap;
 
   & > svg {
     margin-top: 1px;
