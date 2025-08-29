@@ -5,10 +5,15 @@ import { useStore } from '../../store';
 import { routes } from '../../common/constants/routes';
 import { Group } from '../../models/Group';
 import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   groups: Group[];
 }
+
+const WrappedProperty = styled(Property)`
+  flex-wrap: wrap;
+`;
 
 const GroupProperty = ({ groups }: Props) => {
   const setGroup = useStore((store) => store.setGroup);
@@ -29,18 +34,16 @@ const GroupProperty = ({ groups }: Props) => {
   };
 
   return (
-    <Property>
-      {groups.map((group, index) => {
-        return (
-          <React.Fragment key={group.id}>
-            <StyledLink onClick={handleGroupClick(group)} key={group.id} to={getGroupLink(group.id)}>
-              {group.name}
-              {index < groups.length - 1 && ', '}
-            </StyledLink>
-          </React.Fragment>
-        );
-      })}
-    </Property>
+    <WrappedProperty>
+      {groups.map((group, index) => (
+        <React.Fragment key={group.id}>
+          <StyledLink onClick={handleGroupClick(group)} key={group.id} to={getGroupLink(group.id)}>
+            {group.name}
+            {index < groups.length - 1 && ', '}
+          </StyledLink>
+        </React.Fragment>
+      ))}
+    </WrappedProperty>
   );
 };
 
