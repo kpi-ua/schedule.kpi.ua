@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { SCREEN_SIZES } from '../constants/screenSize';
 import { ScreenSize } from '../../types/ScreenSize';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
+import LogoIcon from '../../assets/logo.svg?react';
 
 export const Flex = styled.div<{ $gap?: string }>`
   display: flex;
@@ -13,11 +14,6 @@ export const Flex = styled.div<{ $gap?: string }>`
 
   // Support for gap in flexbox
   gap: ${(props) => props.$gap};
-`;
-
-export const Pictogram = styled.img`
-  filter: ${getValueFromTheme('svgPrimaryFilter')};
-  fill: ${getValueFromTheme('primaryFontColor')};
 `;
 
 export const media = {
@@ -34,7 +30,7 @@ export const mediaReverse = {
   [ScreenSize.Big]: `@media(max-width: ${SCREEN_SIZES[ScreenSize.Big]})`,
 };
 
-export const Logo = styled(Pictogram)`
+export const Logo = styled(LogoIcon)`
   max-width: 185px;
   max-height: 64px;
   width: 100%;

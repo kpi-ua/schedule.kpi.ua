@@ -1,12 +1,11 @@
-import { Pictogram, mediaReverse } from '../../../common/styles/styles';
-
+import { mediaReverse } from '../../../common/styles/styles';
 import { Curtain } from '../../../components/Curtain';
 import { MenuLink } from './MenuLink';
 import { NAV_LINKS } from './constants';
-import burger from '../../../assets/icons/burger.svg';
+import BurgerIcon from '../../../assets/icons/burger.svg?react';
 import styled from 'styled-components';
-import { useState } from 'react';
-import x from '../../../assets/icons/x.svg';
+import { useCallback, useState } from 'react';
+import XIcon from '../../../assets/icons/x.svg?react';
 
 interface MobileMenuProps {
   pathname: string;
@@ -47,16 +46,18 @@ const BurgerMenuLink = styled(MenuLink)`
 export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleClose = useCallback(() => setMenuOpen(false), [setMenuOpen]);
+
   return (
     <>
       <BurgerMenuButton onClick={() => setMenuOpen((prev) => !prev)}>
-        {menuOpen ? <Pictogram src={x} alt="close menu" /> : <Pictogram src={burger} alt="open menu" />}
+        {menuOpen ? <XIcon /> : <BurgerIcon />}
       </BurgerMenuButton>
-      <Curtain open={menuOpen} onClose={() => setMenuOpen(false)} anchor={anchor}>
+      <Curtain open={menuOpen} onClose={handleClose} anchor={anchor}>
         <BurgerMenuContainer>
           <BurgerMenuNav>
             {NAV_LINKS.map(({ path, title }) => (
-              <BurgerMenuLink className={pathname === path ? 'selected' : ''} href={path}>
+              <BurgerMenuLink key={path} className={pathname === path ? 'selected' : ''} href={path}>
                 {title}
               </BurgerMenuLink>
             ))}

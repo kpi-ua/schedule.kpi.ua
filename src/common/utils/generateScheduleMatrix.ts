@@ -1,23 +1,14 @@
 import { DAYS, TIME_POINTS } from '../constants/scheduleParams';
 import { parseTime } from './parseTime';
-
 import { Pair } from '../../models/Pair';
 import { WeekSchedule } from '../../models/WeekSchedule';
 import dayjs from 'dayjs';
-
-export interface ScheduleMatrixCell extends Pair {
-  currentPair: boolean;
-}
-
-export type UnknownScheduleMatrixCell = ScheduleMatrixCell | ScheduleMatrixCell[] | null;
-export type ScheduleMatrixRow = UnknownScheduleMatrixCell[];
-
-export type ScheduleMatrix = ScheduleMatrixRow[];
+import { ScheduleMatrix, ScheduleMatrixCell } from '../../types/ScheduleMatrix';
 
 export const generateScheduleMatrix = <T extends Pair>(
   weekSchedule: WeekSchedule<T>[],
   currentLesson = 0,
-): ScheduleMatrix => {
+): ScheduleMatrix<T> => {
   const scheduleMatrix = new Array(TIME_POINTS.length).fill(null).map(() => new Array(DAYS.length).fill(null));
 
   const currentDay = dayjs().day();
@@ -31,13 +22,13 @@ export const generateScheduleMatrix = <T extends Pair>(
       const normalizedPairTime = parseTime(pair.time).format('HH:mm');
       const xIndex = TIME_POINTS.findIndex((item) => item === normalizedPairTime);
       const cell = scheduleMatrix[xIndex][yIndex];
-      let newCell: ScheduleMatrixCell | ScheduleMatrixCell[] = {
-        ...pair,
+      let newCell: ScheduleMatrixCell<T> | ScheduleMatrixCell<T>[] = {
+        pair,
         currentPair: activePair !== -1 && currentDay === yIndex + 1 && activePair === xIndex,
       };
 
       if (cell) {
-        let extendedCell: ScheduleMatrixCell[] = [];
+        let extendedCell: ScheduleMatrixCell<T>[] = [];
 
         if (Array.isArray(cell)) {
           extendedCell = [...cell];
@@ -45,7 +36,7 @@ export const generateScheduleMatrix = <T extends Pair>(
           extendedCell = [cell];
         }
 
-        extendedCell.push({ ...pair, currentPair: newCell.currentPair });
+        extendedCell.push({ pair, currentPair: newCell.currentPair });
         newCell = extendedCell;
       }
 

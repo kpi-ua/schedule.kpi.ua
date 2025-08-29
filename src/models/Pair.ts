@@ -1,11 +1,16 @@
+import { PairLocation } from './PairLocation';
+
+export enum SubjectType {
+  Lecture = 'lec',
+  Lab = 'lab',
+  Practice = 'prac',
+}
+
 export interface Pair {
-  lecturerId: string;
   name: string;
-  place: string;
-  tag: string;
-  teacherName: string;
+  location?: PairLocation;
+  tag: SubjectType;
   time: string;
   type: string;
-  // TODO: Refactor this, group is available only for students
-  group?: string;
+  dates: string[];
 }

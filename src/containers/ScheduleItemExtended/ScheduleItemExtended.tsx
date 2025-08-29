@@ -1,30 +1,31 @@
 import {
-  ScheduleItemExtendedUnit,
   ScheduleItemExtendedWrapper,
   CollapseItem,
   Caret,
+  ScheduleItemExtendedUnit,
 } from './ScheduleItemExtended.style';
-import ScheduleItemContent from '../../components/ScheduleItemContent';
-import { useMemo, useState } from 'react';
-import { ScheduleMatrixCell } from '../../common/utils/generateScheduleMatrix';
+import { Pair } from '../../models/Pair';
+import { useState } from 'react';
+import { ScheduleItemProps } from '../ScheduleItem/types';
+import { ScheduleMatrixCell } from '../../types/ScheduleMatrix';
 
-interface ScheduleItemExtendedProps {
-  scheduleMatrixCell: ScheduleMatrixCell[];
+interface ScheduleItemExtendedProps<T extends Pair> {
+  scheduleMatrixCell: ScheduleMatrixCell<T>[];
+  hasData: boolean;
+  childComponent: React.ComponentType<ScheduleItemProps<T>>;
 }
 
-const ScheduleItemExtended = ({ scheduleMatrixCell }: ScheduleItemExtendedProps) => {
-  const [collapsed, setCollapse] = useState(true);
-
-  const hasData = useMemo(() => {
-    const emptyEntries = scheduleMatrixCell.filter((x) => x.teacherName === '' && x.place === '');
-
-    return emptyEntries.length !== scheduleMatrixCell.length;
-  }, [scheduleMatrixCell]);
+const ScheduleItemExtended = <T extends Pair>({
+  scheduleMatrixCell,
+  hasData,
+  childComponent: ChildComponent,
+}: ScheduleItemExtendedProps<T>) => {
+  const [collapsed, setCollapsed] = useState(true);
 
   const generateScheduleUnits = () =>
     scheduleMatrixCell.map((item, i) => (
       <ScheduleItemExtendedUnit key={i}>
-        <ScheduleItemContent collapsed={collapsed} scheduleMatrixCell={item} />
+        <ChildComponent collapsed={collapsed} scheduleMatrixCell={item} />
       </ScheduleItemExtendedUnit>
     ));
 
@@ -33,10 +34,10 @@ const ScheduleItemExtended = ({ scheduleMatrixCell }: ScheduleItemExtendedProps)
   }
 
   return (
-    <ScheduleItemExtendedWrapper items={scheduleMatrixCell.length}>
+    <ScheduleItemExtendedWrapper $items={scheduleMatrixCell.length}>
       {generateScheduleUnits()}
       {hasData && (
-        <CollapseItem onClick={() => setCollapse((value) => !value)}>
+        <CollapseItem onClick={() => setCollapsed(!collapsed)}>
           <span>{collapsed ? 'Більше інформації' : 'Менше інформації'}</span>
           <Caret open={!collapsed} />
         </CollapseItem>

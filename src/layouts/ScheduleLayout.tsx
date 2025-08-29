@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useCurrentTime } from '../queries/useCurrentTime';
 import { useWeekStore } from '../store/weekStore';
 import { Outlet } from 'react-router-dom';
+import Legend from '../components/Legend';
 
 const Container = styled.div`
   margin: 36px;
@@ -35,6 +36,7 @@ export const ScheduleLayout = () => {
       <Navbar />
       <Container>
         <Outlet />
+        <Legend />
       </Container>
       <Footer />
     </ScrollToTop>

@@ -1,7 +1,8 @@
-import { Pictogram, media } from '../../common/styles/styles';
+import { media } from '../../common/styles/styles';
 
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import styled from 'styled-components';
+import LogoIcon from '../../assets/footer-logo.svg?react';
 
 export const FooterWrapper = styled.footer`
   display: flex;
@@ -21,7 +22,7 @@ export const FooterWrapper = styled.footer`
   }
 `;
 
-export const FooterLogo = styled(Pictogram)`
+export const FooterLogo = styled(LogoIcon)`
   flex-basis: 120px;
 
   ${media.extraSmallMode} {
