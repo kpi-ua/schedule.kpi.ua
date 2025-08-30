@@ -53,7 +53,7 @@ const DateListItem = styled.div<{ $period: EventPeriod }>`
   ${(props) =>
     props.$period === 'past' &&
     css`
-      &:first-child time {
+      time {
         text-decoration: line-through;
       }
     `}
