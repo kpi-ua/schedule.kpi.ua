@@ -11,13 +11,11 @@ const StudentScheduleContent = <T extends StudentPair>({ scheduleMatrixCell, col
   } = scheduleMatrixCell;
 
   return (
-    <>
-      <ScheduleItemBase scheduleMatrixCell={scheduleMatrixCell} collapsed={collapsed}>
-        {lecturer && <LecturerProperty lecturer={lecturer} />}
-        {location && <PairLocationProperty location={location} />}
-        {!!dates.length && <IrregularSchedulesTable dates={dates} />}
-      </ScheduleItemBase>
-    </>
+    <ScheduleItemBase scheduleMatrixCell={scheduleMatrixCell} collapsed={collapsed}>
+      {lecturer && <LecturerProperty lecturer={lecturer} />}
+      {location && <PairLocationProperty location={location} />}
+      {!!dates.length && <IrregularSchedulesTable dates={dates} />}
+    </ScheduleItemBase>
   );
 };
 
