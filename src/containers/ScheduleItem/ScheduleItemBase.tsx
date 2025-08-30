@@ -45,7 +45,7 @@ const ScheduleItemCurrent = styled.span`
 const CollapsedItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   margin-top: 12px;
 `;
 

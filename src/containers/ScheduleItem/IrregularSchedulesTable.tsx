@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import dayjs from 'dayjs';
+import { useMemo } from 'react';
 
 interface IrregularSchedulesTableProps {
   dates: string[];
@@ -53,7 +54,7 @@ const DateListItem = styled.div<{ $period: EventPeriod }>`
   ${(props) =>
     props.$period === 'past' &&
     css`
-      &:first-child time {
+      time {
         text-decoration: line-through;
       }
     `}
@@ -78,12 +79,14 @@ const getDatePeriod = (date: string): EventPeriod => {
 };
 
 export const IrregularSchedulesTable = ({ dates }: IrregularSchedulesTableProps) => {
+  const sortedDates = useMemo(() => dates.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf()), [dates]);
+
   return (
     <Wrapper>
       <Header>Розклад спец. занять</Header>
       <Divider />
       <DatesList>
-        {dates.map((date) => {
+        {sortedDates.map((date) => {
           const period = getDatePeriod(date);
           return (
             <DateListItem $period={period} key={date}>

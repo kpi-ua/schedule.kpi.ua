@@ -21,7 +21,7 @@ const cutOffPart = css`
 
 export const ScheduleItemExtendedUnit = styled.div`
   ${ScheduleItemMixin};
-  padding: 20px;
+  padding: 16px;
   position: relative;
 
   &:not(:first-child):not(:last-child) {
