@@ -12,7 +12,7 @@ Base URL: https://api.campus.kpi.ua/
 
 Endpoints:
 
-- Groups list: [schedule/groups](https://api.campus.kpi.ua/schedule/groups)
+- Groups list: [group/all](https://api.campus.kpi.ua/group/all)
 - Lecturers list: [schedule/lecturer/list](https://api.campus.kpi.ua/schedule/lecturer/list)
 - Group schedule: [schedule/lessons?groupId={group id}](https://api.campus.kpi.ua/schedule/lessons?groupId=fb121dae-9fe5-4a9a-bced-ff7603a19c31)
 - Group exams: [exams/group?groupId={group id}](https://api.campus.kpi.ua/exams/group?groupId=fb121dae-9fe5-4a9a-bced-ff7603a19c31)
