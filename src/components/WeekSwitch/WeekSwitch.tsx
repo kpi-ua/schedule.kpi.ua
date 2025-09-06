@@ -9,9 +9,11 @@ const WEEKS: ListOption<Week>[] = [
 ];
 
 const WeekSwitch = () => {
-  const { currentWeek, setCurrentWeek } = useWeekStore();
+  const { currentWeek, setCurrentWeek, actualWeek } = useWeekStore();
 
-  return <RadioGroup value={currentWeek} options={WEEKS} onChange={setCurrentWeek} fullWidth />;
+  return (
+    <RadioGroup value={currentWeek} actualValue={actualWeek} options={WEEKS} onChange={setCurrentWeek} fullWidth />
+  );
 };
 
 export default WeekSwitch;

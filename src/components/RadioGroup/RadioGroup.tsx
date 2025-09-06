@@ -5,6 +5,7 @@ interface RadioGroupProps<T> {
   options: ListOption<T>[];
   onChange: (value: T) => void;
   value?: T;
+  actualValue?: T;
   fullWidth?: boolean;
   rounded?: boolean;
 }
@@ -13,6 +14,7 @@ export const RadioGroup = <T extends string | number>({
   options,
   onChange,
   value,
+  actualValue,
   fullWidth,
   rounded,
 }: RadioGroupProps<T>) => (
@@ -24,6 +26,7 @@ export const RadioGroup = <T extends string | number>({
         data-text={item.label}
         $active={value === item.value}
         $rounded={rounded}
+        $isActualValue={item.value === actualValue}
       >
         {item.label}
       </RadioGroupOption>

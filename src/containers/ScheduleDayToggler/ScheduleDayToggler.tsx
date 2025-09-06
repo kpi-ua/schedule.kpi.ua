@@ -6,7 +6,7 @@ import { Slice, useSliceOptionsContext } from '../../common/context/SliceOptions
 
 const ScheduleDayToggler = () => {
   const { screenSize } = useScreenSize();
-  const { slice, setSlice } = useSliceOptionsContext();
+  const { slice, setSlice, actualSlice } = useSliceOptionsContext();
 
   const options = DAY_OPTIONS[screenSize];
 
@@ -24,7 +24,14 @@ const ScheduleDayToggler = () => {
 
   return (
     <ScheduleDayTogglerContainer>
-      <RadioGroup value={convertSlice(slice)} options={options} onChange={handleChange} fullWidth rounded />
+      <RadioGroup
+        value={convertSlice(slice)}
+        actualValue={convertSlice(actualSlice)}
+        options={options}
+        onChange={handleChange}
+        fullWidth
+        rounded
+      />
     </ScheduleDayTogglerContainer>
   );
 };
