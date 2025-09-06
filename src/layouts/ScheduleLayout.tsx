@@ -22,15 +22,16 @@ const Container = styled.div`
 `;
 
 export const ScheduleLayout = () => {
-  const { data } = useCurrentTime();
+  const { data, isLoading } = useCurrentTime();
   const setCurrentWeek = useWeekStore((state) => state.setCurrentWeek);
 
   useEffect(() => {
-    if (!isNil(data?.currentWeek)) {
-      const week = data?.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
+    if (!isLoading) {
+      const week = data!.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
       setCurrentWeek(week);
     }
-  }, [data?.currentWeek, setCurrentWeek]);
+  }, [data?.currentWeek, setCurrentWeek, isLoading]);
+
   return (
     <ScrollToTop>
       <Navbar />
