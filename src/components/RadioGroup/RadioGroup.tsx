@@ -4,7 +4,7 @@ import { RadioGroupOption, RadioGroupWrapper } from './RadioGroup.style';
 interface RadioGroupProps<T> {
   options: ListOption<T>[];
   onChange: (value: T) => void;
-  value: T | null;
+  value?: T;
   fullWidth?: boolean;
   rounded?: boolean;
 }
