@@ -9,11 +9,6 @@ export const useCurrentTime = () => {
   return useQuery({
     staleTime: 12 * 60 * 60 * 1000,
     queryKey: getQueryKey(),
-    placeholderData: {
-      currentDay: 0,
-      currentLesson: 0,
-      currentWeek: 0,
-    },
     queryFn: getCurrentTime,
   });
 };

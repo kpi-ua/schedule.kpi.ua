@@ -103,7 +103,7 @@ const ScheduleTable = <T extends Pair>({
     return null;
   }
 
-  const weekSchedule = schedule ? schedule[weekValue[currentWeek]] : [];
+  const weekSchedule = schedule && currentWeek ? schedule[weekValue[currentWeek]] : [];
 
   const scheduleMatrix = generateScheduleMatrix<T>(weekSchedule, timeSlots, currentTime.currentLesson);
 
