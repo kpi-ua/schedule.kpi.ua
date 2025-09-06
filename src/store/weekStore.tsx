@@ -2,11 +2,11 @@ import { create } from 'zustand';
 import { Week } from '../types/Week';
 
 type WeekStore = {
-  currentWeek: Week | null;
+  currentWeek?: Week;
   setCurrentWeek: (week: Week) => void;
 };
 
 export const useWeekStore = create<WeekStore>((set) => ({
-  currentWeek: null,
+  currentWeek: undefined,
   setCurrentWeek: (week) => set({ currentWeek: week }),
 }));

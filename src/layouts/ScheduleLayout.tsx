@@ -26,8 +26,8 @@ export const ScheduleLayout = () => {
   const setCurrentWeek = useWeekStore((state) => state.setCurrentWeek);
 
   useEffect(() => {
-    if (!isLoading) {
-      const week = data!.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
+    if (!isLoading && data) {
+      const week = data.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
       setCurrentWeek(week);
     }
   }, [data?.currentWeek, setCurrentWeek, isLoading]);
