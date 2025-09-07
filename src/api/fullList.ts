@@ -7,7 +7,7 @@ export const getAllLecturers = (): Promise<EntityWithNameAndId[]> => {
 };
 
 export const getAllGroups = async (): Promise<Group[]> => {
-  const response = await Http.get('/group/all');
+  const response = await Http.get<Group[]>('/group/all');
 
   return response.map((row) => ({
     ...row,
