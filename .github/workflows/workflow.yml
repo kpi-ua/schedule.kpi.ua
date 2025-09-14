@@ -1,5 +1,8 @@
 name: Build schedule.kpi.ua
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
