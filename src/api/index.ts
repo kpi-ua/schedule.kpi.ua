@@ -8,7 +8,7 @@ interface FetchOptions extends RequestInit {
   headers?: Record<string, string>;
 }
 
-const fetchWrapper = async (requestUrl: string, options: FetchOptions = {}) => {
+const fetchWrapper = async <T = unknown>(requestUrl: string, options: FetchOptions = {}): Promise<T> => {
   const { headers = {}, ...restOptions } = options;
 
   const requestOptions: RequestInit = {
@@ -29,7 +29,7 @@ const fetchWrapper = async (requestUrl: string, options: FetchOptions = {}) => {
 };
 
 const Http = {
-  get: (url: string, options: FetchOptions = {}) => fetchWrapper(url, { ...options, method: 'GET' }),
+  get: <T = unknown>(url: string, options: FetchOptions = {}) => fetchWrapper<T>(url, { ...options, method: 'GET' }),
 };
 
 export default Http;

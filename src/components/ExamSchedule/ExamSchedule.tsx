@@ -12,10 +12,10 @@ import {
   Teacher,
   Year,
 } from './Exam.style';
-import teacherIcon from '../../assets/icons/teacher.svg';
-import locationIcon from '../../assets/icons/location.svg';
-import clock from '../../assets/icons/clock.svg';
-import { Flex, Pictogram } from '../../common/styles/styles';
+import TeacherIcon from '../../assets/icons/teacher.svg?react';
+import LocationIcon from '../../assets/icons/location.svg?react';
+import ClockIcon from '../../assets/icons/clock.svg?react';
+import { Flex } from '../../common/styles/styles';
 import { Exam } from '../../models/Exam';
 import { pluralizeDays } from '../../common/utils/pluralize';
 
@@ -54,15 +54,15 @@ const ExamSchedule = ({ exam }: Props) => {
         <CardMainData>
           <Subject>{subject}</Subject>
           <Teacher>
-            <Pictogram src={clock} alt="time" />
+            <ClockIcon />
             {date.format('HH:mm')}
           </Teacher>
           <Teacher>
-            <Pictogram src={teacherIcon} alt="teacher" />
+            <TeacherIcon />
             {lecturerName}
           </Teacher>
           <Location>
-            <Pictogram src={locationIcon} alt="location" />
+            <LocationIcon />
             {room}
           </Location>
         </CardMainData>

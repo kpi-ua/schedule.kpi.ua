@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useCurrentTime } from '../queries/useCurrentTime';
 import { useWeekStore } from '../store/weekStore';
 import { Outlet } from 'react-router-dom';
+import Legend from '../components/Legend';
 
 const Container = styled.div`
   margin: 36px;
@@ -21,20 +22,22 @@ const Container = styled.div`
 `;
 
 export const ScheduleLayout = () => {
-  const { data } = useCurrentTime();
+  const { data, isLoading } = useCurrentTime();
   const setCurrentWeek = useWeekStore((state) => state.setCurrentWeek);
 
   useEffect(() => {
-    if (!isNil(data?.currentWeek)) {
-      const week = data?.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
+    if (!isLoading && data) {
+      const week = data.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
       setCurrentWeek(week);
     }
-  }, [data?.currentWeek, setCurrentWeek]);
+  }, [data?.currentWeek, setCurrentWeek, isLoading]);
+
   return (
     <ScrollToTop>
       <Navbar />
       <Container>
         <Outlet />
+        <Legend />
       </Container>
       <Footer />
     </ScrollToTop>

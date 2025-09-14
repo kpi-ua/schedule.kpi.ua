@@ -1,12 +1,11 @@
 import { FooterLogo, FooterSection, FooterWrapper } from './Footer.style';
 
 import dayjs from 'dayjs';
-import logo from '../../assets/footer-logo.svg';
 
 export const Footer = () => {
   return (
     <FooterWrapper>
-      <FooterLogo src={logo} alt="КПІ ім. Ігоря Сікорського" />
+      <FooterLogo />
       <FooterSection>
         <p>
           Національний технічний університет України"Київський політехнічний інститут імені Ігоря Сікорського" © 1998-

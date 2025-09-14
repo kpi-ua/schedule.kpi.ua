@@ -4,9 +4,9 @@ import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import CaretDown from '../../assets/icons/caret-down.svg?react';
 
 export const ScheduleItemExtendedWrapper = styled.div<{
-  items: number;
+  $items: number;
 }>`
-  grid-row-start: span ${(props) => props.items};
+  grid-row-start: span ${(props) => props.$items};
   z-index: 9;
 `;
 
@@ -21,7 +21,7 @@ const cutOffPart = css`
 
 export const ScheduleItemExtendedUnit = styled.div`
   ${ScheduleItemMixin};
-  padding: 20px;
+  padding: 16px;
   position: relative;
 
   &:not(:first-child):not(:last-child) {
