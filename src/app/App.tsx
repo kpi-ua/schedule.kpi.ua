@@ -13,7 +13,6 @@ import { Project } from '../containers/About/Project';
 import LecturerSchedule from '../containers/LecturerSchedule';
 import { ScheduleLayout } from '../layouts/ScheduleLayout';
 import ScheduleExams from '../containers/ScheduleExams';
-import LastSyncDate from '../components/LastSyncDate';
 import GroupSchedule from '../containers/GroupSchedule';
 
 export const Wrapper = styled.div`
@@ -32,24 +31,8 @@ function App() {
         <Wrapper>
           <Routes>
             <Route path="/" element={<ScheduleLayout />}>
-              <Route
-                index
-                element={
-                  <>
-                    <GroupSchedule />
-                    <LastSyncDate />
-                  </>
-                }
-              />
-              <Route
-                path={routes.SESSION}
-                element={
-                  <>
-                    <ScheduleExams />
-                    <LastSyncDate />
-                  </>
-                }
-              />
+              <Route index element={<GroupSchedule />} />
+              <Route path={routes.SESSION} element={<ScheduleExams />} />
               <Route path={routes.LECTURER} element={<LecturerSchedule />} />
             </Route>
             <Route element={<AboutLayout />}>

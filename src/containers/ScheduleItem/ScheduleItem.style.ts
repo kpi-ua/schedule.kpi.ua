@@ -3,6 +3,6 @@ import { ScheduleItemMixin } from '../../common/styles/styles';
 
 export const ScheduleItemWrapper = styled.div`
   ${ScheduleItemMixin};
-  padding: 20px;
+  padding: 16px;
   z-index: 5;
 `;

@@ -1,11 +1,9 @@
-import { ScheduleMatrix, ScheduleMatrixRow, generateScheduleMatrix } from '../../common/utils/generateScheduleMatrix';
-
-import { Pair } from '../../models/Pair';
 import React from 'react';
+import { generateScheduleMatrix } from '../../common/utils/generateScheduleMatrix';
+import { Pair } from '../../models/Pair';
 import { Schedule } from '../../models/Schedule';
 import { ScheduleHeader } from '../ScheduleHeader';
 import ScheduleRow from '../ScheduleRow';
-import { TIME_POINTS } from '../../common/constants/scheduleParams';
 import TimeDivider from '../../components/TimeDivider';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import { media } from '../../common/styles/styles';
@@ -14,8 +12,11 @@ import styled from 'styled-components';
 import { useCurrentTime } from '../../queries/useCurrentTime';
 import { useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
 import { useWeekStore } from '../../store/weekStore';
+import { ScheduleMatrix, ScheduleMatrixRow } from '../../types/ScheduleMatrix';
+import { ScheduleComponentsProps } from '../../types/ScheduleComponentsProps';
+import { useTimeSlots } from '../../queries/useTimeSlots';
 
-interface ScheduleWrapperProps<T extends Pair> {
+interface ScheduleWrapperProps<T extends Pair> extends ScheduleComponentsProps<T> {
   schedule?: Schedule<T>;
 }
 
@@ -62,35 +63,55 @@ export const CurrentDayContainer = styled.div<{ $start: number }>`
   }
 `;
 
-const ScheduleTable = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) => {
+const ScheduleTable = <T extends Pair>({
+  schedule,
+  baseComponent: BaseComponent,
+  baseComponentExtended: BaseComponentExtended,
+}: ScheduleWrapperProps<T>) => {
   const { slice } = useSliceOptionsContext();
   const { currentWeek } = useWeekStore();
-  const { data } = useCurrentTime();
+  const { data: currentTime } = useCurrentTime();
+  const { data: timeSlots } = useTimeSlots();
   const [start, end] = slice;
 
-  const currentDayColumn = range(start, end + 1).indexOf(data?.currentDay || 0) + 1;
+  const currentDayColumn = range(start, end + 1).indexOf(currentTime?.currentDay || 0) + 1;
 
-  const generateScheduleRows = (scheduleMatrix: ScheduleMatrix) => {
-    return scheduleMatrix.map((item: ScheduleMatrixRow, i: number) => {
+  const generateScheduleRows = (scheduleMatrix: ScheduleMatrix<T>, timeSlots: string[]) => {
+    return scheduleMatrix.map((item: ScheduleMatrixRow<T>, i: number) => {
       const [start, end] = slice;
       const slicedDataset = item.slice(start - 1, end);
 
+      if (i + 1 > timeSlots?.length) {
+        return null;
+      }
+
       return (
         <React.Fragment key={i}>
-          <TimeDivider value={TIME_POINTS[i]} />
-          <ScheduleRow key={i} scheduleMatrixCell={slicedDataset} />
+          <TimeDivider value={timeSlots[i]} />
+          <ScheduleRow
+            key={i}
+            scheduleMatrixCell={slicedDataset}
+            baseComponent={BaseComponent}
+            baseComponentExtended={BaseComponentExtended}
+          />
         </React.Fragment>
       );
     });
   };
 
-  const weekSchedule = schedule ? schedule[weekValue[currentWeek]] : [];
+  if (!timeSlots?.length || !currentTime) {
+    return null;
+  }
+
+  const weekSchedule = schedule && currentWeek ? schedule[weekValue[currentWeek]] : [];
+
+  const scheduleMatrix = generateScheduleMatrix<T>(weekSchedule, timeSlots, currentTime.currentLesson);
 
   return (
     <GridContainer>
       {currentDayColumn ? <CurrentDayContainer $start={currentDayColumn} /> : null}
       <ScheduleHeader />
-      {generateScheduleRows(generateScheduleMatrix(weekSchedule, data?.currentLesson))}
+      {generateScheduleRows(scheduleMatrix, timeSlots)}
     </GridContainer>
   );
 };

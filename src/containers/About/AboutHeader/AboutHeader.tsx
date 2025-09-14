@@ -1,7 +1,6 @@
 import { DefaultMenu } from './DefaultMenu';
 import { Logo } from '../../../common/styles/styles';
 import { MobileMenu } from './MobileMenu';
-import logo from '../../../assets/logo.svg';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useRef } from 'react';
@@ -13,7 +12,7 @@ const HeaderWrapper = styled.header`
   padding: 28px 0px;
 `;
 
-const LogoWrapper = styled.a`
+const LogoLink = styled.a`
   width: 130px;
 `;
 
@@ -23,9 +22,9 @@ export const AboutHeader = () => {
 
   return (
     <HeaderWrapper ref={headerRef}>
-      <LogoWrapper href="/">
-        <Logo src={logo} alt="logo" />
-      </LogoWrapper>
+      <LogoLink href="/">
+        <Logo />
+      </LogoLink>
       <DefaultMenu pathname={pathname} />
       <MobileMenu pathname={pathname} anchor={headerRef} />
     </HeaderWrapper>
