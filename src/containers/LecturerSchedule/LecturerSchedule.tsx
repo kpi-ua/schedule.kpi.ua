@@ -9,7 +9,7 @@ export const LecturerSchedule = () => {
 
   return (
     <GridWrapper>
-      <ScheduleWrapper schedule={data?.data} />
+      <ScheduleWrapper schedule={data} />
     </GridWrapper>
   );
 };

@@ -47,10 +47,10 @@ export const GridContainer = styled.div`
   }
 `;
 
-export const CurrentDayContainer = styled.div<{ start: number }>`
+export const CurrentDayContainer = styled.div<{ $start: number }>`
   position: absolute;
   background: ${getValueFromTheme('currentDayContainer')};
-  grid-column: ${(props) => props.start} / span 1;
+  grid-column: ${(props) => props.$start} / span 1;
   width: calc(100% + 1.5rem);
   left: -0.75rem;
   top: -0.75rem;
@@ -68,7 +68,7 @@ const ScheduleTable = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) =>
   const { data } = useCurrentTime();
   const [start, end] = slice;
 
-  const currentDayColumn = range(start, end + 1).indexOf(data?.data.currentDay || 0) + 1;
+  const currentDayColumn = range(start, end + 1).indexOf(data?.currentDay || 0) + 1;
 
   const generateScheduleRows = (scheduleMatrix: ScheduleMatrix) => {
     return scheduleMatrix.map((item: ScheduleMatrixRow, i: number) => {
@@ -88,9 +88,9 @@ const ScheduleTable = <T extends Pair>({ schedule }: ScheduleWrapperProps<T>) =>
 
   return (
     <GridContainer>
-      {currentDayColumn ? <CurrentDayContainer start={currentDayColumn} /> : null}
+      {currentDayColumn ? <CurrentDayContainer $start={currentDayColumn} /> : null}
       <ScheduleHeader />
-      {generateScheduleRows(generateScheduleMatrix(weekSchedule, data?.data.currentLesson))}
+      {generateScheduleRows(generateScheduleMatrix(weekSchedule, data?.currentLesson))}
     </GridContainer>
   );
 };

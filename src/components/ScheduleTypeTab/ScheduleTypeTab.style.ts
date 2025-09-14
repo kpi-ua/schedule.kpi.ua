@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 
-export const Tab = styled.div<{ active: boolean }>`
+export const Tab = styled.div<{ $active: boolean }>`
   position: relative;
   font-weight: bold;
   font-size: 18px;
@@ -17,6 +17,6 @@ export const Tab = styled.div<{ active: boolean }>`
     border-radius: 6px;
     height: 2px;
     background-color: ${getValueFromTheme('secondaryFontColor')};
-    display: ${(props) => (props.active ? 'block' : 'none')};
+    display: ${(props) => (props.$active ? 'block' : 'none')};
   }
 `;

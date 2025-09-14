@@ -2,7 +2,7 @@ import './SearchSelect.scss';
 
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 import { ListOption } from '../../types/ListOption';
-import { Select } from 'react-select-virtualized';
+import Select from 'react-select';
 import { getSelectCustomStyle } from '../../common/constants/selectOptions';
 import { media } from '../../common/styles/styles';
 import styled from 'styled-components';
@@ -30,7 +30,9 @@ const SearchSelect = <T extends EntityWithNameAndId>({ options, value, onChange 
 
   const selectOptions = useMemo(() => options.map(({ id, name }) => ({ label: name, value: id })), [options]);
 
-  const handleChange = (option: ListOption<string>) => {
+  const handleChange = (option: ListOption<string> | null) => {
+    if (!option) return;
+    
     const item = options.find((x) => x.id === option.value);
 
     if (item) {

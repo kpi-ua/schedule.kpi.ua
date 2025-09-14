@@ -4,5 +4,4 @@ export interface LecturerProfile {
   fullName: string;
   photo: string;
   profile: string;
-  userIdentifier: string;
 }
