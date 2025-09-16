@@ -3,7 +3,6 @@ import Navbar from '../containers/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import { media } from '../common/styles/styles';
 import styled from 'styled-components';
-import { isNil } from 'lodash-es';
 import { useEffect } from 'react';
 import { useCurrentTime } from '../queries/useCurrentTime';
 import { useWeekStore } from '../store/weekStore';
@@ -23,14 +22,15 @@ const Container = styled.div`
 
 export const ScheduleLayout = () => {
   const { data, isLoading } = useCurrentTime();
-  const setCurrentWeek = useWeekStore((state) => state.setCurrentWeek);
+  const { setCurrentWeek, setActualWeek } = useWeekStore();
 
   useEffect(() => {
     if (!isLoading && data) {
       const week = data.currentWeek === 1 ? 'firstWeek' : 'secondWeek';
       setCurrentWeek(week);
+      setActualWeek(week);
     }
-  }, [data?.currentWeek, setCurrentWeek, isLoading]);
+  }, [data, isLoading]);
 
   return (
     <ScrollToTop>

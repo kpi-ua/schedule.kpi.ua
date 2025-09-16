@@ -13,7 +13,7 @@ export const RadioGroupWrapper = styled.div<{ $fullWidth?: boolean; $rounded?: b
   gap: 4px;
 `;
 
-export const RadioGroupOption = styled.div<{ $active: boolean; $rounded?: boolean }>`
+export const RadioGroupOption = styled.div<{ $active: boolean; $rounded?: boolean; $isActualValue?: boolean }>`
   flex-grow: 1;
   transition: 0.2s ease-in background-color;
   display: inline-flex;
@@ -53,6 +53,15 @@ export const RadioGroupOption = styled.div<{ $active: boolean; $rounded?: boolea
           color: #141518;
         `
       : ''};
+
+  ${(props) =>
+    props.$isActualValue &&
+    css`
+      text-decoration: underline;
+      text-decoration-color: ${getValueFromTheme('brand600')};
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    `};
 
   ${media.extraSmallMode} {
     padding: 6px;

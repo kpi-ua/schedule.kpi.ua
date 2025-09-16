@@ -10,6 +10,7 @@ export type Slice = [number, number];
 export interface SliceContext {
   slice: Slice;
   setSlice: (slice: Slice) => void;
+  actualSlice: Slice;
 }
 
 const defaultValue: Slice = [0, 0];
@@ -17,6 +18,7 @@ const defaultValue: Slice = [0, 0];
 const SliceOptionsContext = createContext<SliceContext>({
   slice: defaultValue,
   setSlice: () => ({}),
+  actualSlice: defaultValue,
 });
 
 export const useSliceOptionsContext = () => useContext(SliceOptionsContext);
@@ -48,19 +50,23 @@ const getCurrentSlice = (screenSize: ScreenSize, currendDay: number): Slice => {
 };
 
 export const SliceContextProvider = ({ children }: SliceContextProviderProps) => {
-  const { data } = useCurrentTime();
+  const { data, isLoading } = useCurrentTime();
   const { screenSize } = useScreenSize();
   const [slice, setSlice] = useState<Slice>(defaultValue);
+  const [actualSlice, setActualSlice] = useState<Slice>(defaultValue);
 
   useEffect(() => {
-    if (!isNil(data?.currentDay)) {
-      setSlice(getCurrentSlice(screenSize, data?.currentDay || 0));
+    if (!isLoading && data) {
+      const currentSlice = getCurrentSlice(screenSize, data.currentDay);
+      setSlice(currentSlice);
+      setActualSlice(currentSlice);
     }
-  }, [screenSize, data?.currentDay]);
+  }, [screenSize, data, isLoading]);
 
   const value: SliceContext = {
     slice,
     setSlice,
+    actualSlice,
   };
 
   return <SliceOptionsContext.Provider value={value}>{children}</SliceOptionsContext.Provider>;
