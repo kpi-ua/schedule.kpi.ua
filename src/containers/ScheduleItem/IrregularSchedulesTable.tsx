@@ -37,10 +37,9 @@ const DatesList = styled.div`
   font-size: 12px;
 `;
 
-type EventPeriod = 'past' | 'current' | 'future';
+type EventPeriod = 'current' | 'future';
 
 const EVENT_PERIODS: Record<EventPeriod, string> = {
-  past: 'минуле',
   current: 'сьогодні',
   future: 'наступне',
 };
@@ -52,14 +51,6 @@ const DateListItem = styled.div<{ $period: EventPeriod }>`
   opacity: 0.4;
 
   ${(props) =>
-    props.$period === 'past' &&
-    css`
-      time {
-        text-decoration: line-through;
-      }
-    `}
-
-  ${(props) =>
     props.$period === 'current' &&
     css`
       opacity: 1;
@@ -67,10 +58,6 @@ const DateListItem = styled.div<{ $period: EventPeriod }>`
 `;
 
 const getDatePeriod = (date: string): EventPeriod => {
-  if (dayjs().isAfter(date, 'date')) {
-    return 'past';
-  }
-
   if (dayjs().isBefore(date, 'date')) {
     return 'future';
   }
@@ -78,15 +65,19 @@ const getDatePeriod = (date: string): EventPeriod => {
   return 'current';
 };
 
+const sortByDates = (dates: string[]) => dates.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
+const filterFutureDates = (dates: string[]) =>
+  dates.filter((date) => dayjs().isBefore(date, 'date') || dayjs().isSame(date, 'date'));
+
 export const IrregularSchedulesTable = ({ dates }: IrregularSchedulesTableProps) => {
-  const sortedDates = useMemo(() => dates.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf()), [dates]);
+  const sortedFutureDates = useMemo(() => sortByDates(filterFutureDates(dates)), [dates]);
 
   return (
     <Wrapper>
       <Header>Розклад спец. занять</Header>
       <Divider />
       <DatesList>
-        {sortedDates.map((date) => {
+        {sortedFutureDates.map((date) => {
           const period = getDatePeriod(date);
           return (
             <DateListItem $period={period} key={date}>
