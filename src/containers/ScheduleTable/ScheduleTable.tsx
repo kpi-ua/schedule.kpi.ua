@@ -15,6 +15,7 @@ import { useWeekStore } from '../../store/weekStore';
 import { ScheduleMatrix, ScheduleMatrixRow } from '../../types/ScheduleMatrix';
 import { ScheduleComponentsProps } from '../../types/ScheduleComponentsProps';
 import { useTimeSlots } from '../../queries/useTimeSlots';
+import { convertServerTimeToWeek } from '../../common/utils/weekConverter';
 
 interface ScheduleWrapperProps<T extends Pair> extends ScheduleComponentsProps<T> {
   schedule?: Schedule<T>;
@@ -74,7 +75,10 @@ const ScheduleTable = <T extends Pair>({
   const { data: timeSlots } = useTimeSlots();
   const [start, end] = slice;
 
-  const currentDayColumn = range(start, end + 1).indexOf(currentTime?.currentDay || 0) + 1;
+  const isCurrentWeekSelected = convertServerTimeToWeek(currentTime?.currentWeek) === currentWeek;
+  const currentDayColumn = isCurrentWeekSelected
+    ? range(start, end + 1).indexOf(currentTime?.currentDay || 0) + 1
+    : undefined;
 
   const generateScheduleRows = (scheduleMatrix: ScheduleMatrix<T>, timeSlots: string[]) => {
     return scheduleMatrix.map((item: ScheduleMatrixRow<T>, i: number) => {
