@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
+import { filterFutureDates } from '../../common/utils/dateFilters';
 
 interface IrregularSchedulesTableProps {
   dates: string[];
@@ -66,11 +67,13 @@ const getDatePeriod = (date: string): EventPeriod => {
 };
 
 const sortByDates = (dates: string[]) => dates.sort((a, b) => dayjs(a).valueOf() - dayjs(b).valueOf());
-const filterFutureDates = (dates: string[]) =>
-  dates.filter((date) => dayjs().isBefore(date, 'date') || dayjs().isSame(date, 'date'));
 
 export const IrregularSchedulesTable = ({ dates }: IrregularSchedulesTableProps) => {
   const sortedFutureDates = useMemo(() => sortByDates(filterFutureDates(dates)), [dates]);
+
+  if (sortedFutureDates.length === 0) {
+    return null;
+  }
 
   return (
     <Wrapper>

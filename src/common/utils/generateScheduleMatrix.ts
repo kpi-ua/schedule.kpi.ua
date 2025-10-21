@@ -3,6 +3,7 @@ import { Pair } from '../../models/Pair';
 import { WeekSchedule } from '../../models/WeekSchedule';
 import dayjs from 'dayjs';
 import { ScheduleMatrix, ScheduleMatrixCell } from '../../types/ScheduleMatrix';
+import { hasFutureDates } from './dateFilters';
 
 export const generateScheduleMatrix = <T extends Pair>(
   weekSchedule: WeekSchedule<T>[],
@@ -20,13 +21,8 @@ export const generateScheduleMatrix = <T extends Pair>(
 
     schedule.pairs.forEach((pair) => {
       // Skip pairs with only past dates (irregular lessons that have already occurred)
-      if (pair.dates.length > 0) {
-        const hasFutureDates = pair.dates.some((date) =>
-          dayjs().isSameOrBefore(date, 'date')
-        );
-        if (!hasFutureDates) {
-          return; // Skip this pair
-        }
+      if (pair.dates.length > 0 && !hasFutureDates(pair.dates)) {
+        return; // Skip this pair
       }
 
       const xIndex = timeSlots.indexOf(pair.time);
