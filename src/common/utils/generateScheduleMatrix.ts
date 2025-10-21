@@ -19,6 +19,16 @@ export const generateScheduleMatrix = <T extends Pair>(
     const yIndex = DAYS.findIndex((item) => item === schedule.day);
 
     schedule.pairs.forEach((pair) => {
+      // Skip pairs with only past dates (irregular lessons that have already occurred)
+      if (pair.dates.length > 0) {
+        const hasFutureDates = pair.dates.some((date) =>
+          dayjs().isBefore(date, 'date') || dayjs().isSame(date, 'date')
+        );
+        if (!hasFutureDates) {
+          return; // Skip this pair
+        }
+      }
+
       const xIndex = timeSlots.indexOf(pair.time);
       const cell = scheduleMatrix[xIndex][yIndex];
       let newCell: ScheduleMatrixCell<T> | ScheduleMatrixCell<T>[] = {
