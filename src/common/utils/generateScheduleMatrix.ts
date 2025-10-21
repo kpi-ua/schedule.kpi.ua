@@ -22,7 +22,7 @@ export const generateScheduleMatrix = <T extends Pair>(
       // Skip pairs with only past dates (irregular lessons that have already occurred)
       if (pair.dates.length > 0) {
         const hasFutureDates = pair.dates.some((date) =>
-          dayjs().isBefore(date, 'date') || dayjs().isSame(date, 'date')
+          dayjs().isSameOrBefore(date, 'date')
         );
         if (!hasFutureDates) {
           return; // Skip this pair
