@@ -71,10 +71,6 @@ const sortByDates = (dates: string[]) => dates.sort((a, b) => dayjs(a).valueOf()
 export const IrregularSchedulesTable = ({ dates }: IrregularSchedulesTableProps) => {
   const sortedFutureDates = useMemo(() => sortByDates(filterFutureDates(dates)), [dates]);
 
-  if (sortedFutureDates.length === 0) {
-    return null;
-  }
-
   return (
     <Wrapper>
       <Header>Розклад спец. занять</Header>
