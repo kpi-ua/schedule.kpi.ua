@@ -17,5 +17,6 @@ export const useLastSyncDate = (groupId?: string) => {
 
       return groupSyncDate;
     },
+    refetchOnWindowFocus: false,
   });
 };

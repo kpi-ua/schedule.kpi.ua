@@ -9,5 +9,6 @@ export const useLecturerSchedule = (lecturerId?: string) => {
   return useQuery({
     queryKey: getQueryKey(lecturerId),
     queryFn: () => (lecturerId ? getScheduleByLecturer(lecturerId) : undefined),
+    refetchOnWindowFocus: false,
   });
 };

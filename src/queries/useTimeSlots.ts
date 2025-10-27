@@ -19,5 +19,6 @@ export const useTimeSlots = () => {
         ([, timeSlot]) => timeSlot,
       );
     },
+    refetchOnWindowFocus: false,
   });
 };

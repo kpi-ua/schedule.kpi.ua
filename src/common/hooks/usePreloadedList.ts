@@ -9,6 +9,7 @@ export const usePreloadedList = () => {
     queryFn: () => {
       return getAllGroups();
     },
+    refetchOnWindowFocus: false,
   });
 
   const { data: lecturers = [], isLoading: lecturersLoading } = useQuery<EntityWithNameAndId[]>({
@@ -16,6 +17,7 @@ export const usePreloadedList = () => {
     queryFn: () => {
       return getAllLecturers();
     },
+    refetchOnWindowFocus: false,
   });
 
   return { groups, lecturers, isLoading: groupsLoading || lecturersLoading };
