@@ -9,5 +9,6 @@ export const useStudentSchedule = (groupId?: string) => {
   return useQuery({
     queryKey: getQueryKey(groupId),
     queryFn: () => (groupId ? getScheduleByGroup(groupId) : undefined),
+    refetchOnWindowFocus: false,
   });
 };
