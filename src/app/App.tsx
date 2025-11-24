@@ -1,6 +1,8 @@
 /// <reference types="vite-plugin-svgr/client" />
 
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import ReactGA from 'react-ga4';
 
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 import { routes } from '../common/constants/routes';
@@ -24,7 +26,17 @@ export const Wrapper = styled.div`
 
 const queryClient = new QueryClient();
 
+// Initialize Google Analytics
+ReactGA.initialize('G-G0XZSN384K');
+
 function App() {
+  const location = useLocation();
+
+  // Track page views on route change
+  useEffect(() => {
+    ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+  }, [location]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme['light']}>
