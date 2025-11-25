@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import ReactGA from 'react-ga4';
 
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
@@ -27,18 +27,26 @@ export const Wrapper = styled.div`
 
 const queryClient = new QueryClient();
 
-// Initialize Google Analytics
-ReactGA.initialize(GA_TRACKING_ID);
-
 function App() {
   const location = useLocation();
+  const isGAInitialized = useRef(false);
+
+  // Initialize Google Analytics once
+  useEffect(() => {
+    if (GA_TRACKING_ID && !isGAInitialized.current) {
+      ReactGA.initialize(GA_TRACKING_ID);
+      isGAInitialized.current = true;
+    }
+  }, []);
 
   // Track page views on route change
   useEffect(() => {
-    try {
-      ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
-    } catch (error) {
-      console.error('Failed to send pageview to Google Analytics:', error);
+    if (isGAInitialized.current) {
+      try {
+        ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+      } catch (error) {
+        console.error('Failed to send pageview to Google Analytics:', error);
+      }
     }
   }, [location]);
 
