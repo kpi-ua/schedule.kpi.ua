@@ -6,6 +6,7 @@ import ReactGA from 'react-ga4';
 
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 import { routes } from '../common/constants/routes';
+import { GA_TRACKING_ID } from '../common/constants/config';
 import styled, { ThemeProvider } from 'styled-components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { theme } from '../common/constants/theme';
@@ -27,14 +28,18 @@ export const Wrapper = styled.div`
 const queryClient = new QueryClient();
 
 // Initialize Google Analytics
-ReactGA.initialize('G-G0XZSN384K');
+ReactGA.initialize(GA_TRACKING_ID);
 
 function App() {
   const location = useLocation();
 
   // Track page views on route change
   useEffect(() => {
-    ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+    try {
+      ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+    } catch (error) {
+      console.error('Failed to send pageview to Google Analytics:', error);
+    }
   }, [location]);
 
   return (
