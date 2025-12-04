@@ -1,9 +1,12 @@
 /// <reference types="vite-plugin-svgr/client" />
 
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import ReactGA from 'react-ga4';
 
 import { getValueFromTheme } from '../common/utils/getValueFromTheme';
 import { routes } from '../common/constants/routes';
+import { GA_TRACKING_ID } from '../common/constants/config';
 import styled, { ThemeProvider } from 'styled-components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { theme } from '../common/constants/theme';
@@ -25,6 +28,28 @@ export const Wrapper = styled.div`
 const queryClient = new QueryClient();
 
 function App() {
+  const location = useLocation();
+  const isGAInitialized = useRef(false);
+
+  // Initialize Google Analytics once
+  useEffect(() => {
+    if (GA_TRACKING_ID && !isGAInitialized.current) {
+      ReactGA.initialize(GA_TRACKING_ID);
+      isGAInitialized.current = true;
+    }
+  }, []);
+
+  // Track page views on route change
+  useEffect(() => {
+    if (isGAInitialized.current) {
+      try {
+        ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+      } catch (error) {
+        console.error('Failed to send pageview to Google Analytics:', error);
+      }
+    }
+  }, [location]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme['light']}>

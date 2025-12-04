@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.campus.kpi.ua';
+import { BASE_URL } from '../common/constants/config';
 
 const defaultHeaders = {
   'Content-Type': 'application/json',
