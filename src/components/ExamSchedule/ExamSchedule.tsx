@@ -23,8 +23,11 @@ interface Props {
   exam: Exam;
 }
 
+const getDaysLeft = (examDate: string) =>
+  dayjs(examDate).startOf('day').diff(dayjs().startOf('day'), 'day');
+
 const renderDaysLeft = (examDate: string) => {
-  const daysLeft = dayjs(examDate).startOf('day').diff(dayjs().startOf('day'), 'day');
+  const daysLeft = getDaysLeft(examDate);
 
   if (daysLeft < 0) {
     return <strong>Завершено</strong>;
@@ -49,9 +52,10 @@ const renderDaysLeft = (examDate: string) => {
 };
 
 const ExamSchedule = ({ exam }: Props) => {
-  const { subject, lecturerName, room, daysLeft } = exam;
+  const { subject, lecturerName, room } = exam;
 
   const date = dayjs(exam.date);
+  const daysLeft = getDaysLeft(exam.date);
 
   return (
     <CardWrapper $pastEvent={daysLeft < 0}>
