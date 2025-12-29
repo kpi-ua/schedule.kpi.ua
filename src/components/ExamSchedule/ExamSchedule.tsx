@@ -26,9 +26,7 @@ interface Props {
 const getDaysLeft = (examDate: string) =>
   dayjs(examDate).startOf('day').diff(dayjs().startOf('day'), 'day');
 
-const renderDaysLeft = (examDate: string) => {
-  const daysLeft = getDaysLeft(examDate);
-
+const renderDaysLeft = (daysLeft: number) => {
   if (daysLeft < 0) {
     return <strong>Завершено</strong>;
   }
@@ -81,7 +79,7 @@ const ExamSchedule = ({ exam }: Props) => {
         <CardDate>
           <Year>{date.year()}</Year>
           <Date>{date.format('DD MMMM')}</Date>
-          <DaysLeft>{renderDaysLeft(exam.date)}</DaysLeft>
+          <DaysLeft>{renderDaysLeft(daysLeft)}</DaysLeft>
         </CardDate>
       </DateWrapper>
     </CardWrapper>
