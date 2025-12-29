@@ -23,13 +23,17 @@ interface Props {
   exam: Exam;
 }
 
-const renderDaysLeft = (value: number) => {
+const renderDaysLeft = (value: number, examDate: string) => {
   if (value < 0) {
     return <strong>Завершено</strong>;
   }
 
   if (value === 0) {
-    return <strong>Сьогодні</strong>;
+    const isToday = dayjs(examDate).isSame(dayjs(), 'day');
+    if (isToday) {
+      return <strong>Сьогодні</strong>;
+    }
+    return <strong>Завтра</strong>;
   }
 
   return (
@@ -71,7 +75,7 @@ const ExamSchedule = ({ exam }: Props) => {
         <CardDate>
           <Year>{date.year()}</Year>
           <Date>{date.format('DD MMMM')}</Date>
-          <DaysLeft>{renderDaysLeft(daysLeft)}</DaysLeft>
+          <DaysLeft>{renderDaysLeft(daysLeft, exam.date)}</DaysLeft>
         </CardDate>
       </DateWrapper>
     </CardWrapper>
