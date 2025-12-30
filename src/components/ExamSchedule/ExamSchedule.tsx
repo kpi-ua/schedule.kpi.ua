@@ -23,19 +23,26 @@ interface Props {
   exam: Exam;
 }
 
-const renderDaysLeft = (value: number) => {
-  if (value < 0) {
+const getDaysLeft = (examDate: string) =>
+  dayjs(examDate).startOf('day').diff(dayjs().startOf('day'), 'day');
+
+const renderDaysLeft = (daysLeft: number) => {
+  if (daysLeft < 0) {
     return <strong>Завершено</strong>;
   }
 
-  if (value === 0) {
+  if (daysLeft === 0) {
     return <strong>Сьогодні</strong>;
+  }
+
+  if (daysLeft === 1) {
+    return <strong>Завтра</strong>;
   }
 
   return (
     <>
       <strong>
-        {value} {pluralizeDays(value)}
+        {daysLeft} {pluralizeDays(daysLeft)}
       </strong>{' '}
       до початку
     </>
@@ -43,9 +50,10 @@ const renderDaysLeft = (value: number) => {
 };
 
 const ExamSchedule = ({ exam }: Props) => {
-  const { subject, lecturerName, room, daysLeft } = exam;
+  const { subject, lecturerName, room } = exam;
 
   const date = dayjs(exam.date);
+  const daysLeft = getDaysLeft(exam.date);
 
   return (
     <CardWrapper $pastEvent={daysLeft < 0}>
