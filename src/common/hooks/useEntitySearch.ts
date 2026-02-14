@@ -24,7 +24,7 @@ export const useEntitySearch = <T extends EntityWithNameAndId>(
     if (!itemId) {
       return;
     }
-    const group = items.find(({ id }) => id === itemId);
+    const group = items.find(({ id }) => String(id) === itemId);
     setValue(group);
   }, [items, itemId]);
 
