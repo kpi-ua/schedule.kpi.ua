@@ -55,7 +55,7 @@ function App() {
       <ThemeProvider theme={theme['light']}>
         <Wrapper>
           <Routes>
-            <Route path="/" element={<ScheduleLayout />}>
+            <Route path="/*" element={<ScheduleLayout />}>
               <Route index element={<GroupSchedule />} />
               <Route path={routes.SESSION} element={<ScheduleExams />} />
               <Route path={routes.LECTURER} element={<LecturerSchedule />} />
