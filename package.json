@@ -6,7 +6,7 @@
   "dependencies": {
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "normalize.css": "^8.0.1",
     "qs": "^6.14.0",
     "react": "^18.3.1",
