@@ -109,7 +109,11 @@ const ScheduleTable = <T extends Pair>({
 
   const weekSchedule = schedule && currentWeek ? schedule[weekValue[currentWeek]] : [];
 
-  const scheduleMatrix = generateScheduleMatrix<T>(weekSchedule, timeSlots, currentTime.currentLesson);
+  const scheduleMatrix = generateScheduleMatrix<T>(
+    weekSchedule,
+    timeSlots,
+    isCurrentWeekSelected ? currentTime.currentLesson : undefined,
+  );
 
   return (
     <GridContainer>
