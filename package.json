@@ -19,7 +19,7 @@
     "react-virtualized": "^9.22.3",
     "styled-components": "^6.1.17",
     "styled-system": "^5.1.5",
-    "zustand": "^5.0.3"
+    "zustand": "^5.0.12"
   },
   "scripts": {
     "dev": "vite",
