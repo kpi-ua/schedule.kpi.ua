@@ -7,7 +7,7 @@ import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
 export const Contacts = () => (
   <TwoColumnsLayout>
     <article>
-      <Header1>schedule.kpi.ua</Header1>
+      <Header1>Контакти</Header1>
       <Paragraph>
         <strong>e-mail:</strong> <a href="mailto:kbis@edu.kpi.ua">kbis@edu.kpi.ua</a>
       </Paragraph>
