@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { CSSObjectWithLabel } from 'react-select';
+import type { DefaultTheme } from 'styled-components';
 
-export const getSelectCustomStyle = (theme: any) => ({
-  option(base: any) {
+export const getSelectCustomStyle = (theme: DefaultTheme) => ({
+  option(base: CSSObjectWithLabel) {
     return {
       ...base,
       color: theme['secondaryFontColor'],
     };
   },
-  menu(base: any) {
+  menu(base: CSSObjectWithLabel) {
     return {
       ...base,
       color: theme['secondaryFontColor'],
@@ -23,14 +24,14 @@ export const getSelectCustomStyle = (theme: any) => ({
       zIndex: 1000,
     };
   },
-  menuList(base: any) {
+  menuList(base: CSSObjectWithLabel) {
     return {
       ...base,
       backgroundColor: theme['bgOptions'],
       zIndex: 1000,
     };
   },
-  control(base: any) {
+  control(base: CSSObjectWithLabel) {
     return {
       ...base,
       borderRadius: 8,
@@ -43,19 +44,19 @@ export const getSelectCustomStyle = (theme: any) => ({
       paddingBottom: 2,
     };
   },
-  indicatorSeparator(base: any) {
+  indicatorSeparator(base: CSSObjectWithLabel) {
     return {
       ...base,
       display: 'none',
     };
   },
-  singleValue(base: any) {
+  singleValue(base: CSSObjectWithLabel) {
     return {
       ...base,
       color: theme['secondaryFontColor'],
     };
   },
-  input(base: any) {
+  input(base: CSSObjectWithLabel) {
     return {
       ...base,
       color: theme['secondaryFontColor'],

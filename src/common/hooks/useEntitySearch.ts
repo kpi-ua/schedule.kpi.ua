@@ -11,7 +11,7 @@ export const useEntitySearch = <T extends EntityWithNameAndId>(
 ) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const itemId: string = searchParams.get(storageKey) || getLocalStorageItem(storageKey);
+  const itemId = searchParams.get(storageKey) || getLocalStorageItem<string>(storageKey);
 
   useEffect(() => {
     if (!itemId) {

@@ -1,6 +1,6 @@
-import { Theme } from '../../types/Theme';
+type Theme = 'light';
 
-export const theme: Record<Theme, object> = {
+export const theme = {
   light: {
     bgPrimary: '#ffffff',
     bgHeader: '#ffffff',
@@ -65,4 +65,6 @@ export const theme: Record<Theme, object> = {
     currentDayContainer: 'linear-gradient(180deg, rgba(238,238,247,1) 0%, rgba(238,238,247,0.5) 100%);',
     svgPrimaryFilter: '',
   }
-};
+} as const satisfies Record<Theme, Record<string, string>>;
+
+export type ThemeKey = keyof (typeof theme)[Theme];
