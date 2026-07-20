@@ -1,4 +1,3 @@
-import { EmptyElement } from './ScheduleRow.style';
 import { Pair } from '../../models/Pair';
 import { UnknownScheduleMatrixCell } from '../../types/ScheduleMatrix';
 import { ScheduleComponentsProps } from '../../types/ScheduleComponentsProps';
@@ -19,7 +18,11 @@ const ScheduleRow = <T extends Pair>({
           return <BaseComponentExtended key={index} scheduleMatrixCell={item} />;
         }
 
-        return item ? <BaseComponent key={index} scheduleMatrixCell={item} /> : <EmptyElement key={index} />;
+        return item ? (
+          <BaseComponent key={index} scheduleMatrixCell={item} />
+        ) : (
+          <div className="h-[150px]" key={index} />
+        );
       })}
     </>
   );
