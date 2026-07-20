@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 export const AboutLayout = () => (
   <div className="flex min-h-screen flex-col items-center bg-white">
-    <section className="flex w-full justify-center shadow-[0_3px_2px_-2px_var(--color-shadow-color)]">
+    <section className="flex w-full justify-center shadow-header">
       <section className="flex w-full max-w-7xl grow flex-col px-9 max-[639px]:px-4">
         <AboutHeader />
       </section>

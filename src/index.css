@@ -3,6 +3,5 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme {
-  --color-bg-header: #ffffff;
-  --color-shadow-color: #eaeaea;
+  --shadow-header: 0 3px 2px -2px #eaeaea;
 }
