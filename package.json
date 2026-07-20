@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
@@ -68,6 +69,7 @@
     "globals": "^15.14.0",
     "prettier": "3.4.2",
     "sass-embedded": "^1.83.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "~5.7.3",
     "typescript-eslint": "^8.19.1",
     "vite": "^6.0.11",
