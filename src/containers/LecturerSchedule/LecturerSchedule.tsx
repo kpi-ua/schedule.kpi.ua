@@ -1,5 +1,4 @@
-import { GridWrapper } from '../ScheduleWrapper/ScheduleWrapper.style';
-import ScheduleWrapper from '../ScheduleWrapper';
+import ScheduleWrapper, { ScheduleGrid } from '../ScheduleWrapper/ScheduleWrapper';
 import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
 import { useStore } from '../../store';
 import LecturerScheduleItem from '../ScheduleItem/LecturerScheduleItem';
@@ -10,12 +9,12 @@ export const LecturerSchedule = () => {
   const { data } = useLecturerSchedule(lecturer?.id);
 
   return (
-    <GridWrapper>
+    <ScheduleGrid>
       <ScheduleWrapper
         schedule={data}
         baseComponent={LecturerScheduleItem}
         baseComponentExtended={LecturerScheduleItemExtended}
       />
-    </GridWrapper>
+    </ScheduleGrid>
   );
 };
