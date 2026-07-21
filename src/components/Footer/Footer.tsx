@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import LogoIcon from '../../assets/footer-logo.svg?react';
 
 const footerSectionClassName =
-  'basis-[260px] max-xs:basis-auto max-xs:text-center [&_a]:text-white [&_a:hover]:text-white [&_a:active]:text-white [&_p]:mt-0 [&_p]:mb-4 [&_p:last-child]:mb-0';
+  'basis-[260px] max-xs:basis-auto max-xs:text-center [&_a]:text-white [&_a:hover]:text-white [&_a:active]:text-white [&_p]:mt-0 [&_p]:mb-4 [&_p]:text-xs [&_p]:leading-normal [&_p]:font-normal [&_p:last-child]:mb-0';
 
 export const Footer = () => {
   return (

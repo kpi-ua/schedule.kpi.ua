@@ -58,4 +58,8 @@
   h1 {
     @apply mb-4 text-[40px] leading-12;
   }
+
+  p {
+    @apply my-2.5 text-base leading-6 font-medium;
+  }
 }
