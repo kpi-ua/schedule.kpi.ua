@@ -26,7 +26,7 @@ const LecturerSearch = () => {
   };
 
   return (
-    <div className="flex gap-2 max-xs:w-full max-xs:flex-row-reverse">
+    <div className="flex gap-2 max-sm:w-full max-sm:flex-row-reverse">
       <Button
         variant="secondary"
         size="sm"

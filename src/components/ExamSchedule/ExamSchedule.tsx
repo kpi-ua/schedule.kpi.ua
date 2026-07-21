@@ -44,7 +44,7 @@ const ExamSchedule = ({ exam }: Props) => {
   return (
     <div
       className={cn(
-        'flex w-full max-w-[700px] flex-row items-stretch justify-between gap-4 rounded-2xl border border-neutral-200 bg-bg-card p-4 shadow-schedule-item max-xs:flex-col-reverse',
+        'flex w-full max-w-[700px] flex-row items-stretch justify-between gap-4 rounded-2xl border border-neutral-200 bg-bg-card p-4 shadow-schedule-item max-sm:flex-col-reverse',
         daysLeft < 0 && 'opacity-50',
       )}
     >
@@ -66,7 +66,7 @@ const ExamSchedule = ({ exam }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex border-l border-neutral-divider pl-8 max-xs:border-l-0 max-xs:pl-0">
+      <div className="flex border-l border-neutral-divider pl-8 max-sm:border-l-0 max-sm:pl-0">
         <div className="flex min-w-[150px] flex-col self-center text-black">
           <span className="text-[13px] leading-[18px] font-semibold">{date.year()}</span>
           <span className="mt-px mb-1.5 text-2xl leading-8 font-semibold">{date.format('DD MMMM')}</span>

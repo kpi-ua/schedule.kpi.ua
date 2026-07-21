@@ -17,7 +17,7 @@ const ScheduleExams = () => {
 
   return (
     <ScheduleGrid>
-      <h1 className="mx-4 my-8 text-center text-2xl leading-8 font-semibold text-neutral-900 xs:mx-8 xs:my-16 xs:text-4xl xs:leading-10">
+      <h1 className="mx-4 my-8 text-center text-2xl leading-8 font-semibold text-neutral-900 sm:mx-8 sm:my-16 sm:text-4xl sm:leading-10">
         {exams && exams.length > 0 ? (
           <>
             Розклад сесії для групи <span className="font-semibold text-black">{group?.name}</span>
@@ -29,7 +29,7 @@ const ScheduleExams = () => {
           </>
         )}
       </h1>
-      <div className="mx-4 mb-4 flex flex-col items-center gap-10 xs:mx-8 xs:mb-8">
+      <div className="mx-4 mb-4 flex flex-col items-center gap-10 sm:mx-8 sm:mb-8">
         {exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}
       </div>
     </ScheduleGrid>

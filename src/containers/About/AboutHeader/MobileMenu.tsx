@@ -26,7 +26,7 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
   return (
     <Sheet modal={false} open={menuOpen} onOpenChange={handleOpenChange}>
       <SheetTrigger asChild>
-        <button className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 xs:hidden">
+        <button className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 sm:hidden">
           {menuOpen ? <XIcon /> : <BurgerIcon />}
         </button>
       </SheetTrigger>

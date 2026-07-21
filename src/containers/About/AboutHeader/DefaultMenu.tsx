@@ -7,7 +7,7 @@ interface DefaultMenuProps {
 
 export const DefaultMenu = ({ pathname }: DefaultMenuProps) => {
   return (
-    <nav className="flex gap-4 max-xs:hidden">
+    <nav className="flex gap-4 max-sm:hidden">
       {NAV_LINKS.map(({ path, title }) => (
         <MenuLink key={path} className={pathname === path ? 'selected' : ''} href={path}>
           {title}

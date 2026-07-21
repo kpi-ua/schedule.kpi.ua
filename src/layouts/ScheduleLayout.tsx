@@ -21,7 +21,7 @@ export const ScheduleLayout = () => {
   return (
     <ScrollToTop>
       <Navbar />
-      <div className="m-9 flex grow flex-col max-xs:m-4">
+      <div className="m-9 flex grow flex-col max-sm:m-4">
         <Outlet />
         <Legend />
       </div>

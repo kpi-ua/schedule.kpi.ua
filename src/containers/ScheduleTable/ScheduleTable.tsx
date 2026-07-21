@@ -75,10 +75,10 @@ const ScheduleTable = <T extends Pair>({
   );
 
   return (
-    <div className="relative m-3 grid grid-cols-1 gap-x-6 gap-y-2.5 pl-[60px] xs:grid-cols-2 xs:pl-[100px] min-[989px]:grid-cols-3 min-[1441px]:grid-cols-6">
+    <div className="relative m-3 grid grid-cols-1 gap-x-6 gap-y-2.5 pl-[60px] sm:grid-cols-2 sm:pl-[100px] lg:grid-cols-3 2xl:grid-cols-6">
       {currentDayColumn ? (
         <div
-          className="absolute top-0 -bottom-3 -left-3 z-0 w-[calc(100%+1.5rem)] bg-current-day xs:-top-3"
+          className="absolute top-0 -bottom-3 -left-3 z-0 w-[calc(100%+1.5rem)] bg-current-day sm:-top-3"
           style={{ gridColumn: `${currentDayColumn} / span 1` }}
         />
       ) : null}

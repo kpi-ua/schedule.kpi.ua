@@ -11,7 +11,7 @@ export const ScheduleHeader = () => {
   return (
     <React.Fragment>
       {slicedDays.map((item) => (
-        <div className="z-2 hidden py-6 text-center text-[18px] font-semibold text-primary-font xs:block" key={item}>
+        <div className="z-2 hidden py-6 text-center text-[18px] font-semibold text-primary-font sm:block" key={item}>
           {item}
         </div>
       ))}

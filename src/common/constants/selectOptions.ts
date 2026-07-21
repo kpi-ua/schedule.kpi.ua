@@ -4,19 +4,19 @@ export const getSelectCustomStyle = () => ({
   option(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: '#000000',
+      color: 'var(--color-black)',
       whiteSpace: 'nowrap' as const,
     };
   },
   menu(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: '#000000',
+      color: 'var(--color-black)',
       '& .fast-option-focused': {
-        color: '#000000',
+        color: 'var(--color-black)',
       },
       '& .fast-option-selected': {
-        color: '#ffffff',
+        color: 'var(--color-white)',
         fontWeight: 'bold',
         // background color can be also changed if needed
       },
@@ -38,8 +38,8 @@ export const getSelectCustomStyle = () => ({
       borderWidth: 1,
       borderStyle: 'solid',
       borderColor: 'var(--color-neutral-300)',
-      backgroundColor: '#ffffff',
-      color: '#000000',
+      backgroundColor: 'var(--color-white)',
+      color: 'var(--color-black)',
       paddingTop: 2,
       paddingBottom: 2,
     };
@@ -53,13 +53,13 @@ export const getSelectCustomStyle = () => ({
   singleValue(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: '#000000',
+      color: 'var(--color-black)',
     };
   },
   input(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: '#000000',
+      color: 'var(--color-black)',
     };
   },
 });

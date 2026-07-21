@@ -27,7 +27,7 @@ const SearchSelect = <T extends EntityWithNameAndId>({ options, value, onChange 
   const selectedValue = selectOptions.find((item) => value?.id === item.value) || null;
 
   return (
-    <div className="min-w-[300px] grow max-xs:w-full max-xs:min-w-0">
+    <div className="min-w-[300px] grow max-sm:w-full max-sm:min-w-0">
       <Select
         options={selectOptions}
         onChange={handleChange}
