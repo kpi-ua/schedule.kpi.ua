@@ -38,13 +38,13 @@ export const SubjectTypeBadge = ({ dates, type, children }: Props) => {
     return (
       <div
         className={cn(
-          'flex items-center gap-1.5 rounded-lg py-0.75 pr-0.75 pl-1.5 text-center font-medium -outline-offset-1 outline-solid outline-1',
+          'flex items-center gap-[6px] rounded-[8px] py-[3px] pr-[3px] pl-[6px] text-center leading-[1.43] font-medium -outline-offset-1 outline-solid outline-1',
           styles.foreground,
         )}
       >
         <CalendarBlank />
         {children}
-        <span className={cn('self-stretch rounded-md px-2.5 font-medium text-white', styles.background)}>
+        <span className={cn('self-stretch rounded-[6px] px-[10px] font-medium text-white', styles.background)}>
           {getCurrentLesson(dates)}/{dates.length}
         </span>
       </div>
@@ -52,7 +52,12 @@ export const SubjectTypeBadge = ({ dates, type, children }: Props) => {
   }
 
   return (
-    <div className={cn('rounded-lg px-2.5 py-0.75 text-center font-medium text-white', styles.background)}>
+    <div
+      className={cn(
+        'rounded-[8px] px-[10px] py-[3px] text-center leading-[1.43] font-medium text-white',
+        styles.background,
+      )}
+    >
       {children}
     </div>
   );

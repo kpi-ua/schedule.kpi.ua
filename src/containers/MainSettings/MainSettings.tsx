@@ -28,8 +28,8 @@ const MainSettings = () => {
   };
 
   return (
-    <div className="flex grow flex-col items-center gap-6 max-[988px]:w-full">
-      <nav className="flex max-w-[calc(100vw-3rem)] snap-x snap-mandatory items-center justify-between gap-9 overflow-x-scroll whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex grow flex-col items-center gap-[24px] leading-[1.43] max-[988px]:w-full">
+      <nav className="flex max-w-[calc(100vw-3rem)] snap-x snap-mandatory items-center justify-between gap-[37px] overflow-x-scroll whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {scheduleLinks.map(({ value, label }) => (
           <NavLink
             end={value === routes.INDEX}
@@ -37,7 +37,7 @@ const MainSettings = () => {
             to={getLinkUrl(value)}
             className={({ isActive }) =>
               cn(
-                "relative cursor-pointer snap-center text-[18px] font-bold tracking-[0.01em] text-black no-underline snap-always after:top-[-12px] after:hidden after:h-0.5 after:rounded-md after:bg-black after:content-['']",
+                "relative cursor-pointer snap-center text-[18px] leading-[1.43] font-bold tracking-[0.01em] text-black no-underline snap-always after:top-[-12px] after:hidden after:h-[2px] after:rounded-[6px] after:bg-black after:content-['']",
                 isActive && 'after:block',
               )
             }
@@ -53,7 +53,7 @@ const MainSettings = () => {
           </NavLink>
         ))}
       </nav>
-      <div className="flex gap-5 max-[988px]:flex-col max-[988px]:items-center max-xs:w-full">
+      <div className="flex gap-[20px] max-[988px]:flex-col max-[988px]:items-center max-xs:w-full">
         <Routes>
           <Route
             index
