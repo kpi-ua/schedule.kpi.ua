@@ -1,16 +1,17 @@
 import { parseTime } from '../../common/utils/parseTime';
-import { Container, Divider, InnerContainer, TimeCell } from './TimeDivider.style';
 
 const TimeDivider = ({ value }: { value: string }) => {
   const parsedTime = parseTime(value);
 
   return (
-    <Container>
-      <InnerContainer>
-        <TimeCell>{parsedTime?.format('HH:mm')}</TimeCell>
-        <Divider />
-      </InnerContainer>
-    </Container>
+    <div className="relative col-[1/-1] self-start">
+      <div className="absolute -top-[13px] right-0 -left-[65px] flex items-center xs:-top-[17px] xs:-left-[90px]">
+        <div className="flex items-center justify-center rounded-full bg-brand-600 px-[5px] py-[3px] font-semibold text-white xs:px-[11px] xs:py-2">
+          {parsedTime?.format('HH:mm')}
+        </div>
+        <div className="w-full border-0 border-t border-dashed border-neutral-400" />
+      </div>
+    </div>
   );
 };
 
