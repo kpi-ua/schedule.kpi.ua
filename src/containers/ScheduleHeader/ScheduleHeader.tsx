@@ -1,5 +1,4 @@
 import React from 'react';
-import { WeekDay } from './WeekDay';
 import { useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
 
 const DAYS = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота'];
@@ -12,7 +11,9 @@ export const ScheduleHeader = () => {
   return (
     <React.Fragment>
       {slicedDays.map((item) => (
-        <WeekDay key={item}>{item}</WeekDay>
+        <div className="z-2 hidden py-6 text-center text-[18px] font-semibold text-primary-font xs:block" key={item}>
+          {item}
+        </div>
       ))}
     </React.Fragment>
   );
