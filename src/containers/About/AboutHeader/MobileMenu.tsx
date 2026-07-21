@@ -18,7 +18,7 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
   return (
     <>
       <button
-        className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 min-[639px]:hidden"
+        className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 xs:hidden"
         onClick={() => setMenuOpen((prev) => !prev)}
       >
         {menuOpen ? <XIcon /> : <BurgerIcon />}

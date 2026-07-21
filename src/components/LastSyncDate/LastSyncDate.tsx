@@ -23,7 +23,7 @@ export const LastSyncDate = () => {
   };
 
   return (
-    <div className="text-xs text-[#808191]">
+    <div className="text-xs text-neutral-600">
       <span>{renderValue()}</span>
     </div>
   );

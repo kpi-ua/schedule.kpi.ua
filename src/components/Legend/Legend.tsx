@@ -1,5 +1,5 @@
 import LastSyncDate from '../LastSyncDate';
-import { LessonsCount, SubjectTypeBadge } from '../SubjectTypeBadge/SubjectTypeBadge';
+import { SubjectTypeBadge } from '../SubjectTypeBadge/SubjectTypeBadge';
 import { SubjectType } from '../../models/Pair';
 import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
 import dayjs from 'dayjs';
@@ -23,9 +23,7 @@ export const Legend = () => {
           <span>Непостійний тип заняття</span>
         </div>
         <div className="flex items-center justify-start gap-2">
-          <div className="[--accent-color:#949dff] [&>span]:py-0.5">
-            <LessonsCount>1/3</LessonsCount>
-          </div>
+          <span className="self-stretch rounded-md bg-other-purple px-2.5 py-0.5 font-medium text-white">1/3</span>
           <span>Серія непостійних занять</span>
         </div>
       </div>

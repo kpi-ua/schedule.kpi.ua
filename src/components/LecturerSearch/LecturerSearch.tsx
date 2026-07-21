@@ -26,7 +26,7 @@ const LecturerSearch = () => {
   };
 
   return (
-    <div className="flex gap-2 max-[639px]:w-full max-[639px]:flex-row-reverse">
+    <div className="flex gap-2 max-xs:w-full max-xs:flex-row-reverse">
       <Button $type="secondary" $size="sm" disabled={isLoading || !lecturerProfile} onClick={handleGoToLecturerProfile}>
         <Link />
       </Button>
