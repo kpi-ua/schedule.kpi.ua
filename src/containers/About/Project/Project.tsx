@@ -1,5 +1,4 @@
 import { CampusPhoto } from '../common/CampusPhoto';
-import { Header1 } from '../../../components/typography/Header';
 import { Paragraph } from '../../../components/typography/Paragraph';
 import { PhotoWrapper } from '../common/PhotoWrapper';
 import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
@@ -7,7 +6,7 @@ import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
 export const Project = () => (
   <TwoColumnsLayout>
     <article>
-      <Header1>Про проєкт</Header1>
+      <h1>Про проєкт</h1>
       <Paragraph>Вітаємо на офіційному сайті розкладу занять КПІ ім. Ігоря Сікорського!</Paragraph>
       <Paragraph>
         Цей сервіс створено для зручного доступу студентам, викладачам та працівникам університету до інформації щодо

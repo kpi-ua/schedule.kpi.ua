@@ -1,4 +1,4 @@
-@layer theme, utilities;
+@layer theme, base, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
@@ -36,5 +36,11 @@
     to {
       height: 0;
     }
+  }
+}
+
+@layer base {
+  h1 {
+    @apply mb-4 text-[40px] leading-12;
   }
 }

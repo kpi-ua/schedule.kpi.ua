@@ -1,5 +1,4 @@
 import { CampusPhoto } from '../common/CampusPhoto';
-import { Header1 } from '../../../components/typography/Header';
 import { Paragraph } from '../../../components/typography/Paragraph';
 import { PhotoWrapper } from '../common/PhotoWrapper';
 import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
@@ -7,7 +6,7 @@ import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
 export const Contacts = () => (
   <TwoColumnsLayout>
     <article>
-      <Header1>Контакти</Header1>
+      <h1>Контакти</h1>
       <Paragraph>
         <strong>e-mail:</strong> <a href="mailto:kbis@edu.kpi.ua">kbis@edu.kpi.ua</a>
       </Paragraph>
