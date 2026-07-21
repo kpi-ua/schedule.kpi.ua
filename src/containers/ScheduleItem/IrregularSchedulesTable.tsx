@@ -1,42 +1,11 @@
-import styled, { css } from 'styled-components';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { isDateTodayOrFuture } from '../../common/utils/dateFilters';
+import { cn } from '../../common/utils/cn';
 
 interface IrregularSchedulesTableProps {
   dates: string[];
 }
-
-const Wrapper = styled.div`
-  padding: 8px;
-  border-radius: 8px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: ${getValueFromTheme('neutral100')};
-  background-color: ${getValueFromTheme('neutral50')};
-  color: ${getValueFromTheme('primaryFontColor')};
-  font-size: 13px;
-`;
-
-const Header = styled.span`
-  font-weight: 600;
-`;
-
-const Divider = styled.hr`
-  margin: 0;
-  border: none;
-  height: 1px;
-  background: ${getValueFromTheme('neutral100')};
-  margin: 8px 0px;
-`;
-
-const DatesList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 12px;
-`;
 
 type EventPeriod = 'current' | 'future';
 
@@ -44,19 +13,6 @@ const EVENT_PERIODS: Record<EventPeriod, string> = {
   current: 'сьогодні',
   future: 'наступне',
 };
-
-const DateListItem = styled.div<{ $period: EventPeriod }>`
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  opacity: 0.4;
-
-  ${(props) =>
-    props.$period === 'current' &&
-    css`
-      opacity: 1;
-    `}
-`;
 
 const getDatePeriod = (date: string): EventPeriod => {
   if (dayjs().isBefore(date, 'date')) {
@@ -72,20 +28,23 @@ export const IrregularSchedulesTable = ({ dates }: IrregularSchedulesTableProps)
   const sortedFutureDates = useMemo(() => sortByDates(dates.filter(isDateTodayOrFuture)), [dates]);
 
   return (
-    <Wrapper>
-      <Header>Розклад спец. занять</Header>
-      <Divider />
-      <DatesList>
+    <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-2 text-[13px] text-primary-font">
+      <span className="font-semibold">Розклад спец. занять</span>
+      <hr className="my-2 h-px border-0 bg-neutral-100" />
+      <div className="flex flex-col gap-1 text-xs">
         {sortedFutureDates.map((date) => {
           const period = getDatePeriod(date);
           return (
-            <DateListItem $period={period} key={date}>
+            <div
+              className={cn('flex justify-between text-xs opacity-40', period === 'current' && 'opacity-100')}
+              key={date}
+            >
               <time>{dayjs(date).format('DD MMM YYYY')}</time>
               <span>{EVENT_PERIODS[period]}</span>
-            </DateListItem>
+            </div>
           );
         })}
-      </DatesList>
-    </Wrapper>
+      </div>
+    </div>
   );
 };

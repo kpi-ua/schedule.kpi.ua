@@ -1,13 +1,12 @@
 import { LecturerPair } from '../../models/LecturerPair';
 import { ScheduleItemProps } from './types';
 import LecturerScheduleContent from './LecturerScheduleContent';
-import { ScheduleItemWrapper } from './ScheduleItem.style';
 
 const LecturerScheduleItem = <T extends LecturerPair>({ scheduleMatrixCell, collapsed }: ScheduleItemProps<T>) => {
   return (
-    <ScheduleItemWrapper>
+    <div className="z-5 rounded-2xl border border-neutral-200 bg-bg-card p-4 shadow-schedule-item">
       <LecturerScheduleContent scheduleMatrixCell={scheduleMatrixCell} collapsed={collapsed} />
-    </ScheduleItemWrapper>
+    </div>
   );
 };
 
