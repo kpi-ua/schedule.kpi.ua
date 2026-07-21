@@ -1,7 +1,7 @@
-import { RadioGroup } from '../RadioGroup';
 import { Week } from '../../types/Week';
 import { ListOption } from '../../types/ListOption';
 import { useWeekStore } from '../../store/weekStore';
+import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 
 const WEEKS: ListOption<Week>[] = [
   { label: 'Перший тиждень', value: 'firstWeek' },
@@ -11,7 +11,17 @@ const WEEKS: ListOption<Week>[] = [
 const WeekSwitch = () => {
   const { currentWeek, setCurrentWeek } = useWeekStore();
 
-  return <RadioGroup value={currentWeek} options={WEEKS} onChange={setCurrentWeek} fullWidth />;
+  return (
+    <Tabs value={currentWeek} onValueChange={(value) => setCurrentWeek(value as Week)} className="w-full">
+      <TabsList segmented>
+        {WEEKS.map((week) => (
+          <TabsTrigger key={week.value} value={week.value} data-text={week.label} segmented>
+            {week.label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
+  );
 };
 
 export default WeekSwitch;
