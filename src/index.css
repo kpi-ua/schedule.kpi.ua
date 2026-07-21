@@ -5,15 +5,20 @@
 @theme {
   --breakpoint-xs: 639px;
   --color-basic-blue: #1062a3;
+  --color-basic-red: #ff0000;
+  --color-bg-options: #eff0f8;
   --color-bg-card: rgb(255 255 255 / 90%);
   --color-bg-table: rgb(255 255 255 / 50%);
   --color-brand-00: #f5fbff;
+  --color-brand-600: #006db3;
   --color-brand-700: #0061a0;
   --color-brand-900: #004571;
   --color-neutral-50: #f8f8ff;
   --color-neutral-100: #eeeef7;
   --color-neutral-200: #e1e1ec;
   --color-neutral-300: #c7c8d5;
+  --color-neutral-400: #afb0be;
+  --color-neutral-divider: #e5e7ef;
   --color-neutral-600: #808191;
   --color-neutral-700: #6a6b7a;
   --color-neutral-900: #40414d;
@@ -24,6 +29,8 @@
   --color-current-pair: #25cf9c;
   --background-image-current-day: linear-gradient(180deg, rgb(238 238 247) 0%, rgb(238 238 247 / 50%) 100%);
   --shadow-header: 0 3px 2px -2px #eaeaea;
+  --shadow-radio-group: inset 0 0 8px rgb(136 136 136 / 8%);
+  --shadow-radio-option: 0 0 2px rgb(0 0 0 / 12%);
   --shadow-schedule-item: 0 4px 16px rgb(0 0 0 / 4%);
   --animate-sheet-open: sheet-open 200ms cubic-bezier(0, 0, 0.2, 1);
   --animate-sheet-close: sheet-close 200ms cubic-bezier(0, 0, 0.2, 1);
