@@ -29,9 +29,7 @@ const MainSettings = () => {
 
   return (
     <div className="flex grow flex-col items-center gap-6 max-[988px]:w-full">
-      <nav
-        className="flex max-w-[calc(100vw-3rem)] snap-x snap-mandatory items-center justify-between gap-9 overflow-x-scroll whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
+      <nav className="flex max-w-[calc(100vw-3rem)] snap-x snap-mandatory items-center justify-between gap-9 overflow-x-scroll whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {scheduleLinks.map(({ value, label }) => (
           <NavLink
             end={value === routes.INDEX}

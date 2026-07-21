@@ -55,6 +55,35 @@
 }
 
 @layer base {
+  * {
+    box-sizing: border-box;
+    font-family: 'Exo 2', sans-serif;
+  }
+
+  html {
+    font-size: 0.875rem;
+    line-height: 1.43;
+    font-weight: 400;
+    letter-spacing: 0.01071em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+
   h1 {
     @apply mb-4 text-[40px] leading-12;
   }
