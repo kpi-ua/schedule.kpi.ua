@@ -1,5 +1,4 @@
-import { GridWrapper } from '../ScheduleWrapper/ScheduleWrapper.style';
-import ScheduleWrapper from '../ScheduleWrapper';
+import ScheduleWrapper, { ScheduleGrid } from '../ScheduleWrapper/ScheduleWrapper';
 import { useStudentSchedule } from '../../queries/useStudentSchedule';
 import { useStore } from '../../store';
 import StudentScheduleItem from '../ScheduleItem/StudentScheduleItem';
@@ -10,12 +9,12 @@ export const GroupSchedule = () => {
   const { data } = useStudentSchedule(group?.id);
 
   return (
-    <GridWrapper>
+    <ScheduleGrid>
       <ScheduleWrapper
         schedule={data}
         baseComponent={StudentScheduleItem}
         baseComponentExtended={StudentScheduleItemExtended}
       />
-    </GridWrapper>
+    </ScheduleGrid>
   );
 };
