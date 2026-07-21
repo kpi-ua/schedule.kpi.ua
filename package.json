@@ -17,8 +17,6 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^7.8.2",
     "react-select": "^5.10.1",
-    "react-select-virtualized": "^5.6.0",
-    "react-virtualized": "^9.22.3",
     "tailwind-merge": "^3.6.0",
     "zustand": "^5.0.3"
   },
@@ -30,12 +28,6 @@
     "prettier": "prettier . --check --ignore-unknown",
     "lint:fix": "eslint . --fix",
     "prettier:fix": "prettier . -w"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -56,18 +48,14 @@
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.3.4",
-    "esbuild-plugin-react-virtualized": "^1.0.4",
     "eslint": "^9.17.0",
-    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
     "prettier": "3.4.2",
-    "sass-embedded": "^1.83.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~5.7.3",
     "typescript-eslint": "^8.19.1",
