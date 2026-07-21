@@ -4,8 +4,15 @@
 
 @theme {
   --breakpoint-xs: 639px;
+  --color-basic-blue: #1062a3;
+  --color-brand-00: #f5fbff;
+  --color-brand-700: #0061a0;
   --color-brand-900: #004571;
+  --color-neutral-50: #f8f8ff;
+  --color-neutral-300: #c7c8d5;
   --color-neutral-600: #808191;
+  --color-neutral-700: #6a6b7a;
+  --color-neutral-900: #40414d;
   --color-other-orange: #f6b382;
   --color-other-purple: #949dff;
   --color-other-red: #ff7f96;
