@@ -1,9 +1,9 @@
-import { Curtain } from '../../../components/Curtain';
 import { MenuLink } from './MenuLink';
 import { NAV_LINKS } from './constants';
 import BurgerIcon from '../../../assets/icons/burger.svg?react';
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import XIcon from '../../../assets/icons/x.svg?react';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../../../components/ui/sheet';
 
 interface MobileMenuProps {
   pathname: string;
@@ -12,18 +12,29 @@ interface MobileMenuProps {
 
 export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuTop, setMenuTop] = useState(0);
 
-  const handleClose = useCallback(() => setMenuOpen(false), [setMenuOpen]);
+  useEffect(() => setMenuOpen(false), [pathname]);
+
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      setMenuTop(anchor.current?.getBoundingClientRect().bottom ?? 0);
+    }
+    setMenuOpen(open);
+  };
 
   return (
-    <>
-      <button
-        className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 xs:hidden"
-        onClick={() => setMenuOpen((prev) => !prev)}
+    <Sheet modal={false} open={menuOpen} onOpenChange={handleOpenChange}>
+      <SheetTrigger asChild>
+        <button
+          className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 xs:hidden"
+        >
+          {menuOpen ? <XIcon /> : <BurgerIcon />}
+        </button>
+      </SheetTrigger>
+      <SheetContent
+        style={{ top: menuTop, '--sheet-top': `${menuTop}px` } as React.CSSProperties}
       >
-        {menuOpen ? <XIcon /> : <BurgerIcon />}
-      </button>
-      <Curtain open={menuOpen} onClose={handleClose} anchor={anchor}>
         <div className="flex flex-col p-4">
           <nav className="flex flex-col gap-6">
             {NAV_LINKS.map(({ path, title }) => (
@@ -37,7 +48,7 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
             ))}
           </nav>
         </div>
-      </Curtain>
-    </>
+      </SheetContent>
+    </Sheet>
   );
 };

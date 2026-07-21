@@ -10,4 +10,24 @@
   --color-other-purple: #949dff;
   --color-other-red: #ff7f96;
   --shadow-header: 0 3px 2px -2px #eaeaea;
+  --animate-sheet-open: sheet-open 200ms cubic-bezier(0, 0, 0.2, 1);
+  --animate-sheet-close: sheet-close 200ms cubic-bezier(0, 0, 0.2, 1);
+
+  @keyframes sheet-open {
+    from {
+      height: 0;
+    }
+    to {
+      height: calc(100% - var(--sheet-top));
+    }
+  }
+
+  @keyframes sheet-close {
+    from {
+      height: calc(100% - var(--sheet-top));
+    }
+    to {
+      height: 0;
+    }
+  }
 }
