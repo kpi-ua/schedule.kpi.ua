@@ -1,3 +1,3 @@
-import ShceduleExams from './ScheduleExams';
+import ScheduleExams from './ScheduleExams';
 
-export default ShceduleExams;
+export default ScheduleExams;
