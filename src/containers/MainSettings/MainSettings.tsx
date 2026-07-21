@@ -1,5 +1,4 @@
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
-import { FiltersContainer, MainSettingsContainer } from './MainSettings.style';
 import GroupSearch from '../../components/GroupSearch';
 import LecturerSearch from '../../components/LecturerSearch';
 import WeekSwitch from '../../components/WeekSwitch';
@@ -30,7 +29,7 @@ const MainSettings = () => {
   };
 
   return (
-    <MainSettingsContainer $flexDirection="column" $alignItems="center" $gap="24px">
+    <div className="flex grow flex-col items-center gap-6 max-[988px]:w-full">
       <Tabs value={pathname}>
         <TabsList className="flex max-w-[calc(100vw-3rem)] snap-x snap-mandatory items-center justify-between gap-[37px] overflow-x-scroll whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {scheduleTabs.map(({ value, label }) => (
@@ -52,7 +51,7 @@ const MainSettings = () => {
           ))}
         </TabsList>
       </Tabs>
-      <FiltersContainer>
+      <div className="flex gap-5 max-[988px]:flex-col max-[988px]:items-center max-xs:w-full">
         <Routes>
           <Route
             index
@@ -74,8 +73,8 @@ const MainSettings = () => {
             }
           />
         </Routes>
-      </FiltersContainer>
-    </MainSettingsContainer>
+      </div>
+    </div>
   );
 };
 

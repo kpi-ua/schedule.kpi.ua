@@ -3,7 +3,7 @@ import { NAV_LINKS } from './constants';
 import BurgerIcon from '../../../assets/icons/burger.svg?react';
 import { useEffect, useState } from 'react';
 import XIcon from '../../../assets/icons/x.svg?react';
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../../../components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '../../../components/ui/sheet';
 
 interface MobileMenuProps {
   pathname: string;
@@ -26,15 +26,11 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
   return (
     <Sheet modal={false} open={menuOpen} onOpenChange={handleOpenChange}>
       <SheetTrigger asChild>
-        <button
-          className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 xs:hidden"
-        >
+        <button className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 xs:hidden">
           {menuOpen ? <XIcon /> : <BurgerIcon />}
         </button>
       </SheetTrigger>
-      <SheetContent
-        style={{ top: menuTop, '--sheet-top': `${menuTop}px` } as React.CSSProperties}
-      >
+      <SheetContent style={{ top: menuTop, '--sheet-top': `${menuTop}px` } as React.CSSProperties}>
         <div className="flex flex-col p-4">
           <nav className="flex flex-col gap-6">
             {NAV_LINKS.map(({ path, title }) => (
