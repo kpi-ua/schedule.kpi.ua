@@ -2,22 +2,28 @@ import React from 'react';
 import { SubjectType } from '../../models/Pair';
 import CalendarBlank from '../../assets/icons/calendar-blank.svg?react';
 import dayjs from 'dayjs';
+import { cva } from 'class-variance-authority';
 import { cn } from '../../common/utils/cn';
 
-const subjectTypeStyles: Record<SubjectType, { background: string; foreground: string }> = {
-  [SubjectType.Lab]: {
-    background: 'bg-other-orange',
-    foreground: 'text-other-orange outline-other-orange',
+const backgroundVariants = cva('', {
+  variants: {
+    type: {
+      [SubjectType.Lab]: 'bg-other-orange',
+      [SubjectType.Practice]: 'bg-other-red',
+      [SubjectType.Lecture]: 'bg-other-purple',
+    },
   },
-  [SubjectType.Practice]: {
-    background: 'bg-other-red',
-    foreground: 'text-other-red outline-other-red',
+});
+
+const foregroundVariants = cva('', {
+  variants: {
+    type: {
+      [SubjectType.Lab]: 'text-other-orange outline-other-orange',
+      [SubjectType.Practice]: 'text-other-red outline-other-red',
+      [SubjectType.Lecture]: 'text-other-purple outline-other-purple',
+    },
   },
-  [SubjectType.Lecture]: {
-    background: 'bg-other-purple',
-    foreground: 'text-other-purple outline-other-purple',
-  },
-};
+});
 
 type Props = {
   children: React.ReactNode;
@@ -32,19 +38,22 @@ const getCurrentLesson = (dates: string[]) => {
 };
 
 export const SubjectTypeBadge = ({ dates, type, children }: Props) => {
-  const styles = subjectTypeStyles[type];
-
   if (dates.length) {
     return (
       <div
         className={cn(
-          'flex items-center gap-[6px] rounded-[8px] py-[3px] pr-[3px] pl-[6px] text-center leading-[1.43] font-medium -outline-offset-1 outline-solid outline-1',
-          styles.foreground,
+          'flex items-center gap-1.5 rounded-lg py-0.75 pr-0.75 pl-1.5 text-center font-medium -outline-offset-1 outline-1 outline-solid',
+          foregroundVariants({ type }),
         )}
       >
         <CalendarBlank />
         {children}
-        <span className={cn('self-stretch rounded-[6px] px-[10px] font-medium text-white', styles.background)}>
+        <span
+          className={cn(
+            'self-stretch rounded-md px-2.5 font-medium text-white',
+            backgroundVariants({ type }),
+          )}
+        >
           {getCurrentLesson(dates)}/{dates.length}
         </span>
       </div>
@@ -54,8 +63,8 @@ export const SubjectTypeBadge = ({ dates, type, children }: Props) => {
   return (
     <div
       className={cn(
-        'rounded-[8px] px-[10px] py-[3px] text-center leading-[1.43] font-medium text-white',
-        styles.background,
+        'rounded-lg px-2.5 py-0.75 text-center font-medium text-white',
+        backgroundVariants({ type }),
       )}
     >
       {children}

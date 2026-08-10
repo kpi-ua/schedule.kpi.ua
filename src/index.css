@@ -3,6 +3,7 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme {
+  --breakpoint-xs: 639px;
   --color-basic-blue: #1062a3;
   --color-basic-red: #ff0000;
   --color-bg-options: #eff0f8;
