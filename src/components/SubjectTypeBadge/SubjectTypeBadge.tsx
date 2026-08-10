@@ -1,65 +1,29 @@
-import styled, { css } from 'styled-components';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import React from 'react';
 import { SubjectType } from '../../models/Pair';
 import CalendarBlank from '../../assets/icons/calendar-blank.svg?react';
 import dayjs from 'dayjs';
+import { cva } from 'class-variance-authority';
+import { cn } from '../../common/utils/cn';
 
-interface WrapperProps {
-  $type: SubjectType;
-}
+const backgroundVariants = cva('', {
+  variants: {
+    type: {
+      [SubjectType.Lab]: 'bg-other-orange',
+      [SubjectType.Practice]: 'bg-other-red',
+      [SubjectType.Lecture]: 'bg-other-purple',
+    },
+  },
+});
 
-const WrapperBase = styled.div<WrapperProps>`
-  padding: 3px 10px;
-  text-align: center;
-  border-radius: 8px;
-  color: ${getValueFromTheme('invertedFontColor')};
-  font-weight: 500;
-
-  ${(props) =>
-    props.$type === SubjectType.Lab &&
-    css`
-      --accent-color: ${getValueFromTheme('otherOrange')};
-    `}
-
-  ${(props) =>
-    props.$type === SubjectType.Practice &&
-    css`
-      --accent-color: ${getValueFromTheme('otherRed')};
-    `}
-
-  ${(props) =>
-    props.$type === SubjectType.Lecture &&
-    css`
-      --accent-color: ${getValueFromTheme('otherPurple')};
-    `}
-`;
-
-export const IrregularSubjectWrapper = styled(WrapperBase)<WrapperProps>`
-  padding: 3px 3px 3px 6px;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  outline: 1px solid;
-  outline-offset: -1px;
-
-  color: var(--accent-color);
-  outline-color: var(--accent-color);
-  border-color: var(--accent-color);
-`;
-
-const RegularSubjectWrapper = styled(WrapperBase)`
-  background-color: var(--accent-color);
-`;
-
-export const LessonsCount = styled.span`
-  padding: 0px 10px;
-  border-radius: 6px;
-  color: ${getValueFromTheme('invertedFontColor')};
-  background-color: var(--accent-color);
-  font-weight: 500;
-  align-self: stretch;
-`;
+const foregroundVariants = cva('', {
+  variants: {
+    type: {
+      [SubjectType.Lab]: 'text-other-orange outline-other-orange',
+      [SubjectType.Practice]: 'text-other-red outline-other-red',
+      [SubjectType.Lecture]: 'text-other-purple outline-other-purple',
+    },
+  },
+});
 
 type Props = {
   children: React.ReactNode;
@@ -76,14 +40,34 @@ const getCurrentLesson = (dates: string[]) => {
 export const SubjectTypeBadge = ({ dates, type, children }: Props) => {
   if (dates.length) {
     return (
-      <IrregularSubjectWrapper $type={type}>
+      <div
+        className={cn(
+          'flex items-center gap-1.5 rounded-lg py-0.75 pr-0.75 pl-1.5 text-center font-medium -outline-offset-1 outline-1 outline-solid',
+          foregroundVariants({ type }),
+        )}
+      >
         <CalendarBlank />
         {children}
-        <LessonsCount>
+        <span
+          className={cn(
+            'self-stretch rounded-md px-2.5 font-medium text-white',
+            backgroundVariants({ type }),
+          )}
+        >
           {getCurrentLesson(dates)}/{dates.length}
-        </LessonsCount>
-      </IrregularSubjectWrapper>
+        </span>
+      </div>
     );
   }
-  return <RegularSubjectWrapper $type={type}>{children}</RegularSubjectWrapper>;
+
+  return (
+    <div
+      className={cn(
+        'rounded-lg px-2.5 py-0.75 text-center font-medium text-white',
+        backgroundVariants({ type }),
+      )}
+    >
+      {children}
+    </div>
+  );
 };

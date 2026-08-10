@@ -1,18 +1,15 @@
 import { Logo } from '../../common/styles/styles';
 import MainSettings from '../MainSettings';
-import { NavbarLogo, NavBarWrapper, NavbarGrid } from './Navbar.style';
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
-    <NavBarWrapper>
-      <NavbarGrid>
-        <NavbarLogo>
+    <header className="bg-white p-6 shadow-header min-[989px]:px-9 min-[989px]:py-[30px]">
+      <div className="grid grid-cols-1 items-center gap-4 min-[1441px]:grid-cols-[fit-content(185px)_1fr_185px] min-[1441px]:gap-0">
+        <div className="flex items-center justify-start min-[1441px]:justify-center">
           <Logo />
-        </NavbarLogo>
+        </div>
         <MainSettings />
-      </NavbarGrid>
-    </NavBarWrapper>
+      </div>
+    </header>
   );
 };
-
-export default Navbar;

@@ -1,6 +1,5 @@
-import styled from 'styled-components';
+import clsx from 'clsx';
 
-export const PhotoWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+export const PhotoWrapper = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => (
+  <div {...props} className={clsx('h-full w-full', className)} />
+);

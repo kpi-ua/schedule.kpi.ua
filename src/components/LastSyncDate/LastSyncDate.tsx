@@ -1,13 +1,6 @@
 import dayjs from 'dayjs';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
-import styled from 'styled-components';
 import { useLastSyncDate } from '../../queries/useLastSyncDate';
 import { useStore } from '../../store';
-
-const LastSyncDateWrapper = styled.div`
-  color: ${getValueFromTheme('neutral600')};
-  font-size: 12px;
-`;
 
 export const LastSyncDate = () => {
   const group = useStore((state) => state.group);
@@ -30,8 +23,8 @@ export const LastSyncDate = () => {
   };
 
   return (
-    <LastSyncDateWrapper>
+    <div className="text-xs text-neutral-600">
       <span>{renderValue()}</span>
-    </LastSyncDateWrapper>
+    </div>
   );
 };

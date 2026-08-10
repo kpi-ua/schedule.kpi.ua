@@ -1,59 +1,18 @@
-import styled from 'styled-components';
 import LastSyncDate from '../LastSyncDate';
-import { LessonsCount, SubjectTypeBadge } from '../SubjectTypeBadge/SubjectTypeBadge';
+import { SubjectTypeBadge } from '../SubjectTypeBadge/SubjectTypeBadge';
 import { SubjectType } from '../../models/Pair';
 import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
 import dayjs from 'dayjs';
-
-const LegendWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 12px;
-  gap: 16px;
-`;
-
-const LegendHeaderWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const LegendHeader = styled.div`
-  font-size: 16px;
-  font-weight: 600;
-`;
-
-const LegendContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const LegendItem = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
-`;
-
-const LessonsCountStyleProvider = styled.div`
-  --accent-color: ${getValueFromTheme('otherPurple')};
-
-  & > span {
-    padding-top: 2px;
-    padding-bottom: 2px;
-  }
-`;
 
 export const Legend = () => {
   return (
-    <LegendWrapper>
-      <LegendHeaderWrapper>
-        <LegendHeader>Легенда</LegendHeader>
+    <div className="mt-3 flex flex-col gap-4">
+      <div className="flex justify-between">
+        <div className="text-base font-semibold">Легенда</div>
         <LastSyncDate />
-      </LegendHeaderWrapper>
-      <LegendContent>
-        <LegendItem>
+      </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-start gap-2">
           <SubjectTypeBadge
             type={SubjectType.Lecture}
             // To always keep same value in badge
@@ -62,14 +21,12 @@ export const Legend = () => {
             {SUBJECT_TYPES.lec}
           </SubjectTypeBadge>
           <span>Непостійний тип заняття</span>
-        </LegendItem>
-        <LegendItem>
-          <LessonsCountStyleProvider>
-            <LessonsCount>1/3</LessonsCount>
-          </LessonsCountStyleProvider>
+        </div>
+        <div className="flex items-center justify-start gap-2">
+          <span className="self-stretch rounded-md bg-other-purple px-2.5 py-0.5 font-medium text-white">1/3</span>
           <span>Серія непостійних занять</span>
-        </LegendItem>
-      </LegendContent>
-    </LegendWrapper>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,32 +1,20 @@
 import { DefaultMenu } from './DefaultMenu';
 import { Logo } from '../../../common/styles/styles';
 import { MobileMenu } from './MobileMenu';
-import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useRef } from 'react';
 
-const HeaderWrapper = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 28px 0px;
-`;
-
-const LogoLink = styled.a`
-  width: 130px;
-`;
-
 export const AboutHeader = () => {
-  const headerRef = useRef(null);
+  const headerRef = useRef<HTMLElement>(null);
   const { pathname } = useLocation();
 
   return (
-    <HeaderWrapper ref={headerRef}>
-      <LogoLink href="/">
+    <header ref={headerRef} className="flex items-center justify-between py-7">
+      <a className="w-[130px]" href="/">
         <Logo />
-      </LogoLink>
+      </a>
       <DefaultMenu pathname={pathname} />
       <MobileMenu pathname={pathname} anchor={headerRef} />
-    </HeaderWrapper>
+    </header>
   );
 };

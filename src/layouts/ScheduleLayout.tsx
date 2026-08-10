@@ -1,5 +1,5 @@
 import Footer from '../components/Footer';
-import Navbar from '../containers/Navbar';
+import { Navbar } from '../containers/Navbar/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import { media } from '../common/styles/styles';
 import styled from 'styled-components';

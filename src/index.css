@@ -1,0 +1,13 @@
+@layer theme, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@theme {
+  --breakpoint-xs: 639px;
+  --color-brand-900: #004571;
+  --color-neutral-600: #808191;
+  --color-other-orange: #f6b382;
+  --color-other-purple: #949dff;
+  --color-other-red: #ff7f96;
+  --shadow-header: 0 3px 2px -2px #eaeaea;
+}
