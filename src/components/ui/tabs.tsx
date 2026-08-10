@@ -32,7 +32,6 @@ export const TabsTrigger = ({
   className,
   segmented,
   rounded,
-  style,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Trigger> & TabsStyleProps) => (
   <TabsPrimitive.Trigger
@@ -43,7 +42,6 @@ export const TabsTrigger = ({
       segmented && (rounded ? 'rounded-full' : 'rounded-[6px]'),
       className,
     )}
-    style={segmented ? { fontSize: '14px', lineHeight: 1.43, ...style } : style}
     {...props}
   />
 );

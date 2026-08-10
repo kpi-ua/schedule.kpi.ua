@@ -3,7 +3,7 @@ import { NAV_LINKS } from './constants';
 import BurgerIcon from '../../../assets/icons/burger.svg?react';
 import { useEffect, useState } from 'react';
 import XIcon from '../../../assets/icons/x.svg?react';
-import { Sheet, SheetContent, SheetTrigger } from '../../../components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../../../components/ui/sheet';
 
 interface MobileMenuProps {
   pathname: string;
@@ -15,6 +15,19 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
   const [menuTop, setMenuTop] = useState(0);
 
   useEffect(() => setMenuOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
 
   const handleOpenChange = (open: boolean) => {
     if (open) {
@@ -31,6 +44,7 @@ export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
         </button>
       </SheetTrigger>
       <SheetContent style={{ top: menuTop, '--sheet-top': `${menuTop}px` } as React.CSSProperties}>
+        <SheetTitle className="sr-only">Навігаційне меню</SheetTitle>
         <div className="flex flex-col p-4">
           <nav className="flex flex-col gap-6">
             {NAV_LINKS.map(({ path, title }) => (
