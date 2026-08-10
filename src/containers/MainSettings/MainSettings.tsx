@@ -1,7 +1,6 @@
 import { NavLink, Route, Routes } from 'react-router-dom';
 import GroupSearch from '../../components/GroupSearch';
 import LecturerSearch from '../../components/LecturerSearch';
-import ScheduleTypeTabs from '../ScheduleTypeTabs';
 import WeekSwitch from '../../components/WeekSwitch';
 import { routes } from '../../common/constants/routes';
 import { getLocalStorageItem } from '../../common/utils/parsedLocalStorage';
