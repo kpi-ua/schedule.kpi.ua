@@ -15,7 +15,7 @@ const WeekSwitch = () => {
     <Tabs value={currentWeek} onValueChange={(value) => setCurrentWeek(value as Week)} className="w-full">
       <TabsList className="h-full" segmented>
         {WEEKS.map((week) => (
-          <TabsTrigger key={week.value} value={week.value} data-text={week.label} segmented>
+          <TabsTrigger className="justify-center" key={week.value} value={week.value} data-text={week.label} segmented>
             {week.label}
           </TabsTrigger>
         ))}
