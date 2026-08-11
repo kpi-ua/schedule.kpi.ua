@@ -27,7 +27,7 @@ const ScheduleItemExtended = <T extends Pair>({
         <div
           className={cn(
             "relative rounded-2xl border border-neutral-200 bg-bg-card p-4 shadow-schedule-item before:content-[''] after:content-['']",
-            !isLast && 'rounded-b-none border-b-0',
+            (!isLast || hasData) && 'rounded-b-none border-b-0',
             !isFirst &&
               'rounded-t-none [border-top-style:dashed] before:absolute before:top-0 before:left-0 before:h-4 before:w-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full after:absolute after:top-0 after:right-0 after:h-4 after:w-4 after:translate-x-1/2 after:-translate-y-1/2 after:rounded-full',
           )}
