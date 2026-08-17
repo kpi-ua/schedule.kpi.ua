@@ -22,7 +22,7 @@
     "styled-components": "^6.1.17",
     "styled-system": "^5.1.5",
     "tailwind-merge": "^3.6.0",
-    "zustand": "^5.0.3"
+    "zustand": "^5.0.15"
   },
   "scripts": {
     "dev": "vite",
