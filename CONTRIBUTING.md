@@ -11,4 +11,4 @@ Thank you for your interest in contributing to the open source projects of Igor 
 
 ## License of contributions
 
-By submitting a pull request you agree that your contribution is licensed under the project's current license (MPL-2.0) and that you have the right to grant this license.
+By submitting a pull request you agree to the terms of the [Contributor License Agreement](CLA.md), which grants Igor Sikorsky Kyiv Polytechnic Institute a license to your contribution, including the right to relicense it under different terms in the future.
