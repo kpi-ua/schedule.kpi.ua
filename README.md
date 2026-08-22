@@ -55,4 +55,4 @@ If you are owner of iPhone or iPad you can use this simple [iOS application](htt
 
 ## License
 
-Starting from commit `dbc12e369ef4` / version `1.0.0` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the BSD 3-Clause license (see [LICENSE-BSD-3-Clause](LICENSE-BSD-3-Clause)). The last commit under the previous license is tagged `bsd-3-clause-final`.
+Starting from commit `dbc12e369ef4` / version `1.0.0` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the [BSD 3-Clause License](https://opensource.org/license/bsd-3-clause); the last commit distributed under those terms is tagged `bsd-3-clause-final`.
