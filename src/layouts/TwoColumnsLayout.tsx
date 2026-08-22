@@ -1,22 +1,12 @@
-import { media } from '../common/styles/styles';
-import styled from 'styled-components';
+import { ComponentPropsWithoutRef } from 'react';
+import { cn } from '../common/utils/cn';
 
-export const TwoColumnsLayout = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
-  margin-top: 36px;
-  margin-bottom: 36px;
-  font-size: 1rem;
-
-  ${media.smallMode} {
-    gap: 2rem;
-  }
-
-  ${media.extraSmallMode} {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    gap: 1rem;
-    grid-template-columns: 1fr;
-  }
-`;
+export const TwoColumnsLayout = ({ className, ...props }: ComponentPropsWithoutRef<'div'>) => (
+  <div
+    className={cn(
+      'my-9 grid grid-cols-2 gap-32 text-base max-lg:gap-8 max-sm:my-4 max-sm:grid-cols-1 max-sm:gap-4',
+      className,
+    )}
+    {...props}
+  />
+);

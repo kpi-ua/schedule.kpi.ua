@@ -1,11 +1,11 @@
-import { Property } from './Property.styled';
-import { StyledLink } from '../../common/styles/styles';
+import { Property } from './Property';
 import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
 import { useStore } from '../../store';
 import { routes } from '../../common/constants/routes';
 import { Group } from '../../models/Group';
 import React from 'react';
 import ThreeUsersIcon from '../../assets/icons/users-three.svg?react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   groups: Group[];
@@ -35,9 +35,14 @@ const GroupProperty = ({ groups }: Props) => {
       <div>
         {groups.map((group, index) => (
           <React.Fragment key={group.id}>
-            <StyledLink onClick={handleGroupClick(group)} key={group.id} to={getGroupLink(group.id)}>
+            <Link
+              className="text-primary-font"
+              onClick={handleGroupClick(group)}
+              key={group.id}
+              to={getGroupLink(group.id)}
+            >
               {group.name}
-            </StyledLink>
+            </Link>
             {index < groups.length - 1 && ', '}
           </React.Fragment>
         ))}

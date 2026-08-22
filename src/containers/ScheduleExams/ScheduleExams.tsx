@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
-import { ExamsListWrapper, Header, WordAccent } from './ScheduleWrapper.style';
 import ExamSchedule from '../../components/ExamSchedule';
-import { GridWrapper } from '../ScheduleWrapper/ScheduleWrapper.style';
+import { ScheduleGrid } from '../ScheduleWrapper/ScheduleWrapper';
 import { useExamsSchedule } from '../../queries/useExamsSchedle';
 import { useStore } from '../../store';
 
-const SchededuleExamsWrapper = () => {
+const ScheduleExams = () => {
   const group = useStore((state) => state.group);
 
   const { data: examsResponse } = useExamsSchedule(group?.id);
@@ -17,21 +16,24 @@ const SchededuleExamsWrapper = () => {
   );
 
   return (
-    <GridWrapper>
-      <Header>
+    <ScheduleGrid>
+      <h1 className="mx-4 my-8 text-center text-2xl leading-8 font-semibold text-neutral-900 sm:mx-8 sm:my-16 sm:text-4xl sm:leading-10">
         {exams && exams.length > 0 ? (
           <>
-            Розклад сесії для групи <WordAccent>{group?.name}</WordAccent>
+            Розклад сесії для групи <span className="font-semibold text-black">{group?.name}</span>
           </>
         ) : (
           <>
-            Ще немає актуального розкладу сесії для групи <WordAccent>{group?.name}</WordAccent>
+            Ще немає актуального розкладу сесії для групи{' '}
+            <span className="font-semibold text-black">{group?.name}</span>
           </>
         )}
-      </Header>
-      <ExamsListWrapper>{exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}</ExamsListWrapper>
-    </GridWrapper>
+      </h1>
+      <div className="mx-4 mb-4 flex flex-col items-center gap-10 sm:mx-8 sm:mb-8">
+        {exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}
+      </div>
+    </ScheduleGrid>
   );
 };
 
-export default SchededuleExamsWrapper;
+export default ScheduleExams;

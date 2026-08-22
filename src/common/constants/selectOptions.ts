@@ -1,33 +1,33 @@
 import type { CSSObjectWithLabel } from 'react-select';
-import type { DefaultTheme } from 'styled-components';
 
-export const getSelectCustomStyle = (theme: DefaultTheme) => ({
+export const getSelectCustomStyle = () => ({
   option(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: theme['secondaryFontColor'],
+      color: 'var(--color-black)',
+      whiteSpace: 'nowrap' as const,
     };
   },
   menu(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: theme['secondaryFontColor'],
+      color: 'var(--color-black)',
       '& .fast-option-focused': {
-        color: theme['secondaryFontColor'],
+        color: 'var(--color-black)',
       },
       '& .fast-option-selected': {
-        color: theme['invertedFontColor'],
+        color: 'var(--color-white)',
         fontWeight: 'bold',
         // background color can be also changed if needed
       },
-      backgroundColor: theme['bgOptions'],
+      backgroundColor: 'var(--color-bg-options)',
       zIndex: 1000,
     };
   },
   menuList(base: CSSObjectWithLabel) {
     return {
       ...base,
-      backgroundColor: theme['bgOptions'],
+      backgroundColor: 'var(--color-bg-options)',
       zIndex: 1000,
     };
   },
@@ -37,9 +37,9 @@ export const getSelectCustomStyle = (theme: DefaultTheme) => ({
       borderRadius: 8,
       borderWidth: 1,
       borderStyle: 'solid',
-      borderColor: theme['neutral300'],
-      backgroundColor: theme['bgPrimary'],
-      color: theme['secondaryFontColor'],
+      borderColor: 'var(--color-neutral-300)',
+      backgroundColor: 'var(--color-white)',
+      color: 'var(--color-black)',
       paddingTop: 2,
       paddingBottom: 2,
     };
@@ -53,13 +53,13 @@ export const getSelectCustomStyle = (theme: DefaultTheme) => ({
   singleValue(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: theme['secondaryFontColor'],
+      color: 'var(--color-black)',
     };
   },
   input(base: CSSObjectWithLabel) {
     return {
       ...base,
-      color: theme['secondaryFontColor'],
+      color: 'var(--color-black)',
     };
   },
 });

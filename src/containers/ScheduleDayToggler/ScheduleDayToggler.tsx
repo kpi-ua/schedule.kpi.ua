@@ -1,7 +1,7 @@
-import { RadioGroup } from '../../components/RadioGroup';
 import { useScreenSize } from '../../common/hooks/useScreenSize';
 import { DAY_OPTIONS, DaysRange } from '../../common/constants/dayOptions';
 import { Slice, useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
+import { Tabs, TabsList, TabsTrigger } from '../../components/ui/tabs';
 
 const ScheduleDayToggler = () => {
   const { screenSize } = useScreenSize();
@@ -23,7 +23,15 @@ const ScheduleDayToggler = () => {
 
   return (
     <div className="m-4">
-      <RadioGroup value={convertSlice(slice)} options={options} onChange={handleChange} fullWidth rounded />
+      <Tabs value={convertSlice(slice)} onValueChange={(value) => handleChange(value as DaysRange)} className="w-full">
+        <TabsList segmented rounded>
+          {options.map((option) => (
+            <TabsTrigger key={option.value} value={option.value} data-text={option.label} segmented rounded>
+              {option.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
     </div>
   );
 };

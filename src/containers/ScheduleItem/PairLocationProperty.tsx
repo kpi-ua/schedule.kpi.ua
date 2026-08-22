@@ -1,12 +1,6 @@
 import LocationIcon from '../../assets/icons/location.svg?react';
-import styled from 'styled-components';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
-import { Property } from './Property.styled';
+import { Property } from './Property';
 import { PairLocation } from '../../models/PairLocation';
-
-const LocationLink = styled.a`
-  color: ${getValueFromTheme('primaryFontColor')};
-`;
 
 interface Props {
   location: PairLocation;
@@ -17,9 +11,9 @@ const PairLocationProperty = ({ location }: Props) => {
     <Property>
       <LocationIcon />
       {location.uri ? (
-        <LocationLink href={location.uri} target="_blank" rel="noopener noreferrer">
+        <a className="text-primary-font" href={location.uri} target="_blank" rel="noopener noreferrer">
           {location.title}
-        </LocationLink>
+        </a>
       ) : (
         location.title
       )}

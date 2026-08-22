@@ -1,4 +1,4 @@
-import Button from '../Button';
+import { Button } from '../ui/button';
 import Link from '../../assets/icons/link.svg?react';
 import SearchSelect from '../SearchSelect';
 import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
@@ -26,8 +26,13 @@ const LecturerSearch = () => {
   };
 
   return (
-    <div className="flex gap-2 max-xs:w-full max-xs:flex-row-reverse">
-      <Button $type="secondary" $size="sm" disabled={isLoading || !lecturerProfile} onClick={handleGoToLecturerProfile}>
+    <div className="flex gap-2 max-sm:w-full max-sm:flex-row-reverse">
+      <Button
+        variant="secondary"
+        size="sm"
+        disabled={isLoading || !lecturerProfile}
+        onClick={handleGoToLecturerProfile}
+      >
         <Link />
       </Button>
       <SearchSelect options={lecturers} value={lecturer} onChange={handleChange} />

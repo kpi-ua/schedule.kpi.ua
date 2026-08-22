@@ -5,10 +5,7 @@ import { Schedule } from '../../models/Schedule';
 import { ScheduleHeader } from '../ScheduleHeader';
 import ScheduleRow from '../ScheduleRow';
 import TimeDivider from '../../components/TimeDivider';
-import { getValueFromTheme } from '../../common/utils/getValueFromTheme';
-import { media } from '../../common/styles/styles';
 import { range } from 'lodash-es';
-import styled from 'styled-components';
 import { useCurrentTime } from '../../queries/useCurrentTime';
 import { useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
 import { useWeekStore } from '../../store/weekStore';
@@ -25,44 +22,6 @@ const weekValue: Record<string, string> = {
   firstWeek: 'scheduleFirstWeek',
   secondWeek: 'scheduleSecondWeek',
 };
-
-export const GridContainer = styled.div`
-  margin: 0.75rem;
-  padding-left: 100px;
-  display: grid;
-  position: relative;
-  grid-template-columns: repeat(6, 1fr);
-  grid-column-gap: 1.5rem;
-  grid-row-gap: 10px;
-
-  ${media.mediumMode} {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  ${media.smallMode} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  ${media.extraSmallMode} {
-    grid-template-columns: repeat(1, 1fr);
-    padding-left: 60px;
-  }
-`;
-
-export const CurrentDayContainer = styled.div<{ $start: number }>`
-  position: absolute;
-  background: ${getValueFromTheme('currentDayContainer')};
-  grid-column: ${(props) => props.$start} / span 1;
-  width: calc(100% + 1.5rem);
-  left: -0.75rem;
-  top: -0.75rem;
-  bottom: -0.75rem;
-  z-index: 0;
-
-  ${media.extraSmallMode} {
-    top: 0px;
-  }
-`;
 
 const ScheduleTable = <T extends Pair>({
   schedule,
@@ -116,11 +75,16 @@ const ScheduleTable = <T extends Pair>({
   );
 
   return (
-    <GridContainer>
-      {currentDayColumn ? <CurrentDayContainer $start={currentDayColumn} /> : null}
+    <div className="relative m-3 grid grid-cols-1 gap-x-6 gap-y-2.5 pl-[60px] sm:grid-cols-2 sm:pl-[100px] lg:grid-cols-3 2xl:grid-cols-6">
+      {currentDayColumn ? (
+        <div
+          className="absolute top-0 -bottom-3 -left-3 z-0 w-[calc(100%+1.5rem)] bg-current-day sm:-top-3"
+          style={{ gridColumn: `${currentDayColumn} / span 1` }}
+        />
+      ) : null}
       <ScheduleHeader />
       {generateScheduleRows(scheduleMatrix, timeSlots)}
-    </GridContainer>
+    </div>
   );
 };
 

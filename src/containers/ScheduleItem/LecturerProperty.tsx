@@ -1,10 +1,10 @@
-import { Property } from './Property.styled';
+import { Property } from './Property';
 import TeacherIcon from '../../assets/icons/teacher.svg?react';
-import { StyledLink } from '../../common/styles/styles';
 import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 import { useStore } from '../../store';
 import { routes } from '../../common/constants/routes';
+import { Link } from 'react-router-dom';
 
 interface Props {
   lecturer: EntityWithNameAndId;
@@ -21,9 +21,13 @@ const LecturerProperty = ({ lecturer }: Props) => {
   return (
     <Property>
       <TeacherIcon />
-      <StyledLink onClick={handleLecturerClick} to={routes.LECTURER + `?lecturerId=${lecturer.id}`}>
+      <Link
+        className="text-primary-font"
+        onClick={handleLecturerClick}
+        to={routes.LECTURER + `?lecturerId=${lecturer.id}`}
+      >
         {lecturer.name}
-      </StyledLink>
+      </Link>
     </Property>
   );
 };

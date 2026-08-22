@@ -4,7 +4,6 @@ import App from './app/App';
 import 'normalize.css/normalize.css';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import GlobalStyles from './index.style';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -19,7 +18,6 @@ dayjs.locale('uk');
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <GlobalStyles />
     <BrowserRouter>
       <App />
     </BrowserRouter>

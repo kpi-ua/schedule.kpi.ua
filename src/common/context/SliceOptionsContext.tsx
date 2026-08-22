@@ -65,5 +65,3 @@ export const SliceContextProvider = ({ children }: SliceContextProviderProps) =>
 
   return <SliceOptionsContext.Provider value={value}>{children}</SliceOptionsContext.Provider>;
 };
-
-export default SliceOptionsContext.Provider;
