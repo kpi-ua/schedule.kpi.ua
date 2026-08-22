@@ -1,33 +1,33 @@
 # Contributor License Agreement
 
-Thank you for your interest in contributing to this project (the "Project"), maintained by the National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute" ("KPI", "we", "us").
+Thank you for your interest in contributing to this project (the "Project"), maintained by the National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute" (the "University", "we", "us").
 
-This Contributor License Agreement ("Agreement") documents the rights granted by contributors to KPI. It is a legally binding document — please read it before agreeing to it.
+This Contributor License Agreement ("Agreement") documents the rights granted by contributors to the University. It is a legally binding document — please read it before agreeing to it.
 
 ## 1. Definitions
 
 "You" means the individual, or the legal entity on whose behalf You are acting, submitting a Contribution.
 
-"Contribution" means any original work of authorship, including any modification of or addition to existing work, that You intentionally submit to KPI for inclusion in the Project.
+"Contribution" means any original work of authorship, including any modification of or addition to existing work, that You intentionally submit to the University for inclusion in the Project.
 
-"Submit" means any form of electronic, verbal, or written communication sent to KPI or its representatives, including pull requests, patches, issues, and comments on repositories maintained by KPI.
+"Submit" means any form of electronic, verbal, or written communication sent to the University or its representatives, including pull requests, patches, issues, and comments on repositories maintained by the University.
 
 ## 2. Grant of Copyright License
 
-Subject to the terms of this Agreement, You grant to KPI, and to recipients of software distributed by KPI, a perpetual, worldwide, non-exclusive, royalty-free, irrevocable copyright license to:
+Subject to the terms of this Agreement, You grant to the University, and to recipients of software distributed by the University, a perpetual, worldwide, non-exclusive, royalty-free, irrevocable copyright license to:
 
 - reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Your Contributions and such derivative works; and
-- **relicense Your Contributions, alone or as part of the Project as a whole, under any license terms of KPI's choosing, at any time, whether or not compatible with the license under which You originally submitted the Contribution, including any future version of the Project's license.**
+- **relicense Your Contributions, alone or as part of the Project as a whole, under any license terms of the University's choosing, at any time, whether or not compatible with the license under which You originally submitted the Contribution, including any future version of the Project's license.**
 
 ## 3. Grant of Patent License
 
-Subject to the terms of this Agreement, You grant to KPI and to recipients of software distributed by KPI a perpetual, worldwide, non-exclusive, royalty-free, irrevocable (except as stated in this section) patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer Your Contribution, where such license applies only to patent claims licensable by You that are necessarily infringed by Your Contribution alone or by combination of Your Contribution with the Project.
+Subject to the terms of this Agreement, You grant to the University and to recipients of software distributed by the University a perpetual, worldwide, non-exclusive, royalty-free, irrevocable (except as stated in this section) patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer Your Contribution, where such license applies only to patent claims licensable by You that are necessarily infringed by Your Contribution alone or by combination of Your Contribution with the Project.
 
 If any entity institutes patent litigation against You or any other entity alleging that Your Contribution, or the Project to which You contributed, constitutes direct or contributory patent infringement, any patent licenses granted to that entity under this Agreement for that Contribution terminate as of the date such litigation is filed.
 
 ## 4. You Retain Ownership
 
-You retain all right, title, and interest in Your Contributions. This Agreement does not transfer ownership to KPI — it only grants the licenses described above. You remain free to use Your own Contributions for any other purpose, including under a different license elsewhere.
+You retain all right, title, and interest in Your Contributions. This Agreement does not transfer ownership to the University — it only grants the licenses described above. You remain free to use Your own Contributions for any other purpose, including under a different license elsewhere.
 
 ## 5. Representations
 
@@ -39,7 +39,7 @@ You represent that:
 
 ## 6. No Obligation
 
-KPI is under no obligation to use or incorporate any Contribution into the Project, and may remove or stop using a previously accepted Contribution at any time, subject to the terms of the license under which the Project is distributed at that time.
+The University is under no obligation to use or incorporate any Contribution into the Project, and may remove or stop using a previously accepted Contribution at any time, subject to the terms of the license under which the Project is distributed at that time.
 
 ## 7. No Warranty
 
