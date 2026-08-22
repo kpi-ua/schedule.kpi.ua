@@ -11,6 +11,13 @@ RUN npm ci --legacy-peer-deps
 
 # Copies everything over to Docker environment
 COPY . ./
+
+# Prevent esbuild/tsc from oversubscribing CPU/memory beyond the container's
+# actual cgroup limits (they otherwise see the host's full core/RAM count,
+# which can make the build hang for a long time before being SIGKILLed).
+ENV GOMAXPROCS=2
+ENV NODE_OPTIONS=--max-old-space-size=2048
+
 RUN npm run build
 
 # production
