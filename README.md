@@ -52,3 +52,8 @@ docker run --rm -it  -p 80:80/tcp kpiua/schedule.kpi.ua
 If you are owner of iPhone or iPad you can use this simple [iOS application](https://github.com/MrPaschenko/Schedule-KPI) which is built over schedule API.
 
 [![Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917](https://user-images.githubusercontent.com/64316080/168581675-cfc29e4a-410c-4664-9213-31f11560813c.svg)](https://apps.apple.com/us/app/schedule-kpi/id1625484300)
+
+## License
+
+Starting from commit `dbc12e369ef4` / version `1.0.0` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the BSD 3-Clause license (see [LICENSE-BSD-3-Clause](LICENSE-BSD-3-Clause)). The last commit under the previous license is tagged `bsd-3-clause-final`.
+
