@@ -11,12 +11,11 @@ export const getAllGroups = async (): Promise<Group[]> => {
 
   return response.map((row) => {
     const name = row.name.trim();
-    const faculty = row.faculty?.trim() ?? '';
+    const faculty = row.faculty?.trim();
 
     return {
       ...row,
       name: faculty ? `${name} (${faculty})` : name,
-      id: row.id,
     };
   });
 };
