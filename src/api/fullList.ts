@@ -9,9 +9,13 @@ export const getAllLecturers = (): Promise<EntityWithNameAndId[]> => {
 export const getAllGroups = async (): Promise<Group[]> => {
   const response = await Http.get<Group[]>('/group/all');
 
-  return response.map((row) => ({
-    ...row,
-    name: `${row.name.trim()} (${row.faculty.trim()})`,
-    id: row.id,
-  }));
+  return response.map((row) => {
+    const name = row.name.trim();
+    const faculty = row.faculty?.trim();
+
+    return {
+      ...row,
+      name: faculty ? `${name} (${faculty})` : name,
+    };
+  });
 };
