@@ -10,7 +10,8 @@ export const Footer = () => {
       <LogoIcon className="basis-[120px] max-sm:basis-auto" />
       <section className={footerSectionClassName}>
         <p>
-          Національний технічний університет України"Київський політехнічний інститут імені Ігоря Сікорського" © 1998-
+          Національний технічний університет України&quot;Київський політехнічний інститут імені Ігоря Сікорського&quot;
+          © 1998-
           {dayjs().year()}
         </p>
         <p>
@@ -28,11 +29,11 @@ export const Footer = () => {
           </a>
         </p>
         <p>
-          Створено в рамках проекту "
+          Створено в рамках проекту &ldquo;
           <a target="_blank" rel="noreferrer" href="https://ecampus.kpi.ua">
             Електронний кампус КПІ
           </a>
-          "
+          &rdquo;
         </p>
       </section>
       <section className={footerSectionClassName}>

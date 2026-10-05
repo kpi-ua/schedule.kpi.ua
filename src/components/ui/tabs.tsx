@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Tabs as TabsPrimitive } from 'radix-ui';
 import { cn } from '../../common/utils/cn';
@@ -39,7 +41,7 @@ export const TabsTrigger = ({
     className={cn(
       segmented &&
         'inline-flex grow cursor-pointer flex-col items-center justify-between border-0 bg-transparent px-[16px] py-[6px] text-[14px] leading-[1.43] font-medium tracking-[0.01em] whitespace-nowrap text-black transition-colors duration-200 ease-in after:pointer-events-none after:invisible after:h-0 after:select-none after:overflow-hidden after:font-semibold after:content-[attr(data-text)] data-[state=active]:bg-white data-[state=active]:font-semibold data-[state=active]:text-tab-active data-[state=active]:shadow-radio-option max-sm:px-[6px]',
-      segmented && (rounded ? 'rounded-full' : 'rounded-[6px]'),
+      segmented && (rounded ? 'rounded-full' : 'rounded-md'),
       className,
     )}
     {...props}

@@ -1,8 +1,9 @@
+'use client';
+
 import { clamp, inRange, isNil, range } from 'lodash-es';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { ScreenSize } from '../../types/ScreenSize';
-import { useCurrentTime } from '../../queries/useCurrentTime';
 import { useScreenSize } from '../hooks/useScreenSize';
 
 export type Slice = [number, number];
@@ -22,6 +23,7 @@ const SliceOptionsContext = createContext<SliceContext>({
 export const useSliceOptionsContext = () => useContext(SliceOptionsContext);
 
 interface SliceContextProviderProps {
+  currentDay?: number;
   children: React.ReactNode | React.ReactNode[];
 }
 
@@ -47,16 +49,19 @@ const getCurrentSlice = (screenSize: ScreenSize, currendDay: number): Slice => {
   return slices.find(([start, end]) => inRange(clamp(currendDay, 1, DAYS_COUNT), start, end + 1)) || defaultValue;
 };
 
-export const SliceContextProvider = ({ children }: SliceContextProviderProps) => {
-  const { data } = useCurrentTime();
+export const SliceContextProvider = ({ currentDay, children }: SliceContextProviderProps) => {
   const { screenSize } = useScreenSize();
-  const [slice, setSlice] = useState<Slice>(defaultValue);
+  // Seed synchronously from server-known currentDay so the SSR/first paint already shows the
+  // right day range, instead of the [0,0] default until the client effect below runs.
+  const [slice, setSlice] = useState<Slice>(() =>
+    isNil(currentDay) ? defaultValue : getCurrentSlice(screenSize, currentDay),
+  );
 
   useEffect(() => {
-    if (!isNil(data?.currentDay)) {
-      setSlice(getCurrentSlice(screenSize, data?.currentDay || 0));
+    if (!isNil(currentDay)) {
+      setSlice(getCurrentSlice(screenSize, currentDay));
     }
-  }, [screenSize, data?.currentDay]);
+  }, [screenSize, currentDay]);
 
   const value: SliceContext = {
     slice,

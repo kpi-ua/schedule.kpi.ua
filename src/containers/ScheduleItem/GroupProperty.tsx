@@ -1,23 +1,21 @@
+'use client';
+
 import { Property } from './Property';
 import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
-import { useStore } from '../../store';
 import { routes } from '../../common/constants/routes';
 import { Group } from '../../models/Group';
 import React from 'react';
 import ThreeUsersIcon from '../../assets/icons/users-three.svg?react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 interface Props {
   groups: Group[];
 }
 
 const GroupProperty = ({ groups }: Props) => {
-  const setGroup = useStore((store) => store.setGroup);
-
   const handleGroupClick = (group: Group) => {
     return () => {
       setLocalStorageItem('groupId', group.id);
-      setGroup(group);
     };
   };
 
@@ -39,7 +37,7 @@ const GroupProperty = ({ groups }: Props) => {
               className="text-primary-font"
               onClick={handleGroupClick(group)}
               key={group.id}
-              to={getGroupLink(group.id)}
+              href={getGroupLink(group.id)}
             >
               {group.name}
             </Link>

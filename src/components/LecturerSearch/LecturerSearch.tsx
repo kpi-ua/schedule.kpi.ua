@@ -1,21 +1,54 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '../ui/button';
 import Link from '../../assets/icons/link.svg?react';
 import SearchSelect from '../SearchSelect';
-import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
-import { useStore } from '../../store';
 import { useEntitySearch } from '../../common/hooks/useEntitySearch';
-import { usePreloadedList } from '../../common/hooks/usePreloadedList';
+import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
+import { LecturerSchedule } from '../../models/LecturerSchedule';
 
-const LecturerSearch = () => {
-  const { lecturers } = usePreloadedList();
-  const lecturer = useStore((state) => state.lecturer);
-  const setLecturer = useStore((state) => state.setLecturer);
+interface Props {
+  lecturers: EntityWithNameAndId[];
+}
 
-  const { handleChange } = useEntitySearch('lecturerId', lecturers, setLecturer);
+const LecturerSearch = ({ lecturers }: Props) => {
+  const searchParams = useSearchParams();
+  const lecturerId = searchParams.get('lecturerId');
+  const lecturer = lecturers.find(({ id }) => String(id) === lecturerId);
 
-  const { data: lecturerLessonsResponse, isLoading } = useLecturerSchedule(lecturer?.id);
+  const { handleChange } = useEntitySearch('lecturerId');
 
-  const lecturerProfile = lecturerLessonsResponse?.profile?.profile;
+  const [lecturerProfile, setLecturerProfile] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!lecturerId) {
+      setLecturerProfile(undefined);
+      return;
+    }
+
+    let cancelled = false;
+    setIsLoading(true);
+
+    fetch(`/api/schedule/lecturer?lecturerId=${lecturerId}`)
+      .then((response) => response.json())
+      .then((schedule: LecturerSchedule) => {
+        if (!cancelled) {
+          setLecturerProfile(schedule.profile?.profile);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [lecturerId]);
 
   const handleGoToLecturerProfile = () => {
     if (!lecturerProfile) {
@@ -35,7 +68,7 @@ const LecturerSearch = () => {
       >
         <Link />
       </Button>
-      <SearchSelect options={lecturers} value={lecturer} onChange={handleChange} />
+      <SearchSelect options={lecturers} value={lecturer} onChange={(item) => handleChange(item.id)} />
     </div>
   );
 };

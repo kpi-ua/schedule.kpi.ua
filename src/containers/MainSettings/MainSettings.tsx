@@ -1,11 +1,15 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import GroupSearch from '../../components/GroupSearch';
 import LecturerSearch from '../../components/LecturerSearch';
 import WeekSwitch from '../../components/WeekSwitch';
 import { routes } from '../../common/constants/routes';
 import { getLocalStorageItem } from '../../common/utils/parsedLocalStorage';
-import { useStore } from '../../store';
 import { cn } from '../../common/utils/cn';
+import { Group } from '../../models/Group';
+import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 
 const scheduleLinks = [
   { value: routes.INDEX, label: 'Розклад занять' },
@@ -13,68 +17,66 @@ const scheduleLinks = [
   { value: routes.LECTURER, label: 'Розклад для викладачів' },
 ];
 
-const MainSettings = () => {
-  const groupId = useStore((state) => state.group?.id);
-  const lecturerId = useStore((state) => state.lecturer?.id);
+interface Props {
+  groups: Group[];
+  lecturers: EntityWithNameAndId[];
+}
+
+const MainSettings = ({ groups, lecturers }: Props) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const getLinkUrl = (url: string) => {
-    if (url.includes(routes.LECTURER)) {
-      const savedLecturerId = lecturerId ?? getLocalStorageItem('lecturerId');
-      return savedLecturerId ? `${url}?groupId=${savedLecturerId}` : url;
+    if (url === routes.LECTURER) {
+      const savedLecturerId = searchParams.get('lecturerId') ?? getLocalStorageItem<string>('lecturerId');
+      return savedLecturerId ? `${url}?lecturerId=${savedLecturerId}` : url;
     }
 
-    const savedGroupId = groupId ?? getLocalStorageItem('groupId');
+    const savedGroupId = searchParams.get('groupId') ?? getLocalStorageItem<string>('groupId');
     return savedGroupId ? `${url}?groupId=${savedGroupId}` : url;
   };
 
   return (
-    <div className="flex grow flex-col items-center gap-[24px] leading-[1.43] max-lg:w-full">
-      <nav className="flex max-w-[calc(100vw-3rem)] snap-x snap-mandatory items-center justify-between gap-[37px] overflow-x-scroll whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {scheduleLinks.map(({ value, label }) => (
-          <NavLink
-            end={value === routes.INDEX}
-            key={value}
-            to={getLinkUrl(value)}
-            className={({ isActive }) =>
-              cn(
-                "relative cursor-pointer snap-center text-[18px] leading-[1.43] font-bold tracking-[0.01em] text-black no-underline snap-always after:top-[-12px] after:hidden after:h-[2px] after:rounded-[6px] after:bg-black after:content-['']",
+    <div className="flex grow flex-col items-center gap-6 leading-[1.43] max-lg:w-full">
+      <nav className="flex max-w-[calc(100vw-3rem)] snap-x snap-mandatory items-center justify-between gap-9.25 overflow-x-scroll whitespace-nowrap scrollbar-none [&::-webkit-scrollbar]:hidden">
+        {scheduleLinks.map(({ value, label }) => {
+          const isActive = pathname === value;
+
+          return (
+            <Link
+              key={value}
+              href={getLinkUrl(value)}
+              className={cn(
+                "relative cursor-pointer snap-center text-[18px] leading-[1.43] font-bold tracking-[0.01em] text-black no-underline snap-always after:-top-3 after:hidden after:h-0.5 after:rounded-md after:bg-black after:content-['']",
                 isActive && 'after:block',
-              )
-            }
-            onClick={(event) =>
-              event.currentTarget.scrollIntoView({
-                inline: 'center',
-                block: 'nearest',
-                behavior: 'smooth',
-              })
-            }
-          >
-            {label}
-          </NavLink>
-        ))}
+              )}
+              onClick={(event) =>
+                event.currentTarget.scrollIntoView({
+                  inline: 'center',
+                  block: 'nearest',
+                  behavior: 'smooth',
+                })
+              }
+            >
+              {label}
+            </Link>
+          );
+        })}
       </nav>
-      <div className="flex gap-[20px] max-lg:flex-col max-lg:items-center max-sm:w-full">
-        <Routes>
-          <Route
-            index
-            element={
-              <>
-                <GroupSearch />
-                <WeekSwitch />
-              </>
-            }
-          />
-          <Route path={routes.SESSION} element={<GroupSearch />} />
-          <Route
-            path={routes.LECTURER}
-            element={
-              <>
-                <LecturerSearch />
-                <WeekSwitch />
-              </>
-            }
-          />
-        </Routes>
+      <div className="flex gap-5 max-lg:flex-col max-lg:items-center max-sm:w-full">
+        {pathname === routes.INDEX && (
+          <>
+            <GroupSearch groups={groups} />
+            <WeekSwitch />
+          </>
+        )}
+        {pathname === routes.SESSION && <GroupSearch groups={groups} />}
+        {pathname === routes.LECTURER && (
+          <>
+            <LecturerSearch lecturers={lecturers} />
+            <WeekSwitch />
+          </>
+        )}
       </div>
     </div>
   );

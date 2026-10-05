@@ -5,48 +5,53 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 ## Project Summary
 
 - **Language:** TypeScript
-- **Framework:** React 18 + Vite 6
-- **Styling:** Tailwind CSS 4 (via `@tailwindcss/vite`)
-- **State:** `zustand` (global, e.g. `store/weekStore.tsx`), React Context for cross-cutting slice options, local component state otherwise
-- **Data fetching:** `react-query` (v3) hooks in `src/queries/`
-- **Routing:** `react-router-dom` v7
+- **Framework:** Next.js 15 (App Router), React 18
+- **Styling:** Tailwind CSS 4 (via `@tailwindcss/postcss`)
+- **State:** URL searchParams (`groupId`/`lecturerId`) are the source of truth, read server-side; only the week switcher and the responsive day-slice are small client-side React Context state (`common/context/WeekContext.tsx`, `common/context/SliceOptionsContext.tsx`). No global client store (zustand was removed).
+- **Data fetching:** Server Components and `/api/*` route handlers both call `src/lib/campusApi/endpoints.ts` directly — no client-side data-fetching library (react-query was removed).
+- **Backend-for-frontend:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars). It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `src/app/api/**/route.ts` mirrors Campus's paths 1:1 for the browser and external consumers.
+- **Routing:** Next.js file-based routing under `src/app/` — URL scheme is unchanged from the pre-migration app (`/`, `/lecturers`, `/sessions`, `/about`, `/contacts`), entity selection stays query-param driven (no dynamic route segments).
 - **Main branch:** `master`
-- **Deployment:** Docker (Node build stage + nginx serve), image `kpiua/schedule.kpi.ua`
+- **Deployment:** Docker (Node build stage, `output: 'standalone'`, no nginx), image `kpiua/schedule.kpi.ua`, listens on port 3000.
 
 ## Repository Layout
 
 ```text
 src/
-├── api/            # Raw HTTP calls (fetch wrappers), one file per resource
-├── queries/        # react-query hooks wrapping api/ calls (useXxx.ts)
-├── store/          # zustand stores
+├── app/            # Next.js App Router: layouts, pages, /api/* route handlers, /healthz
+│   ├── (schedule)/ # layout + pages for /, /lecturers, /sessions (route group, no URL segment)
+│   ├── (about)/    # layout + pages for /about, /contacts
+│   └── api/        # BFF route handlers mirroring Campus API paths
+├── lib/
+│   ├── campusApi/  # client.ts (fetch+timeout+retry), cache.ts (TTL+stale), endpoints.ts (Campus calls)
+│   ├── apiRoute.ts # request logging wrapper for /api/* route handlers
+│   └── logger.ts   # structured JSON logger
 ├── common/
 │   ├── constants/  # shared constants (routes, options, config)
-│   ├── context/    # React contexts
+│   ├── context/    # React contexts (WeekContext, SliceOptionsContext) — client-only state
 │   ├── hooks/      # shared hooks
 │   └── utils/      # shared pure helpers
 ├── components/     # Presentational/reusable components
 │   └── ui/         # shadcn/radix-based primitives (button, sheet, tabs, ...)
-├── containers/     # Feature/layout components composing components + queries/store
-├── layouts/        # Page-level layout shells
-├── models/         # Domain data models (Pair, Schedule, ...)
+├── containers/     # Feature components composing components + server-fetched data via props
+├── layouts/        # Shared non-route layout helpers (e.g. TwoColumnsLayout)
+├── models/         # Domain data models (Pair, Schedule, ...) — also the /api/* response contract
 ├── types/          # Shared TypeScript types
-├── @types/         # Ambient/module type declarations
-└── app/            # App entry, routing setup
+└── @types/         # Ambient/module type declarations
 ```
 
-Root Dockerfile: `Dockerfile` (Node build stage -> nginx serve, exposes port 80, health via nginx).
+Root Dockerfile: `Dockerfile` (Node build stage with `next build` → Node runtime stage running `.next/standalone/server.js`, exposes port 3000, `/healthz` is a Next.js route).
 
 ## Quick Commands
 
 ```bash
-npm run dev          # Start dev server (Vite, port 3000)
-npm run build         # tsc -b && vite build
-npm run lint          # ESLint
-npm run lint:fix      # ESLint --fix
-npm run prettier      # Prettier check
-npm run prettier:fix  # Prettier write
-npm run preview       # Preview production build
+pnpm dev          # Start dev server (Next.js, port 3000)
+pnpm build        # next build
+pnpm start        # next start (plain build; use node .next/standalone/server.js for the standalone/Docker output)
+pnpm lint         # ESLint (next/core-web-vitals + typescript-eslint)
+pnpm lint:fix     # ESLint --fix
+pnpm prettier     # Prettier check
+pnpm prettier:fix # Prettier write
 ```
 
 ## Code Style
@@ -61,13 +66,16 @@ npm run preview       # Preview production build
 
 ### API + data fetching
 
-- Raw fetch/HTTP logic lives in `src/api/<resource>.ts`.
-- Each API call is wrapped in a `react-query` hook in `src/queries/use<Thing>.ts` (e.g. `useStudentSchedule.ts`, `useTimeSlots.ts`). Components consume the query hook, never the raw `api/` function directly.
+- All Campus API calls live in `src/lib/campusApi/endpoints.ts`, going through `client.ts` (timeout/retry) and `cache.ts` (30-min TTL, stale-on-error). This module reads `process.env.CAMPUS_API_URL`/`CAMPUS_API_KEY` and must never be imported by a Client Component.
+- Server Components (pages, layouts) call these functions directly — no internal fetch to our own `/api/*`.
+- Client Components that need Campus data (e.g. `LastSyncDate`, the lecturer-profile link in `LecturerSearch`) fetch our own `/api/*` routes with plain `fetch`, not the `campusApi` lib.
+- `src/app/api/**/route.ts` handlers are thin wrappers: parse `request.nextUrl.searchParams`, call the matching `campusApi` function, return `NextResponse.json(...)`, wrapped in `withApiLogging` (`src/lib/apiRoute.ts`).
 
 ### State
 
-- Cross-component ephemeral state (e.g. selected week) goes in a `zustand` store under `src/store/`.
-- Cross-cutting derived/contextual values used by several components in one subtree go in a React Context under `src/common/context/`.
+- Selected group/lecturer is **not** stored in any client state — it's read from the URL (`?groupId=`/`?lecturerId=`) server-side on every render. `useEntitySearch` (`common/hooks/useEntitySearch.ts`) only restores the last choice from `localStorage` into the URL and keeps `localStorage` in sync; it doesn't hold the value itself.
+- The week switch (`WeekContext`) and the responsive day-slice (`SliceOptionsContext`) are the only client-side React Context state, both seeded from server-fetched data (`currentTime`) and scoped to the `(schedule)` route group.
+- Components that read `useSearchParams`/`usePathname`/`useRouter` or any of the above contexts must have `'use client'` at the top of the file.
 
 ### Styling
 
@@ -79,16 +87,16 @@ npm run preview       # Preview production build
 
 ## Environment Variables
 
-Check `.env` files at the repo root for required variables (API base URL, etc.) before assuming a hardcoded value is intentional.
+See `.env.example` at the repo root. `CAMPUS_API_URL` and `CAMPUS_API_KEY` are server-only (no `NEXT_PUBLIC_` prefix) and must never be read from a Client Component. `KPI_ID_*` vars are reserved for a future SSO integration and currently unused.
 
 ## Build And Test
 
 ```bash
-npm run build   # tsc -b && vite build — must pass with no new TypeScript errors
-npm run lint    # must pass with no new ESLint errors
+pnpm build   # next build — must pass with no new TypeScript/ESLint errors
+pnpm lint    # must pass with no new ESLint errors
 ```
 
-There is currently no automated test suite in this repository. Manually verify UI changes in the dev server (`npm run dev`) before committing.
+There is currently no automated test suite in this repository. Manually verify UI changes in the dev server (`pnpm dev`) before committing.
 
 Docker build:
 
@@ -99,9 +107,10 @@ docker build -t kpiua/schedule.kpi.ua:local -f Dockerfile .
 ## Development Conventions
 
 - Prefer existing component/container boundaries over new abstractions — check 2-3 sibling files in `components/` or `containers/` before introducing a new pattern.
-- Keep `api/` calls thin; put derived/business logic in `queries/` hooks, `common/utils/`, or the consuming container, not in the raw API layer.
+- Keep `lib/campusApi/` thin and server-only; put derived/business logic in the consuming Server Component, `common/utils/`, or the route handler, not in the Campus client itself.
 - Don't add a parallel mobile-specific component tree — this codebase uses responsive Tailwind classes on the same component, not separate `md:hidden` variants, unless an existing component already does so.
 - Follow existing patterns for `models/` vs `types/`: `models/` holds domain entities (e.g. `Pair`, `Schedule`), `types/` holds shared structural/utility types (e.g. `ScheduleMatrix`, `ScheduleComponentsProps`).
+- Default to Server Components; add `'use client'` only at the boundary file that actually needs hooks, browser APIs, or event handlers — don't mark a whole subtree client just because one leaf needs it.
 
 ## Git Workflow
 
@@ -149,14 +158,17 @@ Before committing, follow this checklist:
   Jira: [KBX-1064](https://kpiua.atlassian.net/browse/KBX-1064)
 
   ## Summary
+
   - Short change 1.
   - Short change 2.
   - Short change 3.
 
   ## Notes
+
   - Optional: rollout detail, dependency on another PR, known limitation.
 
   ## UI
+
   <!-- Optional: screenshots for visible frontend changes only -->
   ```
 

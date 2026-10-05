@@ -1,15 +1,19 @@
 # pull official base image
-FROM node:lts-alpine as builder
+FROM node:lts-alpine AS builder
 RUN apk add --no-cache python3 py3-pip make g++
+
+# enable pnpm via corepack, pinned to the project's packageManager version
+RUN corepack enable && corepack prepare pnpm@12.5.1 --activate
+
 # set working directory (must NOT be `/`: Tailwind 4 auto-scans the whole
 # working directory for class names, and scanning the container root —
-# /proc, /sys, /usr, ... — makes `vite build` hang until it is OOM-killed)
+# /proc, /sys, /usr, ... — makes the build hang until it is OOM-killed)
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Installs all node packages
-RUN npm ci --legacy-peer-deps
+RUN pnpm install --frozen-lockfile
 
 # Copies everything over to Docker environment
 COPY . ./
@@ -20,11 +24,17 @@ COPY . ./
 ENV GOMAXPROCS=2
 ENV NODE_OPTIONS=--max-old-space-size=2048
 
-RUN npm run build
+RUN pnpm run build
 
 # production
-FROM nginx:stable-alpine
-COPY --from=builder /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:lts-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+

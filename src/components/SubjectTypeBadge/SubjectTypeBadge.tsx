@@ -48,12 +48,7 @@ export const SubjectTypeBadge = ({ dates, type, children }: Props) => {
       >
         <CalendarBlank />
         {children}
-        <span
-          className={cn(
-            'self-stretch rounded-md px-2.5 font-medium text-white',
-            backgroundVariants({ type }),
-          )}
-        >
+        <span className={cn('self-stretch rounded-md px-2.5 font-medium text-white', backgroundVariants({ type }))}>
           {getCurrentLesson(dates)}/{dates.length}
         </span>
       </div>
@@ -61,12 +56,7 @@ export const SubjectTypeBadge = ({ dates, type, children }: Props) => {
   }
 
   return (
-    <div
-      className={cn(
-        'rounded-lg px-2.5 py-0.75 text-center font-medium text-white',
-        backgroundVariants({ type }),
-      )}
-    >
+    <div className={cn('rounded-lg px-2.5 py-0.75 text-center font-medium text-white', backgroundVariants({ type }))}>
       {children}
     </div>
   );

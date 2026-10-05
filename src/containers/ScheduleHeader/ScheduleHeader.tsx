@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
 

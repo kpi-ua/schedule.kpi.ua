@@ -18,11 +18,7 @@ const ScheduleRow = <T extends Pair>({
           return <BaseComponentExtended key={index} scheduleMatrixCell={item} />;
         }
 
-        return item ? (
-          <BaseComponent key={index} scheduleMatrixCell={item} />
-        ) : (
-          <div className="h-[150px]" key={index} />
-        );
+        return item ? <BaseComponent key={index} scheduleMatrixCell={item} /> : <div className="h-37.5" key={index} />;
       })}
     </>
   );

@@ -1,10 +1,42 @@
+'use client';
+
 import dayjs from 'dayjs';
-import { useLastSyncDate } from '../../queries/useLastSyncDate';
-import { useStore } from '../../store';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { GroupSyncDate } from '../../models/GroupSyncDate';
 
 export const LastSyncDate = () => {
-  const group = useStore((state) => state.group);
-  const { data, isLoading } = useLastSyncDate(group?.id);
+  const searchParams = useSearchParams();
+  const groupId = searchParams.get('groupId');
+  const [data, setData] = useState<GroupSyncDate>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!groupId) {
+      setData(undefined);
+      return;
+    }
+
+    let cancelled = false;
+    setIsLoading(true);
+
+    fetch(`/api/schedule/status?groupId=${groupId}`)
+      .then((response) => response.json())
+      .then((rows: GroupSyncDate[]) => {
+        if (!cancelled) {
+          setData(rows[0]);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [groupId]);
 
   const renderValue = () => {
     if (isLoading) {

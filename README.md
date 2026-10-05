@@ -5,26 +5,41 @@
 
 A responsive, maintainable, scalable, and fast UI with a modern design for the students of Igor Sikorsky Kyiv Polytechnic Institute.
 
+Built with Next.js (App Router). The server renders pages and also exposes a `/api/*` backend-for-frontend that
+proxies and caches the Campus API — the browser and external consumers only ever talk to `schedule.kpi.ua/api/*`,
+never to Campus directly.
+
+## Environment variables
+
+Copy `.env.example` to `.env.local` for local development. These are server-only and are never exposed to the browser:
+
+- `CAMPUS_API_URL` — base URL of the Campus API (defaults to `https://api.campus.kpi.ua`).
+- `CAMPUS_API_KEY` — API key sent as the `X-Api-Key` header to Campus.
+- `KPI_ID_CLIENT_ID` / `KPI_ID_CLIENT_SECRET` — reserved for future KPI ID (SSO) integration, not used yet.
+
 ## API usage
 
-Schedule API is a part of **campus API**.
-Base URL: https://api.campus.kpi.ua/
+`/api/*` mirrors the Campus API 1:1 so it can be used as a drop-in replacement once Campus is retired for this traffic:
 
-Endpoints:
+- Groups list: `GET /api/group/all`
+- Lecturers list: `GET /api/schedule/lecturer/list`
+- Group schedule: `GET /api/schedule/lessons?groupId={id}`
+- Group exams: `GET /api/schedule/exams/group?groupId={id}`
+- Last sync date: `GET /api/schedule/status?groupId={id}`
+- Lecturer schedule: `GET /api/schedule/lecturer?lecturerId={id}`
+- Time slots: `GET /api/schedule/lessons/slots`
+- Current day and week: `GET /api/time/current`
+- Health check: `GET /healthz`
 
-- Groups list: [group/all](https://api.campus.kpi.ua/group/all)
-- Lecturers list: [schedule/lecturer/list](https://api.campus.kpi.ua/schedule/lecturer/list)
-- Group schedule: [schedule/lessons?groupId={group id}](https://api.campus.kpi.ua/schedule/lessons?groupId=fb121dae-9fe5-4a9a-bced-ff7603a19c31)
-- Group exams: [exams/group?groupId={group id}](https://api.campus.kpi.ua/exams/group?groupId=fb121dae-9fe5-4a9a-bced-ff7603a19c31)
-- Lecturer schedule: [schedule/lecturer?lecturerId={id from list}](https://api.campus.kpi.ua/schedule/lecturer?lecturerId=53bb6a07-bc0a-4c9b-a0e5-58866f4b3e19)
-- Current day and week: [time/current](https://api.campus.kpi.ua/time/current)
+Responses are cached in-process per endpoint+params for 30 minutes; on a Campus API error or timeout the last known-good
+copy is served regardless of age (and logged as stale) instead of failing the request.
 
 ## Run and Develop
 
 ### Run in the development mode
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -32,7 +47,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### Make a production build
 
 ```bash
-npm run build
+pnpm build
+pnpm start
 ```
 
 ### Build Docker container
@@ -43,8 +59,13 @@ docker build ./ --file ./Dockerfile --tag kpiua/schedule.kpi.ua:latest
 
 ### Run latest Docker container
 
+The app listens on port 3000 inside the container (no nginx — the Next.js standalone server serves everything).
+
 ```bash
-docker run --rm -it  -p 80:80/tcp kpiua/schedule.kpi.ua
+docker run --rm -it -p 3000:3000 \
+  -e CAMPUS_API_URL=https://api.campus.kpi.ua \
+  -e CAMPUS_API_KEY=changeme \
+  kpiua/schedule.kpi.ua
 ```
 
 ## Related Projects

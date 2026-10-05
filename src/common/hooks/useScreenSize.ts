@@ -2,11 +2,17 @@ import { ScreenSize } from '../../types/ScreenSize';
 import { useCallback, useEffect, useState } from 'react';
 import { SCREEN_SIZES } from '../constants/screenSize';
 
+const screenSizes = Object.values(ScreenSize);
+
 export const useScreenSize = () => {
   const detectScreenSize = () => {
-    for (const key in ScreenSize) {
-      if (window.innerWidth <= parseInt(SCREEN_SIZES[ScreenSize[key]])) {
-        return ScreenSize[key];
+    if (typeof window === 'undefined') {
+      return ScreenSize.Big;
+    }
+
+    for (const size of screenSizes) {
+      if (window.innerWidth <= parseInt(SCREEN_SIZES[size])) {
+        return size;
       }
     }
 
@@ -18,6 +24,8 @@ export const useScreenSize = () => {
   const updateScreenSize = useCallback(() => setScreenSize(detectScreenSize()), []);
 
   useEffect(() => {
+    // Corrects the SSR-guessed size (window is unavailable on the server) right after mount.
+    updateScreenSize();
     window.addEventListener('resize', updateScreenSize);
 
     return () => window.removeEventListener('resize', updateScreenSize);
