@@ -5,10 +5,17 @@ import Legend from '../../components/Legend';
 import Footer from '../../components/Footer';
 import { WeekContextProvider } from '../../common/context/WeekContext';
 import { convertServerTimeToWeek } from '../../common/utils/weekConverter';
-import { getAllGroups, getAllLecturers, getCurrentTime } from '../../lib/campusApi/endpoints';
+import { unwrapAction } from '../../lib/unwrapAction';
+import { getAllGroupsAction } from '../../actions/group.actions';
+import { getAllLecturersAction } from '../../actions/lecturer.actions';
+import { getCurrentTimeAction } from '../../actions/time.actions';
 
 export default async function ScheduleRouteLayout({ children }: { children: React.ReactNode }) {
-  const [groups, lecturers, currentTime] = await Promise.all([getAllGroups(), getAllLecturers(), getCurrentTime()]);
+  const [groups, lecturers, currentTime] = await Promise.all([
+    unwrapAction(getAllGroupsAction()),
+    unwrapAction(getAllLecturersAction()),
+    unwrapAction(getCurrentTimeAction()),
+  ]);
 
   const initialWeek = convertServerTimeToWeek(currentTime.currentWeek);
 

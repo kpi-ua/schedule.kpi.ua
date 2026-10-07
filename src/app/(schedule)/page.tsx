@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import ScheduleWrapper, { ScheduleGrid } from '../../containers/ScheduleWrapper/ScheduleWrapper';
 import StudentScheduleItem from '../../containers/ScheduleItem/StudentScheduleItem';
 import StudentScheduleItemExtended from '../../containers/ScheduleItemExtended/StudentScheduleItemExtended';
-import { getAllGroups, getCurrentTime, getScheduleByGroup, getSortedTimeSlots } from '../../lib/campusApi/endpoints';
+import { unwrapAction } from '../../lib/unwrapAction';
+import { getAllGroupsAction } from '../../actions/group.actions';
+import { getCurrentTimeAction } from '../../actions/time.actions';
+import { getScheduleByGroupAction, getSortedTimeSlotsAction } from '../../actions/lessons.actions';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;
@@ -10,7 +13,9 @@ interface PageProps {
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { groupId } = await searchParams;
-  const group = groupId ? (await getAllGroups()).find(({ id }) => String(id) === groupId) : undefined;
+  const group = groupId
+    ? (await unwrapAction(getAllGroupsAction())).find(({ id }) => String(id) === groupId)
+    : undefined;
 
   const title = group
     ? `Розклад занять групи ${group.name} | Розклад КПІ`
@@ -30,9 +35,9 @@ export default async function GroupSchedulePage({ searchParams }: PageProps) {
   const { groupId } = await searchParams;
 
   const [schedule, currentTime, timeSlots] = await Promise.all([
-    groupId ? getScheduleByGroup(groupId) : undefined,
-    getCurrentTime(),
-    getSortedTimeSlots(),
+    groupId ? unwrapAction(getScheduleByGroupAction({ groupId })) : undefined,
+    unwrapAction(getCurrentTimeAction()),
+    unwrapAction(getSortedTimeSlotsAction()),
   ]);
 
   return (

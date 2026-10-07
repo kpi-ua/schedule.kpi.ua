@@ -184,6 +184,9 @@ importers:
       next:
         specifier: ^15.1.6
         version: 15.5.27(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@22.20.5)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next-safe-action:
+        specifier: ^8.7.3
+        version: 8.7.3(next@15.5.27(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@22.20.5)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -208,6 +211,9 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.7.0
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.2.0
@@ -3322,6 +3328,14 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  next-safe-action@8.7.3:
+    resolution: {integrity: sha512-tz6wMMBOSGyEclSDChpj5izLLErUbwqcufXN4a6lyD83pgPni9GWVniLH0zEzPWcKIkkyEiQyrjOhWcqxBKy6A==}
+    engines: {node: '>=18.17'}
+    peerDependencies:
+      next: '>= 14.0.0'
+      react: '>= 18.2.0'
+      react-dom: '>= 18.2.0'
+
   next@15.5.27:
     resolution: {integrity: sha512-F82CrlPZ8GRxBH9RIIoR3qU1t5RT3dv1K8moe8SjlDEquiFipvEI13R1Om90TaUOEwShkWCMlg8+gvTNzfMhvg==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
@@ -3924,6 +3938,9 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  zod@4.6.5:
+    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
 
 snapshots:
 
@@ -7281,6 +7298,12 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
+  next-safe-action@8.7.3(next@15.5.27(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@22.20.5)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      next: 15.5.27(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@22.20.5)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   next@15.5.27(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@22.20.5)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 15.5.27
@@ -8081,3 +8104,5 @@ snapshots:
   yaml@1.10.3: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@4.6.5: {}

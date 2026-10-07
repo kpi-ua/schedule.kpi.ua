@@ -5,9 +5,9 @@
 
 A responsive, maintainable, scalable, and fast UI with a modern design for the students of Igor Sikorsky Kyiv Polytechnic Institute.
 
-Built with Next.js (App Router). The server renders pages and also exposes a `/api/*` backend-for-frontend that
-proxies and caches the Campus API — the browser and external consumers only ever talk to `schedule.kpi.ua/api/*`,
-never to Campus directly.
+Built with Next.js (App Router). The server renders pages and fetches the Campus API directly, server-side only —
+this app does not expose a public REST API. The handful of client-side data needs (lecturer profile link, group
+last-sync date) are served by Next.js Server Actions, not HTTP endpoints.
 
 ## Environment variables
 
@@ -17,22 +17,14 @@ Copy `.env.example` to `.env.local` for local development. These are server-only
 - `CAMPUS_API_KEY` — API key sent as the `X-Api-Key` header to Campus.
 - `KPI_ID_CLIENT_ID` / `KPI_ID_CLIENT_SECRET` — reserved for future KPI ID (SSO) integration, not used yet.
 
-## API usage
+## Campus API access
 
-`/api/*` mirrors the Campus API 1:1 so it can be used as a drop-in replacement once Campus is retired for this traffic:
+There is no public REST API — `src/lib/campusApi/` is the only code allowed to call the real Campus API and is never
+imported by a Client Component. Campus responses are cached in-process per endpoint+params for 30 minutes; on a
+Campus API error or timeout the last known-good copy is served regardless of age (and logged as stale) instead of
+failing the request.
 
-- Groups list: `GET /api/group/all`
-- Lecturers list: `GET /api/schedule/lecturer/list`
-- Group schedule: `GET /api/schedule/lessons?groupId={id}`
-- Group exams: `GET /api/schedule/exams/group?groupId={id}`
-- Last sync date: `GET /api/schedule/status?groupId={id}`
-- Lecturer schedule: `GET /api/schedule/lecturer?lecturerId={id}`
-- Time slots: `GET /api/schedule/lessons/slots`
-- Current day and week: `GET /api/time/current`
-- Health check: `GET /healthz`
-
-Responses are cached in-process per endpoint+params for 30 minutes; on a Campus API error or timeout the last known-good
-copy is served regardless of age (and logged as stale) instead of failing the request.
+`GET /healthz` remains the only HTTP endpoint this app exposes, for infra liveness checks.
 
 ## Run and Develop
 
@@ -67,9 +59,3 @@ docker run --rm -it -p 3000:3000 \
   -e CAMPUS_API_KEY=changeme \
   kpiua/schedule.kpi.ua
 ```
-
-## Related Projects
-
-If you are owner of iPhone or iPad you can use this simple [iOS application](https://github.com/MrPaschenko/Schedule-KPI) which is built over schedule API.
-
-[![Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917](https://user-images.githubusercontent.com/64316080/168581675-cfc29e4a-410c-4664-9213-31f11560813c.svg)](https://apps.apple.com/us/app/schedule-kpi/id1625484300)

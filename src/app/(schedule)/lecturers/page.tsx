@@ -2,12 +2,10 @@ import type { Metadata } from 'next';
 import ScheduleWrapper, { ScheduleGrid } from '../../../containers/ScheduleWrapper/ScheduleWrapper';
 import LecturerScheduleItem from '../../../containers/ScheduleItem/LecturerScheduleItem';
 import LecturerScheduleItemExtended from '../../../containers/ScheduleItemExtended/LecturerScheduleItemExtended';
-import {
-  getAllLecturers,
-  getCurrentTime,
-  getScheduleByLecturer,
-  getSortedTimeSlots,
-} from '../../../lib/campusApi/endpoints';
+import { unwrapAction } from '../../../lib/unwrapAction';
+import { getAllLecturersAction, getScheduleByLecturerAction } from '../../../actions/lecturer.actions';
+import { getCurrentTimeAction } from '../../../actions/time.actions';
+import { getSortedTimeSlotsAction } from '../../../actions/lessons.actions';
 
 interface PageProps {
   searchParams: Promise<{ lecturerId?: string }>;
@@ -15,8 +13,10 @@ interface PageProps {
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { lecturerId } = await searchParams;
-  const lecturer = lecturerId ? (await getAllLecturers()).find(({ id }) => String(id) === lecturerId) : undefined;
-  const schedule = lecturerId ? await getScheduleByLecturer(lecturerId) : undefined;
+  const lecturer = lecturerId
+    ? (await unwrapAction(getAllLecturersAction())).find(({ id }) => String(id) === lecturerId)
+    : undefined;
+  const schedule = lecturerId ? await unwrapAction(getScheduleByLecturerAction({ lecturerId })) : undefined;
 
   const title = lecturer
     ? `Розклад занять викладача ${lecturer.name} | Розклад КПІ`
@@ -42,9 +42,9 @@ export default async function LecturerSchedulePage({ searchParams }: PageProps) 
   const { lecturerId } = await searchParams;
 
   const [schedule, currentTime, timeSlots] = await Promise.all([
-    lecturerId ? getScheduleByLecturer(lecturerId) : undefined,
-    getCurrentTime(),
-    getSortedTimeSlots(),
+    lecturerId ? unwrapAction(getScheduleByLecturerAction({ lecturerId })) : undefined,
+    unwrapAction(getCurrentTimeAction()),
+    unwrapAction(getSortedTimeSlotsAction()),
   ]);
 
   return (

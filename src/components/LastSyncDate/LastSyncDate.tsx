@@ -1,42 +1,26 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { GroupSyncDate } from '../../models/GroupSyncDate';
+import { useAction } from 'next-safe-action/hooks';
+import { getLastSyncDateAction } from '../../actions/status.actions';
 
 export const LastSyncDate = () => {
   const searchParams = useSearchParams();
   const groupId = searchParams.get('groupId');
-  const [data, setData] = useState<GroupSyncDate>();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { execute, input, result, isExecuting } = useAction(getLastSyncDateAction);
 
   useEffect(() => {
-    if (!groupId) {
-      setData(undefined);
-      return;
+    if (groupId) {
+      execute({ groupId });
     }
+  }, [groupId, execute]);
 
-    let cancelled = false;
-    setIsLoading(true);
-
-    fetch(`/api/schedule/status?groupId=${groupId}`)
-      .then((response) => response.json())
-      .then((rows: GroupSyncDate[]) => {
-        if (!cancelled) {
-          setData(rows[0]);
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [groupId]);
+  // Ignore a still-in-flight result for a group the user has already navigated away from.
+  const data = input?.groupId === groupId ? result.data : undefined;
+  const isLoading = isExecuting;
 
   const renderValue = () => {
     if (isLoading) {

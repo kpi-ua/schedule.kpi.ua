@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import GroupSearch from '../../components/GroupSearch';
@@ -25,14 +26,24 @@ interface Props {
 const MainSettings = ({ groups, lecturers }: Props) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  // localStorage isn't available during SSR, so defer reading it until after mount
+  // to keep the first client render identical to the server-rendered markup.
+  const [savedIds, setSavedIds] = useState<{ groupId?: string; lecturerId?: string }>({});
+
+  useEffect(() => {
+    setSavedIds({
+      groupId: getLocalStorageItem<string>('groupId'),
+      lecturerId: getLocalStorageItem<string>('lecturerId'),
+    });
+  }, []);
 
   const getLinkUrl = (url: string) => {
     if (url === routes.LECTURER) {
-      const savedLecturerId = searchParams.get('lecturerId') ?? getLocalStorageItem<string>('lecturerId');
+      const savedLecturerId = searchParams.get('lecturerId') ?? savedIds.lecturerId;
       return savedLecturerId ? `${url}?lecturerId=${savedLecturerId}` : url;
     }
 
-    const savedGroupId = searchParams.get('groupId') ?? getLocalStorageItem<string>('groupId');
+    const savedGroupId = searchParams.get('groupId') ?? savedIds.groupId;
     return savedGroupId ? `${url}?groupId=${savedGroupId}` : url;
   };
 

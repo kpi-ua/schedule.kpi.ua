@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import dayjs from 'dayjs';
 import ExamSchedule from '../../../components/ExamSchedule';
 import { ScheduleGrid } from '../../../containers/ScheduleWrapper/ScheduleWrapper';
-import { getAllGroups, getExamsByGroup } from '../../../lib/campusApi/endpoints';
+import { unwrapAction } from '../../../lib/unwrapAction';
+import { getAllGroupsAction } from '../../../actions/group.actions';
+import { getExamsByGroupAction } from '../../../actions/exams.actions';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;
@@ -10,7 +12,9 @@ interface PageProps {
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { groupId } = await searchParams;
-  const group = groupId ? (await getAllGroups()).find(({ id }) => String(id) === groupId) : undefined;
+  const group = groupId
+    ? (await unwrapAction(getAllGroupsAction())).find(({ id }) => String(id) === groupId)
+    : undefined;
 
   const title = group
     ? `Розклад сесії групи ${group.name} | Розклад КПІ`
@@ -27,8 +31,8 @@ export default async function ScheduleExamsPage({ searchParams }: PageProps) {
   const { groupId } = await searchParams;
 
   const [group, examsResponse] = await Promise.all([
-    groupId ? (await getAllGroups()).find(({ id }) => String(id) === groupId) : undefined,
-    groupId ? getExamsByGroup(groupId) : undefined,
+    groupId ? (await unwrapAction(getAllGroupsAction())).find(({ id }) => String(id) === groupId) : undefined,
+    groupId ? unwrapAction(getExamsByGroupAction({ groupId })) : undefined,
   ]);
 
   const exams = examsResponse?.slice().sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix());

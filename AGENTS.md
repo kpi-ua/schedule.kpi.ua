@@ -8,8 +8,8 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 - **Framework:** Next.js 15 (App Router), React 18
 - **Styling:** Tailwind CSS 4 (via `@tailwindcss/postcss`)
 - **State:** URL searchParams (`groupId`/`lecturerId`) are the source of truth, read server-side; only the week switcher and the responsive day-slice are small client-side React Context state (`common/context/WeekContext.tsx`, `common/context/SliceOptionsContext.tsx`). No global client store (zustand was removed).
-- **Data fetching:** Server Components and `/api/*` route handlers both call `src/lib/campusApi/endpoints.ts` directly — no client-side data-fetching library (react-query was removed).
-- **Backend-for-frontend:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars). It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `src/app/api/**/route.ts` mirrors Campus's paths 1:1 for the browser and external consumers.
+- **Data fetching:** Every Campus data read, from Server Components and Client Components alike, goes through a `src/actions/*.ts` Server Action (`next-safe-action` + `zod`) — nothing calls `src/lib/campusApi/endpoints.ts` directly outside of `src/actions/`. Server Components `await` actions directly (via `unwrapAction`); Client Components use the `useAction` hook. No client-side data-fetching library (react-query was removed), and no public API is exposed.
+- **Campus API access:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars), and it is only ever imported from `src/actions/*.ts`. It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `src/app/api/` only contains `/healthz`, an infra liveness probe — it is not a data API.
 - **Routing:** Next.js file-based routing under `src/app/` — URL scheme is unchanged from the pre-migration app (`/`, `/lecturers`, `/sessions`, `/about`, `/contacts`), entity selection stays query-param driven (no dynamic route segments).
 - **Main branch:** `master`
 - **Deployment:** Docker (Node build stage, `output: 'standalone'`, no nginx), image `kpiua/schedule.kpi.ua`, listens on port 3000.
@@ -18,13 +18,15 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 
 ```text
 src/
-├── app/            # Next.js App Router: layouts, pages, /api/* route handlers, /healthz
+├── app/            # Next.js App Router: layouts, pages, /healthz (the only HTTP endpoint)
 │   ├── (schedule)/ # layout + pages for /, /lecturers, /sessions (route group, no URL segment)
 │   ├── (about)/    # layout + pages for /about, /contacts
-│   └── api/        # BFF route handlers mirroring Campus API paths
+│   └── healthz/    # infra liveness probe route handler
+├── actions/        # 'use server' Server Actions (next-safe-action) — the only data-fetching entry point, for Server and Client Components alike
 ├── lib/
 │   ├── campusApi/  # client.ts (fetch+timeout+retry), cache.ts (TTL+stale), endpoints.ts (Campus calls)
-│   ├── apiRoute.ts # request logging wrapper for /api/* route handlers
+│   ├── safeAction.ts # shared next-safe-action client (logging + error handling)
+│   ├── unwrapAction.ts # Server Component helper: unwraps an action result or throws on serverError
 │   └── logger.ts   # structured JSON logger
 ├── common/
 │   ├── constants/  # shared constants (routes, options, config)
@@ -35,7 +37,7 @@ src/
 │   └── ui/         # shadcn/radix-based primitives (button, sheet, tabs, ...)
 ├── containers/     # Feature components composing components + server-fetched data via props
 ├── layouts/        # Shared non-route layout helpers (e.g. TwoColumnsLayout)
-├── models/         # Domain data models (Pair, Schedule, ...) — also the /api/* response contract
+├── models/         # Domain data models (Pair, Schedule, ...) returned by campusApi/endpoints.ts and src/actions/*.ts
 ├── types/          # Shared TypeScript types
 └── @types/         # Ambient/module type declarations
 ```
@@ -66,10 +68,11 @@ pnpm prettier:fix # Prettier write
 
 ### API + data fetching
 
-- All Campus API calls live in `src/lib/campusApi/endpoints.ts`, going through `client.ts` (timeout/retry) and `cache.ts` (30-min TTL, stale-on-error). This module reads `process.env.CAMPUS_API_URL`/`CAMPUS_API_KEY` and must never be imported by a Client Component.
-- Server Components (pages, layouts) call these functions directly — no internal fetch to our own `/api/*`.
-- Client Components that need Campus data (e.g. `LastSyncDate`, the lecturer-profile link in `LecturerSearch`) fetch our own `/api/*` routes with plain `fetch`, not the `campusApi` lib.
-- `src/app/api/**/route.ts` handlers are thin wrappers: parse `request.nextUrl.searchParams`, call the matching `campusApi` function, return `NextResponse.json(...)`, wrapped in `withApiLogging` (`src/lib/apiRoute.ts`).
+- All Campus API calls live in `src/lib/campusApi/endpoints.ts`, going through `client.ts` (timeout/retry) and `cache.ts` (30-min TTL, stale-on-error). This module reads `process.env.CAMPUS_API_URL`/`CAMPUS_API_KEY` and is only ever imported from `src/actions/*.ts` — never directly from a Server or Client Component.
+- `src/actions/*.ts` files start with `'use server'`, validate input with a `zod` schema via `.inputSchema(...)` (skipped for zero-input actions), and are built from the shared `actionClient` in `src/lib/safeAction.ts` (`createSafeActionClient` with logging + `handleServerError`, equivalent to the old `withApiLogging`). Each action calls `.metadata({ actionName: '...' })` before `.action(...)` (required by the shared client's metadata schema).
+- Server Components (pages, layouts) call these Server Actions directly and unwrap the result with `src/lib/unwrapAction.ts`, which returns `result.data` or throws `result.serverError` — this preserves the old throw-on-failure behavior of `campusApi/endpoints.ts` for Server Component call sites.
+- Client Components that need Campus data after mount (e.g. `LastSyncDate`, the lecturer-profile link in `LecturerSearch`) call the same Server Actions via the `useAction` hook from `next-safe-action/hooks`, not `fetch` or `unwrapAction`.
+- This app does not expose a public REST API — `/healthz` (infra liveness probe) is the only HTTP endpoint under `src/app/`. Don't add new `/api/*` route handlers or call `campusApi/endpoints.ts` outside `src/actions/`; add/extend a Server Action instead.
 
 ### State
 

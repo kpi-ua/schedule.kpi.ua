@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useAction } from 'next-safe-action/hooks';
 import { Button } from '../ui/button';
 import Link from '../../assets/icons/link.svg?react';
 import SearchSelect from '../SearchSelect';
 import { useEntitySearch } from '../../common/hooks/useEntitySearch';
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
-import { LecturerSchedule } from '../../models/LecturerSchedule';
+import { getScheduleByLecturerAction } from '../../actions/lecturer.actions';
 
 interface Props {
   lecturers: EntityWithNameAndId[];
@@ -20,35 +21,17 @@ const LecturerSearch = ({ lecturers }: Props) => {
 
   const { handleChange } = useEntitySearch('lecturerId');
 
-  const [lecturerProfile, setLecturerProfile] = useState<string>();
-  const [isLoading, setIsLoading] = useState(false);
+  const { execute, input, result, isExecuting } = useAction(getScheduleByLecturerAction);
 
   useEffect(() => {
-    if (!lecturerId) {
-      setLecturerProfile(undefined);
-      return;
+    if (lecturerId) {
+      execute({ lecturerId });
     }
+  }, [lecturerId, execute]);
 
-    let cancelled = false;
-    setIsLoading(true);
-
-    fetch(`/api/schedule/lecturer?lecturerId=${lecturerId}`)
-      .then((response) => response.json())
-      .then((schedule: LecturerSchedule) => {
-        if (!cancelled) {
-          setLecturerProfile(schedule.profile?.profile);
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [lecturerId]);
+  // Ignore a still-in-flight result for a lecturer the user has already navigated away from.
+  const lecturerProfile = input?.lecturerId === lecturerId ? result.data?.profile?.profile : undefined;
+  const isLoading = isExecuting;
 
   const handleGoToLecturerProfile = () => {
     if (!lecturerProfile) {
