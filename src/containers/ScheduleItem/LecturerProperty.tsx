@@ -21,13 +21,17 @@ const LecturerProperty = ({ lecturer }: Props) => {
   return (
     <Property>
       <TeacherIcon />
-      <Link
-        className="text-primary-font"
-        onClick={handleLecturerClick}
-        to={routes.LECTURER + `?lecturerId=${lecturer.id}`}
-      >
-        {lecturer.name}
-      </Link>
+      {lecturer.id ? (
+        <Link
+          className="text-primary-font"
+          onClick={handleLecturerClick}
+          to={routes.LECTURER + `?lecturerId=${lecturer.id}`}
+        >
+          {lecturer.name}
+        </Link>
+      ) : (
+        <span>{lecturer.name}</span>
+      )}
     </Property>
   );
 };

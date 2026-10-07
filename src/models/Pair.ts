@@ -8,7 +8,7 @@ export enum SubjectType {
 
 export interface Pair {
   name: string;
-  location?: PairLocation;
+  location?: PairLocation | null;
   tag: SubjectType;
   time: string;
   type: string;
