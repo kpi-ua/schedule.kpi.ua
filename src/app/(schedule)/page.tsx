@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import ScheduleWrapper, { ScheduleGrid } from '../../containers/ScheduleWrapper/ScheduleWrapper';
+import ScheduleWrapper from '../../containers/ScheduleWrapper/ScheduleWrapper';
 import StudentScheduleItem from '../../containers/ScheduleItem/StudentScheduleItem';
 import StudentScheduleItemExtended from '../../containers/ScheduleItemExtended/StudentScheduleItemExtended';
 import { unwrapAction } from '../../lib/unwrapAction';
 import { getAllGroupsAction } from '../../actions/group.actions';
 import { getCurrentTimeAction } from '../../actions/time.actions';
 import { getScheduleByGroupAction, getSortedTimeSlotsAction } from '../../actions/lessons.actions';
+import EmptyCover from '../../components/EmptyCover';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;
@@ -13,6 +14,7 @@ interface PageProps {
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { groupId } = await searchParams;
+
   const group = groupId
     ? (await unwrapAction(getAllGroupsAction())).find(({ id }) => String(id) === groupId)
     : undefined;
@@ -34,21 +36,27 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 export default async function GroupSchedulePage({ searchParams }: PageProps) {
   const { groupId } = await searchParams;
 
+  if (!groupId) {
+    return <EmptyCover />;
+  }
+
   const [schedule, currentTime, timeSlots] = await Promise.all([
     groupId ? unwrapAction(getScheduleByGroupAction({ groupId })) : undefined,
     unwrapAction(getCurrentTimeAction()),
     unwrapAction(getSortedTimeSlotsAction()),
   ]);
 
+  if (!schedule) {
+    return <EmptyCover />;
+  }
+
   return (
-    <ScheduleGrid>
-      <ScheduleWrapper
-        schedule={schedule}
-        currentTime={currentTime}
-        timeSlots={timeSlots}
-        baseComponent={StudentScheduleItem}
-        baseComponentExtended={StudentScheduleItemExtended}
-      />
-    </ScheduleGrid>
+    <ScheduleWrapper
+      schedule={schedule}
+      currentTime={currentTime}
+      timeSlots={timeSlots}
+      baseComponent={StudentScheduleItem}
+      baseComponentExtended={StudentScheduleItemExtended}
+    />
   );
 }

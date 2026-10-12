@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import ScheduleWrapper, { ScheduleGrid } from '../../../containers/ScheduleWrapper/ScheduleWrapper';
+import ScheduleWrapper from '../../../containers/ScheduleWrapper/ScheduleWrapper';
 import LecturerScheduleItem from '../../../containers/ScheduleItem/LecturerScheduleItem';
 import LecturerScheduleItemExtended from '../../../containers/ScheduleItemExtended/LecturerScheduleItemExtended';
 import { unwrapAction } from '../../../lib/unwrapAction';
 import { getAllLecturersAction, getScheduleByLecturerAction } from '../../../actions/lecturer.actions';
 import { getCurrentTimeAction } from '../../../actions/time.actions';
 import { getSortedTimeSlotsAction } from '../../../actions/lessons.actions';
+import EmptyCover from '../../../components/EmptyCover';
 
 interface PageProps {
   searchParams: Promise<{ lecturerId?: string }>;
@@ -47,15 +48,17 @@ export default async function LecturerSchedulePage({ searchParams }: PageProps) 
     unwrapAction(getSortedTimeSlotsAction()),
   ]);
 
+  if (!schedule) {
+    return <EmptyCover title="Виберіть викладача зі списку" />;
+  }
+
   return (
-    <ScheduleGrid>
-      <ScheduleWrapper
-        schedule={schedule}
-        currentTime={currentTime}
-        timeSlots={timeSlots}
-        baseComponent={LecturerScheduleItem}
-        baseComponentExtended={LecturerScheduleItemExtended}
-      />
-    </ScheduleGrid>
+    <ScheduleWrapper
+      schedule={schedule}
+      currentTime={currentTime}
+      timeSlots={timeSlots}
+      baseComponent={LecturerScheduleItem}
+      baseComponentExtended={LecturerScheduleItemExtended}
+    />
   );
 }

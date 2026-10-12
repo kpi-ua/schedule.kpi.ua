@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import dayjs from 'dayjs';
 import ExamSchedule from '../../../components/ExamSchedule';
-import { ScheduleGrid } from '../../../containers/ScheduleWrapper/ScheduleWrapper';
 import { unwrapAction } from '../../../lib/unwrapAction';
 import { getAllGroupsAction } from '../../../actions/group.actions';
 import { getExamsByGroupAction } from '../../../actions/exams.actions';
+import EmptyCover from '../../../components/EmptyCover';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;
@@ -30,6 +30,10 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 export default async function ScheduleExamsPage({ searchParams }: PageProps) {
   const { groupId } = await searchParams;
 
+  if (!groupId) {
+    return <EmptyCover />;
+  }
+
   const [group, examsResponse] = await Promise.all([
     groupId ? (await unwrapAction(getAllGroupsAction())).find(({ id }) => String(id) === groupId) : undefined,
     groupId ? unwrapAction(getExamsByGroupAction({ groupId })) : undefined,
@@ -37,9 +41,13 @@ export default async function ScheduleExamsPage({ searchParams }: PageProps) {
 
   const exams = examsResponse?.slice().sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix());
 
+  if (!group) {
+    return <EmptyCover />;
+  }
+
   return (
-    <ScheduleGrid>
-      <h1 className="mx-4 my-8 text-center text-2xl leading-8 font-semibold text-neutral-900 sm:mx-8 sm:my-16 sm:text-4xl sm:leading-10">
+    <>
+      <h1 className="mx-4 my-8 text-2xl font-semibold leading-8 text-center text-neutral-900 sm:mx-8 sm:my-16 sm:text-4xl sm:leading-10">
         {exams && exams.length > 0 ? (
           <>
             Розклад сесії для групи <span className="font-semibold text-black">{group?.name}</span>
@@ -51,9 +59,9 @@ export default async function ScheduleExamsPage({ searchParams }: PageProps) {
           </>
         )}
       </h1>
-      <div className="mx-4 mb-4 flex flex-col items-center gap-10 sm:mx-8 sm:mb-8">
+      <div className="flex flex-col items-center gap-10 mx-4 mb-4 sm:mx-8 sm:mb-8">
         {exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}
       </div>
-    </ScheduleGrid>
+    </>
   );
 }

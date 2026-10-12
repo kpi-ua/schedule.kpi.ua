@@ -7,7 +7,7 @@ interface Props {
 
 export const Navbar = ({ settings }: Props) => {
   return (
-    <header className="bg-white p-p shadow-header lg:px-9 lg:py-7.5">
+    <header className="bg-white p-6 shadow-header lg:px-9 lg:py-7.5">
       <div className="grid grid-cols-1 items-center gap-4 2xl:grid-cols-[fit-content(185px)_1fr_185px] 2xl:gap-0">
         <div className="flex items-center justify-start 2xl:justify-center">
           <LogoIcon className="max-h-10 w-full max-w-29 2xl:max-h-16 2xl:max-w-46.25" />

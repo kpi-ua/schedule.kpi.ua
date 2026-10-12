@@ -6,8 +6,8 @@ const footerSectionClassName =
 
 export const Footer = () => {
   return (
-    <footer className="flex w-full items-start gap-[40px] bg-brand-900 p-[36px] text-[12px] leading-[1.43] text-white max-sm:flex-col max-sm:items-center max-sm:gap-[16px] max-sm:p-[16px]">
-      <LogoIcon className="basis-[120px] max-sm:basis-auto" />
+    <footer className="flex w-full items-start gap-10 bg-brand-900 p-9 text-[12px] leading-[1.43] text-white max-sm:flex-col max-sm:items-center max-sm:gap-[16px] max-sm:p-[16px]">
+      <LogoIcon className="basis-30 max-sm:basis-auto" />
       <section className={footerSectionClassName}>
         <p>
           Національний технічний університет України&quot;Київський політехнічний інститут імені Ігоря Сікорського&quot;
