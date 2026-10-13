@@ -10,7 +10,7 @@ export const LastSyncDate = () => {
   const searchParams = useSearchParams();
   const groupId = searchParams.get('groupId');
 
-  const { execute, input, result, isExecuting } = useAction(getLastSyncDateAction);
+  const { execute, input, result, isExecuting: isLoading } = useAction(getLastSyncDateAction);
 
   useEffect(() => {
     if (groupId) {
@@ -20,7 +20,6 @@ export const LastSyncDate = () => {
 
   // Ignore a still-in-flight result for a group the user has already navigated away from.
   const data = input?.groupId === groupId ? result.data : undefined;
-  const isLoading = isExecuting;
 
   const renderValue = () => {
     if (isLoading) {

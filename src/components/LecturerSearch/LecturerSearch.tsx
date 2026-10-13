@@ -21,7 +21,7 @@ const LecturerSearch = ({ lecturers }: Props) => {
 
   const { handleChange } = useEntitySearch('lecturerId');
 
-  const { execute, input, result, isExecuting } = useAction(getScheduleByLecturerAction);
+  const { execute, input, result, isExecuting: isLoading } = useAction(getScheduleByLecturerAction);
 
   useEffect(() => {
     if (lecturerId) {
@@ -31,7 +31,6 @@ const LecturerSearch = ({ lecturers }: Props) => {
 
   // Ignore a still-in-flight result for a lecturer the user has already navigated away from.
   const lecturerProfile = input?.lecturerId === lecturerId ? result.data?.profile?.profile : undefined;
-  const isLoading = isExecuting;
 
   const handleGoToLecturerProfile = () => {
     if (!lecturerProfile) {
