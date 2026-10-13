@@ -1,6 +1,5 @@
 # pull official base image
 FROM node:lts-alpine AS builder
-RUN apk add --no-cache python3 py3-pip make g++
 
 # enable pnpm via corepack, pinned to the project's packageManager version
 RUN corepack enable && corepack prepare pnpm@12.5.1 --activate
@@ -18,16 +17,10 @@ RUN pnpm install --frozen-lockfile
 # Copies everything over to Docker environment
 COPY . ./
 
-# Prevent esbuild/tsc from oversubscribing CPU/memory beyond the container's
-# actual cgroup limits (they otherwise see the host's full core/RAM count,
-# which can make the build hang for a long time before being SIGKILLed).
-ENV GOMAXPROCS=2
-ENV NODE_OPTIONS=--max-old-space-size=2048
-
 RUN pnpm run build
 
 # production
-FROM node:lts-alpine
+FROM builder AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
