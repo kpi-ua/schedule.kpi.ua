@@ -5,7 +5,7 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 ## Project Summary
 
 - **Language:** TypeScript
-- **Framework:** Next.js 15 (App Router), React 18
+- **Framework:** Next.js 16 (App Router), React 19
 - **Styling:** Tailwind CSS 4 (via `@tailwindcss/postcss`)
 - **State:** URL searchParams (`groupId`/`lecturerId`) are the source of truth, read server-side; only the week switcher and the responsive day-slice are small client-side React Context state (`common/context/WeekContext.tsx`, `common/context/SliceOptionsContext.tsx`). No global client store (zustand was removed).
 - **Data fetching:** Every Campus data read, from Server Components and Client Components alike, goes through a `src/actions/*.ts` Server Action (`next-safe-action` + `zod`) — nothing calls `src/lib/campusApi/endpoints.ts` directly outside of `src/actions/`. Server Components `await` actions directly (via `unwrapAction`); Client Components use the `useAction` hook. No client-side data-fetching library (react-query was removed), and no public API is exposed.
