@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import '../common/utils/dayjsSetup';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { Exo_2 } from 'next/font/google';
 
 import 'normalize.css/normalize.css';
 import './globals.css';
+import Analytics from '../components/Analytics';
 
 const exo2Font = Exo_2({
   subsets: ['cyrillic', 'latin'],
@@ -36,9 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="uk" className={exo2Font.className}>
       <body className="flex flex-col min-h-screen bg-white">{children}</body>
-      {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
-      )}
+      <Analytics />
     </html>
   );
 }
