@@ -6,7 +6,6 @@
   "packageManager": "pnpm@12.5.1",
   "dependencies": {
     "@next/third-parties": "16.4.0",
-    "@uidotdev/usehooks": "^2.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
@@ -20,6 +19,7 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-select": "^5.10.1",
+    "react-use": "^17.6.1",
     "tailwind-merge": "^3.6.0",
     "zod": "^4.6.5"
   },

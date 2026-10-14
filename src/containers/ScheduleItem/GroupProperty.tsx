@@ -1,21 +1,23 @@
 'use client';
 
 import { Property } from './Property';
-import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
 import { routes } from '../../common/constants/routes';
 import { Group } from '../../models/Group';
 import React from 'react';
 import ThreeUsersIcon from '../../assets/icons/users-three.svg?react';
 import Link from 'next/link';
+import { useLocalStorage } from 'react-use';
 
 interface Props {
   groups: Group[];
 }
 
 const GroupProperty = ({ groups }: Props) => {
+  const [, setGroupId] = useLocalStorage<string | null>('groupId');
+
   const handleGroupClick = (group: Group) => {
     return () => {
-      setLocalStorageItem('groupId', group.id);
+      setGroupId(group.id);
     };
   };
 

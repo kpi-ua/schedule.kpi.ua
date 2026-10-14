@@ -1,9 +1,9 @@
 'use client';
 
-import { useIsClient } from '@uidotdev/usehooks';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { useIsClient } from '../../common/hooks/useIsClient';
 
 dayjs.extend(localizedFormat);
 dayjs.locale('uk');

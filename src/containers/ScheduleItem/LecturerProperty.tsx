@@ -2,18 +2,20 @@
 
 import { Property } from './Property';
 import TeacherIcon from '../../assets/icons/teacher.svg?react';
-import { setLocalStorageItem } from '../../common/utils/parsedLocalStorage';
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 import { routes } from '../../common/constants/routes';
 import Link from 'next/link';
+import { useLocalStorage } from 'react-use';
 
 interface Props {
   lecturer: EntityWithNameAndId;
 }
 
 const LecturerProperty = ({ lecturer }: Props) => {
+  const [, setLecturerId] = useLocalStorage<string | null>('lecturerId');
+
   const handleLecturerClick = () => {
-    setLocalStorageItem('lecturerId', lecturer.id);
+    setLecturerId(lecturer.id);
   };
 
   return (

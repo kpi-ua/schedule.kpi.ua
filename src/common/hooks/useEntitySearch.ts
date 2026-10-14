@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { getLocalStorageItem, setLocalStorageItem } from '../utils/parsedLocalStorage';
 import { useNavigationPendingContext } from '../context/NavigationPendingContext';
+import { useLocalStorage } from 'react-use';
 
 // Restores the last-selected entity from localStorage when the URL has no param yet,
 // and keeps localStorage in sync when the user picks a new one. The selected entity
@@ -13,7 +13,7 @@ export const useEntitySearch = (storageKey: string) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const paramValue = searchParams.get(storageKey);
-  const storedValue = getLocalStorageItem<string>(storageKey);
+  const [storedValue, setStoredValue] = useLocalStorage<string | null>(storageKey);
   const { startTransition } = useNavigationPendingContext();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const useEntitySearch = (storageKey: string) => {
   }, [paramValue, storedValue, storageKey, pathname, router, searchParams, startTransition]);
 
   const handleChange = (id: string) => {
-    setLocalStorageItem(storageKey, id);
+    setStoredValue(id);
 
     const params = new URLSearchParams(searchParams);
     params.set(storageKey, id);

@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useLocalStorage } from '@uidotdev/usehooks';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { routes } from '../../common/constants/routes';
 import queryString from 'query-string';
 import { cn } from '../../common/utils/cn';
+import { useLocalStorage } from 'react-use';
 
 interface Props {
   value: string;
