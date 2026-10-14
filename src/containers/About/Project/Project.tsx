@@ -1,6 +1,7 @@
-import { CampusPhoto } from '../common/CampusPhoto';
 import { PhotoWrapper } from '../common/PhotoWrapper';
 import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
+import AboutPhoto from '../../../../public/about.jpg';
+import Image from 'next/image';
 
 export const Project = () => (
   <TwoColumnsLayout>
@@ -24,11 +25,14 @@ export const Project = () => (
       <p>Дякуємо, що користуєтесь нашим сервісом!</p>
       <br />
       <p>
-        <strong>GitHub:</strong> <a href="https://github.com/kpi-ua/schedule.kpi.ua">schedule.kpi.ua</a>
+        <strong>GitHub:</strong> <a href={process.env.NEXT_PUBLIC_SCHEDULE_REPO_URL}>schedule.kpi.ua</a>
       </p>
     </article>
     <PhotoWrapper>
-      <CampusPhoto src="/about.jpg" alt="" />
+      <Image
+        src={AboutPhoto}
+        alt="National Technical University of Ukraine “Igor Sikorsky Kyiv Polytechnic Institute”"
+      />
     </PhotoWrapper>
   </TwoColumnsLayout>
 );

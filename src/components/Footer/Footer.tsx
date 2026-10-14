@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import LogoIcon from '../../assets/footer-logo.svg?react';
 
 const footerSectionClassName =
@@ -6,7 +7,7 @@ const footerSectionClassName =
 
 export const Footer = () => {
   return (
-    <footer className="flex w-full items-start gap-10 bg-brand-900 p-9 text-[12px] leading-[1.43] text-white max-sm:flex-col max-sm:items-center max-sm:gap-[16px] max-sm:p-[16px]">
+    <footer className="flex w-full items-start gap-10 bg-brand-900 p-9 text-[12px] leading-[1.43] text-white max-sm:flex-col max-sm:items-center max-sm:gap-4 max-sm:p-4">
       <LogoIcon className="basis-30 max-sm:basis-auto" />
       <section className={footerSectionClassName}>
         <p>
@@ -16,7 +17,7 @@ export const Footer = () => {
         </p>
         <p>
           Адреса:{' '}
-          <a target="_blank" rel="noreferrer" href="https://kpi.ua/location">
+          <a target="_blank" rel="noreferrer" href={process.env.NEXT_PUBLIC_LOCATION_URL}>
             Україна, 03056 м.Київ-56, проспект Перемоги, 37
           </a>
         </p>
@@ -24,13 +25,13 @@ export const Footer = () => {
       <section className={footerSectionClassName}>
         <p>
           Розробник –{' '}
-          <a target="_blank" rel="noreferrer" href="https://kbis.kpi.ua">
+          <a target="_blank" rel="noreferrer" href={process.env.NEXT_PUBLIC_KBIS_URL}>
             Конструкторське бюро інформаційних систем
           </a>
         </p>
         <p>
           Створено в рамках проекту &ldquo;
-          <a target="_blank" rel="noreferrer" href="https://ecampus.kpi.ua">
+          <a target="_blank" rel="noreferrer" href={process.env.NEXT_PUBLIC_ECAMPUS_URL}>
             Електронний кампус КПІ
           </a>
           &rdquo;
@@ -38,9 +39,9 @@ export const Footer = () => {
       </section>
       <section className={footerSectionClassName}>
         <p>
-          <a href="/about">Про проєкт</a>
+          <Link href="/about">Про проєкт</Link>
           <br />
-          <a href="/contacts">Контакти</a>
+          <Link href="/contacts">Контакти</Link>
         </p>
         <p>Використання матеріалу сайту тільки з обов’язковим посиланням на schedule.kpi.ua</p>
       </section>
