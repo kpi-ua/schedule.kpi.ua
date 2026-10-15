@@ -15,7 +15,6 @@ const exo2Font = Exo_2({
 export const metadata: Metadata = {
   title: 'Розклад',
   description: 'Розклад занять. Розклад сесії. Розклад для викладачів.',
-  manifest: '/site.webmanifest',
   appleWebApp: {
     title: 'Розклад',
   },
