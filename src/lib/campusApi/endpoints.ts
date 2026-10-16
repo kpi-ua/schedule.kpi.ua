@@ -1,7 +1,6 @@
 import qs from 'qs';
 import { entries, map, sortBy } from 'lodash-es';
 import { campusGet } from './client';
-import { buildCacheKey, withCache } from './cache';
 import type { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 import type { Group } from '../../models/Group';
 import type { LecturerSchedule } from '../../models/LecturerSchedule';
@@ -10,46 +9,46 @@ import type { Exam } from '../../models/Exam';
 import type { GroupSyncDate } from '../../models/GroupSyncDate';
 import type { CurrentTime } from '../../models/CurrentTime';
 
+const CACHE_TTL_ONE_MINUTE = 60;
+
+// Cache lists for half an hour to update them in terms of rapid schedule changes (start of the year)
+const CACHE_TTL_HALF_AN_HOUR = 30 * CACHE_TTL_ONE_MINUTE;
+
+// Cache time slots for quarter of a year (3 months)
+const CACHE_TTL_TIME_SLOTS = 60 * 24 * 90 * CACHE_TTL_ONE_MINUTE;
+
 export const getAllLecturers = (): Promise<EntityWithNameAndId[]> =>
-  withCache(buildCacheKey('/schedule/lecturer/list'), () => campusGet('/schedule/lecturer/list'));
+  campusGet('/schedule/lecturer/list', { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
 
-export const getAllGroups = (): Promise<Group[]> =>
-  withCache(buildCacheKey('/group/all'), async () => {
-    const response = await campusGet<Group[]>('/group/all');
+export const getAllGroups = async (): Promise<Group[]> => {
+  const response = await campusGet<Group[]>('/group/all', { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
 
-    return response.map((row) => {
-      const name = row.name.trim();
-      const faculty = row.faculty?.trim();
+  return response.map((row) => {
+    const name = row.name.trim();
+    const faculty = row.faculty?.trim();
 
-      return { ...row, name: faculty ? `${name} (${faculty})` : name };
-    });
+    return { ...row, name: faculty ? `${name} (${faculty})` : name };
   });
+};
 
 export const getScheduleByLecturer = (lecturerId: string): Promise<LecturerSchedule> =>
-  withCache(buildCacheKey('/schedule/lecturer', { lecturerId }), () =>
-    campusGet(`/schedule/lecturer?${qs.stringify({ lecturerId })}`),
-  );
+  campusGet(`/schedule/lecturer?${qs.stringify({ lecturerId })}`, {
+    next: { revalidate: CACHE_TTL_HALF_AN_HOUR },
+  });
 
 export const getScheduleByGroup = (groupId: string): Promise<StudentSchedule> =>
-  withCache(buildCacheKey('/schedule/lessons', { groupId }), () =>
-    campusGet(`/schedule/lessons?${qs.stringify({ groupId })}`),
-  );
+  campusGet(`/schedule/lessons?${qs.stringify({ groupId })}`, { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
 
 export const getExamsByGroup = (groupId: string): Promise<Exam[]> =>
-  withCache(buildCacheKey('/schedule/exams/group', { groupId }), () =>
-    campusGet(`/schedule/exams/group?${qs.stringify({ groupId })}`),
-  );
+  campusGet(`/schedule/exams/group?${qs.stringify({ groupId })}`, { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
 
 export const getLastSyncDate = (groupId?: string): Promise<GroupSyncDate[]> =>
-  withCache(buildCacheKey('/schedule/status', { groupId }), () =>
-    campusGet(`/schedule/status?${qs.stringify({ groupId })}`),
-  );
+  campusGet(`/schedule/status?${qs.stringify({ groupId })}`, { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
 
-export const getCurrentTime = (): Promise<CurrentTime> =>
-  withCache(buildCacheKey('/time/current'), () => campusGet('/time/current'));
+export const getCurrentTime = (): Promise<CurrentTime> => campusGet('/time/current', { cache: 'no-cache' });
 
 export const getTimeSlots = (): Promise<Record<string, string>> =>
-  withCache(buildCacheKey('/schedule/lessons/slots'), () => campusGet('/schedule/lessons/slots'));
+  campusGet('/schedule/lessons/slots', { next: { revalidate: CACHE_TTL_TIME_SLOTS } });
 
 // Time slots ordered by slot number, matching the shape consumed by generateScheduleMatrix.
 export const getSortedTimeSlots = async (): Promise<string[]> => {
