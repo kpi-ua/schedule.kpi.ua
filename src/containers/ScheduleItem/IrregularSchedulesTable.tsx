@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { isDateTodayOrFuture } from '../../common/utils/dateFilters';
 import { cn } from '../../common/utils/cn';
+import { IrregularScheduleTime } from './IrregularScheduleTime';
 
 interface IrregularSchedulesTableProps {
   dates: string[];
@@ -39,7 +40,7 @@ export const IrregularSchedulesTable = ({ dates }: IrregularSchedulesTableProps)
               className={cn('flex justify-between text-xs opacity-40', period === 'current' && 'opacity-100')}
               key={date}
             >
-              <time>{dayjs(date).format('DD MMM YYYY')}</time>
+              <IrregularScheduleTime date={date} />
               <span>{EVENT_PERIODS[period]}</span>
             </div>
           );

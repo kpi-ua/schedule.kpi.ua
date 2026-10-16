@@ -5,26 +5,33 @@
 
 A responsive, maintainable, scalable, and fast UI with a modern design for the students of Igor Sikorsky Kyiv Polytechnic Institute.
 
-## API usage
+Built with Next.js (App Router). The server renders pages and fetches the Campus API directly, server-side only —
+this app does not expose a public REST API. The handful of client-side data needs (lecturer profile link, group
+last-sync date) are served by Next.js Server Actions, not HTTP endpoints.
 
-Schedule API is a part of **campus API**.
-Base URL: https://api.campus.kpi.ua/
+## Environment variables
 
-Endpoints:
+Copy `.env.example` to `.env.local` for local development. These are server-only and are never exposed to the browser:
 
-- Groups list: [group/all](https://api.campus.kpi.ua/group/all)
-- Lecturers list: [schedule/lecturer/list](https://api.campus.kpi.ua/schedule/lecturer/list)
-- Group schedule: [schedule/lessons?groupId={group id}](https://api.campus.kpi.ua/schedule/lessons?groupId=fb121dae-9fe5-4a9a-bced-ff7603a19c31)
-- Group exams: [exams/group?groupId={group id}](https://api.campus.kpi.ua/exams/group?groupId=fb121dae-9fe5-4a9a-bced-ff7603a19c31)
-- Lecturer schedule: [schedule/lecturer?lecturerId={id from list}](https://api.campus.kpi.ua/schedule/lecturer?lecturerId=53bb6a07-bc0a-4c9b-a0e5-58866f4b3e19)
-- Current day and week: [time/current](https://api.campus.kpi.ua/time/current)
+- `CAMPUS_API_URL` — base URL of the Campus API (defaults to `https://api.campus.kpi.ua`).
+- `CAMPUS_API_KEY` — API key sent as the `X-Api-Key` header to Campus.
+- `KPI_ID_CLIENT_ID` / `KPI_ID_CLIENT_SECRET` — reserved for future KPI ID (SSO) integration, not used yet.
+
+## Campus API access
+
+There is no public REST API — `src/lib/campusApi/` is the only code allowed to call the real Campus API and is never
+imported by a Client Component. Campus responses are cached in-process per endpoint+params for 30 minutes; on a
+Campus API error or timeout the last known-good copy is served regardless of age (and logged as stale) instead of
+failing the request.
+
+`GET /healthz` remains the only HTTP endpoint this app exposes, for infra liveness checks.
 
 ## Run and Develop
 
 ### Run in the development mode
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -32,7 +39,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### Make a production build
 
 ```bash
-npm run build
+pnpm build
+pnpm start
 ```
 
 ### Build Docker container
@@ -43,12 +51,11 @@ docker build ./ --file ./Dockerfile --tag kpiua/schedule.kpi.ua:latest
 
 ### Run latest Docker container
 
+The app listens on port 3000 inside the container (no nginx — the Next.js standalone server serves everything).
+
 ```bash
-docker run --rm -it  -p 80:80/tcp kpiua/schedule.kpi.ua
+docker run --rm -it -p 3000:3000 \
+  -e CAMPUS_API_URL=https://api.campus.kpi.ua \
+  -e CAMPUS_API_KEY=changeme \
+  kpiua/schedule.kpi.ua
 ```
-
-## Related Projects
-
-If you are owner of iPhone or iPad you can use this simple [iOS application](https://github.com/MrPaschenko/Schedule-KPI) which is built over schedule API.
-
-[![Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917](https://user-images.githubusercontent.com/64316080/168581675-cfc29e4a-410c-4664-9213-31f11560813c.svg)](https://apps.apple.com/us/app/schedule-kpi/id1625484300)

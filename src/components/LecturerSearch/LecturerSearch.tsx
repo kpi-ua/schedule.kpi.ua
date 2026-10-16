@@ -1,21 +1,36 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useAction } from 'next-safe-action/hooks';
 import { Button } from '../ui/button';
 import Link from '../../assets/icons/link.svg?react';
 import SearchSelect from '../SearchSelect';
-import { useLecturerSchedule } from '../../queries/useLecturerSchedule';
-import { useStore } from '../../store';
 import { useEntitySearch } from '../../common/hooks/useEntitySearch';
-import { usePreloadedList } from '../../common/hooks/usePreloadedList';
+import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
+import { getScheduleByLecturerAction } from '../../actions/lecturer.actions';
 
-const LecturerSearch = () => {
-  const { lecturers } = usePreloadedList();
-  const lecturer = useStore((state) => state.lecturer);
-  const setLecturer = useStore((state) => state.setLecturer);
+interface Props {
+  lecturers: EntityWithNameAndId[];
+}
 
-  const { handleChange } = useEntitySearch('lecturerId', lecturers, setLecturer);
+const LecturerSearch = ({ lecturers }: Props) => {
+  const searchParams = useSearchParams();
+  const lecturerId = searchParams.get('lecturerId');
+  const lecturer = lecturers.find(({ id }) => String(id) === lecturerId);
 
-  const { data: lecturerLessonsResponse, isLoading } = useLecturerSchedule(lecturer?.id);
+  const { handleChange } = useEntitySearch('lecturerId');
 
-  const lecturerProfile = lecturerLessonsResponse?.profile?.profile;
+  const { execute, input, result, isExecuting: isLoading } = useAction(getScheduleByLecturerAction);
+
+  useEffect(() => {
+    if (lecturerId) {
+      execute({ lecturerId });
+    }
+  }, [lecturerId, execute]);
+
+  // Ignore a still-in-flight result for a lecturer the user has already navigated away from.
+  const lecturerProfile = input?.lecturerId === lecturerId ? result.data?.profile?.profile : undefined;
 
   const handleGoToLecturerProfile = () => {
     if (!lecturerProfile) {
@@ -35,7 +50,7 @@ const LecturerSearch = () => {
       >
         <Link />
       </Button>
-      <SearchSelect options={lecturers} value={lecturer} onChange={handleChange} />
+      <SearchSelect options={lecturers} value={lecturer} onChange={(item) => handleChange(item.id)} />
     </div>
   );
 };

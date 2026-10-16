@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 export const Legend = () => {
   return (
-    <div className="mt-3 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mt-3">
       <div className="flex justify-between">
         <div className="text-base font-semibold">Легенда</div>
         <LastSyncDate />

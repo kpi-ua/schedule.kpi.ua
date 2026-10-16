@@ -1,10 +1,25 @@
+'use client';
+
 import dayjs from 'dayjs';
-import { useLastSyncDate } from '../../queries/useLastSyncDate';
-import { useStore } from '../../store';
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useAction } from 'next-safe-action/hooks';
+import { getLastSyncDateAction } from '../../actions/status.actions';
 
 export const LastSyncDate = () => {
-  const group = useStore((state) => state.group);
-  const { data, isLoading } = useLastSyncDate(group?.id);
+  const searchParams = useSearchParams();
+  const groupId = searchParams.get('groupId');
+
+  const { execute, input, result, isExecuting: isLoading } = useAction(getLastSyncDateAction);
+
+  useEffect(() => {
+    if (groupId) {
+      execute({ groupId });
+    }
+  }, [groupId, execute]);
+
+  // Ignore a still-in-flight result for a group the user has already navigated away from.
+  const data = input?.groupId === groupId ? result.data : undefined;
 
   const renderValue = () => {
     if (isLoading) {

@@ -1,3 +1,5 @@
+'use client';
+
 import { StudentPair } from '../../models/StudentPair';
 import { ScheduleItemProps } from './types';
 import StudentScheduleContent from './StudentScheduleContent';

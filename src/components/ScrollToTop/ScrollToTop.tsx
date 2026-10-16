@@ -1,15 +1,17 @@
+'use client';
+
 import { Fragment, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 
 const ScrollToTop = ({ children }: { children: React.ReactNode }) => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  }, [location]);
+  }, [pathname]);
 
   return <Fragment>{children}</Fragment>;
 };

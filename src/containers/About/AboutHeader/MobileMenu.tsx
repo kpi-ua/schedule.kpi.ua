@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../../../componen
 
 interface MobileMenuProps {
   pathname: string;
-  anchor: React.RefObject<HTMLElement>;
+  anchor: React.RefObject<HTMLElement | null>;
 }
 
 export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {

@@ -1,3 +1,5 @@
+'use client';
+
 import { Pair } from '../../models/Pair';
 import { useState } from 'react';
 import { ScheduleItemProps } from '../ScheduleItem/types';
@@ -47,7 +49,7 @@ const ScheduleItemExtended = <T extends Pair>({
       {generateScheduleUnits()}
       {hasData && (
         <div
-          className="flex cursor-pointer items-center justify-center gap-1.5 rounded-b-[15px] bg-neutral-200 p-[15px] text-center font-semibold text-black"
+          className="flex cursor-pointer items-center justify-center gap-1.5 rounded-b-[15px] bg-neutral-200 p-3.75 text-center font-semibold text-black"
           onClick={() => setCollapsed(!collapsed)}
         >
           <span>{collapsed ? 'Більше інформації' : 'Менше інформації'}</span>

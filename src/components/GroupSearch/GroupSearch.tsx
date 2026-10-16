@@ -1,16 +1,22 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
 import SearchSelect from '../SearchSelect';
-import { useStore } from '../../store';
 import { useEntitySearch } from '../../common/hooks/useEntitySearch';
-import { usePreloadedList } from '../../common/hooks/usePreloadedList';
+import { Group } from '../../models/Group';
 
-const GroupSearch = () => {
-  const { groups } = usePreloadedList();
-  const group = useStore((state) => state.group);
-  const setGroup = useStore((state) => state.setGroup);
+interface Props {
+  groups: Group[];
+}
 
-  const { handleChange } = useEntitySearch('groupId', groups, setGroup);
+const GroupSearch = ({ groups }: Props) => {
+  const searchParams = useSearchParams();
+  const groupId = searchParams.get('groupId');
+  const group = groups.find(({ id }) => String(id) === groupId);
 
-  return <SearchSelect options={groups} value={group} onChange={handleChange} />;
+  const { handleChange } = useEntitySearch('groupId');
+
+  return <SearchSelect options={groups} value={group} onChange={(item) => handleChange(item.id)} />;
 };
 
 export default GroupSearch;
