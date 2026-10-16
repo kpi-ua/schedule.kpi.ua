@@ -14,15 +14,22 @@ export const actionClient = createSafeActionClient({
 
     return 'Campus API is currently unavailable';
   },
-}).use(async ({ next, metadata }) => {
-  const start = Date.now();
+}).use(async ({ next, clientInput, metadata }) => {
+  const startTime = performance.now();
+
   const result = await next();
 
-  logger.info('action_call', {
-    action: metadata?.actionName,
-    success: result.success,
-    durationMs: Date.now() - start,
-  });
+  const durationMs = Math.round(performance.now() - startTime);
+
+  // Full payload dumps are dev-only: serializing them blocks the event loop
+  // under load and leaks applicant PII into production logs.
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Metadata:', metadata);
+    console.log('Client input:', clientInput);
+    console.log('Result:', result);
+  }
+
+  console.log(`Action ${metadata.actionName} took ${durationMs} ms`);
 
   return result;
 });
