@@ -19,15 +19,20 @@ COPY . ./
 
 RUN pnpm run build
 
-# production
-FROM builder AS runner
+# production: only the standalone output, without node_modules and sources
+FROM node:lts-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+# Docker sets HOSTNAME to the container id; server.js listens on it, so bind all interfaces explicitly
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# owned by node: the fetch cache is written to .next/cache at runtime
+COPY --from=builder --chown=node:node /app/public ./public
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 
+USER node
 EXPOSE 3000
 CMD ["node", "server.js"]
 
