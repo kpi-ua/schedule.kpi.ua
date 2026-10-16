@@ -16,7 +16,7 @@ export default function ContactsPage() {
         <h1>Контакти</h1>
         <p>
           <strong>e-mail:</strong>{' '}
-          <a href={`mailto:${process.env.NEXT_PUBLIC_KBIS_URL}`}>{process.env.NEXT_PUBLIC_KBIS_URL}</a>
+          <a href={`mailto:${process.env.NEXT_PUBLIC_KBIS_EMAIL}`}>{process.env.NEXT_PUBLIC_KBIS_EMAIL}</a>
         </p>
       </article>
       <PhotoWrapper>
