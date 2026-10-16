@@ -26,7 +26,6 @@ jobs:
 
       - uses: pnpm/setup@v1
         with:
-          version: 12
           runtime: node@24
           cache: true
 
