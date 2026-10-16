@@ -8,8 +8,9 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/set-state-in-effect": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "typescript/no-explicit-any": "warn"
   },
   "env": {
     "browser": true,

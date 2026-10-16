@@ -50,15 +50,15 @@ Root Dockerfile: `Dockerfile` (Node build stage with `next build` → Node runti
 pnpm dev          # Start dev server (Next.js, port 3000)
 pnpm build        # next build
 pnpm start        # next start (plain build; use node .next/standalone/server.js for the standalone/Docker output)
-pnpm lint         # ESLint (next/core-web-vitals + typescript-eslint)
-pnpm lint:fix     # ESLint --fix
+pnpm lint         # Oxlint (typescript, react, react/rules-of-hooks and react/exhaustive-deps)
+pnpm lint:fix     # Oxlint --fix
 pnpm prettier     # Prettier check
 pnpm prettier:fix # Prettier write
 ```
 
 ## Code Style
 
-- **ESLint**: flat config (`eslint.config.mjs`), `typescript-eslint` recommended + React Hooks + React Refresh + Prettier.
+- **Oxlint**: flat config (`oxlintrc.json`); `typescript`, `react`, `react/rules-of-hooks` and `react/exhaustive-deps` built-in plugins
 - **Prettier**: single quotes, trailing commas, semi, 120 print width, `arrowParens: always`.
 - **Imports**: relative paths (no `@/` path alias configured in this project) — use `../../` navigation matching sibling files, not absolute aliases.
 - **Components**: arrow function form, `const ThingName = (props: Props) => { ... }` — this is the prevailing style across `components/` and `containers/`. Match it for new components.
@@ -95,8 +95,8 @@ See `.env.example` at the repo root. `CAMPUS_API_URL` and `CAMPUS_API_KEY` are s
 ## Build And Test
 
 ```bash
-pnpm build   # next build — must pass with no new TypeScript/ESLint errors
-pnpm lint    # must pass with no new ESLint errors
+pnpm build   # next build — must pass with no new TypeScript/Oxlint errors
+pnpm lint    # must pass with no new Oxlint errors
 ```
 
 There is currently no automated test suite in this repository. Manually verify UI changes in the dev server (`pnpm dev`) before committing.
