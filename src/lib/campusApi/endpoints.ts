@@ -8,14 +8,7 @@ import type { StudentSchedule } from '../../models/StudentSchedule';
 import type { Exam } from '../../models/Exam';
 import type { GroupSyncDate } from '../../models/GroupSyncDate';
 import type { CurrentTime } from '../../models/CurrentTime';
-
-const CACHE_TTL_ONE_MINUTE = 60;
-
-// Cache lists for half an hour to update them in terms of rapid schedule changes (start of the year)
-const CACHE_TTL_HALF_AN_HOUR = 30 * CACHE_TTL_ONE_MINUTE;
-
-// Cache time slots for quarter of a year (3 months)
-const CACHE_TTL_TIME_SLOTS = 60 * 24 * 90 * CACHE_TTL_ONE_MINUTE;
+import { CACHE_TTL_HALF_AN_HOUR, CACHE_TTL_TIME_SLOTS } from '../constants/common';
 
 export const getAllLecturers = (): Promise<EntityWithNameAndId[]> =>
   campusGet('/schedule/lecturer/list', { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });

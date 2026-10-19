@@ -1,14 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useAction } from 'next-safe-action/hooks';
 import { Button } from '../ui/button';
 import Link from '../../assets/icons/link.svg?react';
 import SearchSelect from '../SearchSelect';
 import { useEntitySearch } from '../../common/hooks/useEntitySearch';
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
-import { getScheduleByLecturerAction } from '../../actions/lecturer.actions';
+import { useLecturerProfileQuery } from '../../lib/queries/lecturer-profile.query';
 
 interface Props {
   lecturers: EntityWithNameAndId[];
@@ -21,23 +19,14 @@ const LecturerSearch = ({ lecturers }: Props) => {
 
   const { handleChange } = useEntitySearch('lecturerId');
 
-  const { execute, input, result, isExecuting: isLoading } = useAction(getScheduleByLecturerAction);
-
-  useEffect(() => {
-    if (lecturerId) {
-      execute({ lecturerId });
-    }
-  }, [lecturerId, execute]);
-
-  // Ignore a still-in-flight result for a lecturer the user has already navigated away from.
-  const lecturerProfile = input?.lecturerId === lecturerId ? result.data?.profile?.profile : undefined;
+  const { data: lecturerProfile, isLoading } = useLecturerProfileQuery(lecturerId);
 
   const handleGoToLecturerProfile = () => {
-    if (!lecturerProfile) {
+    if (!lecturerProfile?.data?.profile?.profile) {
       return;
     }
 
-    window.open(lecturerProfile, '_blank');
+    window.open(lecturerProfile?.data?.profile?.profile, '_blank');
   };
 
   return (

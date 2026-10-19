@@ -1,38 +1,27 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useAction } from 'next-safe-action/hooks';
-import { getLastSyncDateAction } from '../../actions/status.actions';
+import { useLastSyncDateQuery } from '../../lib/queries/last-sync-date.query';
 
 export const LastSyncDate = () => {
   const searchParams = useSearchParams();
   const groupId = searchParams.get('groupId');
 
-  const { execute, input, result, isExecuting: isLoading } = useAction(getLastSyncDateAction);
-
-  useEffect(() => {
-    if (groupId) {
-      execute({ groupId });
-    }
-  }, [groupId, execute]);
-
-  // Ignore a still-in-flight result for a group the user has already navigated away from.
-  const data = input?.groupId === groupId ? result.data : undefined;
+  const { data: lastSyncDate, isLoading, isFetching } = useLastSyncDateQuery(groupId);
 
   const renderValue = () => {
-    if (isLoading) {
+    if (isLoading || isFetching) {
       return 'Завантаження...';
     }
 
-    if (!data?.updated) {
+    if (!lastSyncDate?.data?.updated) {
       return 'Дата останнього оновлення невідома';
     }
 
     return (
       <>
-        Оновлено <time>{dayjs(data?.updated).format('DD.MM.YYYY')}</time>
+        Оновлено <time>{dayjs(lastSyncDate?.data?.updated).format('DD.MM.YYYY')}</time>
       </>
     );
   };
