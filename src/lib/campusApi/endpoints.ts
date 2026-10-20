@@ -6,7 +6,6 @@ import type { Group } from '../../models/Group';
 import type { LecturerSchedule } from '../../models/LecturerSchedule';
 import type { StudentSchedule } from '../../models/StudentSchedule';
 import type { Exam } from '../../models/Exam';
-import type { GroupSyncDate } from '../../models/GroupSyncDate';
 import type { CurrentTime } from '../../models/CurrentTime';
 import { CACHE_TTL_HALF_AN_HOUR, CACHE_TTL_TIME_SLOTS } from '../constants/common';
 
@@ -34,9 +33,6 @@ export const getScheduleByGroup = (groupId: string): Promise<StudentSchedule> =>
 
 export const getExamsByGroup = (groupId: string): Promise<Exam[]> =>
   campusGet(`/schedule/exams/group?${qs.stringify({ groupId })}`, { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
-
-export const getLastSyncDate = (groupId?: string): Promise<GroupSyncDate[]> =>
-  campusGet(`/schedule/status?${qs.stringify({ groupId })}`, { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
 
 export const getCurrentTime = (): Promise<CurrentTime> => campusGet('/time/current', { cache: 'no-cache' });
 

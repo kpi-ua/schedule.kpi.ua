@@ -13,10 +13,9 @@ import { ScheduleGrid } from '../../containers/ScheduleWrapper/ScheduleGrid';
 interface Props {
   children: React.ReactNode;
   settings: React.ReactNode;
-  syncDate: React.ReactNode;
 }
 
-export default async function ScheduleRouteLayout({ children, settings, syncDate }: Props) {
+export default async function ScheduleRouteLayout({ children, settings }: Props) {
   const currentTime = await unwrapAction(getCurrentTimeAction());
   const initialWeek = convertServerTimeToWeek(currentTime.currentWeek);
 
@@ -28,7 +27,7 @@ export default async function ScheduleRouteLayout({ children, settings, syncDate
           <div className="flex flex-col m-9 grow max-sm:m-4">
             <ScheduleGrid>{children}</ScheduleGrid>
             <Suspense fallback={null}>
-              <Legend syncDate={syncDate} />
+              <Legend />
             </Suspense>
           </div>
         </ScrollToTop>

@@ -3,18 +3,11 @@ import { SubjectType } from '../../models/Pair';
 import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
 import dayjs from 'dayjs';
 
-interface Props {
-  syncDate: React.ReactNode;
-}
-
-export const Legend = ({ syncDate }: Props) => {
+export const Legend = () => {
   return (
     <div className="flex flex-col gap-4 mt-3">
-      <div className="flex justify-between">
-        <div className="text-base font-semibold">Легенда</div>
-        {syncDate}
-      </div>
-      <div className="flex flex-col gap-4">
+      <div className="text-base font-semibold">Легенда</div>
+      <div className="flex gap-4">
         <div className="flex items-center justify-start gap-2">
           <SubjectTypeBadge
             type={SubjectType.Lecture}
