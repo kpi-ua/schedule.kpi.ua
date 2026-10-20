@@ -1,15 +1,18 @@
-import LastSyncDate from '../LastSyncDate';
 import { SubjectTypeBadge } from '../SubjectTypeBadge/SubjectTypeBadge';
 import { SubjectType } from '../../models/Pair';
 import { SUBJECT_TYPES } from '../../common/constants/subjectTypes';
 import dayjs from 'dayjs';
 
-export const Legend = () => {
+interface Props {
+  syncDate: React.ReactNode;
+}
+
+export const Legend = ({ syncDate }: Props) => {
   return (
-    <div className="mt-3 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mt-3">
       <div className="flex justify-between">
         <div className="text-base font-semibold">Легенда</div>
-        <LastSyncDate />
+        {syncDate}
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-start gap-2">

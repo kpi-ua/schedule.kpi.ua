@@ -1,8 +1,10 @@
+'use client';
+
 import { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
 import { ListOption } from '../../types/ListOption';
 import Select from 'react-select';
 import { getSelectCustomStyle } from '../../common/constants/selectOptions';
-import { useMemo } from 'react';
+import { useId, useMemo } from 'react';
 
 interface SearchSelectProps<T extends EntityWithNameAndId> {
   options: T[];
@@ -11,6 +13,8 @@ interface SearchSelectProps<T extends EntityWithNameAndId> {
 }
 
 const SearchSelect = <T extends EntityWithNameAndId>({ options, value, onChange }: SearchSelectProps<T>) => {
+  // react-select auto-generates its instance id, which can mismatch between server/client renders; pin it with useId().
+  const instanceId = useId();
   const selectOptions = useMemo(() => options.map(({ id, name }) => ({ label: name, value: id })), [options]);
 
   const handleChange = (option: ListOption<string> | null) => {
@@ -27,8 +31,9 @@ const SearchSelect = <T extends EntityWithNameAndId>({ options, value, onChange 
   const selectedValue = selectOptions.find((item) => value?.id === item.value) || null;
 
   return (
-    <div className="min-w-[300px] grow max-sm:w-full max-sm:min-w-0">
+    <div className="min-w-75 grow max-sm:w-full max-sm:min-w-0">
       <Select
+        instanceId={instanceId}
         options={selectOptions}
         onChange={handleChange}
         styles={getSelectCustomStyle()}

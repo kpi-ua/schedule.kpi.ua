@@ -44,14 +44,14 @@ const ExamSchedule = ({ exam }: Props) => {
   return (
     <div
       className={cn(
-        'flex w-full max-w-[700px] flex-row items-stretch justify-between gap-4 rounded-2xl border border-neutral-200 bg-bg-card p-4 shadow-schedule-item max-sm:flex-col-reverse',
+        'flex w-full max-w-175 flex-row items-stretch justify-between gap-4 rounded-2xl border border-neutral-200 bg-bg-card p-4 shadow-schedule-item max-sm:flex-col-reverse',
         daysLeft < 0 && 'opacity-50',
       )}
     >
       <div className="flex">
         <div className="rounded-[99px] border-r-4 border-basic-red" />
         <div className="ml-4">
-          <div className="text-sm leading-[17px] font-bold text-primary-font">{subject}</div>
+          <div className="text-sm leading-4.25 font-bold text-primary-font">{subject}</div>
           <div className="relative mt-2.5 flex items-center gap-1 text-[13px] leading-4 font-semibold text-primary-font">
             <ClockIcon />
             {date.format('HH:mm')}
@@ -60,15 +60,15 @@ const ExamSchedule = ({ exam }: Props) => {
             <TeacherIcon />
             {lecturerName}
           </div>
-          <div className="relative mt-2.5 flex items-center gap-[7px] text-[13px] leading-4 font-semibold text-primary-font">
+          <div className="relative mt-2.5 flex items-center gap-1.75 text-[13px] leading-4 font-semibold text-primary-font">
             <LocationIcon />
             {room}
           </div>
         </div>
       </div>
-      <div className="flex border-l border-neutral-divider pl-8 max-sm:border-l-0 max-sm:pl-0">
-        <div className="flex min-w-[150px] flex-col self-center text-black">
-          <span className="text-[13px] leading-[18px] font-semibold">{date.year()}</span>
+      <div className="flex pl-8 border-l border-neutral-divider max-sm:border-l-0 max-sm:pl-0">
+        <div className="flex min-w-37.5 flex-col self-center text-black">
+          <span className="text-[13px] leading-4.5 font-semibold">{date.year()}</span>
           <span className="mt-px mb-1.5 text-2xl leading-8 font-semibold">{date.format('DD MMMM')}</span>
           <span className="text-[13px] leading-4 font-medium">{renderDaysLeft(daysLeft)}</span>
         </div>

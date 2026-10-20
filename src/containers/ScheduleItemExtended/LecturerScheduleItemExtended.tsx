@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import ScheduleItemExtended from './ScheduleItemExtended';
 import { LecturerPair } from '../../models/LecturerPair';

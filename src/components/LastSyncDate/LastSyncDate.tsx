@@ -1,23 +1,27 @@
+'use client';
+
 import dayjs from 'dayjs';
-import { useLastSyncDate } from '../../queries/useLastSyncDate';
-import { useStore } from '../../store';
+import { useSearchParams } from 'next/navigation';
+import { useLastSyncDateQuery } from '../../lib/queries/last-sync-date.query';
 
 export const LastSyncDate = () => {
-  const group = useStore((state) => state.group);
-  const { data, isLoading } = useLastSyncDate(group?.id);
+  const searchParams = useSearchParams();
+  const groupId = searchParams.get('groupId');
+
+  const { data: lastSyncDate, isLoading, isFetching } = useLastSyncDateQuery(groupId);
 
   const renderValue = () => {
-    if (isLoading) {
+    if (isLoading || isFetching) {
       return 'Завантаження...';
     }
 
-    if (!data?.updated) {
+    if (!lastSyncDate?.data?.updated) {
       return 'Дата останнього оновлення невідома';
     }
 
     return (
       <>
-        Оновлено <time>{dayjs(data?.updated).format('DD.MM.YYYY')}</time>
+        Оновлено <time>{dayjs(lastSyncDate?.data?.updated).format('DD.MM.YYYY')}</time>
       </>
     );
   };

@@ -1,6 +1,8 @@
+'use client';
+
 import { Week } from '../../types/Week';
 import { ListOption } from '../../types/ListOption';
-import { useWeekStore } from '../../store/weekStore';
+import { useWeekContext } from '../../common/context/WeekContext';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 
 const WEEKS: ListOption<Week>[] = [
@@ -9,7 +11,7 @@ const WEEKS: ListOption<Week>[] = [
 ];
 
 const WeekSwitch = () => {
-  const { currentWeek, setCurrentWeek } = useWeekStore();
+  const { currentWeek, setCurrentWeek } = useWeekContext();
 
   return (
     <Tabs value={currentWeek} onValueChange={(value) => setCurrentWeek(value as Week)} className="w-full">

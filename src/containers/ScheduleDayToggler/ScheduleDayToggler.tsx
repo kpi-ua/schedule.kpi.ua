@@ -1,3 +1,5 @@
+'use client';
+
 import { useScreenSize } from '../../common/hooks/useScreenSize';
 import { DAY_OPTIONS, DaysRange } from '../../common/constants/dayOptions';
 import { Slice, useSliceOptionsContext } from '../../common/context/SliceOptionsContext';
