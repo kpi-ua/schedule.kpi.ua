@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
-import ScheduleWrapper from '../../../containers/ScheduleWrapper/ScheduleWrapper';
-import LecturerScheduleItem from '../../../containers/ScheduleItem/LecturerScheduleItem';
-import LecturerScheduleItemExtended from '../../../containers/ScheduleItemExtended/LecturerScheduleItemExtended';
-import { unwrapAction } from '../../../lib/unwrapAction';
-import { getAllLecturersAction, getScheduleByLecturerAction } from '../../../actions/lecturer.actions';
-import { getCurrentTimeAction } from '../../../actions/time.actions';
-import { getSortedTimeSlotsAction } from '../../../actions/lessons.actions';
-import EmptyCover from '../../../components/EmptyCover';
+
+import { getAllLecturersAction, getScheduleByLecturerAction } from '@/actions/lecturer.actions';
+import { getSortedTimeSlotsAction } from '@/actions/lessons.actions';
+import { getCurrentTimeAction } from '@/actions/time.actions';
+import { LecturerScheduleItemExtended } from '@/app/(schedule)/_components/schedule-item-extended/lecturer-schedule-item-extended';
+import { LecturerScheduleItem } from '@/app/(schedule)/_components/schedule-item/lecturer-schedule-item';
+import { EmptyCover } from '@/components/empty-cover';
+import { unwrapAction } from '@/lib/unwrapAction';
+
+import ScheduleWrapper from '../_components/scchedule-wrapper';
 
 interface PageProps {
   searchParams: Promise<{ lecturerId?: string }>;

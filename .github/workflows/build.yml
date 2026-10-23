@@ -32,5 +32,11 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Check Formatting
+        run: npm run format:check
+
       - name: Build Application
         run: pnpm run build

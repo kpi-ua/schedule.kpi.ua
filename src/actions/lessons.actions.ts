@@ -1,8 +1,9 @@
 'use server';
 
 import { z } from 'zod';
-import { actionClient } from '../lib/safeAction';
+
 import { getScheduleByGroup, getSortedTimeSlots } from '../lib/campusApi/endpoints';
+import { actionClient } from '../lib/safeAction';
 
 const schema = z.object({ groupId: z.string().min(1) });
 

@@ -1,9 +1,10 @@
 'use client';
 
-import * as React from 'react';
-import { Slot } from 'radix-ui';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../common/utils/cn';
+import { Slot } from 'radix-ui';
+import * as React from 'react';
+
+import { cn } from '@/lib/utils/cn';
 
 const buttonVariants = cva(
   'flex cursor-pointer items-center gap-2 rounded-lg border border-transparent font-semibold',

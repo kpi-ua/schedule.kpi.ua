@@ -1,0 +1,65 @@
+import { useEffect, useState } from 'react';
+
+import BurgerIcon from '../../../assets/icons/burger.svg?react';
+import XIcon from '../../../assets/icons/x.svg?react';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../../../components/ui/sheet';
+import { NAV_LINKS } from '../constants';
+import { MenuLink } from './menu-link';
+
+interface MobileMenuProps {
+  pathname: string;
+  anchor: React.RefObject<HTMLElement | null>;
+}
+
+export const MobileMenu = ({ pathname, anchor }: MobileMenuProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuTop, setMenuTop] = useState(0);
+
+  useEffect(() => setMenuOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
+
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      setMenuTop(anchor.current?.getBoundingClientRect().bottom ?? 0);
+    }
+    setMenuOpen(open);
+  };
+
+  return (
+    <Sheet modal={false} open={menuOpen} onOpenChange={handleOpenChange}>
+      <SheetTrigger asChild>
+        <button className="m-0 aspect-square h-8 w-8 border-0 bg-transparent p-0 sm:hidden">
+          {menuOpen ? <XIcon /> : <BurgerIcon />}
+        </button>
+      </SheetTrigger>
+      <SheetContent style={{ top: menuTop, '--sheet-top': `${menuTop}px` } as React.CSSProperties}>
+        <SheetTitle className="sr-only">Навігаційне меню</SheetTitle>
+        <div className="flex flex-col p-4">
+          <nav className="flex flex-col gap-6">
+            {NAV_LINKS.map(({ path, title }) => (
+              <MenuLink
+                key={path}
+                className={`text-[2rem] font-medium ${pathname === path ? 'selected' : ''}`}
+                href={path}
+              >
+                {title}
+              </MenuLink>
+            ))}
+          </nav>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+};

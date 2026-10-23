@@ -1,14 +1,16 @@
 import { Suspense } from 'react';
-import { Navbar } from '../../containers/Navbar/Navbar';
-import ScrollToTop from '../../components/ScrollToTop';
-import Legend from '../../components/Legend';
-import Footer from '../../components/Footer';
-import { WeekContextProvider } from '../../common/context/WeekContext';
-import { NavigationPendingContextProvider } from '../../common/context/NavigationPendingContext';
-import { convertServerTimeToWeek } from '../../common/utils/weekConverter';
-import { unwrapAction } from '../../lib/unwrapAction';
-import { getCurrentTimeAction } from '../../actions/time.actions';
-import { ScheduleGrid } from '../../containers/ScheduleWrapper/ScheduleGrid';
+
+import { getCurrentTimeAction } from '@/actions/time.actions';
+import { Footer } from '@/components/footer';
+import { Legend } from '@/components/legend';
+import { NavigationBar } from '@/components/navigation-bar/navigation-bar';
+import { ScrollToTop } from '@/components/scroll-to-top';
+import { NavigationPendingContextProvider } from '@/lib/context/navigation-pending-context';
+import { WeekContextProvider } from '@/lib/context/week-context';
+import { unwrapAction } from '@/lib/unwrapAction';
+import { convertServerTimeToWeek } from '@/lib/utils/system.utils';
+
+import { ScheduleGrid } from './_components/schedule-grid';
 
 interface Props {
   children: React.ReactNode;
@@ -23,8 +25,8 @@ export default async function ScheduleRouteLayout({ children, settings }: Props)
     <WeekContextProvider initialWeek={initialWeek}>
       <NavigationPendingContextProvider>
         <ScrollToTop>
-          <Navbar settings={settings} />
-          <div className="flex flex-col m-9 grow max-sm:m-4">
+          <NavigationBar settings={settings} />
+          <div className="m-9 flex grow flex-col max-sm:m-4">
             <ScheduleGrid>{children}</ScheduleGrid>
             <Suspense fallback={null}>
               <Legend />

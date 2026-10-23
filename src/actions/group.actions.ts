@@ -1,7 +1,7 @@
 'use server';
 
-import { actionClient } from '../lib/safeAction';
 import { getAllGroups } from '../lib/campusApi/endpoints';
+import { actionClient } from '../lib/safeAction';
 
 export const getAllGroupsAction = actionClient
   .metadata({ actionName: 'getAllGroups' })

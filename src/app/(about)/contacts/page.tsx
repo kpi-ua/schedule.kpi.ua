@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
-import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
-import { PhotoWrapper } from '../../../containers/About/common/PhotoWrapper';
 import Image from 'next/image';
-import ContactsPhoto from '../../../../public/contacts.jpg';
+
+import ContactsPhoto from '@/../public/contacts.jpg';
+
+import { PhotoWrapper } from '../_components/photo-wrapper';
+import { TwoColumnsLayout } from '../_components/two-columns-layout';
 
 export const metadata: Metadata = {
   title: 'Контакти | Розклад КПІ',

@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
-import { PhotoWrapper } from '../../../containers/About/common/PhotoWrapper';
 import Image from 'next/image';
-import { TwoColumnsLayout } from '../../../layouts/TwoColumnsLayout';
-import AboutPhoto from '../../../../public/about.jpg';
+
+import AboutPhoto from '@/../public/about.jpg';
+
+import { PhotoWrapper } from '../_components/photo-wrapper';
+import { TwoColumnsLayout } from '../_components/two-columns-layout';
 
 export const metadata: Metadata = {
   title: 'Про проєкт | Розклад КПІ',
