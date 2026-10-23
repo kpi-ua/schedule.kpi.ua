@@ -1,0 +1,28 @@
+'use client';
+
+import { useWeekContext } from '@/lib/context/week-context';
+import { ListOption } from '@/types/ListOption';
+import { Week } from '@/types/Week';
+
+import { Tabs, TabsList, TabsTrigger } from './ui/tabs';
+
+const WEEKS: ListOption<Week>[] = [
+  { label: 'Перший тиждень', value: 'firstWeek' },
+  { label: 'Другий тиждень', value: 'secondWeek' },
+];
+
+export const WeekSwitch = () => {
+  const { currentWeek, setCurrentWeek } = useWeekContext();
+
+  return (
+    <Tabs value={currentWeek} onValueChange={(value) => setCurrentWeek(value as Week)} className="w-full">
+      <TabsList className="h-full" segmented>
+        {WEEKS.map((week) => (
+          <TabsTrigger className="justify-center" key={week.value} value={week.value} data-text={week.label} segmented>
+            {week.label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
+  );
+};

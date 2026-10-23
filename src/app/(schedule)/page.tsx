@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
-import ScheduleWrapper from '../../containers/ScheduleWrapper/ScheduleWrapper';
-import StudentScheduleItem from '../../containers/ScheduleItem/StudentScheduleItem';
-import StudentScheduleItemExtended from '../../containers/ScheduleItemExtended/StudentScheduleItemExtended';
-import { unwrapAction } from '../../lib/unwrapAction';
-import { getAllGroupsAction } from '../../actions/group.actions';
-import { getCurrentTimeAction } from '../../actions/time.actions';
-import { getScheduleByGroupAction, getSortedTimeSlotsAction } from '../../actions/lessons.actions';
-import EmptyCover from '../../components/EmptyCover';
+
+import { getAllGroupsAction } from '@/actions/group.actions';
+import { getScheduleByGroupAction, getSortedTimeSlotsAction } from '@/actions/lessons.actions';
+import { getCurrentTimeAction } from '@/actions/time.actions';
+import { StudentScheduleItemExtended } from '@/app/(schedule)/_components/schedule-item-extended/student-schedule-item-extended';
+import { StudentScheduleItem } from '@/app/(schedule)/_components/schedule-item/student-schedule-item';
+import { EmptyCover } from '@/components/empty-cover';
+import { unwrapAction } from '@/lib/unwrapAction';
+
+import ScheduleWrapper from './_components/scchedule-wrapper';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;

@@ -7,9 +7,9 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 - **Language:** TypeScript
 - **Framework:** Next.js 16 (App Router), React 19
 - **Styling:** Tailwind CSS 4 (via `@tailwindcss/postcss`)
-- **State:** URL searchParams (`groupId`/`lecturerId`) are the source of truth, read server-side; only the week switcher and the responsive day-slice are small client-side React Context state (`common/context/WeekContext.tsx`, `common/context/SliceOptionsContext.tsx`). No global client store (zustand was removed).
+- **State:** URL searchParams (`groupId`/`lecturerId`) are the source of truth, read server-side; only the week switcher and the responsive day-slice are small client-side React Context state (`src/lib/context/week-context.tsx`, `src/lib/context/slice-options-context.tsx`). No global client store (zustand was removed).
 - **Data fetching:** Every Campus data read, from Server Components and Client Components alike, goes through a `src/actions/*.ts` Server Action (`next-safe-action` + `zod`) — nothing calls `src/lib/campusApi/endpoints.ts` directly outside of `src/actions/`. Server Components `await` actions directly (via `unwrapAction`); Client Components use the `@tanstack/react-query` library for data fetching.
-- **Campus API access:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars), and it is only ever imported from `src/actions/*.ts`. It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `src/app/api/` only contains `/healthz`, an infra liveness probe — it is not a data API.
+- **Campus API access:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars), and it is only ever imported from `src/actions/*.ts`. It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `/healthz` is the only HTTP endpoint and is used as an infra liveness probe — this app is not a public data API.
 - **Routing:** Next.js file-based routing under `src/app/` — URL scheme is unchanged from the pre-migration app (`/`, `/lecturers`, `/sessions`, `/about`, `/contacts`), entity selection stays query-param driven (no dynamic route segments).
 - **Main branch:** `master`
 - **Deployment:** Docker (Node build stage, `output: 'standalone'`, no nginx), image `kpiua/schedule.kpi.ua`, listens on port 3000.
@@ -23,22 +23,22 @@ src/
 │   ├── (about)/    # layout + pages for /about, /contacts
 │   └── healthz/    # infra liveness probe route handler
 ├── actions/        # 'use server' Server Actions (next-safe-action) — the only data-fetching entry point, for Server and Client Components alike
+├── assets/         # Static SVG/icon assets used by components
 ├── lib/
-│   ├── campusApi/  # client.ts (fetch+timeout+retry), cache.ts (TTL+stale), endpoints.ts (Campus calls)
-│   ├── safeAction.ts # shared next-safe-action client (logging + error handling)
-│   ├── unwrapAction.ts # Server Component helper: unwraps an action result or throws on serverError
-│   └── logger.ts   # structured JSON logger
-├── common/
+│   ├── campusApi/  # cache.ts, client.ts (fetch+timeout+retry), endpoints.ts (Campus calls)
 │   ├── constants/  # shared constants (routes, options, config)
-│   ├── context/    # React contexts (WeekContext, SliceOptionsContext) — client-only state
+│   ├── context/    # React contexts (week, slice options, navigation pending)
 │   ├── hooks/      # shared hooks
-│   └── utils/      # shared pure helpers
+│   ├── providers/  # app-level providers (e.g. React Query)
+│   ├── queries/    # react-query hooks/wrappers for client components
+│   ├── utils/      # shared pure helpers
+│   ├── safeAction.ts   # shared next-safe-action client (logging + error handling)
+│   ├── unwrapAction.ts # Server Component helper: unwraps an action result or throws on serverError
+│   └── logger.ts       # structured JSON logger
 ├── components/     # Presentational/reusable components
 │   └── ui/         # shadcn/radix-based primitives (button, sheet, tabs, ...)
-├── containers/     # Feature components composing components + server-fetched data via props
-├── layouts/        # Shared non-route layout helpers (e.g. TwoColumnsLayout)
-├── models/         # Domain data models (Pair, Schedule, ...) returned by campusApi/endpoints.ts and src/actions/*.ts
-├── types/          # Shared TypeScript types
+├── models/         # Domain data models used by actions/pages/components
+├── types/          # Shared TypeScript structural/utility types
 └── @types/         # Ambient/module type declarations
 ```
 
@@ -60,9 +60,10 @@ pnpm prettier:fix # Prettier write
 
 - **Oxlint**: flat config (`oxlintrc.json`); `typescript`, `react`, `react/rules-of-hooks` and `react/exhaustive-deps` built-in plugins
 - **Prettier**: single quotes, trailing commas, semi, 120 print width, `arrowParens: always`.
-- **Imports**: relative paths (no `@/` path alias configured in this project) — use `../../` navigation matching sibling files, not absolute aliases.
-- **Components**: arrow function form, `const ThingName = (props: Props) => { ... }` — this is the prevailing style across `components/` and `containers/`. Match it for new components.
+- **Imports**: use the `@/*` alias configured in `tsconfig.json` for imports rooted at `src/` (for example `@/lib/utils/cn`); keep relative imports for nearby siblings where it reads better.
+- **Components**: arrow function form, `const ThingName = (props: Props) => { ... }` — this is the prevailing style across `components/` and route-local component folders like `src/app/(schedule)/_components/`.
 - **Props**: `interface Props { ... }` declared just above the component.
+- **File naming**: prefer kebab-case for feature/component/hook/context/utility files (for example `week-context.tsx`, `use-entity-search.ts`, `schedule-item-base.tsx`). Existing files in `src/models/` and `src/types/` currently remain PascalCase and should be kept consistent unless doing an explicit migration.
 
 ## Key Patterns
 
@@ -76,17 +77,17 @@ pnpm prettier:fix # Prettier write
 
 ### State
 
-- Selected group/lecturer is **not** stored in any client state — it's read from the URL (`?groupId=`/`?lecturerId=`) server-side on every render. `useEntitySearch` (`common/hooks/useEntitySearch.ts`) only restores the last choice from `localStorage` into the URL and keeps `localStorage` in sync; it doesn't hold the value itself.
-- The week switch (`WeekContext`) and the responsive day-slice (`SliceOptionsContext`) are the only client-side React Context state, both seeded from server-fetched data (`currentTime`) and scoped to the `(schedule)` route group.
+- Selected group/lecturer is **not** stored in any client state — it's read from the URL (`?groupId=`/`?lecturerId=`) server-side on every render. `useEntitySearch` (`src/lib/hooks/use-entity-search.ts`) only restores the last choice from `localStorage` into the URL and keeps `localStorage` in sync; it doesn't hold the value itself.
+- The week switch (`useWeekContext`) and the responsive day-slice (`useSliceOptionsContext`) are the only client-side React Context state, both seeded from server-fetched data (`currentTime`) and scoped to the `(schedule)` route group.
 - Components that read `useSearchParams`/`usePathname`/`useRouter` or any of the above contexts must have `'use client'` at the top of the file.
 
 ### Styling
 
-- Tailwind utility classes directly in JSX. Use `cn()` from `src/common/utils/cn.ts` (clsx + tailwind-merge) when composing conditional/merged class names — don't hand-concatenate class strings.
+- Tailwind utility classes directly in JSX. Use `cn()` from `src/lib/utils/cn.ts` (clsx + tailwind-merge) when composing conditional/merged class names — don't hand-concatenate class strings.
 
 ### Constants
 
-- Shared, cross-feature constants: `src/common/constants/<name>.ts` (routes, select options, day options, screen breakpoints). Don't hardcode these values in components.
+- Shared, cross-feature constants: `src/lib/constants/<name>.ts` (routes, select options, day options, screen breakpoints). Don't hardcode these values in components.
 
 ## Environment Variables
 
@@ -109,8 +110,8 @@ docker build -t kpiua/schedule.kpi.ua:local -f Dockerfile .
 
 ## Development Conventions
 
-- Prefer existing component/container boundaries over new abstractions — check 2-3 sibling files in `components/` or `containers/` before introducing a new pattern.
-- Keep `lib/campusApi/` thin and server-only; put derived/business logic in the consuming Server Component, `common/utils/`, or the route handler, not in the Campus client itself.
+- Prefer existing boundaries over new abstractions — check 2-3 sibling files in `src/components/` or route-local folders like `src/app/(schedule)/_components/` before introducing a new pattern.
+- Keep `lib/campusApi/` thin and server-only; put derived/business logic in the consuming Server Component, `src/lib/utils/`, or the route handler, not in the Campus client itself.
 - Don't add a parallel mobile-specific component tree — this codebase uses responsive Tailwind classes on the same component, not separate `md:hidden` variants, unless an existing component already does so.
 - Follow existing patterns for `models/` vs `types/`: `models/` holds domain entities (e.g. `Pair`, `Schedule`), `types/` holds shared structural/utility types (e.g. `ScheduleMatrix`, `ScheduleComponentsProps`).
 - Default to Server Components; add `'use client'` only at the boundary file that actually needs hooks, browser APIs, or event handlers — don't mark a whole subtree client just because one leaf needs it.
@@ -186,4 +187,4 @@ Before committing, follow this checklist:
 This guide is the authoritative source for repository-wide rules.
 If `CLAUDE.md` differs from this guide in any environment, treat this guide as canonical and flag the inconsistency to the developer.
 
-Last updated: 2026-08-22.
+Last updated: 2026-10-23.

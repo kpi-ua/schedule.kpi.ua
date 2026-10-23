@@ -1,19 +1,22 @@
-import qs from 'qs';
 import { entries, map, sortBy } from 'lodash-es';
-import { campusGet } from './client';
+import qs from 'qs';
+
+import type { CurrentTime } from '../../models/CurrentTime';
 import type { EntityWithNameAndId } from '../../models/EntityWithNameAndId';
+import type { Exam } from '../../models/Exam';
 import type { Group } from '../../models/Group';
 import type { LecturerSchedule } from '../../models/LecturerSchedule';
 import type { StudentSchedule } from '../../models/StudentSchedule';
-import type { Exam } from '../../models/Exam';
-import type { CurrentTime } from '../../models/CurrentTime';
 import { CACHE_TTL_HALF_AN_HOUR, CACHE_TTL_TIME_SLOTS } from '../constants/common';
+import { campusGet } from './client';
 
 export const getAllLecturers = (): Promise<EntityWithNameAndId[]> =>
   campusGet('/schedule/lecturer/list', { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
 
 export const getAllGroups = async (): Promise<Group[]> => {
-  const response = await campusGet<Group[]>('/group/all', { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
+  const response = await campusGet<Group[]>('/group/all', {
+    next: { revalidate: CACHE_TTL_HALF_AN_HOUR },
+  });
 
   return response.map((row) => {
     const name = row.name.trim();
@@ -29,10 +32,14 @@ export const getScheduleByLecturer = (lecturerId: string): Promise<LecturerSched
   });
 
 export const getScheduleByGroup = (groupId: string): Promise<StudentSchedule> =>
-  campusGet(`/schedule/lessons?${qs.stringify({ groupId })}`, { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
+  campusGet(`/schedule/lessons?${qs.stringify({ groupId })}`, {
+    next: { revalidate: CACHE_TTL_HALF_AN_HOUR },
+  });
 
 export const getExamsByGroup = (groupId: string): Promise<Exam[]> =>
-  campusGet(`/schedule/exams/group?${qs.stringify({ groupId })}`, { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } });
+  campusGet(`/schedule/exams/group?${qs.stringify({ groupId })}`, {
+    next: { revalidate: CACHE_TTL_HALF_AN_HOUR },
+  });
 
 export const getCurrentTime = (): Promise<CurrentTime> => campusGet('/time/current', { cache: 'no-cache' });
 

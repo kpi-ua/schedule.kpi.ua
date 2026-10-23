@@ -1,8 +1,9 @@
 'use server';
 
 import { z } from 'zod';
+
+import { getAllLecturers, getScheduleByLecturer } from '../lib/campusApi/endpoints';
 import { actionClient } from '../lib/safeAction';
-import { getScheduleByLecturer, getAllLecturers } from '../lib/campusApi/endpoints';
 
 export const getAllLecturersAction = actionClient
   .metadata({ actionName: 'getAllLecturers' })

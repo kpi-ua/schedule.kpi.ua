@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
-import '../common/utils/dayjsSetup';
-import { Exo_2 } from 'next/font/google';
 
+import '@/lib/utils/dayjs.utils';
+
+import { Exo_2 } from 'next/font/google';
 import 'normalize.css/normalize.css';
+
 import './globals.css';
-import Analytics from '../components/Analytics';
-import ReactQueryProvider from '../lib/providers/react-query-provider';
+
+import ReactQueryProvider from '@/lib/providers/react-query-provider';
+
+import { Analytics } from '../components/analytics';
 
 const exo2Font = Exo_2({
   subsets: ['cyrillic', 'latin'],
@@ -35,7 +39,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uk" className={exo2Font.className}>
-      <body className="flex flex-col min-h-screen bg-white">
+      <body className="flex min-h-screen flex-col bg-white">
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
       <Analytics />
