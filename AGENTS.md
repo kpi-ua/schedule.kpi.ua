@@ -181,9 +181,9 @@ Before committing, follow this checklist:
 ## Documentation
 
 - `README.md` is the operational overview (running, building, API endpoints).
-- `CLAUDE.md` is a compatibility entry point for assistant-facing notes and may be a symlink to this file.
+- `CLAUDE.md` and `GEMINI.md` only import this file (`@AGENTS.md`) for Claude Code and Gemini CLI.
 
 This guide is the authoritative source for repository-wide rules.
-If `CLAUDE.md` differs from this guide in any environment, treat this guide as canonical and flag the inconsistency to the developer.
+If `CLAUDE.md` or `GEMINI.md` says anything that contradicts this guide, treat this guide as canonical and flag the inconsistency to the developer.
 
-Last updated: 2026-08-22.
+Last updated: 2026-10-28.
