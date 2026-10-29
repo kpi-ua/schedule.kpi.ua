@@ -11,7 +11,7 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 - **Data fetching:** Every Campus data read, from Server Components and Client Components alike, goes through a `src/actions/*.ts` Server Action (`next-safe-action` + `zod`) — nothing calls `src/lib/campusApi/endpoints.ts` directly outside of `src/actions/`. Server Components `await` actions directly (via `unwrapAction`); Client Components use the `@tanstack/react-query` library for data fetching.
 - **Campus API access:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars), and it is only ever imported from `src/actions/*.ts`. It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `src/app/api/` only contains `/healthz`, an infra liveness probe — it is not a data API.
 - **Routing:** Next.js file-based routing under `src/app/` — URL scheme is unchanged from the pre-migration app (`/`, `/lecturers`, `/sessions`, `/about`, `/contacts`), entity selection stays query-param driven (no dynamic route segments).
-- **Main branch:** `master`
+- **Main branch:** `main`
 - **Deployment:** Docker (Node build stage, `output: 'standalone'`, no nginx), image `kpiua/schedule.kpi.ua`, listens on port 3000.
 
 ## Repository Layout
