@@ -3,8 +3,8 @@
 import { clamp, inRange, isNil, range } from 'lodash-es';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { ScreenSize } from '../../types/ScreenSize';
-import { useScreenSize } from '../hooks/use-screen-size';
+import { useScreenSize } from '@/lib/hooks/use-screen-size';
+import { ScreenSize } from '@/types/ScreenSize';
 
 export type Slice = [number, number];
 

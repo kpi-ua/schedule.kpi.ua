@@ -7,9 +7,8 @@ import 'normalize.css/normalize.css';
 
 import './globals.css';
 
+import { Analytics } from '@/components/analytics';
 import ReactQueryProvider from '@/lib/providers/react-query-provider';
-
-import { Analytics } from '../components/analytics';
 
 const exo2Font = Exo_2({
   subsets: ['cyrillic', 'latin'],

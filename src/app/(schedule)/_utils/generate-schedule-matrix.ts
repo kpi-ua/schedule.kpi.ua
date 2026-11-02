@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 
-import { DAYS_SHORT } from '../../../lib/constants/common';
-import { isDateTodayOrFuture } from '../../../lib/utils/date.utils';
-import { Pair } from '../../../models/Pair';
-import { WeekSchedule } from '../../../models/WeekSchedule';
-import { ScheduleMatrix, ScheduleMatrixCell } from '../../../types/ScheduleMatrix';
+import { DAYS_SHORT } from '@/lib/constants/common';
+import { isDateTodayOrFuture } from '@/lib/utils/date.utils';
+import { Pair } from '@/models/Pair';
+import { WeekSchedule } from '@/models/WeekSchedule';
+import { ScheduleMatrix, ScheduleMatrixCell } from '@/types/ScheduleMatrix';
 
 export const generateScheduleMatrix = <T extends Pair>(
   weekSchedule: WeekSchedule<T>[],

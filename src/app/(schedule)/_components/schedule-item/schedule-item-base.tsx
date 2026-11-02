@@ -1,9 +1,8 @@
+import { NowLabel } from '@/components/now-label';
+import { SubjectTypeBadge } from '@/components/subject-type-badge';
 import { SUBJECT_TYPES } from '@/lib/constants/common';
 import { Pair } from '@/models/Pair';
 import { ScheduleMatrixCell } from '@/types/ScheduleMatrix';
-
-import { NowLabel } from '../../../../components/now-label';
-import { SubjectTypeBadge } from '../../../../components/subject-type-badge';
 
 interface Props<T extends Pair> {
   scheduleMatrixCell: ScheduleMatrixCell<T>;

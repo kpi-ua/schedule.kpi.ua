@@ -1,7 +1,8 @@
 import { StudentPair } from '@/models/StudentPair';
 
 import { IrregularSchedulesTable } from './irregular-schedules-table';
-import { LecturerProperty, PairLocationProperty } from './properties';
+import { LecturerProperty } from './properties/lecturer-property';
+import { PairLocationProperty } from './properties/pair-location-property';
 import { ScheduleItemBase } from './schedule-item-base';
 import { ScheduleItemProps } from './types';
 

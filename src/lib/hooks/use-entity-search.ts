@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
 
-import { useNavigationPendingContext } from '../context/navigation-pending-context';
+import { useNavigationPendingContext } from '@/lib/context/navigation-pending-context';
 
 // Restores the last-selected entity from localStorage when the URL has no param yet,
 // and keeps localStorage in sync when the user picks a new one. The selected entity

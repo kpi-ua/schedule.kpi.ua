@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import BurgerIcon from '../../../assets/icons/burger.svg?react';
-import XIcon from '../../../assets/icons/x.svg?react';
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../../../components/ui/sheet';
+import BurgerIcon from '@/assets/icons/burger.svg?react';
+import XIcon from '@/assets/icons/x.svg?react';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+
 import { NAV_LINKS } from '../constants';
 import { MenuLink } from './menu-link';
 

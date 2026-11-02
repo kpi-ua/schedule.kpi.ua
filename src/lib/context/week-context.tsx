@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from 'react';
 
-import { Week } from '../../types/Week';
+import { Week } from '@/types/Week';
 
 interface WeekContextValue {
   currentWeek: Week;

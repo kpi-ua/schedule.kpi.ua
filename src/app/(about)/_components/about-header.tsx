@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
 
-import LogoIcon from '../../../assets/logo.svg?react';
+import LogoIcon from '@/assets/logo.svg?react';
+
 import { DefaultMenu } from './default-menu';
 import { MobileMenu } from './mobile-menu';
 
