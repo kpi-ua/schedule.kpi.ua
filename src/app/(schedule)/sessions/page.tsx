@@ -1,10 +1,11 @@
-import type { Metadata } from 'next';
 import dayjs from 'dayjs';
-import ExamSchedule from '../../../components/ExamSchedule';
-import { unwrapAction } from '../../../lib/unwrapAction';
-import { getAllGroupsAction } from '../../../actions/group.actions';
-import { getExamsByGroupAction } from '../../../actions/exams.actions';
-import EmptyCover from '../../../components/EmptyCover';
+import type { Metadata } from 'next';
+
+import { getExamsByGroupAction } from '@/actions/exams.actions';
+import { getAllGroupsAction } from '@/actions/group.actions';
+import { EmptyCover } from '@/components/empty-cover';
+import { ExamSchedule } from '@/components/exam-schedule';
+import { unwrapAction } from '@/lib/unwrapAction';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;
@@ -47,7 +48,7 @@ export default async function ScheduleExamsPage({ searchParams }: PageProps) {
 
   return (
     <>
-      <h1 className="mx-4 my-8 text-2xl font-semibold leading-8 text-center text-neutral-900 sm:mx-8 sm:my-16 sm:text-4xl sm:leading-10">
+      <h1 className="mx-4 my-8 text-center text-2xl leading-8 font-semibold text-neutral-900 sm:mx-8 sm:my-16 sm:text-4xl sm:leading-10">
         {exams && exams.length > 0 ? (
           <>
             Розклад сесії для групи <span className="font-semibold text-black">{group?.name}</span>
@@ -59,8 +60,10 @@ export default async function ScheduleExamsPage({ searchParams }: PageProps) {
           </>
         )}
       </h1>
-      <div className="flex flex-col items-center gap-10 mx-4 mb-4 sm:mx-8 sm:mb-8">
-        {exams?.map((exam) => <ExamSchedule key={exam.id} exam={exam} />)}
+      <div className="mx-4 mb-4 flex flex-col items-center gap-10 sm:mx-8 sm:mb-8">
+        {exams?.map((exam) => (
+          <ExamSchedule key={exam.id} exam={exam} />
+        ))}
       </div>
     </>
   );

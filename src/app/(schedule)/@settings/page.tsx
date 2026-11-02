@@ -1,7 +1,7 @@
-import GroupSearch from '../../../components/GroupSearch';
-import WeekSwitch from '../../../components/WeekSwitch';
-import { unwrapAction } from '../../../lib/unwrapAction';
-import { getAllGroupsAction } from '../../../actions/group.actions';
+import { getAllGroupsAction } from '@/actions/group.actions';
+import { GroupSearch } from '@/components/group-search';
+import { WeekSwitch } from '@/components/week-switch';
+import { unwrapAction } from '@/lib/unwrapAction';
 
 export default async function GroupScheduleSettings() {
   const groups = await unwrapAction(getAllGroupsAction());

@@ -1,4 +1,4 @@
-import { Pair } from '../models/Pair';
+import { Pair } from '@/models/Pair';
 
 export interface ScheduleMatrixCell<T extends Pair> {
   pair: T;

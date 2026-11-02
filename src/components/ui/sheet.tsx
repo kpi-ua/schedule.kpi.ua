@@ -1,8 +1,9 @@
 'use client';
 
-import * as React from 'react';
 import { Dialog as SheetPrimitive } from 'radix-ui';
-import { cn } from '../../common/utils/cn';
+import * as React from 'react';
+
+import { cn } from '@/lib/utils/cn';
 
 export const Sheet = SheetPrimitive.Root;
 export const SheetTrigger = SheetPrimitive.Trigger;

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getScheduleByLecturerAction } from '../../actions/lecturer.actions';
+
+import { getScheduleByLecturerAction } from '@/actions/lecturer.actions';
 
 export const useLecturerProfileQuery = (lecturerId: string | null) =>
   useQuery({
