@@ -1,5 +1,5 @@
-import { Pair } from './Pair';
-import { WeekSchedule } from './WeekSchedule';
+import { Pair } from './pair';
+import { WeekSchedule } from './week-schedule';
 
 export interface Schedule<T extends Pair> {
   scheduleFirstWeek: WeekSchedule<T>[];

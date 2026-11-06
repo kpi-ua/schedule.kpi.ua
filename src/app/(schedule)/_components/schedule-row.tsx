@@ -1,6 +1,6 @@
-import { Pair } from '@/models/Pair';
-import { ScheduleComponentsProps } from '@/types/ScheduleComponentsProps';
-import { UnknownScheduleMatrixCell } from '@/types/ScheduleMatrix';
+import { Pair } from '@/models/pair';
+import { ScheduleComponentsProps } from '@/types/schedule-components-props';
+import { UnknownScheduleMatrixCell } from '@/types/schedule-matrix';
 
 interface ScheduleRowProps<T extends Pair> extends ScheduleComponentsProps<T> {
   scheduleMatrixCell: UnknownScheduleMatrixCell<T>[];

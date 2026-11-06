@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import CaretDown from '@/assets/icons/caret-down.svg?react';
 import { cn } from '@/lib/utils/cn';
-import { Pair } from '@/models/Pair';
-import { ScheduleMatrixCell } from '@/types/ScheduleMatrix';
+import { Pair } from '@/models/pair';
+import { ScheduleMatrixCell } from '@/types/schedule-matrix';
 
 import { ScheduleItemProps } from '../schedule-item/types';
 

@@ -1,6 +1,6 @@
-import { Pair } from '@/models/Pair';
+import { Pair } from '@/models/pair';
 
-import { ScheduleMatrixCell } from './ScheduleMatrix';
+import { ScheduleMatrixCell } from './schedule-matrix';
 
 interface ScheduleItemProps<T extends Pair> {
   scheduleMatrixCell: ScheduleMatrixCell<T>;

@@ -1,4 +1,4 @@
-import { LecturerPair } from '@/models/LecturerPair';
+import { LecturerPair } from '@/models/lecturer-pair';
 
 import { IrregularSchedulesTable } from './irregular-schedules-table';
 import { GroupProperty } from './properties/group-property';

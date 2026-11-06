@@ -5,7 +5,7 @@ import LocationIcon from '@/assets/icons/location.svg?react';
 import TeacherIcon from '@/assets/icons/teacher.svg?react';
 import { cn } from '@/lib/utils/cn';
 import { pluralizeDays } from '@/lib/utils/number.utils';
-import { Exam } from '@/models/Exam';
+import { Exam } from '@/models/exam';
 
 interface Props {
   exam: Exam;

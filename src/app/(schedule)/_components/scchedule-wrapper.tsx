@@ -1,9 +1,9 @@
 import { DayToggle } from '@/components/day-toggle';
 import { SliceContextProvider } from '@/lib/context/slice-options-context';
-import { CurrentTime } from '@/models/CurrentTime';
-import { Pair } from '@/models/Pair';
-import { Schedule } from '@/models/Schedule';
-import { ScheduleComponentsProps } from '@/types/ScheduleComponentsProps';
+import { CurrentTime } from '@/models/current-time';
+import { Pair } from '@/models/pair';
+import { Schedule } from '@/models/schedule';
+import { ScheduleComponentsProps } from '@/types/schedule-components-props';
 
 import { ScheduleTable } from './schedule-table';
 

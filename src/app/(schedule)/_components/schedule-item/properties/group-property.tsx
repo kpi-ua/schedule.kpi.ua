@@ -6,7 +6,7 @@ import { useLocalStorage } from 'react-use';
 
 import ThreeUsersIcon from '@/assets/icons/users-three.svg?react';
 import { routes } from '@/lib/constants/routes';
-import { Group } from '@/models/Group';
+import { Group } from '@/models/group';
 
 import { Property } from './property';
 

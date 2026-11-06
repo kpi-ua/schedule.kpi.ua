@@ -1,4 +1,4 @@
-import { StudentPair } from '@/models/StudentPair';
+import { StudentPair } from '@/models/student-pair';
 
 import { IrregularSchedulesTable } from './irregular-schedules-table';
 import { LecturerProperty } from './properties/lecturer-property';

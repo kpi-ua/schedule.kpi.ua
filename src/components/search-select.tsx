@@ -4,8 +4,8 @@ import { useId, useMemo } from 'react';
 import Select from 'react-select';
 
 import { getSelectCustomStyle } from '@/lib/constants/select-options';
-import { EntityWithNameAndId } from '@/models/EntityWithNameAndId';
-import { ListOption } from '@/types/ListOption';
+import { EntityWithNameAndId } from '@/models/entity-with-name-and-id';
+import { ListOption } from '@/types/list-option';
 
 interface SearchSelectProps<T extends EntityWithNameAndId> {
   options: T[];

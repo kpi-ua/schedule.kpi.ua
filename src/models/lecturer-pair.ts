@@ -1,5 +1,5 @@
-import { Group } from './Group';
-import { Pair } from './Pair';
+import { Group } from './group';
+import { Pair } from './pair';
 
 export interface LecturerPair extends Pair {
   groups: Group[];

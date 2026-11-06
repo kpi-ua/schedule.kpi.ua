@@ -1,5 +1,5 @@
 import LocationIcon from '@/assets/icons/location.svg?react';
-import { PairLocation } from '@/models/PairLocation';
+import { PairLocation } from '@/models/pair-location';
 
 import { Property } from './property';
 

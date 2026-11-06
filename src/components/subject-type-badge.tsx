@@ -4,7 +4,7 @@ import React from 'react';
 
 import CalendarBlank from '@/assets/icons/calendar-blank.svg?react';
 import { cn } from '@/lib/utils/cn';
-import { SubjectType } from '@/models/Pair';
+import { SubjectType } from '@/models/pair';
 
 const backgroundVariants = cva('', {
   variants: {

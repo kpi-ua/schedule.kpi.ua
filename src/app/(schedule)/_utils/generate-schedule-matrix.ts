@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 
 import { DAYS_SHORT } from '@/lib/constants/common';
 import { isDateTodayOrFuture } from '@/lib/utils/date.utils';
-import { Pair } from '@/models/Pair';
-import { WeekSchedule } from '@/models/WeekSchedule';
-import { ScheduleMatrix, ScheduleMatrixCell } from '@/types/ScheduleMatrix';
+import { Pair } from '@/models/pair';
+import { WeekSchedule } from '@/models/week-schedule';
+import { ScheduleMatrix, ScheduleMatrixCell } from '@/types/schedule-matrix';
 
 export const generateScheduleMatrix = <T extends Pair>(
   weekSchedule: WeekSchedule<T>[],

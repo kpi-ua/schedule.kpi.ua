@@ -1,6 +1,6 @@
 'use client';
 
-import { LecturerPair } from '@/models/LecturerPair';
+import { LecturerPair } from '@/models/lecturer-pair';
 
 import { LecturerScheduleContent } from './lecturer-schedule-content';
 import { ScheduleItemProps } from './types';

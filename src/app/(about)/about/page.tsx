@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 import AboutPhoto from '@/../public/about.jpg';
+import { clientEnv } from '@/env/client-env';
 
 import { PhotoWrapper } from '../_components/photo-wrapper';
 import { TwoColumnsLayout } from '../_components/two-columns-layout';
@@ -35,7 +36,7 @@ export default function AboutPage() {
         <p>Дякуємо, що користуєтесь нашим сервісом!</p>
         <br />
         <p>
-          <strong>GitHub:</strong> <a href={process.env.NEXT_PUBLIC_SCHEDULE_REPO_URL}>schedule.kpi.ua</a>
+          <strong>GitHub:</strong> <a href={clientEnv.NEXT_PUBLIC_SCHEDULE_REPO_URL}>schedule.kpi.ua</a>
         </p>
       </article>
       <PhotoWrapper>

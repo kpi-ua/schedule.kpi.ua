@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { StudentPair } from '@/models/StudentPair';
+import { StudentPair } from '@/models/student-pair';
 
 import { StudentScheduleContent } from '../schedule-item/student-schedule-content';
 import { ScheduleItemExtended } from './schedule-item-extended';

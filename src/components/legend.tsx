@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { SUBJECT_TYPES } from '@/lib/constants/common';
-import { SubjectType } from '@/models/Pair';
+import { SubjectType } from '@/models/pair';
 
 import { SubjectTypeBadge } from './subject-type-badge';
 

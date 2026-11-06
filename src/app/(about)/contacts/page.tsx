@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 import ContactsPhoto from '@/../public/contacts.jpg';
+import { clientEnv } from '@/env/client-env';
 
 import { PhotoWrapper } from '../_components/photo-wrapper';
 import { TwoColumnsLayout } from '../_components/two-columns-layout';
@@ -18,7 +19,7 @@ export default function ContactsPage() {
         <h1>Контакти</h1>
         <p>
           <strong>e-mail:</strong>{' '}
-          <a href={`mailto:${process.env.NEXT_PUBLIC_KBIS_EMAIL}`}>{process.env.NEXT_PUBLIC_KBIS_EMAIL}</a>
+          <a href={`mailto:${clientEnv.NEXT_PUBLIC_KBIS_EMAIL}`}>{clientEnv.NEXT_PUBLIC_KBIS_EMAIL}</a>
         </p>
       </article>
       <PhotoWrapper>

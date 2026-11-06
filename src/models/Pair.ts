@@ -1,4 +1,4 @@
-import { PairLocation } from './PairLocation';
+import { PairLocation } from './pair-location';
 
 export enum SubjectType {
   Lecture = 'lec',

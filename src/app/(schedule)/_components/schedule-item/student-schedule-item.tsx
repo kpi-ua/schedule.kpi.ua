@@ -1,6 +1,6 @@
 'use client';
 
-import { StudentPair } from '@/models/StudentPair';
+import { StudentPair } from '@/models/student-pair';
 
 import { StudentScheduleContent } from './student-schedule-content';
 import { ScheduleItemProps } from './types';

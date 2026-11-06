@@ -1,8 +1,8 @@
 'use client';
 
 import { useWeekContext } from '@/lib/context/week-context';
-import { ListOption } from '@/types/ListOption';
-import { Week } from '@/types/Week';
+import { ListOption } from '@/types/list-option';
+import { Week } from '@/types/week';
 
 import { Tabs, TabsList, TabsTrigger } from './ui/tabs';
 

@@ -5,7 +5,7 @@ import { useLocalStorage } from 'react-use';
 
 import TeacherIcon from '@/assets/icons/teacher.svg?react';
 import { routes } from '@/lib/constants/routes';
-import { EntityWithNameAndId } from '@/models/EntityWithNameAndId';
+import { EntityWithNameAndId } from '@/models/entity-with-name-and-id';
 
 import { Property } from './property';
 

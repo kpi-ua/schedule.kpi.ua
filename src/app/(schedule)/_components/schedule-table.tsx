@@ -7,12 +7,12 @@ import { TimeDivider } from '@/components/time-divider';
 import { useSliceOptionsContext } from '@/lib/context/slice-options-context';
 import { useWeekContext } from '@/lib/context/week-context';
 import { convertServerTimeToWeek } from '@/lib/utils/system.utils';
-import { CurrentTime } from '@/models/CurrentTime';
-import { Pair } from '@/models/Pair';
-import { Schedule } from '@/models/Schedule';
-import { ScheduleComponentsProps } from '@/types/ScheduleComponentsProps';
-import { ScheduleMatrix, ScheduleMatrixRow } from '@/types/ScheduleMatrix';
-import { Week } from '@/types/Week';
+import { CurrentTime } from '@/models/current-time';
+import { Pair } from '@/models/pair';
+import { Schedule } from '@/models/schedule';
+import { ScheduleComponentsProps } from '@/types/schedule-components-props';
+import { ScheduleMatrix, ScheduleMatrixRow } from '@/types/schedule-matrix';
+import { Week } from '@/types/week';
 
 import { generateScheduleMatrix } from '../_utils/generate-schedule-matrix';
 import { ScheduleHeader } from './schedule-header';

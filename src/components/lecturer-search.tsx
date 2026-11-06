@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from '@/assets/icons/link.svg?react';
 import { useEntitySearch } from '@/lib/hooks/use-entity-search';
 import { useLecturerProfileQuery } from '@/lib/queries/lecturer-profile.query';
-import { EntityWithNameAndId } from '@/models/EntityWithNameAndId';
+import { EntityWithNameAndId } from '@/models/entity-with-name-and-id';
 
 import { SearchSelect } from './search-select';
 import { Button } from './ui/button';

@@ -1,6 +1,8 @@
 import { createSafeActionClient } from 'next-safe-action';
 import { z } from 'zod';
 
+import { serverEnv } from '@/env/server-env';
+
 import { logger } from './logger';
 
 // Replaces withApiLogging: logs every action call (name/status/duration) and
@@ -24,7 +26,7 @@ export const actionClient = createSafeActionClient({
 
   // Full payload dumps are dev-only: serializing them blocks the event loop
   // under load and leaks applicant PII into production logs.
-  if (process.env.NODE_ENV === 'development') {
+  if (serverEnv.NODE_ENV === 'development') {
     console.log('Metadata:', metadata);
     console.log('Client input:', clientInput);
     console.log('Result:', result);

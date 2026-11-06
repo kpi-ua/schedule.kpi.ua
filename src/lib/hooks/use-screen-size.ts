@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { ScreenSize } from '@/types/ScreenSize';
+import { ScreenSize } from '@/types/screen-size';
 
 export const SCREEN_SIZES: Record<ScreenSize, string> = {
   [ScreenSize.Big]: '1536px',

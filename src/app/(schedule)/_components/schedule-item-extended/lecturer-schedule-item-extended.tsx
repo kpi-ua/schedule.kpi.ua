@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { LecturerPair } from '@/models/LecturerPair';
+import { LecturerPair } from '@/models/lecturer-pair';
 
 import { LecturerScheduleContent } from '../schedule-item/lecturer-schedule-content';
 import { ScheduleItemExtended } from './schedule-item-extended';
