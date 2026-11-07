@@ -1,8 +1,9 @@
 # pull official base image
 FROM node:lts-alpine AS builder
 
-# enable pnpm via corepack, pinned to the project's packageManager version
-RUN corepack enable && corepack prepare pnpm@12.5.1 --activate
+# Node 25+ no longer bundles corepack, so install it from npm; it then runs the pnpm version
+# pinned in package.json's packageManager field
+RUN npm install --global corepack@0.36.0 && corepack enable pnpm
 
 # set working directory (must NOT be `/`: Tailwind 4 auto-scans the whole
 # working directory for class names, and scanning the container root —
