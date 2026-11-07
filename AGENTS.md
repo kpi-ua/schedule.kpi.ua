@@ -1,5 +1,22 @@
 # schedule.kpi.ua - Agent Guide
 
+<!-- BEGIN kpi-ua/.ai: synced from https://github.com/kpi-ua/.ai, do not edit here -->
+## Organisation rules
+
+@.ai/AGENTS.md
+
+This repository follows the kpi-ua organisation rules in [`.ai/`](.ai/). Read them before working here and take
+the rules from there:
+
+- [`.ai/AGENTS.md`](.ai/AGENTS.md) — working rules: Jira, branches, commits, pull requests, code, language,
+  validation, secrets, live systems.
+- [`.ai/REVIEW.md`](.ai/REVIEW.md) — how to review pull requests.
+- [`.ai/GIT_MESSAGES.md`](.ai/GIT_MESSAGES.md) — commit messages, pull request titles and descriptions.
+
+The files in `.ai/` are copies from kpi-ua/.ai: change them there, not here. The rest of this file is this
+repository's own context; where it departs from `.ai/`, it says so explicitly.
+<!-- END kpi-ua/.ai -->
+
 This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polytechnic Institute Electronic Campus ecosystem. Use this file as the current working guide for AI agents and developers.
 
 ## Project Summary
@@ -11,7 +28,6 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 - **Data fetching:** Every Campus data read, from Server Components and Client Components alike, goes through a `src/actions/*.ts` Server Action (`next-safe-action` + `zod`) — nothing calls `src/lib/campusApi/endpoints.ts` directly outside of `src/actions/`. Server Components `await` actions directly (via `unwrapAction`); Client Components use the `@tanstack/react-query` library for data fetching.
 - **Campus API access:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars), and it is only ever imported from `src/actions/*.ts`. It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `/healthz` is the only HTTP endpoint and is used as an infra liveness probe — this app is not a public data API.
 - **Routing:** Next.js file-based routing under `src/app/` — URL scheme is unchanged from the pre-migration app (`/`, `/lecturers`, `/sessions`, `/about`, `/contacts`), entity selection stays query-param driven (no dynamic route segments).
-- **Main branch:** `main`
 - **Deployment:** Docker (Node build stage, `output: 'standalone'`, no nginx), image `kpiua/schedule.kpi.ua`, listens on port 3000.
 
 ## Repository Layout
@@ -118,22 +134,9 @@ docker build -t kpiua/schedule.kpi.ua:local -f Dockerfile .
 
 ## Git Workflow
 
-### Change Scope
-
-- For bug fixes and small features, prefer the smallest focused diff that fully solves the task and avoid unrelated changes that inflate the pull request.
-- Larger changes are appropriate when refactoring is explicitly in scope or technically necessary; keep them justified and directly related to the task.
-
 ### Commit Messages
 
-Every commit must start with a real Jira issue key from the `KBX` project, followed by a single space and a short imperative summary.
-
 If a provided ticket key is not from the `KBX` project, reject it and respond: "Commits require a KBX-XXXX ticket key. Please provide a valid ticket from the KBX project."
-
-Example:
-
-```text
-KBX-1064 Migrate from styled components to Tailwind
-```
 
 Ticket Verification Procedure:
 
@@ -141,43 +144,6 @@ Ticket Verification Procedure:
 - If MCP lookup reports the ticket does not exist, halt and output: "Ticket KBX-XXXX was not found in the KBX project. Please provide a valid existing ticket key before committing." Do not proceed with the commit.
 - If Atlassian MCP is not available, output: "Atlassian MCP unavailable. Please confirm ticket KBX-XXXX exists before I continue." and wait for explicit developer confirmation.
 - If explicit developer confirmation is not received, halt and output: "Cannot verify Jira issue key. Please provide a valid KBX-XXXX ticket before committing." Do not proceed with the commit.
-- Do not proceed to checklist step 3 until verification succeeds.
-
-Before committing, follow this checklist:
-
-1. Ensure you have a valid `KBX-XXXX` ticket key.
-2. Run the Ticket Verification Procedure above.
-3. Name the branch using the ticket key, following the Branches and Pull Requests rules below.
-4. Format the commit message as: `KBX-XXXX Short imperative summary`.
-
-### Branches and Pull Requests
-
-- Name branches as `KBX-XXXX-<short-kebab-case-summary>`, for example `KBX-1064-migrate-tailwind`.
-- Do not add assistant/tool prefixes to branch names such as `codex/`, `claude/`, or similar.
-- Pull request descriptions must link the related Jira issue.
-- Put the Jira link on the first line using Markdown link syntax with the real Jira URL, for example `Jira: [KBX-1064](https://kpiua.atlassian.net/browse/KBX-1064)`.
-- Use this pull request description structure by default:
-
-  ```markdown
-  Jira: [KBX-1064](https://kpiua.atlassian.net/browse/KBX-1064)
-
-  ## Summary
-
-  - Short change 1.
-  - Short change 2.
-  - Short change 3.
-
-  ## Notes
-
-  - Optional: rollout detail, dependency on another PR, known limitation.
-
-  ## UI
-
-  <!-- Optional: screenshots for visible frontend changes only -->
-  ```
-
-- Keep `Summary` concise and include `Notes` or `UI` only when they add useful context.
-- Do not include a `Validation` section by default when it would only list standard commands.
 
 ## Documentation
 
