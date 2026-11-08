@@ -25,8 +25,8 @@ This repository contains the schedule frontend for the Igor Sikorsky Kyiv Polyte
 - **Framework:** Next.js 16 (App Router), React 19
 - **Styling:** Tailwind CSS 4 (via `@tailwindcss/postcss`)
 - **State:** URL searchParams (`groupId`/`lecturerId`) are the source of truth, read server-side; only the week switcher and the responsive day-slice are small client-side React Context state (`src/lib/context/week-context.tsx`, `src/lib/context/slice-options-context.tsx`). No global client store (zustand was removed).
-- **Data fetching:** Every Campus data read, from Server Components and Client Components alike, goes through a `src/actions/*.ts` Server Action (`next-safe-action` + `zod`) — nothing calls `src/lib/campusApi/endpoints.ts` directly outside of `src/actions/`. Server Components `await` actions directly (via `unwrapAction`); Client Components use the `@tanstack/react-query` library for data fetching.
-- **Campus API access:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars), and it is only ever imported from `src/actions/*.ts`. It has an in-process 30-minute TTL cache with stale-on-error fallback (`cache.ts`) and a 5s-timeout/1-retry fetch client (`client.ts`). `/healthz` is the only HTTP endpoint and is used as an infra liveness probe — this app is not a public data API.
+- **Data fetching:** Every Campus data read, from Server Components and Client Components alike, goes through a `src/actions/*.ts` Server Action (`next-safe-action` + `zod`) — nothing calls `src/lib/campusApi/client.ts` directly outside of `src/actions/`. Server Components `await` actions directly (via `unwrapAction`); Client Components use the `@tanstack/react-query` library for data fetching.
+- **Campus API access:** `src/lib/campusApi/` is the only code allowed to talk to the real Campus API (`CAMPUS_API_URL`/`CAMPUS_API_KEY`, server-only env vars), and it is only ever imported from `src/actions/*.ts`. It is a 5s-timeout/1-retry fetch client (`client.ts`); caching uses the Next.js fetch cache, with each action passing its own `next: { revalidate }` TTL. `/healthz` is the only HTTP endpoint and is used as an infra liveness probe — this app is not a public data API.
 - **Routing:** Next.js file-based routing under `src/app/` — URL scheme is unchanged from the pre-migration app (`/`, `/lecturers`, `/sessions`, `/about`, `/contacts`), entity selection stays query-param driven (no dynamic route segments).
 - **Deployment:** Docker (Node build stage, `output: 'standalone'`, no nginx), image `kpiua/schedule.kpi.ua`, listens on port 3000.
 
@@ -41,7 +41,7 @@ src/
 ├── actions/        # 'use server' Server Actions (next-safe-action) — the only data-fetching entry point, for Server and Client Components alike
 ├── assets/         # Static SVG/icon assets used by components
 ├── lib/
-│   ├── campusApi/  # cache.ts, client.ts (fetch+timeout+retry), endpoints.ts (Campus calls)
+│   ├── campusApi/  # client.ts (campusGet: fetch+timeout+retry)
 │   ├── constants/  # shared constants (routes, options, config)
 │   ├── context/    # React contexts (week, slice options, navigation pending)
 │   ├── hooks/      # shared hooks
@@ -85,11 +85,11 @@ pnpm prettier:fix # Prettier write
 
 ### API + data fetching
 
-- All Campus API calls live in `src/lib/campusApi/endpoints.ts`, going through `client.ts` (timeout/retry) and `cache.ts` (30-min TTL, stale-on-error). This module reads `process.env.CAMPUS_API_URL`/`CAMPUS_API_KEY` and is only ever imported from `src/actions/*.ts` — never directly from a Server or Client Component.
+- All Campus API calls live in `src/actions/*.ts` and go through `campusGet` from `src/lib/campusApi/client.ts` (timeout/retry). Each call sets its cache TTL via `next: { revalidate }` (constants in `src/lib/constants/common.ts`). The client reads `process.env.CAMPUS_API_URL`/`CAMPUS_API_KEY` and is only ever imported from `src/actions/*.ts` — never directly from a Server or Client Component.
 - `src/actions/*.ts` files start with `'use server'`, validate input with a `zod` schema via `.inputSchema(...)` (skipped for zero-input actions), and are built from the shared `actionClient` in `src/lib/safeAction.ts` (`createSafeActionClient` with logging + `handleServerError`, equivalent to the old `withApiLogging`). Each action calls `.metadata({ actionName: '...' })` before `.action(...)` (required by the shared client's metadata schema).
-- Server Components (pages, layouts) call these Server Actions directly and unwrap the result with `src/lib/unwrapAction.ts`, which returns `result.data` or throws `result.serverError` — this preserves the old throw-on-failure behavior of `campusApi/endpoints.ts` for Server Component call sites.
+- Server Components (pages, layouts) call these Server Actions directly and unwrap the result with `src/lib/unwrapAction.ts`, which returns `result.data` or throws `result.serverError` — so a failed Campus call fails the Server Component render.
 - Client Components that need Campus data after mount (e.g. `LecturerSearch`, the lecturer-profile link in `LecturerSearch`) use the `@tanstack/react-query` data fetching library. Client components must not use hooks from `@tanstack/react-query` directly. All react-query related logic is located in `src/lib/queries` folder and imported from there by components.
-- This app does not expose a public REST API — `/healthz` (infra liveness probe) is the only HTTP endpoint under `src/app/`. Don't add new `/api/*` route handlers or call `campusApi/endpoints.ts` outside `src/actions/`; add/extend a Server Action instead.
+- This app does not expose a public REST API — `/healthz` (infra liveness probe) is the only HTTP endpoint under `src/app/`. Don't add new `/api/*` route handlers or import `campusApi/client.ts` outside `src/actions/`; add/extend a Server Action instead.
 
 ### State
 

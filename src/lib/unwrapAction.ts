@@ -4,7 +4,7 @@ interface ActionResult<T> {
 }
 
 // Server Components call actions directly (no useAction hook), so unwrap the result here
-// and rethrow to preserve the old throw-on-failure behavior of campusApi/endpoints.ts.
+// and rethrow so a failed Campus call fails the Server Component render.
 export const unwrapAction = async <T>(action: Promise<ActionResult<T>>): Promise<T> => {
   const result = await action;
 

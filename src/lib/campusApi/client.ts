@@ -17,7 +17,6 @@ const fetchOnce = async <T>(path: string, options?: RequestInit): Promise<T> => 
         ...(apiKey ? { 'X-Api-Key': apiKey } : {}),
       },
       signal: controller.signal,
-      // Caching is handled explicitly by lib/campusApi/cache.ts, not the platform fetch cache.
       ...options,
     });
 
@@ -39,6 +38,6 @@ export const campusGet = async <T>(path: string, options?: RequestInit): Promise
     return await fetchOnce<T>(path, options);
   } catch {
     await delay(RETRY_DELAY_MS);
-    return fetchOnce<T>(path);
+    return fetchOnce<T>(path, options);
   }
 };
