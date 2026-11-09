@@ -6,10 +6,9 @@ import { z } from 'zod';
 import { campusGet } from '@/lib/campusApi/client';
 import { CACHE_TTL_HALF_AN_HOUR } from '@/lib/constants/common';
 import { actionClient } from '@/lib/safeAction';
-import { entityIdPatterns } from '@/lib/utils/entity-id.utils';
 import { Exam } from '@/models/Exam';
 
-const schema = z.object({ groupId: z.string().regex(entityIdPatterns.groupId) });
+const schema = z.object({ groupId: z.string().min(1) });
 
 export const getExamsByGroupAction = actionClient
   .metadata({ actionName: 'getExamsByGroup' })

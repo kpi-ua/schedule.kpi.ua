@@ -6,14 +6,14 @@ import { getAllGroupsAction } from '@/actions/group.actions';
 import { EmptyCover } from '@/components/empty-cover';
 import { ExamSchedule } from '@/components/exam-schedule';
 import { unwrapAction } from '@/lib/unwrapAction';
-import { parseEntityId } from '@/lib/utils/entity-id.utils';
+import { isGroupId } from '@/lib/utils/group-id.utils';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;
 }
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const groupId = parseEntityId('groupId', (await searchParams).groupId);
+  const { groupId } = await searchParams;
   const group = groupId
     ? (await unwrapAction(getAllGroupsAction())).find(({ id }) => String(id) === groupId)
     : undefined;
@@ -30,9 +30,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 }
 
 export default async function ScheduleExamsPage({ searchParams }: PageProps) {
-  const groupId = parseEntityId('groupId', (await searchParams).groupId);
+  const { groupId } = await searchParams;
 
-  if (!groupId) {
+  if (!isGroupId(groupId)) {
     return <EmptyCover />;
   }
 

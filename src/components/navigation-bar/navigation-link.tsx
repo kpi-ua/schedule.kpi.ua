@@ -7,7 +7,6 @@ import { useLocalStorage } from 'react-use';
 
 import { routes } from '@/lib/constants/routes';
 import { cn } from '@/lib/utils/cn';
-import { parseEntityId } from '@/lib/utils/entity-id.utils';
 
 interface Props {
   value: string;
@@ -18,17 +17,11 @@ export const NavigationLink = ({ value, label }: Props) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [groupId] = useLocalStorage<string | null>('groupId', parseEntityId('groupId', searchParams.get('groupId')));
-  const [lecturerId] = useLocalStorage<string | null>(
-    'lecturerId',
-    parseEntityId('lecturerId', searchParams.get('lecturerId')),
-  );
+  const [groupId] = useLocalStorage<string | null>('groupId', searchParams.get('groupId'));
+  const [lecturerId] = useLocalStorage<string | null>('lecturerId', searchParams.get('lecturerId'));
 
   const getLinkUrl = (url: string) => {
-    const query =
-      url === routes.LECTURER
-        ? { lecturerId: parseEntityId('lecturerId', lecturerId) }
-        : { groupId: parseEntityId('groupId', groupId) };
+    const query = url === routes.LECTURER ? { lecturerId } : { groupId };
 
     return queryString.stringifyUrl(
       {
