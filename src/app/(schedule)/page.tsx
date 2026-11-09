@@ -7,6 +7,7 @@ import { StudentScheduleItemExtended } from '@/app/(schedule)/_components/schedu
 import { StudentScheduleItem } from '@/app/(schedule)/_components/schedule-item/student-schedule-item';
 import { EmptyCover } from '@/components/empty-cover';
 import { unwrapAction } from '@/lib/unwrapAction';
+import { parseEntityId } from '@/lib/utils/entity-id.utils';
 
 import ScheduleWrapper from './_components/scchedule-wrapper';
 
@@ -15,7 +16,7 @@ interface PageProps {
 }
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const { groupId } = await searchParams;
+  const groupId = parseEntityId('groupId', (await searchParams).groupId);
 
   const group = groupId
     ? (await unwrapAction(getAllGroupsAction())).find(({ id }) => String(id) === groupId)
@@ -36,7 +37,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 }
 
 export default async function GroupSchedulePage({ searchParams }: PageProps) {
-  const { groupId } = await searchParams;
+  const groupId = parseEntityId('groupId', (await searchParams).groupId);
 
   if (!groupId) {
     return <EmptyCover />;

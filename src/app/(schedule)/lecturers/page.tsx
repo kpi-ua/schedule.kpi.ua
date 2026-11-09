@@ -7,6 +7,7 @@ import { LecturerScheduleItemExtended } from '@/app/(schedule)/_components/sched
 import { LecturerScheduleItem } from '@/app/(schedule)/_components/schedule-item/lecturer-schedule-item';
 import { EmptyCover } from '@/components/empty-cover';
 import { unwrapAction } from '@/lib/unwrapAction';
+import { parseEntityId } from '@/lib/utils/entity-id.utils';
 
 import ScheduleWrapper from '../_components/scchedule-wrapper';
 
@@ -15,7 +16,7 @@ interface PageProps {
 }
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const { lecturerId } = await searchParams;
+  const lecturerId = parseEntityId('lecturerId', (await searchParams).lecturerId);
   const lecturer = lecturerId
     ? (await unwrapAction(getAllLecturersAction())).find(({ id }) => String(id) === lecturerId)
     : undefined;
@@ -42,7 +43,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 }
 
 export default async function LecturerSchedulePage({ searchParams }: PageProps) {
-  const { lecturerId } = await searchParams;
+  const lecturerId = parseEntityId('lecturerId', (await searchParams).lecturerId);
 
   const [schedule, currentTime, timeSlots] = await Promise.all([
     lecturerId ? unwrapAction(getScheduleByLecturerAction({ lecturerId })) : undefined,

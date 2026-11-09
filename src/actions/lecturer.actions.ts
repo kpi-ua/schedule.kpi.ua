@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { campusGet } from '@/lib/campusApi/client';
 import { CACHE_TTL_HALF_AN_HOUR } from '@/lib/constants/common';
 import { actionClient } from '@/lib/safeAction';
+import { entityIdPatterns } from '@/lib/utils/entity-id.utils';
 import { EntityWithNameAndId } from '@/models/EntityWithNameAndId';
 import { LecturerSchedule } from '@/models/LecturerSchedule';
 
@@ -15,7 +16,7 @@ export const getAllLecturersAction = actionClient
     campusGet<EntityWithNameAndId[]>('/schedule/lecturer/list', { next: { revalidate: CACHE_TTL_HALF_AN_HOUR } }),
   );
 
-const schema = z.object({ lecturerId: z.string().min(1) });
+const schema = z.object({ lecturerId: z.string().regex(entityIdPatterns.lecturerId) });
 
 export const getScheduleByLecturerAction = actionClient
   .metadata({ actionName: 'getScheduleByLecturer' })

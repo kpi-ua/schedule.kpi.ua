@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from '@/assets/icons/link.svg?react';
 import { useEntitySearch } from '@/lib/hooks/use-entity-search';
 import { useLecturerProfileQuery } from '@/lib/queries/lecturer-profile.query';
+import { parseEntityId } from '@/lib/utils/entity-id.utils';
 import { EntityWithNameAndId } from '@/models/EntityWithNameAndId';
 
 import { SearchSelect } from './search-select';
@@ -16,7 +17,7 @@ interface Props {
 
 export const LecturerSearch = ({ lecturers }: Props) => {
   const searchParams = useSearchParams();
-  const lecturerId = searchParams.get('lecturerId');
+  const lecturerId = parseEntityId('lecturerId', searchParams.get('lecturerId'));
   const lecturer = lecturers.find(({ id }) => String(id) === lecturerId);
 
   const { handleChange } = useEntitySearch('lecturerId');
