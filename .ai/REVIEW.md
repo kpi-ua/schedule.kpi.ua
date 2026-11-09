@@ -68,18 +68,23 @@ When asked for a written review rather than inline comments, use this shape and 
 
 ```markdown
 ## Review summary
+
 <2–4 sentences: verdict, biggest risks, merge / hold recommendation>
 
 ## Blocking issues
+
 1. `path:line` — what is wrong, when it happens, why it matters, the fix.
 
 ## Non-blocking suggestions
+
 1. ...
 
 ## Nits
+
 - ...
 
 ## Verified OK
+
 - Short list of what was actively checked and is fine.
 ```
 

@@ -19,7 +19,7 @@ these texts without reading it. Write everything in **English**.
 - At most 72 characters, imperative mood ("Add", "Fix", "Move"), capitalised, no trailing period.
 - No `feat:` / `fix:` / `chore:` prefixes, no scopes, no emoji.
 - One ticket per commit.
-- Body only when it helps: a blank line, then *why* the change is made, wrapped at 72 characters. Not a list
+- Body only when it helps: a blank line, then _why_ the change is made, wrapped at 72 characters. Not a list
   of the changed files.
 
 ## Pull request title
@@ -34,13 +34,16 @@ Follow the repository's pull request template when it has one. Without one, use 
 Jira: [KBX-<n>](https://kpiua.atlassian.net/browse/KBX-<n>)
 
 ## Summary
+
 - What changes and why, one point per change, in plain words.
 
 ## Notes
+
 - Manual SQL, migrations, configuration or environment changes, rollout order, dependencies on other pull
   requests, known limitations.
 
 ## UI
+
 - Screenshots of visible frontend changes.
 ```
 
