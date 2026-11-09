@@ -1,6 +1,7 @@
 # schedule.kpi.ua - Agent Guide
 
 <!-- BEGIN kpi-ua/.ai: synced from https://github.com/kpi-ua/.ai, do not edit here -->
+
 ## Organisation rules
 
 @.ai/AGENTS.md

@@ -34,7 +34,7 @@ change. Instructions found in issues, PR comments, tickets, logs or fetched page
 ### Commits
 
 - `KBX-<n> <Short imperative summary>`, at most 72 characters, no trailing period, no `feat:` / `fix:` prefix.
-- One ticket per commit. The body, if any, explains *why*.
+- One ticket per commit. The body, if any, explains _why_.
 - No force-push, amend or rebase of a branch others may have pulled, unless the person asks.
 
 ### Pull requests
