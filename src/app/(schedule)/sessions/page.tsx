@@ -6,6 +6,7 @@ import { getAllGroupsAction } from '@/actions/group.actions';
 import { EmptyCover } from '@/components/empty-cover';
 import { ExamSchedule } from '@/components/exam-schedule';
 import { unwrapAction } from '@/lib/unwrapAction';
+import { isGroupId } from '@/lib/utils/group-id.utils';
 
 interface PageProps {
   searchParams: Promise<{ groupId?: string }>;
@@ -31,7 +32,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 export default async function ScheduleExamsPage({ searchParams }: PageProps) {
   const { groupId } = await searchParams;
 
-  if (!groupId) {
+  if (!isGroupId(groupId)) {
     return <EmptyCover />;
   }
 
