@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@next/third-parties": "16.4.2",
-    "@tanstack/react-query": "^5.104.4",
+    "@tanstack/react-query": "^5.108.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
